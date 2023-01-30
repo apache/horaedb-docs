@@ -1,9 +1,14 @@
 [book]
 authors = ["CeresDB Authors"]
 language = "en"
-multilingual = false
+multilingual = true
 src = "src"
 title = "CeresDB Documentation"
+
+[[output.i18n.translations]]
+language = "cn"
+translators = ["CeresDB Authors"]
+title = "CeresDB 文档"
 
 [output.html]
 cname = "docs.ceresdb.io"
