@@ -1,97 +1,117 @@
 # Dynamic Routing
+
 This guide shows how to deploy a CeresDB cluster with CeresMeta.
 
-## Target
-First, let's assume that our target is to deploy a cluster consisting of two CeresDB instances on the same machine. And a large cluster of more CeresDB instances can deploy according to the two-instances example.
+## Deploy CeresMeta
 
-## Start CeresDBs
-You can use the following command to create a CeresDB cluster with two instances.
-1. Start CeresMeta first
-   Refer to [CeresMeta](https://github.com/CeresDB/ceresmeta)
+### Introduce
 
-2. Prepare config of CeresDB
-```toml
-# {project_path}/docs/example-cluster-0.toml
-bind_addr = "0.0.0.0"
-http_port = 5440
-grpc_port = 8831
-mysql_port = 3307
-log_level = "info"
-deploy_mode = "Cluster"
+CeresMeta is one of the core services of CeresDB distributed mode, it is used to manage and schedule the CeresDB
+cluster, CeresMeta itself ensures its high availability through embed etcd.
 
-[analytic]
-wal_path = "/tmp/ceresdb0"
+### Build
 
-[analytic.storage]
-mem_cache_capacity = '1G'
-mem_cache_partition_bits = 0
+- Golang version >= 1.19.
+- run `make build`in root path of this [project](https://github.com/CeresDB/ceresmeta).
 
-[analytic.storage.object_store]
-type = "Local"
-data_path = "/tmp/ceresdb0"
+### Deploy
 
-[cluster]
-cmd_channel_buffer_size = 10
+#### Mode
 
-[cluster.node]
-addr = "127.0.0.1"
-port = 8831
+CeresMeta is based on etcd to achieve high availability. In product environment, we usually deploy multiple nodes, but
+in local environment and testing, we can directly deploy a single node to simplify the entire deployment process.
 
-[cluster.meta_client]
-# Only support "defaultCluster" currently.
-cluster_name = "defaultCluster"
-meta_addr = "http://127.0.0.1:2379"
-lease = "10s"
-timeout = "5s"
+* Standalone
 
-[limiter]
-write_block_list = ['mytable1']
-read_block_list = ['mytable1']
+```
+# ceresmeta0
+mkdir /tmp/ceresmeta0
+./ceresmeta --config ./config/example-standalone.toml
 ```
 
-```toml
-# {project_path}/docs/example-cluster-1.toml
-bind_addr = "0.0.0.0"
-http_port = 5441
-grpc_port = 8832
-mysql_port = 13307
-log_level = "info"
-deploy_mode = "Cluster"
+* Cluster
 
-[analytic]
-wal_path = "/tmp/ceresdb1"
+```
+# Create directories.
+mkdir /tmp/ceresmeta0
+mkdir /tmp/ceresmeta1
+mkdir /tmp/ceresmeta2
 
-[analytic.storage]
-mem_cache_capacity = '1G'
-mem_cache_partition_bits = 0
+# Ceresmeta0
+./ceresmeta --config ./config/exampl-cluster0.toml
 
-[analytic.storage.object_store]
-type = "Local"
-data_path = "/tmp/ceresdb1"
+# Ceresmeta1
+./ceresmeta --config ./config/exampl-cluster1.toml
 
-[cluster]
-cmd_channel_buffer_size = 10
-
-[cluster.node]
-addr = "127.0.0.1"
-port = 8832
-
-[cluster.meta_client]
-# Only support "defaultCluster" currently.
-cluster_name = "defaultCluster"
-meta_addr = "http://127.0.0.1:2379"
-lease = "10s"
-timeout = "5s"
-
-[limiter]
-write_block_list = ['mytable1']
-read_block_list = ['mytable1']
+# Ceresmeta2
+./ceresmeta --config ./config/exampl-cluster2.toml
 ```
 
-3. Start CeresDB instances
-* You need to replace `{project_path}` with the actual project path
+#### Config
 
-```bash
+At present, CeresMeta supports specifying service startup configuration in two ways: configuration file and environment
+variable. We provide an example of configuration file startup. For details, please refer
+to [config](https://github.com/CeresDB/ceresmeta/tree/main/config).
+The configuration priority of environment variables is higher than that of configuration files. When they exist at the
+same time, the environment variables shall prevail.
+
+* Global Config
+
+| name | description |
+| --- | --- |
+| log-level | Log output level. |
+| log-file | Log output file. |
+| gprc-handle-timeout-ms | Timeout for processing grpc requests. |
+| lease-sec | Timeout of heartbeat of CeresMeta node. |
+| data-dir | Local data store directory. |
+| wal-dir | Local wal file storage directory. |
+| storage-root-path | Root directory where data is stored in etcd. |
+| max-scan-limit | Maximum quantity limit of single batch when scaning data. |
+| id-allocator-step | The number of ids applied for a single time when allocating ids is used to reduce the amount of write to etcd. |
+| default-http-port | Http port number of CeresMeta service node. |
+
+* Etcd Config
+
+| name | description |
+| --- | --- |
+| etcd-log-level | Etcd log output level. |
+| etcd-log-file | Etcd log output file. |
+| etcd-start-timeout-ms | Timeout for etcd startup. |
+| etcd-call-timeout-ms | Timeout of etcd call. |
+| etcd-max-txn-ops | Maximum number of operations in a single transaction of etcd. |
+| initial-cluster | Initial node list of the etcd cluster. |
+| initial-cluster-state | Initial state of the etcd cluster. |
+| initial-cluster-token | Token of etcd cluster. |
+| tick-interval-ms | Raft tick of etcd cluster. |
+| election-timeout-ms | Timeout of etcd election. |
+| quota-backend-bytes | QuotaBackendBytes Raise alarms when backend size exceeds the given quota. |
+| auto-compaction-mode | AutoCompactionMode is either 'periodic' or 'revision'. The default value is 'periodic'. |
+| auto-compaction-retention | AutoCompactionRetention is either duration string with time unit. |
+| max-request-bytes | Size limit of a single request. |
+| client-urls | Current node listens to the client list of other peers. |
+| peer-urls | Current node listens to the url list of other peers. |
+| advertise-client-urls | Client url of the current node. |
+| advertise-peer-urls | Peer url of the current node. |
+
+* Cluster Config
+
+| name | description |
+| --- | --- |
+| node-name | The name of the current node cannot be the same as other nodes in the CeresMeta cluster. |
+| default-cluster-name | The name of the default CeresDB cluster. |
+| default-cluster-node-count | Number of nodes in the default CeresDB cluster. |
+| default-cluster-replication-factor | The leader-follower ratio of the default CeresDB cluster. |
+| default-cluster-shard-total | Total shards of the default CeresDB cluster. |
+| default-partition_table_proportion_of_nodes | Proportion of super table to cluster nodes when creating partition table. |
+
+The above configuration names are used in the configuration file. If they are set through environment variables, simple
+conversion is required, for example: convert `node-name` to `NODE_NAME`.
+
+## Deploy CeresDB
+
+You need to replace {project_path} with the actual project path
+
+```
 # Update address of CeresMeta in CeresDB config.
 docker run -d --name ceresdb-server \
   -p 8831:8831 \
