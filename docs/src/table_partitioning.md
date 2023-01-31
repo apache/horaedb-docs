@@ -67,13 +67,13 @@ Refer to [mysql key partitioning](https://dev.mysql.com/doc/refman/5.7/en/partit
 
 Since the partition table data is actually stored in different physical tables, it is necessary to calculate the actual requested physical table according to the query request when querying.  
 
-The implementation of the partition table is in [PartitionTableImpl](https://github.com/CeresDB/ceresdb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/analytic_engine/src/table/partition.rs).
-
 The query will calculate the physical table to be queried according to the query parameters,
 
 and then remotely request the node where the physical table is located to obtain data through the ceresdb internal service [remote engine](https://github.com/CeresDB/ceresdb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/server/src/grpc/remote_engine_service/mod.rs) (support predicate pushdown).
 
-* Step 1: Parse query sql and calculate the physical table to be queried according to the query parameters
+The implementation of the partition table is in [PartitionTableImpl](https://github.com/CeresDB/ceresdb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/analytic_engine/src/table/partition.rs).
+
+* Step 1: Parse query sql and calculate the physical table to be queried according to the query parameters.
 * Step 2: Query data of physical table.
 * Step 3: Compute with the raw data.
 
@@ -100,7 +100,7 @@ and then remotely request the node where the physical table is located to obtain
 └───────────────┘             └───────────────┘
 ```
 
-### Key partitioning
+### Key partitioning rule
 
 `Key partitioning` currently supports the following request calculations:
 
