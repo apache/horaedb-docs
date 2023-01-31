@@ -1,28 +1,28 @@
-# Special Columns
+# 特殊字段
 
-Tables in CeresDB have the following constraints:
-* Primary key is required
-* The primary key must contain a time column, and can only contain one time column
-* The primary key must be non-null, so all columns in primary key must be non-null.
+CeresDB的表的约束如下：
+* 必须有主键
+* 主键必须包含时间列，并且只能包含一个时间列
+* 主键不可为空，并且主键的组成字段也不可为空
 
-## Timestamp Column
+## Timestamp 列
 
-Tables in CeresDB must have one timestamp column maps to timestamp in timeseries data, such as timestamp in OpenTSDB/Prometheus.
-The timestamp column can be set with `timestamp key` keyword, like `TIMESTAMP KEY(ts)`.
+CeresDB的表必须包含一个时间戳列，对应时序数据中的时间，例如OpenTSDB/Prometheus的`timestamp`。
+时间戳列通过关键字`timestamp key`设置，例如`TIMESTAMP KEY(ts)`。
 
-## Tag column
+## Tag 列
 
-`Tag` is use to defined column as tag column, similar to tag in timeseries data, such as tag in OpenTSDB and label in Prometheus.
+`Tag` 关键字定义了一个字段作为标签列，和时序数据中的`tag`类似，例如OpenTSDB的`tag`或Prometheus的`label`。
 
-## Primary key
+## 主键
 
-The primary key is used for data deduplication and sorting. The primary key is composed of some columns and one time column.
-The primary key can be set in the following some ways：
-* use `primary key` keyword
-* use `tag` to auto generate TSID, CeresDB will use `(timestamp,TSID)` as primary key
-* only set Timestamp column, CeresDB will use `(timestamp)` as primary key
+主键用于数据去重和排序，由一些列和一个时间列组成。
+主键可以通过以下一些方式设置： 
+* 使用 `primary key`关键字
+* 使用`tag`来自动生成TSID，CeresDB默认将使用`(TSID,timestamp)`作为主键。
+* 只设置时间戳列，CeresDB将使用`(timestamp)`作为主键。
 
-Notice: If the primary key and tag are specified at the same time, then the tag column is just an additional information identification and will not affect the logic.
+注意：如果同时指定了主键和标签列，那么标签列只是一个额外的信息标识，不会影响主键生成逻辑。
 
 ``` sql
 CREATE TABLE with_primary_key(
@@ -60,7 +60,6 @@ CREATE TABLE with_timestamp(
 
 ## TSID
 
-If `primary key`is not set, and tag columns is provided, TSID will auto generated from hash of tag columns. 
-In essence, this is also a mechanism for automatically generating id.
+如果建表时没有设置主键，并且提供了`Tag`列，CeresDB会自动生成一个`TSID`列和时间戳列作为主键。`TSID`由所有`Tag`列的hash值生成，本质上这是一种自动生成ID的机制。
 
 

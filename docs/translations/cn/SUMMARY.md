@@ -38,7 +38,7 @@
     - [黑名单](operation/block_list.md)
     - [监控](operation/observability.md)
 
-# 开发指南
+# 开发者手册
 - [支持平台](dev/platform.md)
 - [编译运行](dev/compile_run.md)
 - [开发规约](dev/conventional_commit.md)

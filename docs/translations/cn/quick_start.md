@@ -1,12 +1,11 @@
-# Quick Start
+# 快速开始
+本章介绍如何快速启动CeresDB。在这里你将会学到启动一个单机模式的CeresDB，然后使用SQL写入一些数据并查询查询处理。
 
-This page shows you how to get started with CeresDB quickly. You'll start a standalone CeresDB server, and then insert and read some sample data using SQL.
+## 启动
 
-## Start server
+使用[CeresDB docker 镜像](https://hub.docker.com/r/ceresdb/ceresdb-server) 是一种最简单的启动方式；如果你还没有一个安装Docker，请首先参考 [这里](https://www.docker.com/products/docker-desktop/) 安装Docker.
 
-[CeresDB docker image](https://hub.docker.com/r/ceresdb/ceresdb-server) is the easiest way to get started, if you haven't installed Docker, go [there](https://www.docker.com/products/docker-desktop/) to install it first.
-
-You can use command below to start a standalone server
+使用如下命令安装并启动一个单机版CeresDB。
 ```bash
 docker run -d --name ceresdb-server \
   -p 8831:8831 \
@@ -15,16 +14,16 @@ docker run -d --name ceresdb-server \
   ceresdb/ceresdb-server:v0.3.1
 ```
 
-CeresDB will listen three ports when start:
+启动后CeresDB会监听如下端口:
 - 8831, gRPC port
 - 3307, MySQL port
 - 5440, HTTP port
 
-The easiest to use is HTTP, so sections below will use it for demo. For production environments, gRPC/MySQL are recommended.
+`HTTP`协议是最简单的交互方式，接下来的演示会使用`HTTP`协议进行介绍。不过在生产环境，我们推荐使用`gRPC/MySQL`.
 
-## Write and read data
+## 写入和查询数据
 
-### Create table
+### 建表
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -39,7 +38,7 @@ ENGINE=Analytic
 '
 ```
 
-### Write data
+### 写数据
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -48,7 +47,7 @@ INSERT INTO demo (t, name, value)
 '
 ```
 
-### Read data
+### 查询
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -59,7 +58,7 @@ FROM
 '
 ```
 
-### Show create table
+### 展示建表语句
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -67,7 +66,7 @@ SHOW CREATE TABLE `demo`
 '
 ```
 
-### Drop table
+### 删除表
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -75,12 +74,13 @@ DROP TABLE `demo`
 '
 ```
 
-## Using the SDKs
+## 使用SDK
 
-See [sdk](./sdk.md)
+当前我们支持多种开发语言SDK，例如Java，Rust，Python, Go等,具体使用请参考 [sdk](./sdk.md)
 
-## Next Step
+## 下一步
 
-Congrats, you have finished this tutorial. For more information about CeresDB, see the following:
-- [Data Model](sql/model)
-- [Analytic Engine](./analytic_engine)
+恭喜你，你已经学习了CeresDB的简单使用。关于CeresDB的更多信息，请参见以下内容。
+- [SQL语法](sql/README.md)
+- [部署文档](deploy/README.md)
+- [运维文档](operation/README.md)

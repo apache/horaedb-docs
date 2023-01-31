@@ -7,14 +7,16 @@
 [![Docker](https://img.shields.io/docker/v/ceresdb/ceresdb-server?logo=docker)](https://hub.docker.com/r/ceresdb/ceresdb-server)
 
 
-CeresDB is a timeseries database that aims to handle both timeseries and analytic workloads efficiently.
+CeresDB 是一款高性能、分布式、Schema-less 的云原生时序数据库，能够同时处理时序型（time-series）以及分析型（analytics）负载。
 
-# Motivation
-In the traditional timeseries database, the `Tag` columns (InfluxDB calls them `Tag` and Prometheus calls them `Label`) are normally indexed by generating an inverted index. However, it is found that the cardinality of `Tag` varies in different scenarios. And in some scenarios the cardinality of `Tag` is very high, and it takes a very high cost to store and retrieve the inverted index. On the other hand, it is observed that scanning+pruning often used by the analytical databases can do a good job to handle such these scenarios.
+# 动机
+在传统的时间序列数据库中，`Tag`列（InfluxDB称为 "Tag"，Prometheus称为 "Label"）通常使用倒排来进行索引。
+我们发现在不同的情况下，`Tag` 的基数差异很大。在某些情况下，`Tag`的基数非常高，存储和检索倒排索引的成本非常高。
+同时，我们发现分析型数据库经常使用的扫描+剪枝可以很好地处理这些场景。
 
-The basic design idea of CeresDB is to adopt a hybrid storage format and the corresponding query method for a better performance in processing both timeseries and analytic workloads.
+CeresDB的基础设计思想是采用混合存储格式和相应的查询方法，以便在处理时序和分析场景时都获得更好的性能。
 
-# How does CeresDB work?
-- See [Quick Start](quick_start.md) to learn about how to get started
-- For data model of CeresDB, see [Data Model](sql/model)
-- For the supported SQL data types, operators, and commands, please navigate to [SQL reference](sql)
+# 如何使用CeresDB？
+- 查看 [快速开始](quick_start.md) 掌握快速使用CeresDB的方式
+- CeresDb相关的数据模型支持请查看 [Data Model](sql/model)
+- SQL使用相关请查看 [SQL](sql)
