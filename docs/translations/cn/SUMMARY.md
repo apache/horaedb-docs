@@ -14,7 +14,7 @@
     - [标识符](sql/identifier.md)
     - [表结构操作](sql/ddl/README.md)
         - [建表](sql/ddl/create_table.md)
-        - [变更表结构](sql/ddl/alter_table.md)
+        - [表结构变更](sql/ddl/alter_table.md)
     - [数据操作](sql/dml/README.md)
         - [插入数据](sql/dml/insert.md)
         - [查询语句](sql/dml/select.md)
