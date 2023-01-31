@@ -10,8 +10,12 @@ language = "cn"
 translators = ["CeresDB Authors"]
 title = "CeresDB 文档"
 
+[output.random]
+command = "/bin/bash ../../move.sh"
+
 [output.html]
 cname = "docs.ceresdb.io"
 
 [output.html.fold]
 enable = true
+
