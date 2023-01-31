@@ -42,7 +42,7 @@ For more detailed installation methods, refer to [here](https://prometheus.io/do
 
 ## Grafana
 
-[Grafana](https://github.com/grafana/grafana) is a open and composable observability and data visualization platform.
+[Grafana](https://github.com/grafana/grafana) is an open and composable observability and data visualization platform.
 
 ### Run
 
@@ -66,21 +66,21 @@ For more detailed installation methods, refer to [here](https://grafana.com/docs
 
 Note: The url of Prometheus is `http://your_ip:9090`.
 
-<img src="./resources/grafana-datasource.png" height="400" width="200"/>
+<img src="../../../resources/images/grafana-datasource.png" height="400" width="200"/>
 
 See more details [here](https://grafana.com/docs/grafana/latest/datasources/prometheus/).
 
 ### Import grafana dashboard
 
-<a href="./resources/grafana-dashboard.json">dashboard json</a>
+<a href="../../../resources/images/grafana-dashboard.json">dashboard json</a>
 
-<img src="./resources/grafana-dashboard.png" height="400" width="200"/>
+<img src="../../../resources/images/grafana-dashboard.png" height="400" width="200"/>
 
 ## CeresDB Metrics
 
 After importing the dashboard, you will see the following page:
 
-<img src="./resources/grafana-ceresdb-dashboard.png" height="400" width="600"/>
+<img src="../../../resources/images/grafana-ceresdb-dashboard.png" height="400" width="600"/>
 
 ### Panels
 * tps: Number of cluster write requests.
