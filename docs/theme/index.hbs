@@ -318,10 +318,10 @@
         {{/if}}
 
         <script type="text/javascript">
-        var langs = [
-            'cn',
-            'en'
-        ];
+         let langs = [
+                                'cn',
+                                'en'
+                            ];
 
         (function langs() {
             var html = document.querySelector('html');
@@ -348,13 +348,26 @@
             });
 
             langPopup.addEventListener('click', function (e) {
+               let langs = [
+                        'cn',
+                        'en'
+                    ];
                 var lang = e.target.id || e.target.parentElement.id;
-                window.location.pathname = window.location.pathname
-                    .split('/')
-                    .map((s, idx) => {
-                        return idx == 1 ? lang : s;
-                    })
-                    .join('/');
+                var path_list=[];
+                window.location.pathname.split('/').map((s, idx) => {
+                    if (idx == 1){
+                        if(!langs.includes(s)){
+                            path_list.push(lang);
+                            path_list.push(s);
+                        }else{
+                            path_list.push(lang);
+                        }
+                    }else{
+                        path_list.push(s);
+                    }
+                });
+                console.log("path:");
+                window.location.pathname = path_list.join('/');
             });
 
             langPopup.addEventListener('focusout', function(e) {
