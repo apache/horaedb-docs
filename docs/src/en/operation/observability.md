@@ -39,7 +39,6 @@ docker run \
 ```
 For more detailed installation methods, refer to [here](https://prometheus.io/docs/prometheus/latest/installation/).
 
-
 ## Grafana
 
 [Grafana](https://github.com/grafana/grafana) is an open and composable observability and data visualization platform.
@@ -49,7 +48,7 @@ For more detailed installation methods, refer to [here](https://prometheus.io/do
 You can use docker to start grafana. The docker image information is [here](https://hub.docker.com/r/grafana/grafana).
 
 ```
-docker run -d --name=grafana -p 3000:3000 grafana/grafana:v8.2.6
+docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
 ```
 
 Default admin user credentials are admin/admin.
@@ -66,21 +65,21 @@ For more detailed installation methods, refer to [here](https://grafana.com/docs
 
 Note: The url of Prometheus is `http://your_ip:9090`.
 
-<img src="../../../resources/images/grafana-datasource.png" height="400" width="200"/>
+<img src="../../resources/images/grafana-datasource.png" height="400" width="200"/>
 
 See more details [here](https://grafana.com/docs/grafana/latest/datasources/prometheus/).
 
 ### Import grafana dashboard
 
-<a href="../../../resources/images/grafana-dashboard.json">dashboard json</a>
+<a href="../../resources/grafana-dashboard.json">dashboard json</a>
 
-<img src="../../../resources/images/grafana-dashboard.png" height="400" width="200"/>
+<img src="../../resources/images/grafana-dashboard.png" height="400" width="200"/>
 
 ## CeresDB Metrics
 
 After importing the dashboard, you will see the following page:
 
-<img src="../../../resources/images/grafana-ceresdb-dashboard.png" height="400" width="600"/>
+<img src="../../resources/images/grafana-ceresdb-dashboard.png" height="400" width="600"/>
 
 ### Panels
 * tps: Number of cluster write requests.

@@ -2,10 +2,11 @@
 authors = ["CeresDB Authors"]
 language = "en"
 multilingual = true
-src = "src"
+src = "src/en"
 title = "CeresDB Documentation"
 
 [[output.i18n.translations]]
+src = "src/cn"
 language = "cn"
 translators = ["CeresDB Authors"]
 title = "CeresDB 文档"
@@ -18,4 +19,3 @@ cname = "docs.ceresdb.io"
 
 [output.html.fold]
 enable = true
-

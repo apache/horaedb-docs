@@ -49,7 +49,7 @@ docker run \
 你可以使用 docker 来运行 Grafana。Docker 镜像在[这里](https://hub.docker.com/r/grafana/grafana)可以找到。
 
 ```
-docker run -d --name=grafana -p 3000:3000 grafana/grafana:v8.2.6
+docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
 ```
 
 默认用户密码是 admin/admin.
@@ -66,21 +66,21 @@ docker run -d --name=grafana -p 3000:3000 grafana/grafana:v8.2.6
 
 注意: Prometheus 的 url 需要填写成这样 `http://your_ip:9090`, your_ip 换成本地地址。
 
-<img src="../../../../resources/images/grafana-datasource.png" height="400" width="200"/>
+<img src="../../resources/images/grafana-datasource.png" height="400" width="200"/>
 
 更详细的配置可以参考[这里](https://grafana.com/docs/grafana/latest/datasources/prometheus/)。
 
 ### 导入监控页面 
 
-<a href="../../../../resources/images/grafana-dashboard.json">页面 json</a>
+<a href="../../resources/grafana-dashboard.json">页面 json</a>
 
-<img src="../../../../resources/images/grafana-dashboard.png" height="400" width="200"/>
+<img src="../../resources/images/grafana-dashboard.png" height="400" width="200"/>
 
 ## CeresDB 指标
 
 当导入完成后，你可以看到如下页面：
 
-<img src="../../../../resources/images/grafana-ceresdb-dashboard.png" height="400" width="600"/>
+<img src="../../resources/images/grafana-ceresdb-dashboard.png" height="400" width="600"/>
 
 ### Panels
 * tps: 集群写入请求数。
