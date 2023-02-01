@@ -1,4 +1,4 @@
-# 自监控
+# 监控
 
 CeresDB 使用 Prometheus 和 Grafana 做自监控。
 
