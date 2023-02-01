@@ -22,7 +22,7 @@ CeresDB 的表必须包含一个时间戳列，对应时序数据中的时间，
 * 使用 `tag` 来自动生成 TSID，CeresDB 默认将使用 `(TSID,timestamp)` 作为主键。
 * 只设置时间戳列，CeresDB 将使用 `(timestamp)` 作为主键。
 
-注意：如果同时指定了主键和标签列，那么标签列只是一个额外的信息标识，不会影响主键生成逻辑。
+注意：如果同时指定了主键和 `Tag` 列，那么 `Tag` 列只是一个额外的信息标识，不会影响主键生成逻辑。
 
 ``` sql
 CREATE TABLE with_primary_key(
