@@ -13,7 +13,7 @@ CREATE TABLE [IF NOT EXIST]
 
 Column definition syntax:
 ```sql
-column_name column_type [[NOT] NULL] [[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]]
+column_name column_type [[NOT] NULL] [TAG | TIMESTAMP KEY | PRIMARY KEY]
 ```
 
 Partition options syntax:
