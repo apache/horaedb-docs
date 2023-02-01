@@ -1,9 +1,9 @@
-# Block List
+# 黑名单
 
-## Add block list
-If you want to reject query for a table, you can add table name to 'read_block_list'.
+## 增加黑名单
+如果你想限制某个表的查询，可以把表名加到`read_block_list`中。
 
-### Example
+示例如下：
 ```shell
 curl --location --request POST 'http://localhost:5000/block' \
 --header 'Content-Type: application/json' \
@@ -13,7 +13,9 @@ curl --location --request POST 'http://localhost:5000/block' \
     "read_block_list":["my_table"]
 }'
 ```
-### Response
+
+返回结果：
+
 ```json
 {
   "write_block_list":[
@@ -25,11 +27,11 @@ curl --location --request POST 'http://localhost:5000/block' \
 }
 ```
 
-## Set block list
+## 设置黑名单
 
-You can use set operation to clear exist tables and set new tables to 'read_block_list' like following example.
+设置黑名单的操作首先会清理已有的列表，然后再把新的表设置进去。
 
-### Example
+示例如下：
 ```shell
 curl --location --request POST 'http://localhost:5000/block' \
 --header 'Content-Type: application/json' \
@@ -40,7 +42,7 @@ curl --location --request POST 'http://localhost:5000/block' \
 }'
 ```
 
-### Response
+返回结果：
 
 ```json
 {
@@ -54,11 +56,9 @@ curl --location --request POST 'http://localhost:5000/block' \
 }
 ```
 
-## Remove block list
+## 删除黑名单
 
-You can remove tables from  'read_block_list' like following example.
-
-### Example
+如果你想把表从黑名单中移除，可以使用如下命令：
 
 ```shell
 curl --location --request POST 'http://localhost:5000/block' \
@@ -70,7 +70,7 @@ curl --location --request POST 'http://localhost:5000/block' \
 }'
 ```
 
-### Response
+返回结果：
 
 ```json
 {

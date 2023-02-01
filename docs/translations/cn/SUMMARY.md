@@ -18,8 +18,9 @@
     - [数据操作](sql/dml/README.md)
         - [插入数据](sql/dml/insert.md)
         - [查询语句](sql/dml/select.md)
-    - [工具SQL](sql/utility.md)
     - [引擎参数](sql/engine_options.md)
+    - [常见SQL](sql/utility.md)
+    
 
 - [部署文档](deploy/README.md)
     - [支持平台](deploy/platform.md)

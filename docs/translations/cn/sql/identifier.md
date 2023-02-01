@@ -1,10 +1,4 @@
-# Identifier
-
-Identifier in CeresDB can be used as table name, column name etc. It cannot be preserved keywords or start with number and punctuation symbols. CeresDB allows to quote identifiers with back quotes (\`). In this case it can be any string like `00_table` or `select`.
+# 标识符
 
 
-Note: it's required to wrap column or table name in back quotes to keep them case-sensitive, such as
-```sql
-show create table `demo`;
-show create table `DEMO`;
-```
+CeresDB中表名、列名等标识符不能是保留关键字或以数字和标点符号开始，不过CeresDB允许用反引号引用标识符（\`）。在这种情况下，它可以是任何字符串，如`00_table`或`select`。

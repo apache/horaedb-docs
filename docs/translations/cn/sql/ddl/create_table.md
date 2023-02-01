@@ -1,8 +1,8 @@
-# CREATE TABLE
+# 创建表
 
-## Basic syntax
+## 基础语法
 
-Basic syntax (parts between `[]` are optional):
+建表的基础语法如下 ( `[]` 之间的内容是可选部分):
 ```sql
 CREATE TABLE [IF NOT EXIST] 
     table_name ( column_definitions ) 
@@ -10,25 +10,29 @@ CREATE TABLE [IF NOT EXIST]
     [WITH ( table_options )];
 ```
 
-Column definition syntax:
+列定义的语法:
+
 ```sql
 column_name column_type [[NOT] NULL] {[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]}
 ```
 
-Table options syntax are key-value pairs. Value should be quote with quotation marks (`'`). E.g.:
+表选项的语法是键-值对，值用单引号（`'`）来引用。例如：
+
 ```sql
 ... WITH ( enable_ttl='false' )
 ```
 
 ## IF NOT EXIST
 
-Add `IF NOT EXIST` to tell CeresDB to ignore errors if the table name already exists.
+添加`IF NOT EXIST`时，CeresDB在表名已经存在时会忽略建表错误。
 
-## Define Column
+## 定义列
 
-A column's definition should at least contains the name and type parts. All supported types are listed [here](../model/data_types.md).
+一个列的定义至少应该包含名称和类型部分，支持的类型见[这里](../model/data_types.md)。
 
-Column is default be nullable. i.e. `NULL` keyword is implied. Adding `NOT NULL` constrains to make it required.
+列默认为可空，即 "NULL "关键字是隐含的；添加`NOT NULL`时列不可为空。
+
+
 ```sql
 -- this definition
 a_nullable int
@@ -39,8 +43,8 @@ a_nullable int NULL
 b_not_null NOT NULL
 ```
 
-A column can be marked as [special column](../model/special_columns.md) with related keyword.
+定义列时可以使用相关的关键字标记列为 [特殊列](../model/special_columns.md)。
 
-## Engine
+## 引擎设置
 
-Specifies which engine this table belongs to. CeresDB current support [`Analytic`](../../analytic_engine/README.md) engine type. This attribute is immutable.
+CeresDB支持指定某个表使用哪种引擎，目前支持的引擎类型为[`Analytic`](../../analytic_engine/README.md)。注意这个属性设置后不可更改。
