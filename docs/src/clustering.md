@@ -14,13 +14,13 @@
 ┌───────┐Route Info ┌CeresDB─────┬┬─┐ ┌CeresDB─────┬┬─┐ ┌CeresDB─────┬┬─┐
 │client │◀────────▶ │  │  │TableN││ │ │  │  │TableN││ │ │  │  │TableN││ │
 └───────┘Write/Query└──Shard(L)──┴┴─┘ └──Shard(F)──┴┴─┘ └──Shard(F)──┴┴─┘
-                            │ │                 ▲               ▲        
+                            ▲ │                 ▲               ▲        
                               │                 │               │        
                             │ Write─────────┐   ├────Sync───────┘        
                                             │   │                        
                             │     ┌────────┬▼───┴────┬──────────────────┐
-                       Upload SST │        │         │                  │
-                            │     │WAL     │Region N │                  │
+              Upload/Download     │        │         │                  │
+                    SST     │     │WAL     │Region N │                  │
                                   │Service │         │                  │
                             │     └────────┴─────────┴──────────────────┘
                                                                          
@@ -107,7 +107,7 @@ Scalability is an important feature for a distributed system. Let's take a look 
 
 First, the two storage components should be horizontally scalable when deciding on the actual implementations for them, so the two storage services can be expanded separately if the storage capacity is not sufficient.
 
-It will be a little bit complex when discussing the scalability of the compute service. Basically, the two cases will bring the capacity problem:
+It will be a little bit complex when discussing the scalability of the compute service. Basically, these cases will bring the capacity problem:
 - Massive queries on massive tables;
 - Massive queries on a single large table;
 - Massive queries on a normal table;
