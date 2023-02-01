@@ -19,5 +19,3 @@ SELECT select_expr [, select_expr] ...
 ```sql
 SELECT * FROM `demo` WHERE time_stamp > '2022-10-11 00:00:00' AND time_stamp < '2022-10-12 00:00:00' LIMIT 10
 ```
-
-
