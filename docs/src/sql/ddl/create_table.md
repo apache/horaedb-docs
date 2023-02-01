@@ -2,7 +2,7 @@
 
 ## Basic syntax
 
-Basic syntax (parts between `[]` are optional):
+Basic syntax:
 ```sql
 CREATE TABLE [IF NOT EXIST] 
     table_name ( column_definitions )
@@ -13,12 +13,11 @@ CREATE TABLE [IF NOT EXIST]
 
 Column definition syntax:
 ```sql
-column_name column_type [[NOT] NULL] {[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]}
+column_name column_type [[NOT] NULL] [[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]]
 ```
 
 Partition options syntax:
 ```sql
-
 PARTITION BY KEY (column_list) [PARTITIONS num]
 ```
 
