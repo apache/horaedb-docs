@@ -1,5 +1,4 @@
-As an open source cloud-native, CeresDB can be deployed in the Intel/ARM-based architecture server, and major virtualization environments.
-
+作为一个开源的数据库，CeresDB 可以部署在基于英特尔 /ARM 架构的服务器，以及常见的虚拟环境。
 
 | OS                                                 | status |
 |:--------------------------------------------------:|:------:|
@@ -9,5 +8,5 @@ As an open source cloud-native, CeresDB can be deployed in the Intel/ARM-based a
 | macOS 11 or later                                  | ✅     |
 | Windows                                            | ❌     |
 
-- For production workloads, Linux is the preferred platform.
-- macOS is mainly used for development
+- 生产环境下 , Linux 是首选平台。
+- macOS 主要用在开发环境。

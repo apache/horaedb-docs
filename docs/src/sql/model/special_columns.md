@@ -19,7 +19,7 @@ The timestamp column can be set with `timestamp key` keyword, like `TIMESTAMP KE
 The primary key is used for data deduplication and sorting. The primary key is composed of some columns and one time column.
 The primary key can be set in the following some ways：
 * use `primary key` keyword
-* use `tag` to auto generate TSID, CeresDB will use `(timestamp,TSID)` as primary key
+* use `tag` to auto generate TSID, CeresDB will use `(TSID,timestamp)` as primary key
 * only set Timestamp column, CeresDB will use `(timestamp)` as primary key
 
 Notice: If the primary key and tag are specified at the same time, then the tag column is just an additional information identification and will not affect the logic.

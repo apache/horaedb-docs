@@ -1,8 +1,9 @@
-# Operation and Maintenance
+# 运维文档
  
-This guide introduces the operation and maintenance of CeresDB, including cluster installation, database&table operations, fault tolerance, disaster recovery, data import and export, etc.
+本章介绍 CeresDB 的运维相关的操作，包括表相关操作，设置访问黑名单，已经如何监控 CeresDB。未来还会介绍集群扩容，容灾相关：
 
-* [Table](./table.md) 
+* [表](./table.md) 
 * [System Table](./system_table.md) 
-* [Block List](./block_list.md) 
+* [黑名单](./block_list.md) 
+* [监控](./observability.md) 
 

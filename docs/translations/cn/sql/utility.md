@@ -1,15 +1,14 @@
-# Utility Statements
+# 常用 SQL
 
-There are serval utilities SQL in CeresDB that can help in table manipulation or query inspection.
+CeresDB 中有许多实用的 SQL 工具，可以帮助进行表操作或查询检查。
 
-## SHOW CREATE TABLE
+## 查看建表语句
 
 ```sql
 SHOW CREATE TABLE table_name;
 ```
 
-`SHOW CREATE TABLE` returns a `CREATE TABLE` DDL that will create a same table with the given one. Including columns, table engine and options. The schema and options shows in `CREATE TABLE` will based on the current version of the table. An example:
-
+`SHOW CREATE TABLE` 返回指定表的当前版本的创建语句，包括列定义、表引擎和参数选项等。例如：
 ```sql
 -- create one table
 CREATE TABLE `t` (a bigint, b int default 3, c string default 'x', d smallint null, t timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE = Analytic;
@@ -41,15 +40,16 @@ CREATE TABLE `t` (
 )
 ```
 
-## DESCRIBE
+## 查看表信息
 
 ```sql
 DESCRIBE table_name;
 ```
 
-`DESCRIBE` will show a detailed schema of one table. The attributes include column name and type, whether it is tag and primary key (todo: ref) and whether it's nullable. The auto created column `tsid` will also be included (todo: ref).
+`DESCRIBE` 语句返回一个表的详细结构信息，包括每个字段的名称和类型，字段是否为 `Tag` 或主键，字段是否可空等。
+此外，自动生成的字段 `tsid` 也会展示在结果里。
 
-Example:
+例如 :
 
 ```sql
 CREATE TABLE `t`(a int, b string, t timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE = Analytic;
@@ -57,7 +57,7 @@ CREATE TABLE `t`(a int, b string, t timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE
 DESCRIBE TABLE `t`;
 ```
 
-The result is:
+返回结果如下 :
 ```
 name    type        is_primary  is_nullable is_tag
 
@@ -67,19 +67,19 @@ a       int         false       true        false
 b       string      false       true        false
 ```
 
-## EXPLAIN
+## 解释执行计划
 
 ```sql
 EXPLAIN query;
 ```
 
-`EXPLAIN` shows how a query will be executed. Add it to the beginning of a query like
+`EXPLAIN` 语句结果展示一个查询如何被执行。例如：
 
 ```sql
 EXPLAIN SELECT max(value) AS c1, avg(value) AS c2 FROM `t` GROUP BY name;
 ```
 
-will give
+结果如下：
 
 ```
 logical_plan

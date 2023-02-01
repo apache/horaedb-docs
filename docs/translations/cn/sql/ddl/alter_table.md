@@ -1,8 +1,8 @@
 # ALTER TABLE
 
-`ALTER TABLE` can change the schema or options of a table.
+使用 `ALTER TABLE` 可以改变表的结构和参数 .
 
-CeresDB current supports `ADD COLUMN`.
+例如可以使用 `ADD COLUMN` 增加表的列 :
 
 ```sql
 -- create a table and add a column to it
@@ -10,7 +10,8 @@ CREATE TABLE `t`(a int, t timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE = Analyti
 ALTER TABLE `t` ADD COLUMN (b string);
 ```
 
-It now becomes
+变更后的表结构如下：
+
 ```
 -- DESCRIBE TABLE `t`;
 
