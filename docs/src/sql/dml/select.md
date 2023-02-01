@@ -8,7 +8,7 @@ Basic syntax (parts between `[]` are optional):
 SELECT select_expr [, select_expr] ...
     FROM table_name
     [WHERE where_condition]
-    [GROUP BY {col_name | expr}... ]
+    [GROUP BY {col_name | expr} ... ]
     [ORDER BY {col_name | expr}
     [ASC | DESC]
     [LIMIT [offset,] row_count ]
