@@ -10,7 +10,7 @@ CREATE TABLE [IF NOT EXIST]
     [WITH ( table_options )];
 ```
 
-列定义的语法:
+列定义的语法 :
 
 ```sql
 column_name column_type [[NOT] NULL] {[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]}
@@ -24,13 +24,13 @@ column_name column_type [[NOT] NULL] {[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]}
 
 ## IF NOT EXIST
 
-添加`IF NOT EXIST`时，CeresDB在表名已经存在时会忽略建表错误。
+添加 `IF NOT EXIST` 时，CeresDB 在表名已经存在时会忽略建表错误。
 
 ## 定义列
 
-一个列的定义至少应该包含名称和类型部分，支持的类型见[这里](../model/data_types.md)。
+一个列的定义至少应该包含名称和类型部分，支持的类型见 [这里](../model/data_types.md)。
 
-列默认为可空，即 "NULL "关键字是隐含的；添加`NOT NULL`时列不可为空。
+列默认为可空，即 "NULL " 关键字是隐含的；添加 `NOT NULL` 时列不可为空。
 
 
 ```sql
@@ -47,4 +47,4 @@ b_not_null NOT NULL
 
 ## 引擎设置
 
-CeresDB支持指定某个表使用哪种引擎，目前支持的引擎类型为[`Analytic`](../../analytic_engine/README.md)。注意这个属性设置后不可更改。
+CeresDB 支持指定某个表使用哪种引擎，目前支持的引擎类型为 [`Analytic`](../../analytic_engine/README.md)。注意这个属性设置后不可更改。

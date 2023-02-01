@@ -1,6 +1,6 @@
-# 常用SQL
+# 常用 SQL
 
-CeresDB中有许多实用的SQL工具，可以帮助进行表操作或查询检查。
+CeresDB 中有许多实用的 SQL 工具，可以帮助进行表操作或查询检查。
 
 ## 查看建表语句
 
@@ -8,7 +8,7 @@ CeresDB中有许多实用的SQL工具，可以帮助进行表操作或查询检�
 SHOW CREATE TABLE table_name;
 ```
 
-`SHOW CREATE TABLE`返回指定表的当前版本的创建语句，包括列定义、表引擎和参数选项等。例如：
+`SHOW CREATE TABLE` 返回指定表的当前版本的创建语句，包括列定义、表引擎和参数选项等。例如：
 ```sql
 -- create one table
 CREATE TABLE `t` (a bigint, b int default 3, c string default 'x', d smallint null, t timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE = Analytic;
@@ -46,10 +46,10 @@ CREATE TABLE `t` (
 DESCRIBE table_name;
 ```
 
-`DESCRIBE` 语句返回一个表的详细结构信息，包括每个字段的名称和类型，字段是否为`Tag`或主键，字段是否可空等。
-此外，自动生成的字段`tsid`也会展示在结果里。
+`DESCRIBE` 语句返回一个表的详细结构信息，包括每个字段的名称和类型，字段是否为 `Tag` 或主键，字段是否可空等。
+此外，自动生成的字段 `tsid` 也会展示在结果里。
 
-例如:
+例如 :
 
 ```sql
 CREATE TABLE `t`(a int, b string, t timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE = Analytic;
@@ -57,7 +57,7 @@ CREATE TABLE `t`(a int, b string, t timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE
 DESCRIBE TABLE `t`;
 ```
 
-返回结果如下:
+返回结果如下 :
 ```
 name    type        is_primary  is_nullable is_tag
 

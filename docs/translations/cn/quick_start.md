@@ -1,11 +1,11 @@
 # 快速开始
-本章介绍如何快速启动CeresDB。在这里你将会学到启动一个单机模式的CeresDB，然后使用SQL写入一些数据并查询查询处理。
+本章介绍如何快速启动 CeresDB。在这里你将会学到启动一个单机模式的 CeresDB，然后使用 SQL 写入一些数据并查询查询处理。
 
 ## 启动
 
-使用[CeresDB docker 镜像](https://hub.docker.com/r/ceresdb/ceresdb-server) 是一种最简单的启动方式；如果你还没有一个安装Docker，请首先参考 [这里](https://www.docker.com/products/docker-desktop/) 安装Docker.
+使用 [CeresDB docker 镜像](https://hub.docker.com/r/ceresdb/ceresdb-server) 是一种最简单的启动方式；如果你还没有一个安装 Docker，请首先参考 [这里](https://www.docker.com/products/docker-desktop/) 安装 Docker.
 
-使用如下命令安装并启动一个单机版CeresDB。
+使用如下命令安装并启动一个单机版 CeresDB。
 ```bash
 docker run -d --name ceresdb-server \
   -p 8831:8831 \
@@ -14,12 +14,12 @@ docker run -d --name ceresdb-server \
   ceresdb/ceresdb-server:v0.3.1
 ```
 
-启动后CeresDB会监听如下端口:
+启动后 CeresDB 会监听如下端口 :
 - 8831, gRPC port
 - 3307, MySQL port
 - 5440, HTTP port
 
-`HTTP`协议是最简单的交互方式，接下来的演示会使用`HTTP`协议进行介绍。不过在生产环境，我们推荐使用`gRPC/MySQL`.
+`HTTP` 协议是最简单的交互方式，接下来的演示会使用 `HTTP` 协议进行介绍。不过在生产环境，我们推荐使用 `gRPC/MySQL`.
 
 ## 写入和查询数据
 
@@ -74,13 +74,13 @@ DROP TABLE `demo`
 '
 ```
 
-## 使用SDK
+## 使用 SDK
 
-当前我们支持多种开发语言SDK，例如Java，Rust，Python, Go等,具体使用请参考 [sdk](./sdk.md)
+当前我们支持多种开发语言 SDK，例如 Java，Rust，Python, Go 等 , 具体使用请参考 [sdk](./sdk.md)
 
 ## 下一步
 
-恭喜你，你已经学习了CeresDB的简单使用。关于CeresDB的更多信息，请参见以下内容。
-- [SQL语法](sql/README.md)
+恭喜你，你已经学习了 CeresDB 的简单使用。关于 CeresDB 的更多信息，请参见以下内容。
+- [SQL 语法](sql/README.md)
 - [部署文档](deploy/README.md)
 - [运维文档](operation/README.md)

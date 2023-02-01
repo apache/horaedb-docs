@@ -1,8 +1,8 @@
 # ALTER TABLE
 
-使用`ALTER TABLE` 可以改变表的结构和参数.
+使用 `ALTER TABLE` 可以改变表的结构和参数 .
 
-例如可以使用 `ADD COLUMN` 增加表的列:
+例如可以使用 `ADD COLUMN` 增加表的列 :
 
 ```sql
 -- create a table and add a column to it

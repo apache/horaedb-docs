@@ -41,8 +41,8 @@ port = 8831
 # Only support "defaultCluster" currently.
 cluster_name = "defaultCluster"
 meta_addr = "http://127.0.0.1:2379"
-lease = "10s"
-timeout = "5s"
+lease = "10 s"
+timeout = "5 s"
 
 [limiter]
 write_block_list = ['mytable1']
@@ -80,8 +80,8 @@ port = 8832
 # Only support "defaultCluster" currently.
 cluster_name = "defaultCluster"
 meta_addr = "http://127.0.0.1:2379"
-lease = "10s"
-timeout = "5s"
+lease = "10 s"
+timeout = "5 s"
 
 [limiter]
 write_block_list = ['mytable1']

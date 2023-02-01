@@ -1,6 +1,6 @@
 # Table Operation
 
-CeresDB支持标准的SQL，用户可以使用Http协议创建表和读写表。更多内容可以参考[SQL语法](../sql/README.md)
+CeresDB 支持标准的 SQL，用户可以使用 Http 协议创建表和读写表。更多内容可以参考 [SQL 语法](../sql/README.md)
 
 ## 创建表
 
