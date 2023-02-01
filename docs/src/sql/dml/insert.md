@@ -2,7 +2,7 @@
 
 ## Basic syntax
 
-Basic syntax (parts between `[]` are optional):
+Basic syntax:
 
 ```sql
 INSERT [INTO] tbl_name
