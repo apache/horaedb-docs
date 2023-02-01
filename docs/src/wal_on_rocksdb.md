@@ -1,61 +1,62 @@
-# Wal on RocksDB
-## 架构
-在本节中，我们将介绍单机版 WAL 的实现（基于 RocksDB）。日志在这里是按表级别来管理的，对应的存储数据结构为 `TableUnit`。为简单起见，所有相关数据（日志或一些元数据）都存储在单个 column family中。
+# WAL on RocksDB
+## Architecture
+In this section we present a standalone WAL implementation (based on RocksDB). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by table, and we call the corresponding storage data structure `TableUnit`. All related data (logs or some metadata) is stored in a single column family for simplicity.
+
 ```text
-            ┌─────────────────────────┐
-            │         CeresDB         │
-            │                         │
-            │ ┌─────────────────────┐ │
-            │ │         WAL         │ │
-            │ │                     │ │
-            │ │        ......       │ │
-            │ │                     │ │
-            │ │  ┌────────────────┐ │ │
- Write ─────┼─┼──►   TableUnit    │ │ │
-            │ │  │                │ │ │
- Read  ─────┼─┼──► ┌────────────┐ │ │ │
-            │ │  │ │ RocksDBRef │ │ │ │
-            │ │  │ └────────────┘ │ │ │
-Delete ─────┼─┼──►                │ │ │
-            │ │  └────────────────┘ │ │
-            │ │        ......       │ │
-            │ └─────────────────────┘ │
-            │                         │
-            └─────────────────────────┘
+            ┌───────────────────────────────┐
+            │         CeresDB               │
+            │                               │
+            │ ┌─────────────────────┐       │
+            │ │         WAL         │       │
+            │ │                     │       │
+            │ │        ......       │       │
+            │ │                     │       │
+            │ │  ┌────────────────┐ │       │
+ Write ─────┼─┼──►   TableUnit    │ │Delete │
+            │ │  │                │ ◄────── │
+ Read  ─────┼─┼──► ┌────────────┐ │ │       │
+            │ │  │ │ RocksDBRef │ │ │       │
+            │ │  │ └────────────┘ │ │       │
+            │ │  │                | |       |
+            │ │  └────────────────┘ │       │
+            │ │        ......       │       │
+            │ └─────────────────────┘       │
+            │                               │
+            └───────────────────────────────┘
 ```
-## 数据模型
-### 通用日志格式
-通用日志格式分为 key 格式和 value 格式，下面是对 key 格式各个字段的介绍:
-+ `Namespace`: 出于不同的目的，可能会存在多个 WAL 实例（例如，manifest 也依赖于 wal）, `namespace` 用于区分它们。
-+ `Region_id`: 在一些WAL实现中我们可能需要管理来自多个表的日志，`region` 就是描述这样一组表日志的概念, 而 `region id` 就是其标识。
-+ `Table_id`: 表的标识。 
-+ `Sequence_num`: 特定表中单条日志的标识。 
-+ `Version`: 用于兼容新旧格式。 
+## Data model
+### Common log format
+We use the common key and value format here. 
+Here is the defined key format, and the following is introduction for fields in it:
++ `namespace`: multiple instances of WAL can exist for different purposes (e.g. manifest also needs wal). The namespace is used to distinguish them.
++ `region_id`: in some WAL implementations we may need to manage logs from multiple tables, region is the concept to describe such a set of table logs. Obviously the region id is the identification of the region.
++ `table_id`: identification of the table logs to which they belong.
++ `sequence_num`: each login table can be assigned an identifier, called a sequence number here.
++ `version`: for compatibility with old and new formats.
 
 ```text
 +---------------+----------------+-------------------+--------------------+--------------------+
 | namespace(u8) | region_id(u64) |   table_id(u64)   |  sequence_num(u64) | version header(u8) |
 +---------------+----------------+-------------------+--------------------+--------------------+
 ```
-下面是对 value 格式各个字段的介绍(`payload` 可以理解为编码后的具体日志内容):
+Here is the defined value format, `version` is the same as the key format, `payload` can be understood as encoded log content.
 
 ```text
-+--------------------+----------+
-| version header(u8) | payload  |
-+--------------------+----------+
++-------------+----------+
+| version(u8) | payload  |
++-------------+----------+
 ```
 ### Metadata
-The metadata here is stored in the same key-value format as the log. Actually only the last flushed sequence is stored in this implementation.
-Here is the defined metadata key format and field instructions:
-+ `Namespace`, `table_id`, `version` are the same as the log format.
-+ `Key_type`, used to define the type of metadata. MaxSeq now defines that metadata of this type will only record the most recently flushed sequence in the table.    
+The metadata here is stored in the same key-value format as the log. Actually only the last flushed sequence is stored in this implementation. Here is the defined metadata key format and field instructions:
++ `namespace`, `table_id`, `version` are the same as the log format.
++ `key_type`, used to define the type of metadata. MaxSeq now defines that metadata of this type will only record the most recently flushed sequence in the table. 
 Because it is only used in wal on RocksDB, which manages the logs at table level, so there is no region id in this key.
 ```text
 +---------------+--------------+----------------+-------------+
 | namespace(u8) | key_type(u8) | table_id(u64)  | version(u8) |
 +---------------+--------------+----------------+-------------+
 ```
-Here is the defined metadata value format, as you can see, just the version and max_seq(flushed sequence) in it:
+Here is the defined metadata value format, as you can see, just the `version` and `max_seq`(flushed sequence) in it:
 ```text
 +-------------+--------------+
 | version(u8) | max_seq(u64) |
