@@ -1,6 +1,6 @@
 ## CeresDB 文档
 欢迎来到CeresDB文档仓库!
-这个仓库存放的是[CeresDB文档网站](https://docs.ceresdb.io/)的源文件，文档网站使用mdbook工具生成。
+这个仓库存放的是[CeresDB文档网站](https://docs.ceresdb.io)的源文件，文档网站使用mdbook工具生成。
 本仓库的所有文件均使用标准markdown语法编写。
 
 
