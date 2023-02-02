@@ -2,7 +2,7 @@
 
 This chapter discusses `PartitionTable`.
 
-The partition table syntax used by ceresdb is similar to that of [mysql](https://dev.mysql.com/doc/refman/8.0/en/partitioning-types.html).
+The partition table syntax used by CeresDB is similar to that of [mysql](https://dev.mysql.com/doc/refman/8.0/en/partitioning-types.html).
 
 General partition tables include `Range Partitioning`, `List Partitoning`, `Hash Partitioning`, and `Key Partititioning`.
 
@@ -12,21 +12,21 @@ CeresDB currently only supports `Key Partititioning`.
 
 Similar to mysql, different portions of a partition table are stored as separate tables in different locations.
 
-Currently designed, a partition table can be opened on multiple ceresdb nodes, supports writing and querying at the same time, and can be expanded horizontally.
+Currently designed, a partition table can be opened on multiple CeresDB nodes, supports writing and querying at the same time, and can be expanded horizontally.
 
 As shown in the figure below, `PartitionTable` is opened on node0 and node1, and the physical subtables where the actual data are stored on node2 and node3.
 
 ```
-                                       ┌───────────────────────┐     ┌───────────────────────┐           
-                                       │Node0                  │     │Node1                  │           
-                                       │   ┌────────────────┐  │     │   ┌────────────────┐  │           
-                                       │   │ PartitionTable │  │     │   │ PartitionTable │  │           
-                                       │   └────────────────┘  │     │   └────────────────┘  │           
-                                       │            ┬          │     │                       │           
-                                       └────────────┼──────────┘     └───────────────────────┘           
-                                                    │                                                    
-                                                    │                                                    
-             ┌───────────────────────┬──────────────┴──────────────┬───────────────────────┐             
+                        ┌───────────────────────┐      ┌───────────────────────┐                         
+                        │Node0                  │      │Node1                  │                         
+                        │   ┌────────────────┐  │      │  ┌────────────────┐   │                         
+                        │   │ PartitionTable │  │      │  │ PartitionTable │   │                         
+                        │   └────────────────┘  │      │  └────────────────┘   │                         
+                        │            │          │      │           │           │                         
+                        └────────────┼──────────┘      └───────────┼───────────┘                         
+                                     │                             │                                     
+                                     │                             │                                     
+             ┌───────────────────────┼─────────────────────────────┼───────────────────────┐             
              │                       │                             │                       │             
 ┌────────────┼───────────────────────┼─────────────┐ ┌─────────────┼───────────────────────┼────────────┐
 │Node2       │                       │             │ │Node3        │                       │            │
@@ -42,7 +42,7 @@ As shown in the figure below, `PartitionTable` is opened on node0 and node1, and
 
 ## Key Partitioning
 
-`Key Partitioning` supports one or more column calculations, using the hash algorithm provided by ceresdb for calculations.
+`Key Partitioning` supports one or more column calculations, using the hash algorithm provided by CeresDB for calculations.
 
 Use restrictions:
 
@@ -69,7 +69,7 @@ Since the partition table data is actually stored in different physical tables, 
 
 The query will calculate the physical table to be queried according to the query parameters,
 
-and then remotely request the node where the physical table is located to obtain data through the ceresdb internal service [remote engine](https://github.com/CeresDB/ceresdb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/server/src/grpc/remote_engine_service/mod.rs) (support predicate pushdown).
+and then remotely request the node where the physical table is located to obtain data through the CeresDB internal service [remote engine](https://github.com/CeresDB/ceresdb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/server/src/grpc/remote_engine_service/mod.rs) (support predicate pushdown).
 
 The implementation of the partition table is in [PartitionTableImpl](https://github.com/CeresDB/ceresdb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/analytic_engine/src/table/partition.rs).
 
