@@ -15,6 +15,7 @@
     - [Data Definition Statements](sql/ddl/README.md)
         - [CREATE TABLE](sql/ddl/create_table.md)
         - [ALTER TABLE](sql/ddl/alter_table.md)
+        - [DROP TABLE](sql/ddl/drop_table.md)
     - [Data Manipulation Statements](sql/dml/README.md)
         - [INSERT](sql/dml/insert.md)
         - [SELECT](sql/dml/select.md)
