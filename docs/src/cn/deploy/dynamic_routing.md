@@ -86,7 +86,7 @@ mkdir /tmp/ceresmeta2
 上述的配置名均为配置文件中的使用方式，如果需要以环境变量的方式使用，需要做一个简单的修改，例如：将 `node-name` 转换为 `NODE_NAME`。
 
 ## Start CeresDB instances
-* 使用实际的项目目录替换 `{project_path}` 
+* 使用实际的项目目录替换 `{project_path}`
 
 ```bash
 # Update address of CeresMeta in CeresDB config.
