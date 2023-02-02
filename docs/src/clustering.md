@@ -39,7 +39,7 @@ The diagram above describes the architecture of a CeresDB cluster, where some ke
 - `WAL Service`: Write-ahead log service for storing new-written real-time data;
 - `Object Storage`: Object storage service for storing SST converted from memtable;
 
-From the architecture diagram above, it can be concluded that the compute and storage are separated in the CeresDB cluster, which makes it easy to implement useful distributed features, such as elastic expansion/contraction of compute/storage resources, high availability, load balancing, and so on.
+From the architecture diagram above, it can be concluded that the compute and storage are separated in the CeresDB cluster, which makes it easy to implement useful distributed features, such as elastic autoscaling of compute/storage resources, high availability, load balancing, and so on.
 
 Let's dive into some of the key components mentioned above before explaining how these features are implemented.
 
@@ -75,7 +75,7 @@ Since `Shard` is the basic scheduling unit, it is natural to introduce some basi
 With these basic shard operations, some complex scheduling logic can be implemented, e.g. perform an expansion by splitting one shard into two shards and migrating one of them to the new CeresDB instance.
 
 ### CeresMeta
-Just like the `pd` in the TiDB, `CeresMeta` is implemented by embedding an ETCD inside to ensure consistency and takes responsibilities for cluster metadata management and scheduling.
+`CeresMeta` is implemented by embedding an ETCD inside to ensure consistency and takes responsibilities for cluster metadata management and scheduling.
 
 The cluster metadata includes:
 - Table information, such as table name, table ID, and which cluster the table belongs to;
@@ -105,7 +105,7 @@ The two components make it much easier to implement the ceresdb cluster, which f
 ## Scalability
 Scalability is an important feature for a distributed system. Let's take a look at to how the horizontal scalability of the CeresDB cluster is achieved.
 
-First, the two storage components should be horizontally scalable when deciding on the actual implementations for them, so the two storage services can be expanded separately if the storage capacity is not sufficient.
+First, the two storage components (`WAL Service` and `Object Storage`) should be horizontally scalable when deciding on the actual implementations for them, so the two storage services can be expanded separately if the storage capacity is not sufficient.
 
 It will be a little bit complex when discussing the scalability of the compute service. Basically, these cases will bring the capacity problem:
 - Massive queries on massive tables;
@@ -144,8 +144,8 @@ Assuming that `WAL service` and `Object Storage` are highly available, the high 
 │                                                         │                                             
 └─────────────────────────────────────────────────────────┘                                             
                              ▲                                                                          
-             ┌ ─ ─Broken ─ ─ ┤                                                                          
-                             │                                                                          
+             ┌ ─ Heartbeat ─ ┤                                                                          
+                   Broken    │                                                                          
              │               │                                                                          
 ┌ CeresDB Instance0 ─ ─ ─    │   ┌─CeresDB Instance1──────┐                   ┌─CeresDB Instance1──────┐
    ┌─Shard0(L)────────┐  │   │   │  ┌─Shard0(F)────────┐  │                   │  ┌─Shard0(L)────────┐  │
