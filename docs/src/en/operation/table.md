@@ -1,12 +1,13 @@
 # Table Operation
 
-CeresDB supports standard SQL protocols and allows you to create tables and read/write data via http requests.
+CeresDB supports standard SQL protocols and allows you to create tables and read/write data via http requests. More [SQL](../sql/README.md)
+
 
 ## Create Table
 
 ### Example
 ```shell
-curl --location --request POST 'http://127.0.0.1:5440/sql' \
+curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "query": "CREATE TABLE `demo` (`name` string TAG, `value` double NOT NULL, `t` timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE=Analytic with (enable_ttl='\''false'\'')"
@@ -17,7 +18,7 @@ curl --location --request POST 'http://127.0.0.1:5440/sql' \
 
 ### Example
 ```shell
-curl --location --request POST 'http://127.0.0.1:5440/sql' \
+curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "query": "INSERT INTO demo(t, name, value) VALUES(1651737067000, '\''ceresdb'\'', 100)"
@@ -28,7 +29,7 @@ curl --location --request POST 'http://127.0.0.1:5440/sql' \
 
 ### Example
 ```shell
-curl --location --request POST 'http://127.0.0.1:5440/sql' \
+curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "query": "select * from demo"
@@ -39,7 +40,7 @@ curl --location --request POST 'http://127.0.0.1:5440/sql' \
 
 ### Example
 ```shell
-curl --location --request POST 'http://127.0.0.1:5440/sql' \
+curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "query": "show create table demo"
@@ -50,7 +51,7 @@ curl --location --request POST 'http://127.0.0.1:5440/sql' \
 
 ### Example
 ```shell
-curl --location --request POST 'http://127.0.0.1:5440/sql' \
+curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "query": "DROP TABLE demo"

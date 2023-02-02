@@ -15,7 +15,6 @@ Two ceresdb http service are started on localhost:5440 and localhost:5441.
 ```yaml
 global:
   scrape_interval: 30s
-
 scrape_configs:
   - job_name: ceresdb-server
     static_configs:

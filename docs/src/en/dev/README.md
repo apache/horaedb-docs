@@ -1,1 +1,2 @@
-# Compile and Running
+# 开发手册
+抱歉，目前开发只能只有英文版本。

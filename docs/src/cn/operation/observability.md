@@ -15,7 +15,6 @@ CeresDB 使用 Prometheus 和 Grafana 做自监控。
 ```yaml
 global:
   scrape_interval: 30s
-
 scrape_configs:
   - job_name: ceresdb-server
     static_configs:
@@ -58,7 +57,7 @@ docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
 
 更多 Prometheus 安装方法，参考[这里](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)。
 
-### 配置数据源 
+### 配置数据源
 
 1. 将光标悬停在配置（齿轮）图标上。
 2. 选择数据源。
@@ -70,7 +69,7 @@ docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
 
 更详细的配置可以参考[这里](https://grafana.com/docs/grafana/latest/datasources/prometheus/)。
 
-### 导入监控页面 
+### 导入监控页面
 
 <a href="../../resources/grafana-dashboard.json">页面 json</a>
 
@@ -96,6 +95,3 @@ docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
 * flush count: ceresdb flush 的次数。
 * 99th flush duration details by instance: 实例级别的 flush 耗时的 99% 分位数。
 * 99th write stall duration details by instance: 实例级别的写入停顿时间的 99% 分位数 。
-
-
-

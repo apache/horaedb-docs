@@ -1,4 +1,4 @@
-![CeresDB](../resources/images/CeresDB.png)
+![CeresDB](https://github.com/CeresDB/ceresdb/raw/main/docs/logo/CeresDB.png)
 
 ![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)
 [![CI](https://github.com/CeresDB/ceresdb/actions/workflows/ci.yml/badge.svg)](https://github.com/CeresDB/ceresdb/actions/workflows/ci.yml)

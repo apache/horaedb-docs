@@ -1,3 +1,3 @@
-# SQL Syntax
+# SQL 语法
 
-This chapter introduces the SQL interface of CeresDB.
+本章介绍 CeresDB 的 SQL 使用语法 .

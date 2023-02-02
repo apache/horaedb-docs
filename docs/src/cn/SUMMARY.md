@@ -14,12 +14,13 @@
     - [标识符](sql/identifier.md)
     - [表结构操作](sql/ddl/README.md)
         - [建表](sql/ddl/create_table.md)
-        - [变更表结构](sql/ddl/alter_table.md)
+        - [表结构变更](sql/ddl/alter_table.md)
     - [数据操作](sql/dml/README.md)
         - [插入数据](sql/dml/insert.md)
         - [查询语句](sql/dml/select.md)
-    - [工具SQL](sql/utility.md)
     - [引擎参数](sql/engine_options.md)
+    - [常见SQL](sql/utility.md)
+    
 
 - [部署文档](deploy/README.md)
     - [支持平台](deploy/platform.md)
@@ -38,7 +39,7 @@
     - [黑名单](operation/block_list.md)
     - [监控](operation/observability.md)
 
-# 开发指南
+# 开发者手册
 - [支持平台](dev/platform.md)
 - [编译运行](dev/compile_run.md)
 - [开发规约](dev/conventional_commit.md)
