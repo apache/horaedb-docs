@@ -1,56 +1,50 @@
-The storage engine mainly provides the following two functions：
+存储引擎主要提供以下两个功能：
 
-1. Persistence of data
-2. Under the premise of ensuring the correctness of the data, organize the data in the most reasonable way to meet the query needs of different scenarios.
+1.  数据的持久化
+2.  在保证数据正确性的前提下，用最合理的方式来组织数据，来满足不同场景的查询需求
 
-This document will introduce the internal implementation of the storage engine in CeresDB. Readers can refer to the content here to explore how to use CeresDB efficiently.
+本篇文档就来介绍 CeresDB 中存储引擎的内部实现，读者可以参考这里面的内容，来探索如何高效使用 CeresDB。
 
 
-# Overall structure
+# 整体架构
 
-CeresDB is a distributed storage system based on the share-nothing architecture. Data between different servers is isolated from each other and does not affect each other.The storage engine in each stand-alone machine is a variant of LSM (Log-structured merge-tree), which is optimized for time-series scenarios. The following figure shows its workflow.：
+CeresDB 是一种基于 share-nothing 架构的分布式存储系统，不同服务器之间的数据相互隔离，互不影响。每一个单机中的存储引擎是 LSM（Log-structured merge-tree）的一个变种，针对时序场景做了优化，下图展示了其主要组件的运作方式：
 
-TODO: Flow Chart
-
-The following introduces its main modules in the order of the writing process.
-
+![](../resources/images/storage-overview.svg)
 
 ## Write Ahead Log (WAL)
 
-A write request will be written to
+一次写入请求的数据会写到两个部分：
 
-1. memtable in memory
-2. WAL in durable storage
+1.  内存中的 memtable
+2.  可持久化的 WAL
 
-Since memtable is not persisted to the underlying storage system in real time, so WAL is required to ensure the reliability of the data in memtable.
+由于 memtable 不是实时持久化到底层存储系统，因此需要用 WAL 来保证 memtable 中数据的可靠性。
 
-On the other hand, due to the design of the distributed architecture, WAL itself is required to be highly available. Now there are following implementations in CeresDB:
+另一方面，由于分布式架构的设计，要求 WAL 本身是高可用的，现在 CeresDB 中，主要有以下几种实现：
 
--  Local disk (no distributed high availability)
--  Oceanbase
--  Kafka
+- 本地磁盘（无分布式高可用）
+- Oceanbase
+- Kafka
+
 
 ## Memtable
 
-Memtable is a memory data structure used to hold recently written data.
+Memtable 是一个内存的数据结构，用来保存最近写入的数据。一个表对应一个 memtable。
 
-Memtable is read-write by default (aka active), and when the write reaches some threshold, it will become read-only and be replaced by a new memtable.
-
-The read-only memtable will be flushed to the underlying storage system in SST format by background thread. After flush is completed, the read-only memtable can be destroyed, and the corresponding data in WAL can also be deleted.
+Memtable 默认是可读写的（称为 active），当写入达到一起阈值时，会变成只读的并且被一个新的 memtable 替换掉。只读的 memtable 会被后台线程以 SST 的形式写入到底层存储系统中，写入完成后，只读的 memtable 就可以被销毁，同时 WAL 中也可以删除对应部分的数据。
 
 ## Sorted String Table（SST）
 
-SST is a persistent format for data, which is stored in the order of primary keys of table. Currently, CeresDB uses parquet format for this.
+SST 是数据的持久化格式，按照表主键的顺序存放，目前 CeresDB 采用 parquet 格式来存储。
 
-For CeresDB, SST has an important option: segment_duration, only SST within the same segment can be merged, which is benefical for time-series data. And it is also convenient to eliminate expired data.
+对于 CeresDB 来说，SST 有一个重要特性： `segment_duration`，只有同一个 segment 内的 SST 才有可能进行合并操作。而且有了 segment，也方便淘汰过期的数据。
 
-In addition to storing the original data, the statistical information of the data will also be stored in the SST to speed up the query, such as the maximum value, the minimum value, etc.
+除了存放原始数据外，SST 内也会存储数据的统计信息来加速查询，比如：最大值、最小值等。
 
 ## Compactor
 
-Compactor can merge multiple small SST files into one, which is used to solve the problem of too many small files. In addition, Compactor will also delete expired data and duplicate data during the compaction. In future, compaction maybe add more task, such as downsample.
-
-The current compaction strategy in CeresDB reference Cassandra:
+Compactor 可以把多个小 SST 文件合并成一个，用于解决小文件数过多的问题。此外，Compactor 也会在合并时进行过期数据的删除，重复数据的去重。目前 CeresDB 中的合并策略参考自 Cassandra，主要有两个：
 
 - SizeTieredCompactionStrategy
 - [TimeWindowCompactionStrategy](https://cassandra.apache.org/doc/latest/cassandra/operating/compaction/twcs.html)
@@ -58,9 +52,9 @@ The current compaction strategy in CeresDB reference Cassandra:
 
 ## Manifest
 
-Manifest records metadata of table, SST file, such as: the minimum and maximum timestamps of the data in an SST.
+Manifest 记录表、SST文件元信息，比如：一个 SST 内数据的最小、最大时间戳。
 
-Due to the design of the distributed architecture, the manifest itself is required to be highly available. Now in CeresDB, there are mainly the following implementations：
+由于分布式架构的设计，要求 Manifest 本身是高可用的，现在 CeresDB 中，主要有以下几种实现：
 
 - WAL
 - ObjectStore
@@ -68,6 +62,4 @@ Due to the design of the distributed architecture, the manifest itself is requir
 
 ## ObjectStore
 
-ObjectStore is place where data (i.e. SST) is persisted.
-
-Generally speaking major cloud vendors should provide corresponding services, such as Alibaba Cloud's OSS and AWS's S3.
+ObjectStore 是数据（即 SST）持久化的地方，一般来说各大云厂商均有对应服务，像阿里云的 OSS，AWS 的 S3。

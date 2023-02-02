@@ -10,12 +10,11 @@ This document will introduce the internal implementation of the storage engine i
 
 # Overall structure
 
-CeresDB is a distributed storage system based on the share-nothing architecture. Data between different servers is isolated from each other and does not affect each other.The storage engine in each stand-alone machine is a variant of LSM (Log-structured merge-tree), which is optimized for time-series scenarios. The following figure shows its workflow.：
+CeresDB is a distributed storage system based on the share-nothing architecture.
+
+Data between different servers is isolated from each other and does not affect each other. The storage engine in each stand-alone machine is a variant of [log-structured merge-tree](https://en.wikipedia.org/wiki/Log-structured_merge-tree), which is optimized for time-series scenarios. The following figure shows its core components:
 
 ![](../resources/images/storage-overview.svg)
-
-The following introduces its main modules in the order of the writing process.
-
 
 ## Write Ahead Log (WAL)
 
@@ -28,13 +27,13 @@ Since memtable is not persisted to the underlying storage system in real time, s
 
 On the other hand, due to the design of the distributed architecture, WAL itself is required to be highly available. Now there are following implementations in CeresDB:
 
--  Local disk (no distributed high availability)
--  Oceanbase
+-  Local disk (based on [RocksDB](http://rocksdb.org/), no distributed high availability)
+-  OceanBase
 -  Kafka
 
 ## Memtable
 
-Memtable is a memory data structure used to hold recently written data.
+Memtable is a memory data structure used to hold recently written table data. Different tables have its corresponding memtable.
 
 Memtable is read-write by default (aka active), and when the write reaches some threshold, it will become read-only and be replaced by a new memtable.
 
@@ -57,7 +56,6 @@ The current compaction strategy in CeresDB reference Cassandra:
 - SizeTieredCompactionStrategy
 - [TimeWindowCompactionStrategy](https://cassandra.apache.org/doc/latest/cassandra/operating/compaction/twcs.html)
 
-
 ## Manifest
 
 Manifest records metadata of table, SST file, such as: the minimum and maximum timestamps of the data in an SST.
@@ -66,7 +64,6 @@ Due to the design of the distributed architecture, the manifest itself is requir
 
 - WAL
 - ObjectStore
-
 
 ## ObjectStore
 
