@@ -48,6 +48,7 @@
 
 # 技术系列文章
 - [整体架构](architecture.md)
+- [集群](clustering.md)
 - [存储介绍](storage.md)
 - [查询介绍](query.md)
 - [Wal介绍](wal.md)
