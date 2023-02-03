@@ -1,7 +1,12 @@
-# 介绍
+# 动态路由部署
+
+本章介绍基于CeresMeta的动态路由部署方式。
+
+## 部署 CeresMeta
+
 CeresMeta 是 CeresDB 分布式模式的核心服务之一，用于管理 CeresDB 节点的调度，为 CeresDB 集群提供高可用、负载均衡、集群管控等能力。
 CeresMeta 本身通过嵌入式的 etcd 保障高可用。
-## 部署 CeresMeta
+
 ### 编译打包
 - 安装 Golang，版本号 >= 1.19。
 - 在项目根目录下使用 `make build`进行编译打包。
@@ -85,8 +90,88 @@ mkdir /tmp/ceresmeta2
 
 上述的配置名均为配置文件中的使用方式，如果需要以环境变量的方式使用，需要做一个简单的修改，例如：将 `node-name` 转换为 `NODE_NAME`。
 
-## Start CeresDB instances
-* 使用实际的项目目录替换 `{project_path}`
+## 部署 CeresDB 实例
+
+### 配置文件
+
+#### 持久化存储配置
+
+数据存储可以选择如下两种：
+
+* 本地存储
+
+本地存储配置参数可以参考[静态路由部署](./static_routing.md)，注意本地存储在机器出现故障的时候，数据会出现丢失。
+  
+* OSS 存储
+
+OSS 是阿里云提供的高可用的对象存储，在这种方式下即使CeresDB机器出现宕机等情况，数据也是完整的。
+
+```
+[analytic.storage.object_store]
+type = "Aliyun"
+key_id = "key_id"
+key_secret = "key_secret"
+endpoint = "endpoint"
+bucket = "bucket"
+prefix = "data_dir"
+```
+
+#### WAL 配置
+
+WAL 配置有三种配置方式:
+
+* 本地 RocksDB
+  
+使用本地 RocksDB 作为 WAL 的配置参数可以参考[静态路由部署](./static_routing.md)，同使用本地存储作为数据持久化的方式类似，在机器宕机时最近写入的数据会丢失。
+
+* OBKV
+
+OBKV 是 OceanBase 提供的一种分布式高可用的 Key-Value 存储系统，基于此实现的WAL具备高可用可扩展的能力。
+
+```
+[analytic.wal_storage]
+type = "Obkv"
+
+[analytic.wal_storage.wal]
+ttl = "365d"
+
+[analytic.wal_storage.manifest]
+ttl = "365d"
+
+[analytic.wal_storage.obkv]
+full_user_name = "xxx"
+param_url = "xxxx"
+password = "xxx"
+
+[analytic.wal_storage.obkv.client]
+sys_user_name = "xxx"
+sys_password = "xxx"
+
+```
+
+* Kafka
+
+TODO
+
+#### Meta 客户端配置
+
+```
+[cluster.meta_client]
+cluster_name = 'defaultCluster'
+meta_addr = 'http://{CeresMetaAddr}:2379'
+lease = "10s"
+timeout = "5s"
+```
+
+#### 完整配置
+
+* [本地 RocksDB WAL + OSS](./config_local_oss)
+* [OBKV WAL + OSS](./config_obkv_oss)
+* [Kafka WAL + OSS](./todo)
+
+### 启动实例
+
+根据实际情况配置完成后便可以启动CeresDB集群了。
 
 ```bash
 # Update address of CeresMeta in CeresDB config.
