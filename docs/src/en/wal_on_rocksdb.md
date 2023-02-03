@@ -66,5 +66,5 @@ Here is the defined metadata value format, as you can see, just the `version` an
 + Open `TableUnit`: 
   + Read the latest log entry of all tables to recover the next sequence numbers of tables mainly.
   + Scan the metadata to recover next sequence num as a supplement (because some table has just triggered flush and no new written logs after this, so no logs exists now).
-+ Write to and read from region. Just write and read key-value from RocksDB.
++ Write and read logs. Just write and read key-value from RocksDB.
 + Delete logs. For simplicity It will remove corresponding logs synchronously.
