@@ -22,8 +22,8 @@ CeresDB 是一种基于 share-nothing 架构的分布式存储系统，不同服
 由于 memtable 不是实时持久化到底层存储系统，因此需要用 WAL 来保证 memtable 中数据的可靠性。
 
 另一方面，由于分布式架构的设计，要求 WAL 本身是高可用的，现在 CeresDB 中，主要有以下几种实现：
-- 本地磁盘（无分布式高可用）
-- Oceanbase
+- 本地磁盘（基于 [RocksDB](http://rocksdb.org/)，无分布式高可用）
+- [Oceanbase](https://www.oceanbase.com)
 - Kafka
 
 ## Memtable
@@ -43,7 +43,7 @@ SST 是数据的持久化格式，按照表主键的顺序存放，目前 CeresD
 ## Compactor
 
 Compactor 可以把多个小 SST 文件合并成一个，用于解决小文件数过多的问题。此外，Compactor 也会在合并时进行过期数据的删除，重复数据的去重。目前 CeresDB 中的合并策略参考自 Cassandra，主要有两个：
-- SizeTieredCompactionStrategy
+- [SizeTieredCompactionStrategy](https://cassandra.apache.org/doc/latest/cassandra/operating/compaction/stcs.html)
 - [TimeWindowCompactionStrategy](https://cassandra.apache.org/doc/latest/cassandra/operating/compaction/twcs.html)
 
 ## Manifest

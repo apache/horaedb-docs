@@ -24,7 +24,7 @@ Since memtable is not persisted to the underlying storage system in real time, s
 
 On the other hand, due to the design of the distributed architecture, WAL itself is required to be highly available. Now there are following implementations in CeresDB:
 -  Local disk (based on [RocksDB](http://rocksdb.org/), no distributed high availability)
--  OceanBase
+-  [OceanBase](https://www.oceanbase.com)
 -  Kafka
 
 ## Memtable
@@ -49,7 +49,7 @@ Compactor can merge multiple small SST files into one, which is used to solve th
 
 The current compaction strategy in CeresDB reference Cassandra:
 
-- SizeTieredCompactionStrategy
+- [SizeTieredCompactionStrategy](https://cassandra.apache.org/doc/latest/cassandra/operating/compaction/stcs.html)
 - [TimeWindowCompactionStrategy](https://cassandra.apache.org/doc/latest/cassandra/operating/compaction/twcs.html)
 
 ## Manifest
