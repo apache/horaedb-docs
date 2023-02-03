@@ -124,9 +124,9 @@ WAL 配置有三种配置方式:
   
 使用本地 RocksDB 作为 WAL 的配置参数可以参考[静态路由部署](./static_routing.md)，同使用本地存储作为数据持久化的方式类似，在机器宕机时最近写入的数据会丢失。
 
-* OBKV
+* OceanBase
 
-OBKV 是 OceanBase 提供的一种分布式高可用的 Key-Value 存储系统，基于此实现的WAL具备高可用可扩展的能力。
+OceanBase 是一种分布式高可用的存储系统，基于此实现的 WAL具备高可用可扩展的能力。
 
 ```
 [analytic.wal_storage]
@@ -166,7 +166,7 @@ timeout = "5s"
 #### 完整配置
 
 * [本地 RocksDB WAL + OSS](./config_local_oss.toml)
-* [OBKV WAL + OSS](./config_obkv_oss.toml)
+* [OceanBase WAL + OSS](./config_obkv_oss.toml)
 * [Kafka WAL + OSS](./todo)
 
 ### 启动实例

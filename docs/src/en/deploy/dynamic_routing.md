@@ -144,10 +144,9 @@ Three types of wal are supported in CeresDB:
 Configuration parameters of wal implemented base on RocksDB refer to [Static Routing](./static_routing.md),
 Similar to using local storage for data persistence, recently written data is lost when server crash.
 
-* OceanBaseKV
+* OceanBase
 
-OceanBaseKV is a distributed, highly available Key-Value storage system provided by OceanBase, 
-and the WAL implemented based on which has high availability and scalability.
+OceanBase is a distributed, highly available storage system, and the WAL on OceanBase has high availability and scalability.
 
 ```
 [analytic.wal_storage]
@@ -187,7 +186,7 @@ timeout = "5s"
 #### Complete Configuration
 
 * [RocksDB WAL + OSS](./config_local_oss.toml)
-* [OBKV WAL + OSS](./config_obkv_oss.toml)
+* [OceanBase WAL + OSS](./config_obkv_oss.toml)
 * [Kafka WAL + OSS](./todo)
 
 ### Start CeresDB Instances
