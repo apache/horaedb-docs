@@ -1,6 +1,6 @@
 # 动态路由部署
 
-本章介绍基于CeresMeta的动态路由部署方式。
+本章介绍基于 CeresMeta 的动态路由部署方式。
 
 ## 部署 CeresMeta
 
@@ -165,13 +165,13 @@ timeout = "5s"
 
 #### 完整配置
 
-* [本地 RocksDB WAL + OSS](./config_local_oss.toml)
-* [OceanBase WAL + OSS](./config_obkv_oss.toml)
+* [本地 RocksDB WAL + OSS](../../resources/config_local_oss.toml)
+* [OceanBase WAL + OSS](../../resources/config_obkv_oss.toml)
 * [Kafka WAL + OSS](./todo)
 
 ### 启动实例
 
-根据实际情况配置完成后便可以启动CeresDB集群了。
+根据实际情况配置完成后便可以启动 CeresDB 集群了。
 
 ```bash
 # Update address of CeresMeta in CeresDB config.

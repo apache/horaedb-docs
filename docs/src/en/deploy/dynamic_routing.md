@@ -185,9 +185,9 @@ timeout = "5s"
 
 #### Complete Configuration
 
-* [RocksDB WAL + OSS](./config_local_oss.toml)
-* [OceanBase WAL + OSS](./config_obkv_oss.toml)
-* [Kafka WAL + OSS](./todo)
+* [RocksDB WAL + OSS](./../../resources/config_local_oss.toml)
+* [OceanBase WAL + OSS](./../../resources/config_obkv_oss.toml)
+* [Kafka WAL + OSS](./../../resources/todo)
 
 ### Start CeresDB Instances
 
