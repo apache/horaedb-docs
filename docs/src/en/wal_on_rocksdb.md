@@ -35,9 +35,9 @@ Here is the defined key format, and the following is introduction for fields in 
 + `version`: for compatibility with old and new formats.
 
 ```text
-+---------------+----------------+-------------------+--------------------+--------------------+
-| namespace(u8) | region_id(u64) |   table_id(u64)   |  sequence_num(u64) | version header(u8) |
-+---------------+----------------+-------------------+--------------------+--------------------+
++---------------+----------------+-------------------+--------------------+-------------+
+| namespace(u8) | region_id(u64) |   table_id(u64)   |  sequence_num(u64) | version(u8) |
++---------------+----------------+-------------------+--------------------+-------------+
 ```
 Here is the defined value format, `version` is the same as the key format, `payload` can be understood as encoded log content.
 
@@ -63,7 +63,7 @@ Here is the defined metadata value format, as you can see, just the `version` an
 +-------------+--------------+
 ```
 ## Main process
-+ Open region: 
++ Open `TableUnit`: 
   + Read the latest log entry of all tables to recover the next sequence numbers of tables mainly.
   + Scan the metadata to recover next sequence num as a supplement (because some table has just triggered flush and no new written logs after this, so no logs exists now).
 + Write to and read from region. Just write and read key-value from RocksDB.
