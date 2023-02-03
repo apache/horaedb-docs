@@ -48,6 +48,7 @@
 
 # Technical and Design
 - [Architecture](architecture.md)
+- [Clustering](clustering.md)
 - [Storage](storage.md)
 - [Query](query.md)
 - [Wal](wal.md)

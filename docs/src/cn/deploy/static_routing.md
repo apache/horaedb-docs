@@ -14,6 +14,7 @@
 
 CeresDB 的基础配置如下 :
 ```toml
+[service]
 bind_addr = "0.0.0.0"
 http_port = 5440
 grpc_port = 8831
@@ -32,6 +33,7 @@ data_path = "/tmp/ceresdb"
 
 实例 `CeresDB_0` 的配置如下：
 ```toml
+[service]
 bind_addr = "0.0.0.0"
 http_port = 5440
 grpc_port = 8831
@@ -48,6 +50,7 @@ data_path = "/tmp/ceresdb_0"
 
 实例 `CeresDB_1` 的配置如下：
 ```toml
+[service]
 bind_addr = "0.0.0.0"
 http_port = 15440
 grpc_port = 18831
@@ -123,6 +126,7 @@ shards = [0, 1]
 `CeresDB_0` 和 `CeresDB_1` 实例完整的配置文件如下 :
 
 ```toml
+[service]
 bind_addr = "0.0.0.0"
 http_port = 5440
 grpc_port = 8831
@@ -173,6 +177,7 @@ shards = [0, 1]
 ```
 
 ```toml
+[service]
 bind_addr = "0.0.0.0"
 http_port = 15440
 grpc_port = 18831
