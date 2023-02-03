@@ -1,0 +1,73 @@
+bind_addr = "0.0.0.0"
+http_port = 5000
+grpc_port = 8831
+log_level = "info"
+deploy_mode = "Cluster"
+
+[runtime]
+read_thread_num = 20
+write_thread_num = 16
+background_thread_num = 12
+
+[cluster.meta_client]
+cluster_name = 'defaultCluster'
+meta_addr = 'http://{CeresMetaAddr}:2379'
+lease = "10s"
+timeout = "5s"
+
+[analytic]
+write_group_worker_num = 16
+replay_batch_size = 100
+max_replay_tables_per_batch = 128
+write_group_command_channel_cap = 1024
+sst_background_read_parallelism = 8
+
+[analytic.manifest]
+scan_batch_size = 100
+snapshot_every_n_updates = 10000
+scan_timeout = "5s"
+store_timeout = "5s"
+
+[analytic.wal_storage]
+type = "Obkv"
+
+[analytic.wal_storage.wal]
+ttl = "365d"
+
+[analytic.wal_storage.manifest]
+ttl = "365d"
+
+[analytic.wal_storage.obkv]
+full_user_name = "xxx"
+param_url = "xxxx"
+password = "xxx"
+
+[analytic.wal_storage.obkv.client]
+sys_user_name = "xxx"
+sys_password = "xxx"
+
+[analytic.storage]
+mem_cache_capacity = "20GB"
+# 1<<8=256
+mem_cache_partition_bits = 8
+disk_cache_path = "/home/admin/data/ceresdb/"
+disk_cache_capacity = '0G'
+disk_cache_page_size = '4M'
+
+[analytic.storage.object_store]
+type = "Aliyun"
+key_id = "key_id"
+key_secret = "key_secret"
+endpoint = "endpoint"
+bucket = "bucket"
+prefix = "data_dir"
+
+[analytic.table_opts]
+arena_block_size = 2097152
+write_buffer_size = 33554432
+
+[analytic.compaction_config]
+schedule_channel_len = 16
+schedule_interval = "30m"
+max_ongoing_tasks = 8
+memory_limit = "4G"

@@ -1,4 +1,4 @@
-# CREATE TABLE
+# DROP TABLE
 
 ## Basic syntax
 

@@ -109,9 +109,92 @@ conversion is required, for example: convert `node-name` to `NODE_NAME`.
 
 ## Deploy CeresDB
 
-You need to replace {project_path} with the actual project path
+### Configuration
+
+#### Persistence Configuration
+
+Two types of storage are supported in CeresDB:
+
+* Local Storage
+
+Configuration parameters of local storage refer to [Static Routing](./static_routing.md),
+notice that data is lost when server crash in this mode.
+
+* OSS 
+
+Aliyun OSS (Object Storage Service) is a cloud storage service provided by Alibaba Cloud.
+The data remains complete even if the CeresDB machine crashes.
 
 ```
+[analytic.storage.object_store]
+type = "Aliyun"
+key_id = "key_id"
+key_secret = "key_secret"
+endpoint = "endpoint"
+bucket = "bucket"
+prefix = "data_dir"
+```
+
+#### WAL Configuration
+ 
+Three types of wal are supported in CeresDB:
+
+* RocksDB
+
+Configuration parameters of wal implemented base on RocksDB refer to [Static Routing](./static_routing.md),
+Similar to using local storage for data persistence, recently written data is lost when server crash.
+
+* OceanBase
+
+OceanBase is a distributed, highly available storage system, and the WAL on OceanBase has high availability and scalability.
+
+```
+[analytic.wal_storage]
+type = "Obkv"
+
+[analytic.wal_storage.wal]
+ttl = "365d"
+
+[analytic.wal_storage.manifest]
+ttl = "365d"
+
+[analytic.wal_storage.obkv]
+full_user_name = "xxx"
+param_url = "xxxx"
+password = "xxx"
+
+[analytic.wal_storage.obkv.client]
+sys_user_name = "xxx"
+sys_password = "xxx"
+
+```
+
+* Kafka
+
+TODO
+
+#### Meta Client Configuration
+
+```
+[cluster.meta_client]
+cluster_name = 'defaultCluster'
+meta_addr = 'http://{CeresMetaAddr}:2379'
+lease = "10s"
+timeout = "5s"
+```
+
+#### Complete Configuration
+
+* [RocksDB WAL + OSS](./../../resources/config_local_oss.toml)
+* [OceanBase WAL + OSS](./../../resources/config_obkv_oss.toml)
+* [Kafka WAL + OSS](./../../resources/todo)
+
+### Start CeresDB Instances
+
+The CeresDB cluster can be started once the configuration is complete.
+You need to replace {project_path} with the actual project path.
+
+```bash
 # Update address of CeresMeta in CeresDB config.
 docker run -d --name ceresdb-server \
   -p 8831:8831 \
