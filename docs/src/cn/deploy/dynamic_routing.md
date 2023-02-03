@@ -165,8 +165,8 @@ timeout = "5s"
 
 #### 完整配置
 
-* [本地 RocksDB WAL + OSS](./config_local_oss)
-* [OBKV WAL + OSS](./config_obkv_oss)
+* [本地 RocksDB WAL + OSS](./config_local_oss.toml)
+* [OBKV WAL + OSS](./config_obkv_oss.toml)
 * [Kafka WAL + OSS](./todo)
 
 ### 启动实例
