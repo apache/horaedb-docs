@@ -150,8 +150,16 @@ sys_password = "xxx"
 ```
 
 * Kafka
+  
+Apache Kafka 是一款成千上万的公司在使用的开源分布式消息队列系统。
 
-TODO
+```
+[analytic.wal_storage]
+type = "Kafka"
+
+[analytic.wal_storage.kafka_config.client_config]
+boost_broker = "xxx"
+```
 
 #### Meta 客户端配置
 
@@ -167,7 +175,7 @@ timeout = "5s"
 
 * [本地 RocksDB WAL + OSS](../../resources/config_local_oss.toml)
 * [OceanBase WAL + OSS](../../resources/config_obkv_oss.toml)
-* [Kafka WAL + OSS](./todo)
+* [Kafka WAL + OSS](../../resources/config_kafka_oss.toml)
 
 ### 启动实例
 
