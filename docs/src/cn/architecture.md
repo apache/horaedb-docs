@@ -74,7 +74,7 @@ SQL层负责解析SQL并生成计划。
 ### Interpreter
 模块路径：https://github.com/CeresDB/ceresdb/tree/main/interpreters
 
-`Interpreter` 模块封装了SQL `CRUD` 操作。实际上，CeresDB收到的sql会被解析，转换成查询计划，然后在一些特定的解释器中执行，例如SelectInterpreter、InsertInterpreter等。 
+`Interpreter` 模块封装了SQL `CRUD` 操作。实际上，CeresDB收到的sql会被解析，转换成查询计划，然后在一些特定的解释器中执行，例如 `SelectInterpreter`、`InsertInterpreter` 等。 
 
 ### Catalog
 模块路径：https://github.com/CeresDB/ceresdb/tree/main/catalog_impls
@@ -115,10 +115,11 @@ SQL层负责解析SQL并生成计划。
 
 CeresDB 处理数据的模型是 `WAL` + `MemTable`，最近写入的数据首先被写入 `WAL`，然后写入 `MemTable`，在 `MemTable` 中累积了一定数量的数据后，该数据将以便于查询的形式被组织并存储在持久化设备上。
 
-目前，为独立模式和分布式模式提供了两种 `WAL` 实现：
+目前，为 `stand-alone` 模式和分布式模式提供了三种 `WAL` 实现：
 
-- 对于独立模式，`WAL` 基于 `RocksDB`，数据存储在本地磁盘上。
-- 对于分布式模式，需要 `WAL` 作为一个分布式组件，负责新写入数据的可靠性，因此，我们现在提供了基于 `OceanBase` 的实现，在我们的路线图中会提供更轻量级的实现。
+- 对于 `stand-alone` 模式，`WAL` 基于 `RocksDB`，数据存储在本地磁盘上。
+- 对于分布式模式，需要 `WAL` 作为一个分布式组件，负责新写入数据的可靠性，因此，我们现在提供了基于 [`OceanBase`](https://github.com/oceanbase/oceanbase) 的实现。
+- 对于分布式模式，除了 [`OceanBase`](https://github.com/oceanbase/oceanbase)， 我们还提供了一个更轻量级的基于[`Apache Kafka`](https://github.com/apache/kafka)实现。
 
 此外，`WAL` 的 trait 定义表明 `WAL` 具有 `Region` 的概念，实际上，每个表都分配给一个 `Region`，以获得表之间的隔离，这种隔离为表级别的某些操作提供了便利（例如，不同表的 `TTL`）
 
