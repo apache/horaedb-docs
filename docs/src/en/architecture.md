@@ -111,7 +111,7 @@ The model of CeresDB processing data is `WAL` + `MemTable` that the recent writt
 
 Now two implementations of `WAL` are provided for stand-alone and distributed mode:
 - For stand-alone mode, `WAL` is based on `RocksDB` and data is persisted on the local disk.
-- For distributed mode, `WAL` is required as a distributed component and to be responsible for reliability of the newly written data, so now we provide an implementation based on [OceanBase](https://github.com/oceanbase/oceanbase).
+- For distributed mode, `WAL` is required as a distributed component and to be responsible for durability of the newly written data, so now we provide an implementation based on [OceanBase](https://github.com/oceanbase/oceanbase).
 - For distributed mode, in addition to [OceanBase](https://github.com/oceanbase/oceanbase), we also provide a more lightweight implementation based on [`Apache Kafka`](https://github.com/apache/kafka).
 
 Besides, `WAL`'s trait definition tells that `WAL` has the concept of `Region` and actually each table is assigned to a `Region` so that the isolation between tables is gained and such an isolation provides convenience for some operations on table's level (such as different `TTL`s for different tables).
