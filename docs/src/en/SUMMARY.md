@@ -50,7 +50,7 @@
 - [Architecture](architecture.md)
 - [Clustering](clustering.md)
 - [Storage](storage.md)
-- [Query](query.md)
+
+[//]: # (- [Query]&#40;query.md&#41;)
 - [Wal](wal.md)
 - [Table Partitioning](table_partitioning.md)
-
