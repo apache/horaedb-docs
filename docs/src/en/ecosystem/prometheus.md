@@ -17,6 +17,6 @@ remote_read:
 
 Each metric will be converted to one table in CeresDB:
 
-- labels are mapped to corresponding string tag column
+- labels are mapped to corresponding `string` tag column
 - timestamp of sample is mapped to a timestamp `timestmap` column
 - value of sample is mapped to a double `value` column

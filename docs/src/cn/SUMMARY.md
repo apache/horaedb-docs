@@ -39,6 +39,8 @@
   - [System Table](operation/system_table.md)
   - [黑名单](operation/block_list.md)
   - [监控](operation/observability.md)
+- [周边生态](ecosystem/README.md)
+  - [Prometheus](ecosystem/prometheus.md)
 
 # 开发者手册
 
