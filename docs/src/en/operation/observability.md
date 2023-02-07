@@ -18,9 +18,9 @@ global:
 scrape_configs:
   - job_name: ceresdb-server
     static_configs:
-    - targets: [your_ip:5440, your_ip:5441]
-      labels:
-        env: ceresdbcluster
+      - targets: [your_ip:5440, your_ip:5441]
+        labels:
+          env: ceresdbcluster
 ```
 
 See details about configuration [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).
@@ -36,6 +36,7 @@ docker run \
     -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml \
     prom/prometheus:v2.41.0
 ```
+
 For more detailed installation methods, refer to [here](https://prometheus.io/docs/prometheus/latest/installation/).
 
 ## Grafana
@@ -81,16 +82,17 @@ After importing the dashboard, you will see the following page:
 <img src="../../resources/images/grafana-ceresdb-dashboard.png" height="400" width="600"/>
 
 ### Panels
-* tps: Number of cluster write requests.
-* qps: Number of cluster query requests.
-* 99th query/write duration: 99th quantile of write and query duration.
-* query by table: Query group by table.
-* 99th write duration details by instance: 99th quantile of write duration group by instance.
-* 99th query duration details by instance: 99th quantile of query duration group by instance.
-* 99th write partition table duration: 99th quantile of write duration of partition table.
-* rows by table: The rows of data written to each table.
-* table rows by instance: The written rows by instance.
-* total tables to write: Number of tables with data written.
-* flush count: Number of ceresdb flush.
-* 99th flush duration details by instance: 99th quantile of flush duration group by instance.
-* 99th write stall duration details by instance: 99th quantile of write stall duration group by instance.
+
+- tps: Number of cluster write requests.
+- qps: Number of cluster query requests.
+- 99th query/write duration: 99th quantile of write and query duration.
+- query by table: Query group by table.
+- 99th write duration details by instance: 99th quantile of write duration group by instance.
+- 99th query duration details by instance: 99th quantile of query duration group by instance.
+- 99th write partition table duration: 99th quantile of write duration of partition table.
+- rows by table: The rows of data written to each table.
+- table rows by instance: The written rows by instance.
+- total tables to write: Number of tables with data written.
+- flush count: Number of ceresdb flush.
+- 99th flush duration details by instance: 99th quantile of flush duration group by instance.
+- 99th write stall duration details by instance: 99th quantile of write stall duration group by instance.

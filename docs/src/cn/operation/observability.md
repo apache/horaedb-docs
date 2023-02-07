@@ -18,9 +18,9 @@ global:
 scrape_configs:
   - job_name: ceresdb-server
     static_configs:
-    - targets: [your_ip:5440, your_ip:5441]
-      labels:
-        env: ceresdbcluster
+      - targets: [your_ip:5440, your_ip:5441]
+        labels:
+          env: ceresdbcluster
 ```
 
 Prometheus 详细配置见[这里](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)。
@@ -61,7 +61,7 @@ docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
 
 1. 将光标悬停在配置（齿轮）图标上。
 2. 选择数据源。
-3. 选择Prometheus数据源。
+3. 选择 Prometheus 数据源。
 
 注意: Prometheus 的 url 需要填写成这样 `http://your_ip:9090`, your_ip 换成本地地址。
 
@@ -82,16 +82,17 @@ docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
 <img src="../../resources/images/grafana-ceresdb-dashboard.png" height="400" width="600"/>
 
 ### Panels
-* tps: 集群写入请求数。
-* qps: 集群查询请求数。
-* 99th query/write duration: 查询写入的 99% 分位数。
-* query by table: 表级别的查询请求数。
-* 99th write duration details by instance: 写入耗时的 99% 分位数。
-* 99th query duration details by instance: 查询耗时的 99% 分位数。
-* 99th write partition table duration: 分区表查询耗时的 99% 分位数。
-* rows by table: 表级别的写入行数。
-* table rows by instance: 实例级别的写入行数。
-* total tables to write: 有数据写入的表数目。
-* flush count: ceresdb flush 的次数。
-* 99th flush duration details by instance: 实例级别的 flush 耗时的 99% 分位数。
-* 99th write stall duration details by instance: 实例级别的写入停顿时间的 99% 分位数 。
+
+- tps: 集群写入请求数。
+- qps: 集群查询请求数。
+- 99th query/write duration: 查询写入的 99% 分位数。
+- query by table: 表级别的查询请求数。
+- 99th write duration details by instance: 写入耗时的 99% 分位数。
+- 99th query duration details by instance: 查询耗时的 99% 分位数。
+- 99th write partition table duration: 分区表查询耗时的 99% 分位数。
+- rows by table: 表级别的写入行数。
+- table rows by instance: 实例级别的写入行数。
+- total tables to write: 有数据写入的表数目。
+- flush count: ceresdb flush 的次数。
+- 99th flush duration details by instance: 实例级别的 flush 耗时的 99% 分位数。
+- 99th write stall duration details by instance: 实例级别的写入停顿时间的 99% 分位数 。

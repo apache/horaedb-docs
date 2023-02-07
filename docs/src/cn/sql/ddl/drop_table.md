@@ -3,6 +3,7 @@
 ## 基础语法
 
 删除表的基础语法如下:
+
 ```sql
 DROP TABLE [IF EXIST] table_name
 ```

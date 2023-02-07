@@ -9,6 +9,7 @@ SHOW CREATE TABLE table_name;
 ```
 
 `SHOW CREATE TABLE` 返回指定表的当前版本的创建语句，包括列定义、表引擎和参数选项等。例如：
+
 ```sql
 -- create one table
 CREATE TABLE `t` (a bigint, b int default 3, c string default 'x', d smallint null, t timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE = Analytic;
@@ -58,6 +59,7 @@ DESCRIBE TABLE `t`;
 ```
 
 返回结果如下 :
+
 ```
 name    type        is_primary  is_nullable is_tag
 

@@ -1,14 +1,16 @@
 # Table Operation
 
 ## Query Table Information
+
 Like Mysql's `information_schema.tables`, CeresDB provides `system.public.tables` to save tables information.
 Columns:
-* timestamp([TimeStamp])
-* catalog([String])
-* schema([String])
-* table_name([String])
-* table_id([Uint64])
-* engine([String])
+
+- timestamp([TimeStamp])
+- catalog([String])
+- schema([String])
+- table_name([String])
+- table_id([Uint64])
+- engine([String])
 
 ### Example
 
@@ -22,7 +24,9 @@ curl --location --request POST 'http://localhost:5000/sql' \
     "query": "select * from system.public.tables where `table_name`=\"my_table\""
 }'
 ```
+
 ### Response
+
 ```json
 {
     "rows":[

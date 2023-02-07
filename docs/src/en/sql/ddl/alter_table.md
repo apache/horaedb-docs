@@ -11,6 +11,7 @@ ALTER TABLE `t` ADD COLUMN (b string);
 ```
 
 It now becomes
+
 ```
 -- DESCRIBE TABLE `t`;
 

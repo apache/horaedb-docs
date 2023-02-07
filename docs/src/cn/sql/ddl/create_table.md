@@ -3,10 +3,11 @@
 ## 基础语法
 
 建表的基础语法如下 ( `[]` 之间的内容是可选部分):
+
 ```sql
-CREATE TABLE [IF NOT EXIST] 
-    table_name ( column_definitions ) 
-    ENGINE = engine_type 
+CREATE TABLE [IF NOT EXIST]
+    table_name ( column_definitions )
+    ENGINE = engine_type
     [WITH ( table_options )];
 ```
 
@@ -31,7 +32,6 @@ column_name column_type [[NOT] NULL] {[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]}
 一个列的定义至少应该包含名称和类型部分，支持的类型见 [这里](../model/data_types.md)。
 
 列默认为可空，即 "NULL " 关键字是隐含的；添加 `NOT NULL` 时列不可为空。
-
 
 ```sql
 -- this definition
