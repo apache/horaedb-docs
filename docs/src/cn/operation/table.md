@@ -5,6 +5,7 @@ CeresDB 支持标准的 SQL，用户可以使用 Http 协议创建表和读写�
 ## 创建表
 
 示例如下
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
@@ -16,6 +17,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ## 写数据
 
 示例如下
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
@@ -27,6 +29,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ## 读数据
 
 示例如下
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
@@ -38,6 +41,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ## 查询表信息
 
 示例如下
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
@@ -49,6 +53,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ### Drop 表
 
 示例如下
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \

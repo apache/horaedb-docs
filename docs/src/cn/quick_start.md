@@ -1,4 +1,5 @@
 # 快速开始
+
 本章介绍如何快速启动 CeresDB。在这里你将会学到启动一个单机模式的 CeresDB，然后使用 SQL 写入一些数据并查询查询处理。
 
 ## 启动
@@ -6,6 +7,7 @@
 使用 [CeresDB docker 镜像](https://hub.docker.com/r/ceresdb/ceresdb-server) 是一种最简单的启动方式；如果你还没有一个安装 Docker，请首先参考 [这里](https://www.docker.com/products/docker-desktop/) 安装 Docker.
 
 使用如下命令安装并启动一个单机版 CeresDB。
+
 ```bash
 docker run -d --name ceresdb-server \
   -p 8831:8831 \
@@ -15,6 +17,7 @@ docker run -d --name ceresdb-server \
 ```
 
 启动后 CeresDB 会监听如下端口 :
+
 - 8831, gRPC port
 - 3307, MySQL port
 - 5440, HTTP port
@@ -24,6 +27,7 @@ docker run -d --name ceresdb-server \
 ## 写入和查询数据
 
 ### 建表
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -39,6 +43,7 @@ ENGINE=Analytic
 ```
 
 ### 写数据
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -48,6 +53,7 @@ INSERT INTO demo (t, name, value)
 ```
 
 ### 查询
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -59,6 +65,7 @@ FROM
 ```
 
 ### 展示建表语句
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -67,6 +74,7 @@ SHOW CREATE TABLE `demo`
 ```
 
 ### 删除表
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -81,6 +89,7 @@ DROP TABLE `demo`
 ## 下一步
 
 恭喜你，你已经学习了 CeresDB 的简单使用。关于 CeresDB 的更多信息，请参见以下内容。
+
 - [SQL 语法](sql/README.md)
 - [部署文档](deploy/README.md)
 - [运维文档](operation/README.md)

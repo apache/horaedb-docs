@@ -58,6 +58,7 @@ DESCRIBE TABLE `t`;
 ```
 
 The result is:
+
 ```
 name    type        is_primary  is_nullable is_tag
 

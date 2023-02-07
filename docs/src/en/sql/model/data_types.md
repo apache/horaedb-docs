@@ -6,7 +6,7 @@ The following table lists the mapping relationship between MySQL and CeresDB.
 ## Support Data Type(case-insensitive)
 
 | SQL            | CeresDB   |
-|----------------|-----------|
+| -------------- | --------- |
 | null           | Null      |
 | timestamp      | Timestamp |
 | double         | Double    |

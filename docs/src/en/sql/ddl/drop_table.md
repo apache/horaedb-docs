@@ -3,6 +3,7 @@
 ## Basic syntax
 
 Basic syntax:
+
 ```sql
 DROP TABLE [IF EXIST] table_name
 ```

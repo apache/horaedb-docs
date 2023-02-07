@@ -5,11 +5,11 @@ Options below can be used when create table for analytic engine
 - `enable_ttl`, `bool`. When enable TTL on a table, rows older than `ttl` will be deleted and can't be querid, default `true`
 - `ttl`, `duration`, lifetime of a row, only used when `enable_ttl` is `true`. default `7d`.
 - `storage_format`, `string`. The underlying column's format. Availiable values:
+
   - `columnar`, default
   - `hybrid`
 
   The meaning of those two values are in [Storage format](#storage-format) section.
-
 
 ## Storage Format
 
@@ -31,15 +31,13 @@ The other one is `hybrid`, an experimental format used to simulate row-oriented 
 
 In traditional time-series user cases like IoT or DevOps, queries will typically first group their result by series id(or device id), then by timestamp. In order to achieve good performance in those scenarios, the data physical layout should match this style, so the `hybrid` format is proposed like this:
 
-
 ```plaintext
  | Device ID | Timestamp           | Status Code | Tag 1 | Tag 2 | minTime | maxTime |
  |-----------|---------------------|-------------|-------|-------|---------|---------|
  | A         | [12:01,12:02,12:03] | [0,0,0]     | v1    | v1    | 12:01   | 12:03   |
  | B         | [12:01,12:02,12:03] | [0,1,0]     | v2    | v2    | 12:01   | 12:03   |
  | ...       |                     |             |       |       |         |         |
- ```
-
+```
 
 - Within one file, rows belonging to the same primary key(eg: series/device id) are collapsed into one row
 - The columns besides primary key are divided into two categories:
@@ -65,6 +63,7 @@ CREATE TABLE `device` (
     storage_format = 'hybrid'
 );
 ```
+
 This will create a table with hybrid format, users can inspect data format with [parquet-tools](https://formulae.brew.sh/formula/parquet-tools). The table above should have following parquet schema:
 
 ```
