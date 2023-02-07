@@ -151,7 +151,7 @@ sys_password = "xxx"
 
 * Kafka
   
-Apache Kafka 是一款成千上万的公司在使用的开源分布式消息队列系统。
+Apache Kafka 是一款业界常用的开源分布式消息队列系统。
 
 ```
 [analytic.wal_storage]
