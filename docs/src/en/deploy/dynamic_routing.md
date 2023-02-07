@@ -208,12 +208,12 @@ docker run -d --name ceresdb-server \
   -p 3307:3307 \
   -p 5440:5440 \
   -v {project_path}/docs/example-cluster-0.toml:/etc/ceresdb/ceresdb.toml \
-  ceresdb/ceresdb-server:v0.3.1
+  ceresdb/ceresdb-server
 
 docker run -d --name ceresdb-server2 \
   -p 8832:8832 \
   -p 13307:13307 \
   -p 5441:5441 \
   -v {project_path}/docs/example-cluster-1.toml:/etc/ceresdb/ceresdb.toml \
-  ceresdb/ceresdb-server:v0.3.1
+  ceresdb/ceresdb-server
 ```

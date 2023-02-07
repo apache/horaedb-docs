@@ -13,7 +13,7 @@ docker run -d --name ceresdb-server \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \
-  ceresdb/ceresdb-server:v0.3.1
+  ceresdb/ceresdb-server
 ```
 
 启动后 CeresDB 会监听如下端口 :
