@@ -6,11 +6,8 @@ on:
     branches:
       - main
     paths:
-      - 'docs/**'
-      - '.github/workflows/deploy-docs.yml'
-
-env:
-  MDBOOK_VERSION: v0.4.20
+      - "docs/**"
+      - ".github/workflows/deploy-docs.yml"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -30,6 +27,12 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Cache Rust Dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo
+          key: docs-${{ runner.os }}
       - name: Install mdbook
         run: |
           make install
