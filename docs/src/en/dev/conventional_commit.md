@@ -5,6 +5,7 @@ This document describes how we use [conventional commit](https://www.conventiona
 # Structure
 
 We would like to structure our commit message like this:
+
 ```
 <type>[optional scope]: <description>
 ```

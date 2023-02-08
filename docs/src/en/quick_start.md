@@ -7,6 +7,7 @@ This page shows you how to get started with CeresDB quickly. You'll start a stan
 [CeresDB docker image](https://hub.docker.com/r/ceresdb/ceresdb-server) is the easiest way to get started, if you haven't installed Docker, go [there](https://www.docker.com/products/docker-desktop/) to install it first.
 
 You can use command below to start a standalone server
+
 ```bash
 docker run -d --name ceresdb-server \
   -p 8831:8831 \
@@ -16,6 +17,7 @@ docker run -d --name ceresdb-server \
 ```
 
 CeresDB will listen three ports when start:
+
 - 8831, gRPC port
 - 3307, MySQL port
 - 5440, HTTP port
@@ -25,6 +27,7 @@ The easiest to use is HTTP, so sections below will use it for demo. For producti
 ## Write and read data
 
 ### Create table
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -40,6 +43,7 @@ ENGINE=Analytic
 ```
 
 ### Write data
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -49,6 +53,7 @@ INSERT INTO demo (t, name, value)
 ```
 
 ### Read data
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -60,6 +65,7 @@ FROM
 ```
 
 ### Show create table
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -68,6 +74,7 @@ SHOW CREATE TABLE `demo`
 ```
 
 ### Drop table
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 --data-raw '
@@ -82,6 +89,7 @@ See [sdk](./sdk.md)
 ## Next Step
 
 Congrats, you have finished this tutorial. For more information about CeresDB, see the following:
+
 - [SQL Syntax](sql/README.md)
 - [Deployment](deploy/README.md)
 - [Operation](operation/README.md)

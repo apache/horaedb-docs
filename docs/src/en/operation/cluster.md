@@ -1,10 +1,13 @@
 # Cluster Operation
+
 The Operations for CeresDB cluster mode, it can only be used when CeresMeta is deployed.
 
 ## Operation Interface
+
 You need to replace {CeresMetaAddr} with the actual project path, if you are start CeresMeta in localhost, You can directly replace it with `127.0.0.1`.
 
-* Query the route of table
+- Query the route of table
+
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/route' \
 --header 'Content-Type: application/json' \
@@ -14,7 +17,9 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/route' \
     "table":["demo"]
 }'
 ```
-* Query the mapping of shard and node
+
+- Query the mapping of shard and node
+
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getNodeShards' \
 --header 'Content-Type: application/json' \
@@ -22,7 +27,9 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getNodeShards
     "ClusterName":"defaultCluster"
 }'
 ```
-* Query the mapping of table and shard
+
+- Query the mapping of table and shard
+
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getShardTables' \
 --header 'Content-Type: application/json' \
@@ -32,7 +39,9 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getShardTable
     "shardIDs": [1,2]
 }'
 ```
-* Drop table
+
+- Drop table
+
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/dropTable' \
 --header 'Content-Type: application/json' \
@@ -42,7 +51,9 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/dropTable' \
     "table": "demo"
 }'
 ```
-* Transfer leader shard
+
+- Transfer leader shard
+
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/transferLeader' \
 --header 'Content-Type: application/json' \
@@ -53,7 +64,9 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/transferLeade
     "newLeaderNodeName": "127.0.0.1:18831"
 }'
 ```
-* Split shard
+
+- Split shard
+
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/split' \
 --header 'Content-Type: application/json' \
@@ -65,4 +78,3 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/split' \
     "splitTables":["demo"]
 }'
 ```
-

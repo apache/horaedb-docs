@@ -6,7 +6,6 @@
 [![Slack](https://badgen.net/badge/Slack/Join%20CeresDB/0abd59?icon=slack)](https://join.slack.com/t/ceresdbcommunity/shared_invite/zt-1dcbv8yq8-Fv8aVUb6ODTL7kxbzs9fnA)
 [![Docker](https://img.shields.io/docker/v/ceresdb/ceresdb-server?logo=docker)](https://hub.docker.com/r/ceresdb/ceresdb-server)
 
-
 CeresDB is a timeseries database that aims to handle both timeseries and analytic workloads efficiently.
 
 # Motivation
@@ -15,6 +14,7 @@ In the classic timeseries database, the `Tag` columns (InfluxDB calls them `Tag`
 The basic design idea of CeresDB is to adopt a hybrid storage format and the corresponding query method for a better performance in processing both timeseries and analytic workloads.
 
 # How does CeresDB work?
+
 - See [Quick Start](quick_start.md) to learn about how to get started
 - For data model of CeresDB, see [Data Model](sql/model)
 - For the supported SQL data types, operators, and commands, please navigate to [SQL reference](sql)

@@ -18,9 +18,9 @@ with `unsafe` code.
 
 We may consider taking unsafe code given:
 
-* performance benchmarks showing a *very* compelling improvement 
-* a compelling explanation of why the same performance can not be achieved using `safe` code
-* tests showing how it works safely across threads
+- performance benchmarks showing a _very_ compelling improvement
+- a compelling explanation of why the same performance can not be achieved using `safe` code
+- tests showing how it works safely across threads
 
 ### Avoid platform-specific conditional compilation `cfg`
 
@@ -34,10 +34,10 @@ While some performance critical code may require architecture specific instructi
 
 ### All errors should follow the [SNAFU crate philosophy](https://docs.rs/snafu/0.6.10/snafu/guide/philosophy/index.html) and use SNAFU functionality
 
-*Good*:
+_Good_:
 
-* Derives `Snafu` and `Debug` functionality
-* Has a useful, end-user-friendly display message
+- Derives `Snafu` and `Debug` functionality
+- Has a useful, end-user-friendly display message
 
 ```rust
 #[derive(Snafu, Debug)]
@@ -48,7 +48,7 @@ pub enum Error {
 }
 ```
 
-*Bad*:
+_Bad_:
 
 ```rust
 pub enum Error {
@@ -58,16 +58,16 @@ pub enum Error {
 
 ### Use the `ensure!` macro to check a condition and return an error
 
-*Good*:
+_Good_:
 
-* Reads more like an `assert!`
-* Is more concise
+- Reads more like an `assert!`
+- Is more concise
 
 ```rust
 ensure!(!self.schema_sample.is_empty(), NeedsAtLeastOneLine);
 ```
 
-*Bad*:
+_Bad_:
 
 ```rust
 if self.schema_sample.is_empty() {
@@ -77,10 +77,10 @@ if self.schema_sample.is_empty() {
 
 ### Errors should be defined in the module they are instantiated
 
-*Good*:
+_Good_:
 
-* Groups related error conditions together most closely with the code that produces them
-* Reduces the need to `match` on unrelated errors that would never happen
+- Groups related error conditions together most closely with the code that produces them
+- Reduces the need to `match` on unrelated errors that would never happen
 
 ```rust
 #[derive(Debug, Snafu)]
@@ -94,7 +94,7 @@ ensure!(foo.is_implemented(), NotImplemented {
 }
 ```
 
-*Bad*:
+_Bad_:
 
 ```rust
 use crate::errors::NotImplemented;
@@ -106,9 +106,9 @@ ensure!(foo.is_implemented(), NotImplemented {
 
 ### The `Result` type alias should be defined in each module
 
-*Good*:
+_Good_:
 
-* Reduces repetition
+- Reduces repetition
 
 ```rust
 pub type Result<T, E = Error> = std::result::Result<T, E>;
@@ -116,7 +116,7 @@ pub type Result<T, E = Error> = std::result::Result<T, E>;
 fn foo() -> Result<bool> { true }
 ```
 
-*Bad*:
+_Bad_:
 
 ```rust
 ...
@@ -125,7 +125,7 @@ fn foo() -> Result<bool, Error> { true }
 
 ### `Err` variants should be returned with `fail()`
 
-*Good*:
+_Good_:
 
 ```rust
 return NotImplemented {
@@ -133,7 +133,7 @@ return NotImplemented {
 }.fail();
 ```
 
-*Bad*:
+_Bad_:
 
 ```rust
 return Err(Error::NotImplemented {
@@ -143,9 +143,9 @@ return Err(Error::NotImplemented {
 
 ### Use `context` to wrap underlying errors into module specific errors
 
-*Good*:
+_Good_:
 
-* Reduces boilerplate
+- Reduces boilerplate
 
 ```rust
 input_reader
@@ -155,7 +155,7 @@ input_reader
     })?;
 ```
 
-*Bad*:
+_Bad_:
 
 ```rust
 input_reader
@@ -166,7 +166,7 @@ input_reader
     })?;
 ```
 
-*Hint for `Box<dyn::std::error::Error>` in Snafu*:
+_Hint for `Box<dyn::std::error::Error>` in Snafu_:
 
 If your error contains a trait object (e.g. `Box<dyn std::error::Error + Send + Sync>`), in order
 to use `context()` you need to wrap the error in a `Box`:
@@ -210,7 +210,7 @@ error[E0271]: type mismatch resolving `<ListingPartitions as IntoError<influxrpc
 
 Specific error types are preferred over a generic error with a `message` or `kind` field.
 
-*Good*:
+_Good_:
 
 - Makes it easier to track down the offending code based on a specific failure
 - Reduces the size of the error enum (`String` is 3x 64-bit vs no space)
@@ -233,7 +233,7 @@ write_lines.context(UnableToWriteGoodLines)?;
 close_writer.context(UnableToCloseTableWriter))?;
 ```
 
-*Bad*:
+_Bad_:
 
 ```rust
 pub enum Error {
@@ -261,7 +261,7 @@ function body and an `Err` value is returned, the test failure message is not pa
 Therefore, prefer not having a return type for test functions and instead using `expect` or
 `unwrap` in test function bodies.
 
-*Good*:
+_Good_:
 
 ```rust
 #[test]
@@ -277,7 +277,7 @@ fn google_cloud() {
 }
 ```
 
-*Bad*:
+_Bad_:
 
 ```rust
 type TestError = Box<dyn std::error::Error + Send + Sync + 'static>;
@@ -298,4 +298,5 @@ fn google_cloud() -> Result<()> {
 ```
 
 ## Thanks
+
 Fork from [influxdb_iox](https://github.com/influxdata/influxdb_iox/blob/main/docs/style_guide.md).

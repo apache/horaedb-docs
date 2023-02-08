@@ -2,10 +2,10 @@
 
 CeresDB supports standard SQL protocols and allows you to create tables and read/write data via http requests. More [SQL](../sql/README.md)
 
-
 ## Create Table
 
 ### Example
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
@@ -17,6 +17,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ## Write Data
 
 ### Example
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
@@ -28,6 +29,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ## Read Data
 
 ### Example
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
@@ -39,6 +41,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ## Query Table Info
 
 ### Example
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
@@ -50,6 +53,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ### Drop Table
 
 ### Example
+
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \

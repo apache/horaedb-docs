@@ -1,6 +1,7 @@
 # Storage
 
 The storage engine mainly provides the following two functions：
+
 1. Persistence of data
 2. Under the premise of ensuring the correctness of the data, organize the data in the most reasonable way to meet the query needs of different scenarios.
 
@@ -17,15 +18,17 @@ Data between different servers is isolated from each other and does not affect e
 ## Write Ahead Log (WAL)
 
 A write request will be written to
+
 1. memtable in memory
 2. WAL in durable storage
 
 Since memtable is not persisted to the underlying storage system in real time, so WAL is required to ensure the reliability of the data in memtable.
 
 On the other hand, due to the design of the distributed architecture, WAL itself is required to be highly available. Now there are following implementations in CeresDB:
--  Local disk (based on [RocksDB](http://rocksdb.org/), no distributed high availability)
--  [OceanBase](https://www.oceanbase.com)
--  Kafka
+
+- Local disk (based on [RocksDB](http://rocksdb.org/), no distributed high availability)
+- [OceanBase](https://www.oceanbase.com)
+- Kafka
 
 ## Memtable
 
@@ -57,6 +60,7 @@ The current compaction strategy in CeresDB reference Cassandra:
 Manifest records metadata of table, SST file, such as: the minimum and maximum timestamps of the data in an SST.
 
 Due to the design of the distributed architecture, the manifest itself is required to be highly available. Now in CeresDB, there are mainly the following implementations：
+
 - WAL
 - ObjectStore
 

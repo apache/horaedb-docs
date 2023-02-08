@@ -5,13 +5,13 @@
 类似于 Mysql's `information_schema.tables`, CeresDB 提供 `system.public.tables` 存储表信息。
 
 `system.public.tables` 表的列如下 :
-* timestamp([TimeStamp])
-* catalog([String])
-* schema([String])
-* table_name([String])
-* table_id([Uint64])
-* engine([String])
 
+- timestamp([TimeStamp])
+- catalog([String])
+- schema([String])
+- table_name([String])
+- table_id([Uint64])
+- engine([String])
 
 通过表名查询表信息示例如下：
 
@@ -23,7 +23,9 @@ curl --location --request POST 'http://localhost:5000/sql' \
     "query": "select * from system.public.tables where `table_name`=\"my_table\""
 }'
 ```
+
 返回结果
+
 ```json
 {
     "rows":[

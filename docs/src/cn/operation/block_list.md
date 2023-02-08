@@ -1,9 +1,11 @@
 # 黑名单
 
 ## 增加黑名单
+
 如果你想限制某个表的查询，可以把表名加到 `read_block_list` 中。
 
 示例如下：
+
 ```shell
 curl --location --request POST 'http://localhost:5000/block' \
 --header 'Content-Type: application/json' \
@@ -18,12 +20,8 @@ curl --location --request POST 'http://localhost:5000/block' \
 
 ```json
 {
-  "write_block_list":[
-
-  ],
-  "read_block_list":[
-    "my_table"
-  ]
+  "write_block_list": [],
+  "read_block_list": ["my_table"]
 }
 ```
 
@@ -32,6 +30,7 @@ curl --location --request POST 'http://localhost:5000/block' \
 设置黑名单的操作首先会清理已有的列表，然后再把新的表设置进去。
 
 示例如下：
+
 ```shell
 curl --location --request POST 'http://localhost:5000/block' \
 --header 'Content-Type: application/json' \
@@ -46,13 +45,8 @@ curl --location --request POST 'http://localhost:5000/block' \
 
 ```json
 {
-  "write_block_list":[
-
-  ],
-  "read_block_list":[
-    "my_table1",
-    "my_table2"
-  ]
+  "write_block_list": [],
+  "read_block_list": ["my_table1", "my_table2"]
 }
 ```
 
@@ -74,11 +68,7 @@ curl --location --request POST 'http://localhost:5000/block' \
 
 ```json
 {
-  "write_block_list":[
-
-  ],
-  "read_block_list":[
-    "my_table2"
-  ]
+  "write_block_list": [],
+  "read_block_list": ["my_table2"]
 }
 ```

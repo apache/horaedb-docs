@@ -1,9 +1,10 @@
 # Special Columns
 
 Tables in CeresDB have the following constraints:
-* Primary key is required
-* The primary key must contain a time column, and can only contain one time column
-* The primary key must be non-null, so all columns in primary key must be non-null.
+
+- Primary key is required
+- The primary key must contain a time column, and can only contain one time column
+- The primary key must be non-null, so all columns in primary key must be non-null.
 
 ## Timestamp Column
 
@@ -18,13 +19,14 @@ The timestamp column can be set with `timestamp key` keyword, like `TIMESTAMP KE
 
 The primary key is used for data deduplication and sorting. The primary key is composed of some columns and one time column.
 The primary key can be set in the following some ways：
-* use `primary key` keyword
-* use `tag` to auto generate TSID, CeresDB will use `(TSID,timestamp)` as primary key
-* only set Timestamp column, CeresDB will use `(timestamp)` as primary key
+
+- use `primary key` keyword
+- use `tag` to auto generate TSID, CeresDB will use `(TSID,timestamp)` as primary key
+- only set Timestamp column, CeresDB will use `(timestamp)` as primary key
 
 Notice: If the primary key and tag are specified at the same time, then the tag column is just an additional information identification and will not affect the logic.
 
-``` sql
+```sql
 CREATE TABLE with_primary_key(
   ts TIMESTAMP NOT NULL,
   c1 STRING NOT NULL,
@@ -34,7 +36,7 @@ CREATE TABLE with_primary_key(
   TIMESTAMP KEY(ts),
   PRIMARY KEY(c1, ts)
 ) ENGINE=Analytic WITH (ttl='7d');
-  
+
 CREATE TABLE with_tag(
     ts TIMESTAMP NOT NULL,
     c1 STRING TAG NOT NULL,
@@ -60,7 +62,5 @@ CREATE TABLE with_timestamp(
 
 ## TSID
 
-If `primary key`is not set, and tag columns is provided, TSID will auto generated from hash of tag columns. 
+If `primary key`is not set, and tag columns is provided, TSID will auto generated from hash of tag columns.
 In essence, this is also a mechanism for automatically generating id.
-
-

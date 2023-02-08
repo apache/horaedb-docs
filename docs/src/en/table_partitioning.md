@@ -17,17 +17,17 @@ Currently designed, a partition table can be opened on multiple CeresDB nodes, s
 As shown in the figure below, `PartitionTable` is opened on node0 and node1, and the physical subtables where the actual data are stored on node2 and node3.
 
 ```
-                        ┌───────────────────────┐      ┌───────────────────────┐                         
-                        │Node0                  │      │Node1                  │                         
-                        │   ┌────────────────┐  │      │  ┌────────────────┐   │                         
-                        │   │ PartitionTable │  │      │  │ PartitionTable │   │                         
-                        │   └────────────────┘  │      │  └────────────────┘   │                         
-                        │            │          │      │           │           │                         
-                        └────────────┼──────────┘      └───────────┼───────────┘                         
-                                     │                             │                                     
-                                     │                             │                                     
-             ┌───────────────────────┼─────────────────────────────┼───────────────────────┐             
-             │                       │                             │                       │             
+                        ┌───────────────────────┐      ┌───────────────────────┐
+                        │Node0                  │      │Node1                  │
+                        │   ┌────────────────┐  │      │  ┌────────────────┐   │
+                        │   │ PartitionTable │  │      │  │ PartitionTable │   │
+                        │   └────────────────┘  │      │  └────────────────┘   │
+                        │            │          │      │           │           │
+                        └────────────┼──────────┘      └───────────┼───────────┘
+                                     │                             │
+                                     │                             │
+             ┌───────────────────────┼─────────────────────────────┼───────────────────────┐
+             │                       │                             │                       │
 ┌────────────┼───────────────────────┼─────────────┐ ┌─────────────┼───────────────────────┼────────────┐
 │Node2       │                       │             │ │Node3        │                       │            │
 │            ▼                       ▼             │ │             ▼                       ▼            │
@@ -46,17 +46,17 @@ As shown in the figure below, `PartitionTable` is opened on node0 and node1, and
 
 Use restrictions:
 
-* Only tag column is supported as partition key.
-* `LINEAR KEY` is not supported yet.
+- Only tag column is supported as partition key.
+- `LINEAR KEY` is not supported yet.
 
 The table creation statement for the key partitioning is as follows:
 
 ```sql
 CREATE TABLE `demo`(
     `name`string TAG,
-    `id` int TAG, 
-    `value` double NOT NULL, 
-    `t` timestamp NOT NULL, 
+    `id` int TAG,
+    `value` double NOT NULL,
+    `t` timestamp NOT NULL,
     TIMESTAMP KEY(t)
     ) PARTITION BY KEY(name) PARTITIONS 2 ENGINE = Analytic
 ```
@@ -71,26 +71,26 @@ The query will calculate the physical table to be queried according to the query
 
 The implementation of the partition table is in [PartitionTableImpl](https://github.com/CeresDB/ceresdb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/analytic_engine/src/table/partition.rs).
 
-* Step 1: Parse query sql and calculate the physical table to be queried according to the query parameters.
-* Step 2: Query data of physical table.
-* Step 3: Compute with the raw data.
+- Step 1: Parse query sql and calculate the physical table to be queried according to the query parameters.
+- Step 2: Query data of physical table.
+- Step 3: Compute with the raw data.
 
 ```
-                       │                       
-                     1 │                       
-                       │                       
-                       ▼                       
-               ┌───────────────┐               
-               │Node0          │               
-               │               │               
-               │               │               
-               └───────────────┘               
-                       ┬                       
-                2      │       2               
-        ┌──────────────┴──────────────┐        
-        │              ▲              │        
-        │       3      │       3      │        
-        ▼ ─────────────┴───────────── ▼        
+                       │
+                     1 │
+                       │
+                       ▼
+               ┌───────────────┐
+               │Node0          │
+               │               │
+               │               │
+               └───────────────┘
+                       ┬
+                2      │       2
+        ┌──────────────┴──────────────┐
+        │              ▲              │
+        │       3      │       3      │
+        ▼ ─────────────┴───────────── ▼
 ┌───────────────┐             ┌───────────────┐
 │Node1          │             │Node2          │
 │               │             │               │
@@ -100,8 +100,8 @@ The implementation of the partition table is in [PartitionTableImpl](https://git
 
 ### Key partitioning
 
-* Filters like `and`, `or`, `in`, `=` will choose specific SubTables.
-* Fuzzy matching filters like `<`, `>` are also supported, but may have poor performance since it will scan all physical tables.
+- Filters like `and`, `or`, `in`, `=` will choose specific SubTables.
+- Fuzzy matching filters like `<`, `>` are also supported, but may have poor performance since it will scan all physical tables.
 
 `Key partitioning` rule is implemented in [KeyRule](https://github.com/CeresDB/ceresdb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/table_engine/src/partition/rule/key.rs).
 
