@@ -39,5 +39,11 @@ CREATE TABLE `up` (
     `value` double,
     PRIMARY KEY (tsid, timestamp),
     timestamp KEY (timestamp)
-)
+);
+
+SELECT * FROM up;
 ```
+
+|         tsid         |   timestamp   | env |    instance    |        job        | value |
+| :------------------: | :-----------: | :-: | :------------: | :---------------: | :---: |
+| 12683162471309663278 | 1675824740880 | dev | 127.0.0.1:9090 | prometheus-server |   1   |
