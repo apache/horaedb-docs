@@ -20,3 +20,24 @@ remote_read:
 - 标签（labels）对应字符串类型的 `tag` 列
 - 数据的时间戳对应一个 timestamp 类型的 `timestmap` 列
 - 数据的值对应一个双精度浮点数类型的 `value` 列
+
+比如有如下 Prometheus 指标：
+
+```
+up{env="dev", instance="127.0.0.1:9090", job="prometheus-server"}
+```
+
+对应 CeresDB 中如下的表：
+
+```
+CREATE TABLE `up` (
+    `timestamp` timestamp NOT NULL,
+    `tsid` uint64 NOT NULL,
+    `env` string TAG,
+    `instance` string TAG,
+    `job` string TAG,
+    `value` double,
+    PRIMARY KEY (tsid, timestamp),
+    timestamp KEY (timestamp)
+)
+```

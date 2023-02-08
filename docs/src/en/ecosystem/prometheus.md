@@ -20,3 +20,24 @@ Each metric will be converted to one table in CeresDB:
 - labels are mapped to corresponding `string` tag column
 - timestamp of sample is mapped to a timestamp `timestmap` column
 - value of sample is mapped to a double `value` column
+
+For example, `up` metric below will be mapped to `up` table:
+
+```
+up{env="dev", instance="127.0.0.1:9090", job="prometheus-server"}
+```
+
+Its corresponding table in CeresDB:
+
+```
+CREATE TABLE `up` (
+    `timestamp` timestamp NOT NULL,
+    `tsid` uint64 NOT NULL,
+    `env` string TAG,
+    `instance` string TAG,
+    `job` string TAG,
+    `value` double,
+    PRIMARY KEY (tsid, timestamp),
+    timestamp KEY (timestamp)
+)
+```
