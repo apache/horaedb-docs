@@ -54,6 +54,7 @@
 - [集群](clustering.md)
 - [存储介绍](storage.md)
 
-[//]: # (- [查询介绍]&#40;query.md&#41;)
-- [Wal介绍](wal.md)
+[//]: # "- [查询介绍](query.md)"
+
+- [Wal 介绍](wal.md)
 - [表分区](table_partitioning.md)

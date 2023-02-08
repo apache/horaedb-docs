@@ -54,6 +54,7 @@
 - [Clustering](clustering.md)
 - [Storage](storage.md)
 
-[//]: # (- [Query]&#40;query.md&#41;)
+[//]: # "- [Query](query.md)"
+
 - [Wal](wal.md)
 - [Table Partitioning](table_partitioning.md)
