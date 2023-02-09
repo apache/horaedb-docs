@@ -39,6 +39,8 @@
   - [System Table](operation/system_table.md)
   - [Block List](operation/block_list.md)
   - [Observability](operation/observability.md)
+- [Ecosystem](ecosystem/README.md)
+  - [Prometheus](ecosystem/prometheus.md)
 
 # Dev Guide
 
