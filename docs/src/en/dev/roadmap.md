@@ -27,7 +27,7 @@
 
 - [x] Implement Distributed WAL based on `Apache Kafka`.
 - [x] Release Golang client.
-- [x] Improve the query performance for traditional time series workloads.
+- [x] Improve the query performance for classic time series workloads.
 - [x] Support dynamic migration of tables in cluster mode.
 
 ### v1.0.0
@@ -49,4 +49,4 @@ With an in-depth understanding of the time-series database and its various use c
   - Deployment tools that fit well for cloud infrastructures like `Kubernetes`.
   - Enhance self-observability, especially critical logs and metrics should be supplemented.
 - [ ] Develop various tools that ease the use of CeresDB. For example, data import and export tools.
-- [ ] Explore new storage formats that will improve performance on hybrid workloads (analytical and traditional time-series workloads).
+- [ ] Explore new storage formats that will improve performance on hybrid workloads (analytical and time-series workloads).

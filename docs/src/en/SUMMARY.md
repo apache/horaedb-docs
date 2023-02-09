@@ -55,6 +55,8 @@
 - [Architecture](architecture.md)
 - [Clustering](clustering.md)
 - [Storage](storage.md)
-- [Query](query.md)
+
+[//]: # "- [Query](query.md)"
+
 - [Wal](wal.md)
 - [Table Partitioning](table_partitioning.md)

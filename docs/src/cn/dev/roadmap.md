@@ -2,51 +2,51 @@
 
 ### v0.1.0
 
-- [x] Standalone version, local storage
-- [x] Analytical storage format
-- [x] Support SQL
+- [x] 支持基于本地磁盘的 Standalone 版本
+- [x] 支持分析存储格式
+- [x] 支持 SQL
 
 ### v0.2.0
 
-- [x] Distributed version supports static topology defined in config file.
-- [x] The underlying storage supports Aliyun OSS.
-- [x] WAL implementation based on [OBKV](https://github.com/oceanbase/oceanbase).
+- [x] 静态路由的分布式版本
+- [x] 远端存储支持阿里云 OSS
+- [x] 支持基于 [OBKV](https://github.com/oceanbase/oceanbase)的 WAL
 
 ### v0.3.0
 
-- [x] Release multi-language clients, including Java, Rust and Python.
-- [x] Static cluster mode with `CeresMeta`.
-- [x] Basic implementation of hybrid storage format.
+- [x] 发布多语言客户端，包括 Java, Rust 和 Python
+- [x] 支持使用 `CeresMeta` 的静态集群
+- [x] 混合存储格式基本实现
 
 ### v0.4.0
 
-- [x] Implement more sophisticated cluster solution that enhances reliability and scalability of CeresDB.
-- [x] Set up nightly benchmark with TSBS.
+- [x] 实现更复杂的集群方案，增强 CeresDB 的可靠性和可扩展性
+- [x] 构建日常运行的、基于 TSBS 的压测任务
 
 ### v1.0.0-alpha (Released)
 
-- [x] Implement Distributed WAL based on `Apache Kafka`.
-- [x] Release Golang client.
-- [x] Improve the query performance for traditional time series workloads.
-- [x] Support dynamic migration of tables in cluster mode.
+- [x] 基于 `Apache Kafka` 实现分布式 WAL
+- [x] 发布 Golang 客户端
+- [x] 优化时序场景下的查询性能
+- [x] 支持集群模式下表的动态转移
 
 ### v1.0.0
 
-- [ ] Formally release CeresDB and its SDKs with all breaking changes finished.
-- [ ] Finish the majority of work related to `Table Partitioning`.
-- [ ] Various efforts to improve query performance, especially for cloud-native cluster mode. These works includes:
-  - Multi-tier cache.
-  - Introduce various methods to reduce the data fetched from remote storage (improve the accuracy of SST data filtering).
-  - Increase the parallelism while fetching data from remote object-store.
-- [ ] Improve data ingestion performance by introducing resource control over compaction.
+- [ ] 正式发布 CeresDB 和相关 SDK，并完成所有的 breaking changes
+- [ ] 完成表分区的主要工作
+- [ ] 优化查询性能，特别是云原生集群模式下，包括：
+  - 多级缓存
+  - 多种方式减少从远端获取的数据量(提高 SST 数据过滤精度)
+  - 提高获取远程对象存储数据的并发度
+- [ ] 通过控制合并时的资源消耗，提高数据写入性能
 
 ### Afterwards
 
-With an in-depth understanding of the time-series database and its various use cases, the majority of our work will focus on performance, reliability, scalability, ease of use, and collaborations with open-source communities.
+随着对时间序列数据库及其各种使用情况的深入了解，我们的大部分工作将聚焦在性能、可靠性、可扩展性、易用性以及与开源社区的合作方面
 
-- [ ] Add utilities that support `PromQL`, `InfluxQL`, `OpenTSDB` protocol, and so on.
-- [ ] Provide basic utilities for operation and maintenance. Specifically, the following are included:
-  - Deployment tools that fit well for cloud infrastructures like `Kubernetes`.
-  - Enhance self-observability, especially critical logs and metrics should be supplemented.
-- [ ] Develop various tools that ease the use of CeresDB. For example, data import and export tools.
-- [ ] Explore new storage formats that will improve performance on hybrid workloads (analytical and traditional time-series workloads).
+- [ ] 增加支持 `PromQL`, `InfluxQL`, `OpenTSDB` 协议
+- [ ] 提供基础的运维工具。特别包括如下：
+  - 适配云基础设施的部署工具，如 `Kubernetes`
+  - 加强自监控能力，特别是关键的日志和指标
+- [ ] 开发多种工具，方便使用 CeresDB，例如，数据导入和导出工具
+- [ ] 探索新的存储格式，提高混合负载（分析和时序负载）的性能
