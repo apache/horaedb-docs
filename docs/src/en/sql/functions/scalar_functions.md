@@ -102,5 +102,4 @@ CeresDB SQL is implemented with [DataFusion](https://github.com/CeresDB/arrow-da
 | sha256       | sha256                   |
 | sha384       | sha384                   |
 | sha512       | sha512                   |
-| struct       | Create struct.           |
 | to_hex       | Convert to hex.          |

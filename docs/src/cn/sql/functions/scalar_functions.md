@@ -1,4 +1,4 @@
-# Scalar Functions
+# 标量函数
 
 CeresDB SQL 基于 [DataFusion](https://github.com/CeresDB/arrow-datafusion) 实现，支持的标量函数如下。更多详情请参考： [Datafusion](https://github.com/CeresDB/arrow-datafusion/blob/master/docs/source/user-guide/sql/scalar_functions.md)
 
@@ -102,5 +102,4 @@ CeresDB SQL 基于 [DataFusion](https://github.com/CeresDB/arrow-datafusion) 实
 | sha256       | sha256                   |
 | sha384       | sha384                   |
 | sha512       | sha512                   |
-| struct       | 创建一个结构             |
 | to_hex       | 转换为 16 进制           |
