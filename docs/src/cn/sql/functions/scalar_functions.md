@@ -2,129 +2,105 @@
 
 CeresDB SQL 基于 [DataFusion](https://github.com/CeresDB/arrow-datafusion) 实现，支持的标量函数如下。更多详情请参考： [Datafusion](https://github.com/CeresDB/arrow-datafusion/blob/master/docs/source/user-guide/sql/scalar_functions.md)
 
-## Math Functions
+## 数值函数
 
-| Function              | Description                                       |
-| --------------------- | ------------------------------------------------- |
-| abs(x)                | absolute value                                    |
-| acos(x)               | inverse cosine                                    |
-| asin(x)               | inverse sine                                      |
-| atan(x)               | inverse tangent                                   |
-| atan2(y, x)           | inverse tangent of y / x                          |
-| ceil(x)               | nearest integer greater than or equal to argument |
-| cos(x)                | cosine                                            |
-| exp(x)                | exponential                                       |
-| floor(x)              | nearest integer less than or equal to argument    |
-| ln(x)                 | natural logarithm                                 |
-| log10(x)              | base 10 logarithm                                 |
-| log2(x)               | base 2 logarithm                                  |
-| power(base, exponent) | base raised to the power of exponent              |
-| round(x)              | round to nearest integer                          |
-| signum(x)             | sign of the argument (-1, 0, +1)                  |
-| sin(x)                | sine                                              |
-| sqrt(x)               | square root                                       |
-| tan(x)                | tangent                                           |
-| trunc(x)              | truncate toward zero                              |
+| 函数                  | 描述                         |
+| --------------------- | ---------------------------- |
+| abs(x)                | 绝对值                       |
+| acos(x)               | 反余弦                       |
+| asin(x)               | 反正弦                       |
+| atan(x)               | 反正切                       |
+| atan2(y, x)           | y/x 的反正切                 |
+| ceil(x)               | 小于或等于参数的最接近整数   |
+| cos(x)                | 余弦                         |
+| exp(x)                | 指数                         |
+| floor(x)              | 大于或等于参数的最接近整数   |
+| ln(x)                 | 自然对数                     |
+| log10(x)              | 以 10 为底的对数             |
+| log2(x)               | 以 2 为底的对数              |
+| power(base, exponent) | 幂函数                       |
+| round(x)              | 四舍五入                     |
+| signum(x)             | 根据参数的正负返回 -1、0、+1 |
+| sin(x)                | 正弦                         |
+| sqrt(x)               | 平方根                       |
+| tan(x)                | 正切                         |
+| trunc(x)              | 截断计算，取整（向零取整）   |
 
-## Conditional Functions
+## 条件函数
 
-| Function | Description                                                                                                                                                                                              |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| coalesce | Returns the first of its arguments that is not null. Null is returned only if all arguments are null. It is often used to substitute a default value for null values when data is retrieved for display. |
-| nullif   | Returns a null value if value1 equals value2; otherwise it returns value1. This can be used to perform the inverse operation of the coalesce expression.                                                 |
+| 函数     | 描述                                                                                                                                                  |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| coalesce | 如果它的参数中有一个不为 null，则返回第一个参数，如果所有参数均为 null，则返回 null。当从数据库中检索数据用于显示时，它经常用于用默认值替换 null 值。 |
+| nullif   | 如果 value1 等于 value2，则返回 null 值；否则返回 value1。这可用于执行与 coalesce 表达式相反的操作                                                    |
 
-## String Functions
+## 字符函数
 
-| Function         | Description                                                                                                       |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------- |
-| ascii            | Returns the number code that represents the specific character.                                                   |
-| bit_length       | Returns the number of bits in a character string expression.                                                      |
-| btrim            | Removes the longest string containing any of the characters in characters from the start and end of string.       |
-| char_length      | Equivalent to length.                                                                                             |
-| character_length | Equivalent to length.                                                                                             |
-| concat           | Concatenates two or more strings into one string.                                                                 |
-| concat_ws        | Combines two values with a given separator.                                                                       |
-| chr              | Returns the character based on the number code.                                                                   |
-| initcap          | Capitalizes the first letter of each word in a string.                                                            |
-| left             | Returns the specified leftmost characters of a string.                                                            |
-| length           | Returns the number of characters in a string.                                                                     |
-| lower            | Converts all characters in a string to their lower case equivalent.                                               |
-| lpad             | Left-pads a string to a given length with a specific set of characters.                                           |
-| ltrim            | Removes the longest string containing any of the characters in characters from the start of string.               |
-| md5              | Calculates the MD5 hash of a given string.                                                                        |
-| octet_length     | Equivalent to length.                                                                                             |
-| repeat           | Returns a string consisting of the input string repeated a specified number of times.                             |
-| replace          | Replaces all occurrences in a string of a substring with a new substring.                                         |
-| reverse          | Reverses a string.                                                                                                |
-| right            | Returns the specified rightmost characters of a string.                                                           |
-| rpad             | Right-pads a string to a given length with a specific set of characters.                                          |
-| rtrim            | Removes the longest string containing any of the characters in characters from the end of string.                 |
-| digest           | Calculates the hash of a given string.                                                                            |
-| split_part       | Splits a string on a specified delimiter and returns the specified field from the resulting array.                |
-| starts_with      | Checks whether a string starts with a particular substring.                                                       |
-| strpos           | Searches a string for a specific substring and returns its position.                                              |
-| substr           | Extracts a substring of a string.                                                                                 |
-| translate        | Translates one set of characters into another.                                                                    |
-| trim             | Removes the longest string containing any of the characters in characters from either the start or end of string. |
-| upper            | Converts all characters in a string to their upper case equivalent.                                               |
+| 函数             | 描述                                                                                                                        |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| ascii            | 返回参数的第一个字符的 ascii 数字编码。在 UTF8 编码下，返回字符的 Unicode 码点。在其他多字节编码中，参数必须是 ASCII 字符。 |
+| bit_length       | 返回字符串的比特位数。                                                                                                      |
+| btrim            | 从字符串的开头和结尾删除给定字符串中的字符组成的最长字符串                                                                  |
+| char_length      | 等效于 length。                                                                                                             |
+| character_length | 等效于 length。                                                                                                             |
+| concat           | 将两个或多个字符串合并为一个字符串。                                                                                        |
+| concat_ws        | 使用给定的分隔符组合两个值。                                                                                                |
+| chr              | 根据数字码返回字符。                                                                                                        |
+| initcap          | 将字符串中每个单词的首字母大写。                                                                                            |
+| left             | 返回字符串的指定最左边字符。                                                                                                |
+| length           | 返回字符串中字符的数量。                                                                                                    |
+| lower            | 将字符串中的所有字符转换为它们的小写。                                                                                      |
+| lpad             | 使用特定字符集将字符串左填充到给定长度。                                                                                    |
+| ltrim            | 从字符串的开头删除由字符中的字符组成的最长字符串（默认为空格）。                                                            |
+| md5              | 计算给定字符串的 MD5 散列值。                                                                                               |
+| octet_length     | 等效于 length。                                                                                                             |
+| repeat           | 返回一个由输入字符串重复指定次数组成的字符串。                                                                              |
+| replace          | 替换字符串中所有子字符串的出现为新子字符串。                                                                                |
+| reverse          | 反转字符串。                                                                                                                |
+| right            | 返回字符串的指定最右边字符。                                                                                                |
+| rpad             | 使用特定字符集将字符串右填充到给定长度。                                                                                    |
+| rtrim            | 从字符串的结尾删除包含 characters 中任何字符的最长字符串。                                                                  |
+| digest           | 计算给定字符串的散列值。                                                                                                    |
+| split_part       | 按指定分隔符拆分字符串，并从结果数组中返回                                                                                  |
+| starts_with      | 检查字符串是否以给定字符串开始                                                                                              |
+| strpos           | 搜索字符串是否包含一个给定的字符串，并返回位置                                                                              |
+| substr           | 提取子字符串                                                                                                                |
+| translate        | 把字符串翻译成另一种字符集 Translates one set of characters into another.                                                   |
+| trim             | 移除字符串两侧的空白字符或其他指定字符。                                                                                    |
+| upper            | 将字符串中的所有字符转换为它们的大写。                                                                                      |
 
-## Regular Expression Functions
+## 正则函数
 
-| Function       | Description                                                                                                         |
-| -------------- | ------------------------------------------------------------------------------------------------------------------- |
-| regexp_match   | Determines whether a string matches a regular expression pattern.                                                   |
-| regexp_replace | Replaces all occurrences in a string of a substring that matches a regular expression pattern with a new substring. |
+| 函数           | 描述                                   |
+| -------------- | -------------------------------------- |
+| regexp_match   | 判断一个字符串是否匹配正则表达式       |
+| regexp_replace | 使用新字符串替换正则匹配的字符串中内容 |
 
-## Temporal Functions
+## 时间函数
 
-| Function             | Description                                                     |
-| -------------------- | --------------------------------------------------------------- |
-| to_timestamp         | Converts a string to type Timestamp(Nanoseconds, None).         |
-| to_timestamp_millis  | Converts a string to type Timestamp(Milliseconds, None).        |
-| to_timestamp_micros  | Converts a string to type Timestamp(Microseconds, None).        |
-| to_timestamp_seconds | Converts a string to type Timestamp(Seconds, None).             |
-| extract              | Retrieves subfields such as year or hour from date/time values. |
-| date_part            | Retrieves subfield from date/time values.                       |
-| date_trunc           | Truncates date/time values to specified precision.              |
-| date_bin             | Bin date/time values to specified precision.                    |
-| from_unixtime        | Converts Unix epoch to type Timestamp(Nanoseconds, None).       |
-| now                  | Returns current time as Timestamp(Nanoseconds, UTC).            |
+| 函数                 | 描述                                                  |
+| -------------------- | ----------------------------------------------------- |
+| to_timestamp         | 将字符串转换为 Timestamp(Nanoseconds，None)类型。     |
+| to_timestamp_millis  | 将字符串转换为 Timestamp(Milliseconds，None)类型。    |
+| to_timestamp_micros  | 将字符串转换为 Timestamp(Microseconds，None)类型。    |
+| to_timestamp_seconds | 将字符串转换为 Timestamp(Seconds，None)类型。         |
+| extract              | 从日期/时间值中检索年份或小时等子字段。               |
+| date_part            | 从日期/时间值中检索子字段。                           |
+| date_trunc           | 将日期/时间值截断到指定的精度。                       |
+| date_bin             | 将日期/时间值按指定精度进行分组。                     |
+| from_unixtime        | 将 Unix 时代转换为 Timestamp(Nanoseconds，None)类型。 |
+| now                  | 作为 Timestamp(Nanoseconds，UTC)返回当前时间。        |
 
-see more detail in [DataFusion](https://github.com/CeresDB/arrow-datafusion/blob/master/docs/source/user-guide/sql/scalar_functions.md)
+## 其他函数
 
-## Other Functions
-
-| Function     | Description              |
+| Function     | 描述                     |
 | ------------ | ------------------------ |
-| array        | Create an array.         |
-| arrow_typeof | Returns underlying type. |
-| in_list      | Check if value in list.  |
-| random       | Generate random value.   |
+| array        | 创建有一个数组           |
+| arrow_typeof | 返回内置的数据类型       |
+| in_list      | 检测数值是否在 list 里面 |
+| random       | 生成随机值               |
 | sha224       | sha224                   |
 | sha256       | sha256                   |
 | sha384       | sha384                   |
 | sha512       | sha512                   |
-| struct       | Create struct.           |
-| to_hex       | Convert to hex.          |
-
-### `array`
-
-### `arrow_typeof`
-
-Returns the underlying Arrow type of the the expression:
-
-### `in_list`
-
-### `random`
-
-### `sha224`
-
-### `sha256`
-
-### `sha384`
-
-### `sha512`
-
-### `struct`
-
-### `to_hex`
+| struct       | 创建一个结构             |
+| to_hex       | 转换为 16 进制           |

@@ -35,38 +35,38 @@ CeresDB SQL is implemented with [DataFusion](https://github.com/CeresDB/arrow-da
 
 ## String Functions
 
-| Function         | Description                                                                                                       |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------- |
-| ascii            | Returns the number code that represents the specific character.                                                   |
-| bit_length       | Returns the number of bits in a character string expression.                                                      |
-| btrim            | Removes the longest string containing any of the characters in characters from the start and end of string.       |
-| char_length      | Equivalent to length.                                                                                             |
-| character_length | Equivalent to length.                                                                                             |
-| concat           | Concatenates two or more strings into one string.                                                                 |
-| concat_ws        | Combines two values with a given separator.                                                                       |
-| chr              | Returns the character based on the number code.                                                                   |
-| initcap          | Capitalizes the first letter of each word in a string.                                                            |
-| left             | Returns the specified leftmost characters of a string.                                                            |
-| length           | Returns the number of characters in a string.                                                                     |
-| lower            | Converts all characters in a string to their lower case equivalent.                                               |
-| lpad             | Left-pads a string to a given length with a specific set of characters.                                           |
-| ltrim            | Removes the longest string containing any of the characters in characters from the start of string.               |
-| md5              | Calculates the MD5 hash of a given string.                                                                        |
-| octet_length     | Equivalent to length.                                                                                             |
-| repeat           | Returns a string consisting of the input string repeated a specified number of times.                             |
-| replace          | Replaces all occurrences in a string of a substring with a new substring.                                         |
-| reverse          | Reverses a string.                                                                                                |
-| right            | Returns the specified rightmost characters of a string.                                                           |
-| rpad             | Right-pads a string to a given length with a specific set of characters.                                          |
-| rtrim            | Removes the longest string containing any of the characters in characters from the end of string.                 |
-| digest           | Calculates the hash of a given string.                                                                            |
-| split_part       | Splits a string on a specified delimiter and returns the specified field from the resulting array.                |
-| starts_with      | Checks whether a string starts with a particular substring.                                                       |
-| strpos           | Searches a string for a specific substring and returns its position.                                              |
-| substr           | Extracts a substring of a string.                                                                                 |
-| translate        | Translates one set of characters into another.                                                                    |
-| trim             | Removes the longest string containing any of the characters in characters from either the start or end of string. |
-| upper            | Converts all characters in a string to their upper case equivalent.                                               |
+| Function         | Description                                                                                                                                                                                                |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ascii            | Returns the numeric code of the first character of the argument. In UTF8 encoding, returns the Unicode code point of the character. In other multibyte encodings, the argument must be an ASCII character. |
+| bit_length       | Returns the number of bits in a character string expression.                                                                                                                                               |
+| btrim            | Removes the longest string containing any of the specified characters from the start and end of string.                                                                                                    |
+| char_length      | Equivalent to length.                                                                                                                                                                                      |
+| character_length | Equivalent to length.                                                                                                                                                                                      |
+| concat           | Concatenates two or more strings into one string.                                                                                                                                                          |
+| concat_ws        | Combines two values with a given separator.                                                                                                                                                                |
+| chr              | Returns the character based on the number code.                                                                                                                                                            |
+| initcap          | Capitalizes the first letter of each word in a string.                                                                                                                                                     |
+| left             | Returns the specified leftmost characters of a string.                                                                                                                                                     |
+| length           | Returns the number of characters in a string.                                                                                                                                                              |
+| lower            | Converts all characters in a string to their lower case equivalent.                                                                                                                                        |
+| lpad             | Left-pads a string to a given length with a specific set of characters.                                                                                                                                    |
+| ltrim            | Removes the longest string containing any of the characters in characters from the start of string.                                                                                                        |
+| md5              | Calculates the MD5 hash of a given string.                                                                                                                                                                 |
+| octet_length     | Equivalent to length.                                                                                                                                                                                      |
+| repeat           | Returns a string consisting of the input string repeated a specified number of times.                                                                                                                      |
+| replace          | Replaces all occurrences in a string of a substring with a new substring.                                                                                                                                  |
+| reverse          | Reverses a string.                                                                                                                                                                                         |
+| right            | Returns the specified rightmost characters of a string.                                                                                                                                                    |
+| rpad             | Right-pads a string to a given length with a specific set of characters.                                                                                                                                   |
+| rtrim            | Removes the longest string containing any of the characters in characters from the end of string.                                                                                                          |
+| digest           | Calculates the hash of a given string.                                                                                                                                                                     |
+| split_part       | Splits a string on a specified delimiter and returns the specified field from the resulting array.                                                                                                         |
+| starts_with      | Checks whether a string starts with a particular substring.                                                                                                                                                |
+| strpos           | Searches a string for a specific substring and returns its position.                                                                                                                                       |
+| substr           | Extracts a substring of a string.                                                                                                                                                                          |
+| translate        | Translates one set of characters into another.                                                                                                                                                             |
+| trim             | Removes the longest string containing any of the characters in characters from either the start or end of string.                                                                                          |
+| upper            | Converts all characters in a string to their upper case equivalent.                                                                                                                                        |
 
 ## Regular Expression Functions
 
@@ -90,8 +90,6 @@ CeresDB SQL is implemented with [DataFusion](https://github.com/CeresDB/arrow-da
 | from_unixtime        | Converts Unix epoch to type Timestamp(Nanoseconds, None).       |
 | now                  | Returns current time as Timestamp(Nanoseconds, UTC).            |
 
-see more detail in [DataFusion](https://github.com/CeresDB/arrow-datafusion/blob/master/docs/source/user-guide/sql/scalar_functions.md)
-
 ## Other Functions
 
 | Function     | Description              |
@@ -106,25 +104,3 @@ see more detail in [DataFusion](https://github.com/CeresDB/arrow-datafusion/blob
 | sha512       | sha512                   |
 | struct       | Create struct.           |
 | to_hex       | Convert to hex.          |
-
-### `array`
-
-### `arrow_typeof`
-
-Returns the underlying Arrow type of the the expression:
-
-### `in_list`
-
-### `random`
-
-### `sha224`
-
-### `sha256`
-
-### `sha384`
-
-### `sha512`
-
-### `struct`
-
-### `to_hex`
