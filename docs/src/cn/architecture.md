@@ -76,7 +76,7 @@ CeresDB 基于 [sqlparser](https://github.com/sqlparser-rs/sqlparser-rs) 提供�
 
 模块路径：https://github.com/CeresDB/ceresdb/tree/main/interpreters
 
-`Interpreter` 模块封装了 SQL 的 `CRUD` 操作。在查询流程中，一个 sql 语句会经过解析，生成出对应的查询计划，然后便会在特定的解释器中执行，例如 `SelectInterpreter`、`InsertInterpreter` 等。
+`Interpreter` 模块封装了 SQL 的 `CRUD` 操作。在查询流程中，一个 SQL 语句会经过解析，生成出对应的查询计划，然后便会在特定的解释器中执行，例如 `SelectInterpreter`、`InsertInterpreter` 等。
 
 ### Catalog
 
