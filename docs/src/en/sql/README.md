@@ -15,3 +15,5 @@ This chapter introduces the SQL statements of CeresDB.
   - [SELECT](dml/select.md)
 - [Utility Statements](utility.md)
 - [Engine Options](engine_options.md)
+- [Scalar Functions](functions/scalar_functions.md)
+- [Aggregate Functions](functions/aggregate_functions.md)
