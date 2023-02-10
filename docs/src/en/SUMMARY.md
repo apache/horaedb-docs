@@ -22,8 +22,8 @@
     - [SELECT](sql/dml/select.md)
   - [Utility Statements](sql/utility.md)
   - [Engine Options](sql/engine_options.md)
-  - [Scalar Functions](functions/scalar_functions.md)
-  - [Aggregate Functions](functions/aggregate_functions.md)
+  - [Scalar Functions](sql/functions/scalar_functions.md)
+  - [Aggregate Functions](sql/functions/aggregate_functions.md)
 
 - [Deployment](deploy/README.md)
 

@@ -22,8 +22,8 @@
     - [数据查询](sql/dml/select.md)
   - [引擎参数](sql/engine_options.md)
   - [常见 SQL](sql/utility.md)
-  - [标量函数](functions/scalar_functions.md)
-  - [聚合函数](functions/aggregate_functions.md)
+  - [标量函数](sql/functions/scalar_functions.md)
+  - [聚合函数](sql/functions/aggregate_functions.md)
 
 - [部署文档](deploy/README.md)
 
