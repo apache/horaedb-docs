@@ -15,3 +15,5 @@
   - [数据查询](dml/select.md)
 - [引擎参数](engine_options.md)
 - [常见 SQL](utility.md)
+- [标量函数](functions/scalar_functions.md)
+- [聚合函数](functions/aggregate_functions.md)
