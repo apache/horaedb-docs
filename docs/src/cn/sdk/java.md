@@ -65,9 +65,7 @@ if (!createResult.isOk()) {
 
 ## 构建写入数据
 
-我们提供两种构建数据的方式：
-
-第一种支持用户使用 `PointBuilder` 每次单独构建一个 `Point`。
+构建数据的方式如下：
 
 ```java
 List<Point> pointList = new LinkedList<>();
@@ -81,65 +79,10 @@ for (int i = 0; i < 100; i++) {
 }
 ```
 
-第二种支持用户使用 `TablePointsBuilder` 直接构建多个 `Point`。
-
-```java
-// 同一个表的数据可以一个tableBuilder快速构建
-final List<Point> pointList = Point.newTablePointsBuilder("machine_table")
-        .addPoint() // 第一个点
-            .setTimestamp(t0)
-            .addTag("city", "Singapore")
-            .addTag("ip", "10.0.0.1")
-            .addField("cpu", Value.withDouble(0.23))
-            .addField("mem", Value.withDouble(0.55))
-            .buildAndContinue()
-        .addPoint() // 第二个点
-            .setTimestamp(t1)
-            .addTag("city", "Singapore")
-            .addTag("ip", "10.0.0.1")
-            .addField("cpu", Value.withDouble(0.25))
-            .addField("mem", Value.withDouble(0.56))
-            .buildAndContinue()
-        .addPoint() // 第三个点
-            .setTimestamp(t1)
-            .addTag("city", "Shanghai")
-            .addTag("ip", "10.0.0.2")
-            .addField("cpu", Value.withDouble(0.21))
-            .addField("mem", Value.withDouble(0.52))
-            .buildAndContinue()
-        .build();
-```
-
 ## 写入 Example
 
 ```java
-final long t0 = System.currentTimeMillis();
-final long t1 = t0 + 1000;
-final List<Point> data = Point.newPointsBuilder("machine_table") // 同一个表的数据可以一个builder快速构建数据
-        .addPoint() // 第一个点
-            .setTimestamp(t0)
-            .addTag("city", "Singapore")
-            .addTag("ip", "10.0.0.1")
-            .addField("cpu", Value.withDouble(0.23))
-            .addField("mem", Value.withDouble(0.55))
-            .build()
-        .addPoint() // 第二个点
-            .setTimestamp(t1)
-            .addTag("city", "Singapore")
-            .addTag("ip", "10.0.0.1")
-            .addField("cpu", Value.withDouble(0.25))
-            .addField("mem", Value.withDouble(0.56))
-            .build()
-        .addPoint() // 第三个点
-            .setTimestamp(t1)
-            .addTag("city", "Shanghai")
-            .addTag("ip", "10.0.0.2")
-            .addField("cpu", Value.withDouble(0.21))
-            .addField("mem", Value.withDouble(0.52))
-            .build()
-        .build();
-
-final CompletableFuture<Result<WriteOk, Err>> wf = client.write(data);
+final CompletableFuture<Result<WriteOk, Err>> wf = client.write(pointList);
 // 这里用 `future.get` 只是方便演示，推荐借助 CompletableFuture 强大的 API 实现异步编程
 final Result<WriteOk, Err> writeResult = wf.get();
 

@@ -65,14 +65,12 @@ if (!createResult.isOk()) {
 
 ## How To Build Write Data
 
-CeresDB supports two ways to build data:
-
-The first way is that user can use `PointBuilder` to build one point.
+You can use `PointBuilder` to build CeresDB points as following:
 
 ```java
 List<Point> pointList = new LinkedList<>();
 for (int i = 0; i < 100; i++) {
-    // 构建单个Point
+    // build one point
     final Point point = Point.newPointBuilder("machine_table")
             .setTimestamp(t0).addTag("city", "Singapore")
             .addTag("ip", "10.0.0.1").addField("cpu", Value.withDouble(0.23))
@@ -83,71 +81,18 @@ for (int i = 0; i < 100; i++) {
 
 The second way is that user can use `TablePointsBuilder` to build multiple points.
 
-````java
-// 同一个表的数据可以一个tableBuilder快速构建
-final List<Point> pointList = Point.newTablePointsBuilder("machine_table")
-        .addPoint() // 第一个点
-        .setTimestamp(t0)
-        .addTag("city", "Singapore")
-        .addTag("ip", "10.0.0.1")
-        .addField("cpu", Value.withDouble(0.23))
-        .addField("mem", Value.withDouble(0.55))
-        .buildAndContinue()
-        .addPoint() // 第二个点
-        .setTimestamp(t1)
-        .addTag("city", "Singapore")
-        .addTag("ip", "10.0.0.1")
-        .addField("cpu", Value.withDouble(0.25))
-        .addField("mem", Value.withDouble(0.56))
-        .buildAndContinue()
-        .addPoint() // 第三个点
-        .setTimestamp(t1)
-        .addTag("city", "Shanghai")
-        .addTag("ip", "10.0.0.2")
-        .addField("cpu", Value.withDouble(0.21))
-        .addField("mem", Value.withDouble(0.52))
-        .buildAndContinue()
-        .build();
-
 ## Write Data Example
 
 ```java
-final long t0 = System.currentTimeMillis();
-final long t1 = t0 + 1000;
-final List<Point> data = Point.newPointsBuilder("machine_table")
-        .addPoint() // first point
-            .setTimestamp(t0)
-            .addTag("city", "Singapore")
-            .addTag("ip", "10.0.0.1")
-            .addField("cpu", Value.withDouble(0.23))
-            .addField("mem", Value.withDouble(0.55))
-            .build()
-        .addPoint() // second point
-            .setTimestamp(t1)
-            .addTag("city", "Singapore")
-            .addTag("ip", "10.0.0.1")
-            .addField("cpu", Value.withDouble(0.25))
-            .addField("mem", Value.withDouble(0.56))
-            .build()
-        .addPoint()// third point
-            .setTimestamp(t1)
-            .addTag("city", "Shanghai")
-            .addTag("ip", "10.0.0.2")
-            .addField("cpu", Value.withDouble(0.21))
-            .addField("mem", Value.withDouble(0.52))
-            .build()
-        .build();
-
-final CompletableFuture<Result<WriteOk, Err>> wf = client.write(new WriteRequest(data));
+final CompletableFuture<Result<WriteOk, Err>> wf = client.write(new WriteRequest(pointList));
 // here the `future.get` is just for demonstration, a better async programming practice would be using the CompletableFuture API
 final Result<WriteOk, Err> writeResult = wf.get();
-Assert.assertTrue(writeResult.isOk());
-// `Result` class referenced the Rust language practice, provides rich functions (such as mapXXX, andThen) transforming the result value to improve programming efficiency. You can refer to the API docs for detail usage.
-Assert.assertEquals(3, writeResult.getOk().getSuccess());
-Assert.assertEquals(3, writeResult.mapOr(0, WriteOk::getSuccess).intValue());
-Assert.assertEquals(0, writeResult.getOk().getFailed());
-Assert.assertEquals(0, writeResult.mapOr(-1, WriteOk::getFailed).intValue());
-````
+        Assert.assertTrue(writeResult.isOk());
+        // `Result` class referenced the Rust language practice, provides rich functions (such as mapXXX, andThen) transforming the result value to improve programming efficiency. You can refer to the API docs for detail usage.
+        Assert.assertEquals(3, writeResult.getOk().getSuccess());
+        Assert.assertEquals(3, writeResult.mapOr(0, WriteOk::getSuccess).intValue());
+        Assert.assertEquals(0, writeResult.mapOr(-1, WriteOk::getFailed).intValue());
+```
 
 See [write](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/write.md)
 
