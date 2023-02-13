@@ -13,7 +13,7 @@ CeresDB is a distributed storage system based on the share-nothing architecture.
 
 Data between different servers is isolated from each other and does not affect each other. The storage engine in each stand-alone machine is a variant of [log-structured merge-tree](https://en.wikipedia.org/wiki/Log-structured_merge-tree), which is optimized for time-series scenarios. The following figure shows its core components:
 
-![](../resources/images/storage-overview.svg)
+![](../../resources/images/storage-overview.svg)
 
 ## Write Ahead Log (WAL)
 

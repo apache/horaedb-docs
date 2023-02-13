@@ -1,10 +1,10 @@
-# WAL on Kafka
+# 基于 Kafka 的 WAL
 
-## Architecture
+## 架构
 
-In this section we present a distributed WAL implementation(based on Kafka). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by region, which can be simply understood as a shared log file of multiple tables.
+在本节中，将会介绍一种分布式 WAL 实现（基于 Kafka）。表的预写日志（write-ahead logs，以下简称日志）在本实现中是按 region 级别管理的，region 可以简单理解为多个表的共享日志文件。
 
-As shown in the following figure, regions are mapped to topics(with only one partition) in Kafka. And usually two topics are needed by a region, one is used for storing logs and the other is used for storing metadata.
+如下图所示，在本实现中将 region 映射到 Kafka 中的 topic（只有一个 partition）。 通常一个 region 需要两个 topic ，一个用于存储日志，另一个用于存储元数据。
 
 ```text
                                                  ┌──────────────────────────┐
@@ -44,21 +44,20 @@ Read ◄─────────┼─┼─┤ └────────�
                       └──────────────────────────────────────────────────────────┘
 ```
 
-## Data model
+## 数据模型
 
-### Log format
+### 日志格式
 
-The common log format described in [WAL on RocksDB](./wal_on_rocksdb.md) is used here.
+日志格式采用了在 [基于 RocksDB 的 WAL](wal_on_rocksdb.md) 中定义的通用格式。
 
-### Metadata
+### 元数据
 
-Each region will maintain its metadata both in memory and in Kafka, we call it `RegionMeta` here. It can be thought of as a map, taking table id as a key and `TableMeta` as a value.
-We briefly introduce the variables in `TableMeta` here:
+每个 region 都将在内存和 Kafka 中维护其元数据，我们在这里称之为 `RegionMeta`。它可以被认为是一张映射表，以表 ID 作为键，以 `TableMeta` 作为值。我们简要介绍一下 `TableMeta` 中的变量：
 
-- `next_seq_num`, the sequence number allocated to the next log entry.
-- `latest_marked_deleted`, the last flushed sequence number, all logs in the table with a lower sequence number than it can be removed.
-- `current_high_watermark`, the high watermark in the Kafka partition after the last writing of this table.
-- `seq_offset_mapping`, mapping from sequence numbers to offsets will be done on every write and will removed to the updated `latest_marked_deleted` after flushing.
+- `next_seq_num`，为下一条写入日志分配的 sequence number。
+- `latest_marked_deleted`，表最后一次触发 flush 时对应的 sequence number, 所以对应 sequence number 小于该值的日志都将被标记为可以删除。
+- `current_high_watermark`， 该表最近一次日志写入后，Kafka 对应 topic 的高水位。
+- `seq_offset_mapping`，sequence number 和 Kafka 对应 topic offset 的映射，每次 flush 后，会将 `latest_marked_deleted` 前的条目进行清理。
 
 ```
 ┌─────────────────────────────────────────┐
@@ -85,28 +84,28 @@ We briefly introduce the variables in `TableMeta` here:
  └─────────────────────────────────────────────────────┘
 ```
 
-## Main process
+## 主要流程
 
-We focus on the main process in one region, following process will be introduced:
+我们主要关于对于单个 region 的主要操作，会介绍以下操作的主要流程：
 
-- Open or create region.
-- Write and read logs.
-- Delete logs.
+- 打开或创建 region。
+- 读写日志。
+- 删除日志。
 
-### Open or create region
+### 打开或创建 region
 
-#### Steps
+#### 步骤
 
-- Search the region in the opened namespace.
-- If the region found, the most important thing we need to do is to recover its metadata, we will introduce this later.
-- If the region not found and auto creating is defined, just create the corresponding topic in Kafka.
-- Add the found or created region to cache, return it afterwards.
+- 在打开的 namespace 中搜索 region。
+- 如果 region 存在，最重要的事是去恢复其元数据，恢复过程将在之后介绍。
+- 如果 region 不存在并且需要自动创建，则需要在 Kafka 上创建对应的 topic。
+- 在 cache 中插入相应 region 并将其返回。
 
-#### Recovery
+#### 恢复
 
-As mentioned above, the `RegionMeta` is actually a map of the `TableMeta`. So here we will focus on recovering a specific `TableMeta`, and examples will be given to better illustrate this process.
+上面提到，`RegionMeta` 实际就是以表 ID 为键，以 `TableMeta` 为值的映射表。因此，我们在本节中只关注特定 `TableMeta` 的恢复即可，将在每步的介绍中加入例子以作更好的说明。
 
-- First, recover the `RegionMeta` from snapshot. We will take a snapshot of the `RegionMeta` in some scenarios (e.g. mark logs deleted, clean logs) and put it to the meta topic. The snapshot is actually the `RegionMeta` at a particular point in time. When recovering a region, we can use it to avoid scanning all logs in the data topic. The following is the example, we recover from the snapshot taken at the time when Kafka high watermark is 64:
+- 从快照中恢复。我们会在某些场景下为 `RegionMeta`制作快照（例如当标记日志为可删除时，真正清理日志时），并且将其写到 meta topic 中，快照实际上就是在某个时间点的 `RegionMeta`。当恢复 region 时，我们可以使用快照来避免扫描 data topic 的全部数据。下面为上述过程对应的例子，我们从在 Kafka 高水位为 64 的时间点时制作的快照中恢复 `RegionMeta`：
 
 ```text
 high watermark in snapshot: 64
@@ -132,7 +131,7 @@ high watermark in snapshot: 64
  └──────────────────────────────┘
 ```
 
-- Recovering from logs. After recovering from snapshot, we can continue to recover by scanning logs in data topic from the Kafka high watermark when snapshot is taken, and obviously that avoid scanning the whole data topic. Let's see the example:
+- 从日志数据中恢复。 当从快照中恢复的过程完成后，我们以快照被制作时 data topic 中的高水位为起点，扫描其中的日志数据进行后续恢复，明显这能够避免扫描 data topic 中的全部数据。以下为上述过程的例子：
 
 ```text
 ┌────────────────────────────────────┐
@@ -176,37 +175,37 @@ high watermark in snapshot: 64
 └────────────────────────────────────┘
 ```
 
-### Write and read logs
+### 读写日志
 
-The writing and reading process in a region is simple.
+读写流程比较简单。
 
-For writing:
+写流程:
 
-- Open the specified region (auto create it if necessary).
-- Put the logs to specified Kafka partition by client.
-- Update `next_seq_num`, `current_high_watermark` and `seq_offset_mapping` in corresponding `TableMeta`.
+- 打开指定的 region，如果不存在则需要创建。
+- 利用 client 将日志写入到 region 对应的 data topic 中。
+- 更新 `TableMeta` 中的 `next_seq_num`, `current_high_watermark` 和 `seq_offset_mapping`等元数据，
 
-For reading:
+读流程:
 
-- Open the specified region.
-- Just read all the logs of the region, and the split and replay work will be done by the caller.
+- 打开指定的 region。
+- 读取 region 的所有日志数据，按表切分数据和回放等工作需要调用者实现。
 
-### Delete logs
+### 删除日志
 
-Log deletion can be divided into two steps:
+日志的删除可以划分为两个步骤：
 
-- Mark the logs deleted.
-- Do delayed cleaning work periodically in a background thread.
+- 标记日志为可删除。
+- 利用后台线程做延迟清理。
 
-#### Mark
+#### 标记
 
-- Update `latest_mark_deleted` and `seq_offset_mapping`(just retain the entries whose's sequence >= updated latest_mark_deleted) in `TableMeta`.
-- Maybe we need to make and sync the `RegionMeta` snapshot to Kafka while dropping table.
+- 更新在 `TableMeta` 中的 `latest_mark_deleted` 和 `seq_offset_mapping`（需要进行维护，使得每一条目的 sequence number 大于等于更新后的 `latest_mark_deleted`）。
+- 或许我们需要在删除表的时候，制作并及时同步 `RegionMeta` 的快照到 Kafka 中。
 
-#### Clean
+#### 清理
 
-The cleaning logic done in a background thread called cleaner:
+清理逻辑如下，会在后台线程中执行：
 
-- Make `RegionMeta` snapshot.
-- Decide whether to clean the logs based on the snapshot.
-- If so, sync the snapshot to Kafka first, then clean the logs.
+- 制作 `RegionMeta` 的快照。
+- 根据快照判断是否需要进行清理。
+- 如果需要，先同步快照到 Kafka 中，然后清理日志。

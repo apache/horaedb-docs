@@ -84,7 +84,7 @@ DROP TABLE `demo`
 
 ## 使用 SDK
 
-当前我们支持多种开发语言 SDK，例如 Java，Rust，Python, Go 等 , 具体使用请参考 [sdk](./sdk.md)
+当前我们支持多种开发语言 SDK，例如 Java，Rust，Python, Go 等 , 具体使用请参考 [sdk](sdk/README.md)
 
 ## 下一步
 

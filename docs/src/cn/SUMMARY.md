@@ -31,7 +31,7 @@
   - [静态路由](deploy/static_routing.md)
   - [动态路由](deploy/dynamic_routing.md)
 
-- [SDK 文档](sdk.md)
+- [SDK 文档](sdk/README.md)
   - [Java SDK](sdk/java.md)
   - [Go SDK](sdk/go.md)
   - [Python SDK](sdk/python.md)
@@ -54,11 +54,11 @@
 
 # 技术系列文章
 
-- [整体架构](architecture.md)
-- [集群](clustering.md)
-- [存储介绍](storage.md)
+- [整体架构](design/architecture.md)
+- [集群](design/clustering.md)
+- [存储介绍](design/storage.md)
 
 [//]: # "- [查询介绍](query.md)"
 
-- [Wal 介绍](wal.md)
-- [表分区](table_partitioning.md)
+- [Wal 介绍](design/wal.md)
+- [分区表](design/table_partitioning.md)
