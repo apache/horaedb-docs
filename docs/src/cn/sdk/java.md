@@ -36,7 +36,7 @@ if (!client.init(opts)) {
 
 配置详情见 [configuration](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/configuration.md)。
 
-注意: CeresDB 当前仅支持默认的 `public` database , 未来会支持多个database。
+注意: CeresDB 当前仅支持默认的 `public` database , 未来会支持多个 database。
 
 ## 建表 Example
 
