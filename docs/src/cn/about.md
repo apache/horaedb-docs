@@ -21,4 +21,4 @@ CeresDB 的基础设计思想是采用混合存储格式和相应的查询方法
 - 查看 [快速开始](quick_start.md) 掌握快速使用 CeresDB 的方式
 - CeresDB 支持的数据模型请查看 [Data Model](sql/model)
 - SQL 使用相关请查看 [SQL](sql/README.md)
-- CeresDB 支持的相关SDK请查看 [SDK](sdk/README.md)
+- CeresDB 支持的相关 SDK 请查看 [SDK](sdk/README.md)
