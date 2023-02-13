@@ -1,6 +1,6 @@
 install:
-	cargo install mdbook
-	cargo install mdbook-i18n --git https://github.com/chunshao90/mdbook-i18n.git --rev ee5d27989d35d266d5c9c5ccb6c2a863749b57c6 --force
+	cargo install mdbook@0.4.25
+	cargo install mdbook-i18n --git https://github.com/chunshao90/mdbook-i18n.git --rev 802bf4c79633b0bcf403443b050e3b482db7b40d
 
 serve:
 	cd docs && mdbook serve
