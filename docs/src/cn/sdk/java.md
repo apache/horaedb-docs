@@ -23,14 +23,14 @@ Java 8 及以上
 ```java
 // CeresDB options
 final CeresDBOptions opts = CeresDBOptions.newBuilder("127.0.0.1", 8831, DIRECT) // 默认 gprc 端口号，DIRECT 模式
-        .tenant("public", "sub_test", "test_token") // 租户信息
+        .database("public") // Client所使用的database，可被RequestContext的database覆盖
         .writeMaxRetries(1) // 写入失败重试次数上限（只有部分错误 code 才会重试，比如路由表失效）
         .readMaxRetries(1)  // 查询失败重试次数上限（只有部分错误 code 才会重试，比如路由表失效）
         .build();
 
 final CeresDBClient client = new CeresDBClient();
 if (!client.init(opts)) {
-        throw new IllegalStateException("Fail to start CeresDBClient");
+    throw new IllegalStateException("Fail to start CeresDBClient");
 }
 ```
 
