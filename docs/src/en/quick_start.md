@@ -84,7 +84,7 @@ DROP TABLE `demo`
 
 ## Using the SDKs
 
-See [sdk](./sdk.md)
+See [sdk](./sdk/README.md)
 
 ## Next Step
 
