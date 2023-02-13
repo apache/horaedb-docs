@@ -61,4 +61,4 @@
 [//]: # "- [查询介绍](query.md)"
 
 - [Wal 介绍](design/wal.md)
-- [表分区](design/table_partitioning.md)
+- [分区表](design/table_partitioning.md)
