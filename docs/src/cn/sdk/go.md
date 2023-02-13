@@ -2,7 +2,7 @@
 
 ## 介绍
 
-CeresDBClient 是 CeresDB 的高性能 Golang 版客户端。
+ceresdb.Client 是 CeresDB 的 Golang 版客户端。
 
 ## 安装
 
@@ -28,7 +28,8 @@ CeresDB 使用 SQL 来管理表格，比如创建表、删除表或者新增列�
 
 CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 schema 就立刻写入数据（CeresDB 会根据你的第一次写入帮你创建一个默认的 schema）。
 当然你也可以自行创建一个 schema 来更精细化的管理的表（比如索引等）。
-创建表格的样例：
+
+**创建表的样例**
 
 ```go
 	createTableSQL := `CREATE TABLE IF NOT EXISTS demo (
@@ -44,7 +45,7 @@ CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 sche
 	resp, err := client.SQLQuery(context.Background(), req)
 ```
 
-删除表格的样例：
+**删除表的样例**
 
 ```go
 	dropTableSQL := `DROP TABLE demo`
@@ -56,9 +57,6 @@ CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 sche
 ```
 
 ### 构建写入数据
-
-我们提供两种构建数据的方式：
-第一种支持用户使用 `PointBuilder` 每次单独构建一个 `Point`。
 
 ```go
 	points := make([]types.Point, 0, 2)
@@ -73,23 +71,6 @@ CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 sche
 		}
 		points = append(points, point)
 	}
-```
-
-第二种，用户也可以使用 `TablePointsBuilder` 直接构建同一张表下的多个 `Point`。
-
-```go
-    points, err := ceresdb.NewTablePointsBuilder("demo").
-        AddPoint().
-			SetTimestamp(utils.CurrentMS()).
-			AddTag("name", types.NewStringValue("test_tag1")).
-			AddField("value", types.NewDoubleValue(0.4242)).
-			BuildAndContinue().
-        AddPoint().
-			SetTimestamp(utils.CurrentMS()).
-			AddTag("name", types.NewStringValue("test_tag2")).
-			AddField("value", types.NewDoubleValue(0.3235)).
-			BuildAndContinue().
-        Build()
 ```
 
 ### 写入数据

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-CeresDB Client is a high-performance Golang client for CeresDB.
+ceresdb.Client is a Golang client for CeresDB.
 
 ## Installation
 
@@ -30,7 +30,7 @@ CeresDB uses SQL to manage tables, such as creating tables, deleting tables, or 
 
 CeresDB is a Schema-less time-series database, so creating table schema ahead of data ingestion is not required (CeresDB will create a default schema according to the very first data you write into it). Of course, you can also manually create a schema for fine grained management purposes (eg. managing index).
 
-Example for creating a table:
+**Example for creating a table**
 
 ```go
 	createTableSQL := `CREATE TABLE IF NOT EXISTS demo (
@@ -46,7 +46,7 @@ Example for creating a table:
 	resp, err := client.SQLQuery(context.Background(), req)
 ```
 
-Example for droping a table:
+**Example for droping a table**
 
 ```go
 	dropTableSQL := `DROP TABLE demo`
@@ -58,10 +58,6 @@ Example for droping a table:
 ```
 
 ### How To Build Write Data
-
-CeresDB supports two ways to build data:
-
-The first way is that user can use `PointBuilder` to build one point.
 
 ```go
 	points := make([]types.Point, 0, 2)
@@ -76,23 +72,6 @@ The first way is that user can use `PointBuilder` to build one point.
 		}
 		points = append(points, point)
 	}
-```
-
-The second way is that user can use `TablePointsBuilder` to build multiple points in one table.
-
-```go
-    points, err := ceresdb.NewTablePointsBuilder("demo").
-        AddPoint(). // add first point
-			SetTimestamp(utils.CurrentMS()).
-			AddTag("name", types.NewStringValue("test_tag1")).
-			AddField("value", types.NewDoubleValue(0.4242)).
-			BuildAndContinue().
-        AddPoint(). // add second point
-			SetTimestamp(utils.CurrentMS()).
-			AddTag("name", types.NewStringValue("test_tag2")).
-			AddField("value", types.NewDoubleValue(0.3235)).
-			BuildAndContinue().
-        Build()
 ```
 
 ### Write Example
