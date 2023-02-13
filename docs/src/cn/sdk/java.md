@@ -1,13 +1,16 @@
 # Java 客户端使用文档
 
 ## 介绍
+
 CeresDBClient 是 CeresDB 的高性能 Java 版客户端。
 
 ## 环境要求
+
 Java 8 及以上
 
 ## 依赖
-``` xml
+
+```xml
 <dependency>
   <groupId>io.ceresdb</groupId>
   <artifactId>ceresdb-all</artifactId>
@@ -17,7 +20,7 @@ Java 8 及以上
 
 ## 初始化客户端
 
-``` java
+```java
 // CeresDB options
 final CeresDBOptions opts = CeresDBOptions.newBuilder("127.0.0.1", 8831, DIRECT) // 默认 gprc 端口号，DIRECT 模式
         .tenant("public", "sub_test", "test_token") // 租户信息
@@ -30,8 +33,8 @@ if (!client.init(opts)) {
         throw new IllegalStateException("Fail to start CeresDBClient");
 }
 ```
-更多配置见 [configuration](docs/configuration.md)
 
+更多配置见 [configuration](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/configuration.md)
 
 ## 建表 Example
 
@@ -40,7 +43,7 @@ CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 sche
 
 下面的建表语句（使用 SDK 的 SQL API）包含了 CeresDB 支持的所有字段类型：
 
-``` java
+```java
 String createTableSql = "CREATE TABLE IF NOT EXISTS machine_table(" +                                                                                              "ts TIMESTAMP NOT NULL," + //
         "ts TIMESTAMP NOT NULL," +
         "city STRING TAG NOT NULL," +
@@ -55,11 +58,59 @@ if (!createResult.isOk()) {
         throw new IllegalStateException("Fail to create table");
 }
 ```
-详情见 [table](docs/table.md)
 
+详情见 [table](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/table.md)
+
+## 构建写入数据
+
+我们提供两种构建数据的方式：
+
+第一种支持用户使用 `PointBuilder` 每次单独构建一个 `Point`。
+
+```java
+List<Point> pointList = new LinkedList<>();
+for (int i = 0; i < 100; i++) {
+    // 构建单个Point
+    final Point point = Point.newPointBuilder("machine_table")
+            .setTimestamp(t0).addTag("city", "Singapore")
+            .addTag("ip", "10.0.0.1").addField("cpu", Value.withDouble(0.23))
+            .addField("mem", Value.withDouble(0.55)).build();
+    points.add(point);
+}
+```
+
+第二种支持用户使用 `TablePointsBuilder` 直接构建多个 `Point`。
+
+```java
+// 同一个表的数据可以一个tableBuilder快速构建
+final List<Point> pointList = Point.newTablePointsBuilder("machine_table")
+        .addPoint() // 第一个点
+            .setTimestamp(t0)
+            .addTag("city", "Singapore")
+            .addTag("ip", "10.0.0.1")
+            .addField("cpu", Value.withDouble(0.23))
+            .addField("mem", Value.withDouble(0.55))
+            .buildAndContinue()
+        .addPoint() // 第二个点
+            .setTimestamp(t1)
+            .addTag("city", "Singapore")
+            .addTag("ip", "10.0.0.1")
+            .addField("cpu", Value.withDouble(0.25))
+            .addField("mem", Value.withDouble(0.56))
+            .buildAndContinue()
+        .addPoint() // 第三个点
+            .setTimestamp(t1)
+            .addTag("city", "Shanghai")
+            .addTag("ip", "10.0.0.2")
+            .addField("cpu", Value.withDouble(0.21))
+            .addField("mem", Value.withDouble(0.52))
+            .buildAndContinue()
+        .build();
+```
 
 ## 写入 Example
-``` java
+
+```java
 final long t0 = System.currentTimeMillis();
 final long t1 = t0 + 1000;
 final List<Point> data = Point.newPointsBuilder("machine_table") // 同一个表的数据可以一个builder快速构建数据
@@ -97,10 +148,12 @@ Assert.assertEquals(3, writeResult.mapOr(0, WriteOk::getSuccess).intValue());
 Assert.assertEquals(0, writeResult.getOk().getFailed());
 Assert.assertEquals(0, writeResult.mapOr(-1, WriteOk::getFailed).intValue());
 ```
-详情见 [write](docs/write.md)
+
+详情见 [write](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/write.md)
 
 ## 查询 Example
-``` java
+
+```java
 final SqlQueryRequest queryRequest = SqlQueryRequest.newBuilder()
         .forTables("machine_table") // 这里表名是可选的，如果未提供，SDK将自动解析SQL填充表名并自动路由
         .sql("select * from machine_table where ts = %d", t0) //
@@ -126,11 +179,14 @@ Assert.assertEquals(0.55, rows.get(0).getColumnValue("mem").getDouble(), 0.00000
 final Stream<Row> rowStream = queryOk.stream();
 rowStream.forEach(row -> System.out.println(row.toString()));
 ```
-详情见 [read](docs/read.md)
+
+详情见 [read](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/read.md)
 
 ## 流式读写 Example
+
 CeresDB 支持流式读写，适用于大规模数据读写。
-``` java
+
+```java
 long start = System.currentTimeMillis();
 long t = start;
 final StreamWriteBuf<Point, WriteOk> writeBuf = client.streamWrite("machine_table");
@@ -156,4 +212,5 @@ final Result<SqlQueryOk, Err> streamQueryResult = client.sqlQuery(streamQuerySql
 Assert.assertTrue(streamQueryResult.isOk());
 Assert.assertEquals(1000, streamQueryResult.getOk().getRowCount());
 ```
-详情见 [streaming](docs/streaming.md)
+
+详情见 [streaming](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/streaming.md)
