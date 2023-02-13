@@ -11,7 +11,7 @@
 
 CeresDB 是一种基于 share-nothing 架构的分布式存储系统，不同服务器之间的数据相互隔离，互不影响。每一个单机中的存储引擎是 LSM（Log-structured merge-tree）的一个变种，针对时序场景做了优化，下图展示了其主要组件的运作方式：
 
-![](../resources/images/storage-overview.svg)
+![](../../resources/images/storage-overview.svg)
 
 ## Write Ahead Log (WAL)
 

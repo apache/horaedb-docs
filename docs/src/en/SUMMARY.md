@@ -29,7 +29,7 @@
   - [Static Routing](deploy/static_routing.md)
   - [Dynamic Routing](deploy/dynamic_routing.md)
 
-- [Develop Kits](sdk.md)
+- [Develop Kits](sdk/README.md)
   - [Java SDK](sdk/java.md)
   - [Go SDK](sdk/go.md)
   - [Python SDK](sdk/python.md)
@@ -52,11 +52,11 @@
 
 # Technical and Design
 
-- [Architecture](architecture.md)
-- [Clustering](clustering.md)
-- [Storage](storage.md)
+- [Architecture](design/architecture.md)
+- [Clustering](design/clustering.md)
+- [Storage](design/storage.md)
 
 [//]: # "- [Query](query.md)"
 
-- [Wal](wal.md)
-- [Table Partitioning](table_partitioning.md)
+- [Wal](design/wal.md)
+- [Table Partitioning](design/table_partitioning.md)
