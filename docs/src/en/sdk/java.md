@@ -38,6 +38,8 @@ if (!client.init(opts)) {
 
 For more configuration options, see [configuration](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/configuration.md)
 
+Notice: CeresDB currently only supports the default database `public` now, multiple databases will be supported in the future;
+
 ## Create Table Example
 
 CeresDB is a Schema-less time-series database, so creating table schema ahead of data ingestion is not required (CeresDB will create a default schema according to the very first data you write into it). Of course, you can also manually create a schema for fine grained management purposes (eg. managing index).
