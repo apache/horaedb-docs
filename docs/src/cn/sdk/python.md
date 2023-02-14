@@ -2,7 +2,7 @@
 
 ## 介绍
 
-[ceresdb-client](https://pypi.org/project/ceresdb-client/) 是 [CeresDB](https://github.com/CeresDB/ceresdb) python 语言的客户端.
+[ceresdb-client](https://pypi.org/project/ceresdb-client/) 是 [CeresDB](https://github.com/CeresDB/ceresdb) python 客户端.
 
 这里首先要感谢 [PyO3](https://github.com/PyO3), 借助于 [PyO3](https://github.com/PyO3)，python 客户端基于 [rust 客户端](https://github.com/CeresDB/ceresdb-client-rs)进行了封装。
 
