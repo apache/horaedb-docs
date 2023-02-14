@@ -7,5 +7,6 @@
 ## Contributing
 
 欢迎大家加入到 CeresDB 文档建设中，一起把文档做的更好更全。如果你遇到了 CeresDB 的文档问题，可随时
+
 - 提 [issue](https://github.com/CeresDB/docs/issues) 来反馈，或者
 - 直接提交 [Pull Request](https://github.com/CeresDB/docs/pulls) 来进行修改。
