@@ -77,7 +77,7 @@ event_loop = asyncio.get_event_loop()
 event_loop.run_until_complete(async_query(client, rpc_ctx, req))
 ```
 
-`RpcContext` 可以用来重新设置已经在客户端初始化时定义的 database 和超时参数。
+`RpcContext` 可以用来指定目标 database （可以覆盖在初始化的时候设置的 default_space） 和超时参数。
 
 ## 数据写入
 
