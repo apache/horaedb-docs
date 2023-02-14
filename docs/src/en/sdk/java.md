@@ -36,6 +36,15 @@ if (!client.init(opts)) {
 }
 ```
 
+The initialization requires at least three parameters:
+
+- `Endpoint`: 127.0.0.1
+- `Port`: 8831
+- `RouteMode`: DIRECT/PROXY
+
+`Endpoihnt` and `Port` are simple.
+Here is the explanation of `RouteMode`. There are two kinds of `RouteMode`,The `Direct` mode should be adopted to avoid forwarding overhead if all the servers are accessible to the client.
+However, the `Proxy` mode is the only choice if the access to the servers from the client must go through a gateway.
 For more configuration options, see [configuration](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/configuration.md)
 
 Notice: CeresDB currently only supports the default database `public` now, multiple databases will be supported in the future;
@@ -63,9 +72,22 @@ if (!createResult.isOk()) {
 }
 ```
 
-## How To Build Write Data
+## Drop Table Example
 
-You can use `PointBuilder` to build CeresDB points as following:
+Here is an example of dropping table：
+
+```java
+String dropTableSql = "DROP TABLE machine_table";
+
+Result<SqlQueryOk, Err> dropResult = client.sqlQuery(new SqlQueryRequest(dropTableSql)).get();
+if (!createResult.isOk()) {
+        throw new IllegalStateException("Fail to drop table");
+}
+```
+
+## Write Data Example
+
+Firstly, you can use `PointBuilder` to build CeresDB points:
 
 ```java
 List<Point> pointList = new LinkedList<>();
@@ -79,9 +101,7 @@ for (int i = 0; i < 100; i++) {
 }
 ```
 
-The second way is that user can use `TablePointsBuilder` to build multiple points.
-
-## Write Data Example
+Then, you can use `write` interface to write data:
 
 ```java
 final CompletableFuture<Result<WriteOk, Err>> wf = client.write(new WriteRequest(pointList));
