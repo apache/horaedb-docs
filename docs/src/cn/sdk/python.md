@@ -45,7 +45,7 @@ client = Builder('127.0.0.1:8831', Mode.Direct) \
 - `Endpoint`: 服务端地址，由 ip 和端口组成，例如 `127.0.0.1:8831`;
 - `Mode`: 客户端和服务端通信模式，两种可供选择: `Direct` 和 `Proxy`。
 
-这里重点介绍下通信模式 `Mode`， `Direct` 模式应用在客户端可以访问所有的服务器，可以减少转发开销。如果客户端访问服务器必须要经过网关，那么只能选择 `PROXY` 模式。
+这里重点介绍下通信模式 `Mode`， 当客户端可以访问所有的服务器的时候，建议采用 `Direct` 模式，以减少转发开销；但是如果客户端访问服务器必须要经过网关，那么只能选择 `Proxy` 模式。
 
 在 RPC 请求的`RpcContext`中没有设置 database 情况下，`default_database` 参数设置的 database 会作为默认的 database 使用。
 
