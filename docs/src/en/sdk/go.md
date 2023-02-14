@@ -20,6 +20,12 @@ go get github.com/CeresDB/ceresdb-client-go/ceresdb
 	)
 ```
 
+| option name       | description                                                                                                |
+| ----------------- | ---------------------------------------------------------------------------------------------------------- |
+| defaultDatabase   | using database, database can be overwritten by ReqContext in single `Write` or `SQLRequest`                |
+| RPCMaxRecvMsgSize | configration for grpc `MaxCallRecvMsgSize`, default 1024 _ 1024 _ 1024                                     |
+| RouteMaxCacheSize | If the maximum number of router cache size, router client whill evict oldest if exceeded, default is 10000 |
+
 Notice:
 
 - CeresDB currently only supports the default database `public` now, multiple databases will be supported in the future
@@ -30,7 +36,7 @@ CeresDB uses SQL to manage tables, such as creating tables, deleting tables, or 
 
 CeresDB is a Schema-less time-series database, so creating table schema ahead of data ingestion is not required (CeresDB will create a default schema according to the very first data you write into it). Of course, you can also manually create a schema for fine grained management purposes (eg. managing index).
 
-**Example for creating a table**
+**Example for creating table**
 
 ```go
 	createTableSQL := `CREATE TABLE IF NOT EXISTS demo (
@@ -46,7 +52,7 @@ CeresDB is a Schema-less time-series database, so creating table schema ahead of
 	resp, err := client.SQLQuery(context.Background(), req)
 ```
 
-**Example for droping a table**
+**Example for droping table**
 
 ```go
 	dropTableSQL := `DROP TABLE demo`
