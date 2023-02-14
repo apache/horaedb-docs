@@ -1,4 +1,4 @@
-# Table Operation
+# 表操作
 
 CeresDB 支持标准的 SQL，用户可以使用 Http 协议创建表和读写表。更多内容可以参考 [SQL 语法](../sql/README.md)
 
