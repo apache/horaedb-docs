@@ -49,7 +49,7 @@ client = Builder('127.0.0.1:8831', Mode.Direct) \
 
 至于 `default_database`，会在执行 RPC 请求时未通过 `RpcContext` 设置 database 的情况下，将被作为目标 database 使用。
 
-通过配置 `RpcConfig`, 可以调整客户端使用的资源和性能，所有的配置参数可以参考[这里](https://github.com/CeresDB/ceresdb-client-py/blob/main/ceresdb_client.pyi).
+最后，通过配置 `RpcConfig`, 可以管理客户端使用的资源和调整其性能，所有的配置参数可以参考[这里](https://github.com/CeresDB/ceresdb-client-py/blob/main/ceresdb_client.pyi).
 
 ## 建表
 
