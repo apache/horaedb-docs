@@ -71,6 +71,7 @@ req = SqlQueryRequest(['demo'], create_table_sql)
 rpc_ctx = RpcContext()
 rpc_ctx.database = 'public'
 rpc_ctx.timeout_ms = 100
+
 event_loop = asyncio.get_event_loop()
 event_loop.run_until_complete(async_query(client, rpc_ctx, req))
 ```
@@ -96,7 +97,6 @@ point = point_builder \
 
 write_request = WriteRequest()
 write_request.add_point(point)
-rpc_ctx = RpcContext()
 
 event_loop = asyncio.get_event_loop()
 event_loop.run_until_complete(async_write(client, ctx, req))
@@ -131,4 +131,16 @@ for row_idx in range(0, resp.row_num()):
         row_tokens.append(f"{col.name()}:{col.value()}#{col.data_type()}")
 
     print(f"row#{col_idx}: {','.join(row_tokens)}")
+```
+
+## Drop Table
+Finally, we can drop the table by the sql api, which is similar to the table creation:
+
+```python
+drop_table_sql = 'DROP TABLE demo'
+
+req = SqlQueryRequest(['demo'], drop_table_sql)
+
+event_loop = asyncio.get_event_loop()
+event_loop.run_until_complete(async_query(client, rpc_ctx, req))
 ```
