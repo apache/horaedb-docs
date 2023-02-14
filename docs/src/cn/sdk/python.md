@@ -4,9 +4,9 @@
 
 [ceresdb-client](https://pypi.org/project/ceresdb-client/) 是 [CeresDB](https://github.com/CeresDB/ceresdb) python 语言的客户端.
 
-这里首先要感谢 [PyO3](https://github.com/PyO3), 借助于 [PyO3](https://github.com/PyO3)，python 客户端实际上是对 [rust 客户端](https://github.com/CeresDB/ceresdb-client-rs)的封装。
+这里首先要感谢 [PyO3](https://github.com/PyO3), 借助于 [PyO3](https://github.com/PyO3)，python 客户端基于 [rust 客户端](https://github.com/CeresDB/ceresdb-client-rs)进行了封装。
 
-本手册将会介绍基本的使用示例 [示例](https://github.com/CeresDB/ceresdb-client-py/blob/main/examples/read_write.py).
+本手册将会介绍基本的使用[示例](https://github.com/CeresDB/ceresdb-client-py/blob/main/examples/read_write.py).
 
 ## 环境要求
 
@@ -20,7 +20,7 @@ pip install ceresdb-client
 
 ## 初始化客户端
 
-首先介绍下初始化客户端，代码示例如下:
+首先介绍下如何初始化客户端，代码示例如下:
 
 ```python
 import asyncio
@@ -38,14 +38,14 @@ client = Builder('127.0.0.1:8831', Mode.Direct) \
     .build()
 ```
 
-代码的最开始部分是引入了一些示例代码必须的包。
+代码的最开始部分是引入了一些示例代码必须的包，在后面的示例中将省略这部分。
 
 客户端初始化需要至少两个参数:
 
 - `Endpoint`: 服务端地址，由 ip 和端口组成，例如 `127.0.0.1:8831`;
 - `Mode`: 客户端和服务端通信模式，两种可供选择: `Direct` 和 `Proxy`。
 
-这里重点介绍下通信模式 `Mode`， `Direct` 模式应用在客户端可以访问所有的服务器，此模式可以减少转发开销。如果客户端访问服务器必须要经过网关，那么只能选择 `PROXY` 模式。
+这里重点介绍下通信模式 `Mode`， `Direct` 模式应用在客户端可以访问所有的服务器，可以减少转发开销。如果客户端访问服务器必须要经过网关，那么只能选择 `PROXY` 模式。
 
 在 RPC 请求的`RpcContext`中没有设置 database 情况下，`default_database` 参数设置的 database 会作为默认的 database 使用。
 
@@ -56,7 +56,7 @@ client = Builder('127.0.0.1:8831', Mode.Direct) \
 CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 schema 就立刻写入数据（CeresDB 会根据你的第一次写入帮你创建一个默认的 schema）。
 当然你也可以自行创建一个 schema 来更精细化的管理表（比如索引等）
 
-通过已经初始化好的客户端建表示例如下：
+初始化客户端后，建表示例如下：
 
 ```python
 def async_query(client, ctx, req):
@@ -81,7 +81,7 @@ event_loop.run_until_complete(async_query(client, rpc_ctx, req))
 
 ## 数据写入
 
-可以使用 `PointBuilder` 来构建一个 point, 实际上就是数据集的一行，多个 point 构成了一个写入请求。
+可以使用 `PointBuilder` 来构建一个 point（实际上就是数据集的一行），多个 point 构成一个写入请求。
 
 示例如下:
 
