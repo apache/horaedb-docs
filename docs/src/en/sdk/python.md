@@ -134,6 +134,7 @@ for row_idx in range(0, resp.row_num()):
 ```
 
 ## Drop Table
+
 Finally, we can drop the table by the sql api, which is similar to the table creation:
 
 ```python
