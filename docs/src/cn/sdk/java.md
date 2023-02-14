@@ -40,7 +40,7 @@ if (!client.init(opts)) {
 - Port: 8831
 - RouteMode: DIRECT/PROXY
 
-这里重点解释下 `RouteMode` 参数， `PROXY` 模式用在客户端和服务端存在网络隔离，需要转发请求到正确的服务器节点上；`DIRECT` 模式用在客户端和服务端网络连通的场景，节省转发的开销，具有更高的性能。
+这里重点解释下 `RouteMode` 参数，`PROXY` 模式用在客户端和服务端存在网络隔离，请求需要经过转发的场景；`DIRECT` 模式用在客户端和服务端网络连通的场景，节省转发的开销，具有更高的性能。
 更多的参数配置详情见 [configuration](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/configuration.md)。
 
 注意: CeresDB 当前仅支持默认的 `public` database , 未来会支持多个 database。
