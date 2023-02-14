@@ -24,7 +24,7 @@ A write request will be written to
 
 Since memtable is not persisted to the underlying storage system in real time, so WAL is required to ensure the reliability of the data in memtable.
 
-On the other hand, due to the design of the [distributed architecture](architecture.md), WAL itself is required to be highly available. Now there are following implementations in CeresDB:
+On the other hand, due to the design of the [distributed architecture](clustering.md), WAL itself is required to be highly available. Now there are following implementations in CeresDB:
 
 - [Local disk](wal_on_rocksdb.md) (based on [RocksDB](http://rocksdb.org/), no distributed high availability)
 - [OceanBase](https://www.oceanbase.com)
