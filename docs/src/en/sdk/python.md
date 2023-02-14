@@ -18,8 +18,6 @@ The guide will give a basic introduction to the python client by [example](https
 pip install ceresdb-client
 ```
 
-from ceresdb_client import Builder, PointBuilder, ValueBuilder, WriteRequest, SqlQueryRequest, Mode
-
 ## Init CeresDB Client
 
 The client initialization comes first, here is a code snippet:
@@ -104,7 +102,7 @@ event_loop = asyncio.get_event_loop()
 event_loop.run_until_complete(async_write(client, ctx, req))
 ```
 
-## Retrieve Data
+## Query Data
 
 By `sql_query` interface, it is easy to retrieve the data from the server:
 
