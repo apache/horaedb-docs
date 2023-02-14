@@ -5,6 +5,11 @@ multilingual = true
 src = "src/en"
 title = "CeresDB Documentation"
 
+[build]
+use-default-preprocessors = false
+
+[preprocessor.links]
+
 [[output.i18n.translations]]
 src = "src/cn"
 language = "cn"
@@ -21,3 +26,4 @@ edit-url-template = "https://github.com/CeresDB/docs/edit/main/docs/{path}"
 
 [output.html.fold]
 enable = true
+
