@@ -42,7 +42,6 @@ The initialization requires at least three parameters:
 - `Port`: 8831
 - `RouteMode`: DIRECT/PROXY
 
-`Endpoihnt` and `Port` are simple.
 Here is the explanation of `RouteMode`. There are two kinds of `RouteMode`,The `Direct` mode should be adopted to avoid forwarding overhead if all the servers are accessible to the client.
 However, the `Proxy` mode is the only choice if the access to the servers from the client must go through a gateway.
 For more configuration options, see [configuration](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/configuration.md)
