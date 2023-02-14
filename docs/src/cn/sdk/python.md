@@ -113,7 +113,7 @@ event_loop = asyncio.get_event_loop()
 resp = event_loop.run_until_complete(async_query(client, ctx, req))
 ```
 
-如例子中所展示, 构建 `SqlQueryRequest` 需要两个参数:
+如示例所展示, 构建 `SqlQueryRequest` 需要两个参数:
 
 - 查询 sql 中涉及到的表；
 - 查询 sql.
