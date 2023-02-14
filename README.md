@@ -9,4 +9,7 @@ This repository stores all the source files of [CeresDB docs website](https://do
 ## Contributing
 
 We very much welcome contributions from the community to make CeresDB documentation better.
-You can help either by opening an [issue](https://github.com/CeresDB/docs/issues) with any suggestions, or submitting a [pull request](https://github.com/CeresDB/docs/pulls).
+
+You can help us by
+- Opening an [issue](https://github.com/CeresDB/docs/issues) with any suggestions, or
+- Submitting bya [pull request](https://github.com/CeresDB/docs/pulls) to fix errors.
