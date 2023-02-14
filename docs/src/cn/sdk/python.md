@@ -53,7 +53,7 @@ client = Builder('127.0.0.1:8831', Mode.Direct) \
 
 ## 建表
 
-CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 schema 就立刻写入数据（CeresDB 会根据你的第一次写入帮你创建一个默认的 schema）。
+CeresDB 是一个 schema-less 的时序数据引擎，你可以不必创建 schema 就立刻写入数据（CeresDB 会根据你的第一次写入帮你创建一个默认的 schema）。
 当然你也可以自行创建一个 schema 来更精细化的管理表（比如索引等）
 
 初始化客户端后，建表示例如下：
