@@ -57,8 +57,9 @@
 - [Architecture](design/architecture.md)
 - [Clustering](design/clustering.md)
 - [Storage](design/storage.md)
+- [WAL](design/wal.md)
+  - [WAL on RocksDB](design/wal_on_rocksdb.md)
+  - [WAL on Kafka](design/wal_on_kafka.md)
+- [Table Partitioning](design/table_partitioning.md)
 
 [//]: # "- [Query](query.md)"
-
-- [Wal](design/wal.md)
-- [Table Partitioning](design/table_partitioning.md)
