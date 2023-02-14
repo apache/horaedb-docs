@@ -7,7 +7,7 @@
 ```toml
 [dependencies.ceresdb-client-rs]
 git = "https://github.com/CeresDB/ceresdb-client-rs.git"
-rev = "69948b9963597ccdb7c73756473393972dfdebd3" 
+rev = "69948b9963597ccdb7c73756473393972dfdebd3"
 ```
 
 ## 初始化客户端
@@ -16,13 +16,13 @@ rev = "69948b9963597ccdb7c73756473393972dfdebd3"
 
 - 创建客户端的 builder，你必须设置 `endpoint` 和 `mode`：
   - `endpoint` 是类似 "ip/domain_name:port" 形式的字符串。
-  - `mode` 用于指定访问 ceresdb 服务器的方式，[关于 mode 的详细信息](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/db_client/builder.rs#L20)。
+  - `mode` 用于指定访问 CeresDB 服务器的方式，[关于 mode 的详细信息](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/db_client/builder.rs#L20)。
 
 ```rust
 let mut builder = Builder::new("ip/domain_name:port", Mode::Direct/Mode::Proxy);
 ```
 
-- 创建和设置 `rpc_config`，这可以按需进行定义或者直接使用默认值，[关于 rpc config 的详细信息](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/options.rs)：
+- 创建和设置 `rpc_config`，可以按需进行定义或者直接使用默认值，更多详细参数请参考[这里](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/options.rs)：
 
 ```rust
 let rpc_config = RpcConfig {
@@ -45,14 +45,14 @@ let builder = builder.rpc_config(rpc_config);
     let client = builder.build();
 ```
 
-## 建表或删表
+## 管理表
 
-CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 schema 就立刻写入数据（CeresDB 会根据你的第一次写入帮你创建一个默认的 schema）。 当然你也可以自行创建一个 schema 来更精细化的管理表（比如索引等）。
+CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 schema 就立刻写入数据（CeresDB 会根据你的第一次写入帮你创建一个默认的 schema）。 当然你也可以自行创建一个 schema 来更精细化的管理表（比如添加索引等）。
 
 你可以通过 `sql query` 接口创建或者删除表，相关设置在 `sql query` 小节中介绍。
 
 - 建表:
-  
+
 ```rust
 let create_table_sql = r#"CREATE TABLE IF NOT EXISTS ceresdb (
             str_tag string TAG,
@@ -76,7 +76,7 @@ let resp = client
 ```
 
 - 删表：
-  
+
 ```rust
 let drop_table_sql = "DROP TABLE ceresdb";
 let req = SqlQueryRequest {
@@ -127,7 +127,7 @@ let mut write_req = WriteRequest::default();
 write_req.add_point(point);
 ```
 
-- 创建 `rpc_ctx`，同样地这可以按需设置或者使用默认值，[rpc ctx 的详细信息](https://github.com/CeresDB/ceresdb-client-rs/blob/a72e673103463c7962e01a097592fc7edbcc0b79/src/rpc_client/mod.rs#L29)：
+- 创建 `rpc_ctx`，同样地可以按需设置或者使用默认值，`rpc_ctx` 的详细信息请参考[这里](https://github.com/CeresDB/ceresdb-client-rs/blob/a72e673103463c7962e01a097592fc7edbcc0b79/src/rpc_client/mod.rs#L29)：
 
 ```rust
 let rpc_ctx = RpcContext {
@@ -137,7 +137,7 @@ let rpc_ctx = RpcContext {
 ```
 
 - 最后，利用客户端写入数据到服务器：
-  
+
 ```rust
 let rpc_ctx = RpcContext {
     database: Some("public".to_string()),
@@ -165,6 +165,6 @@ let req = SqlQueryRequest {
 let resp = client.sql_query(rpc_ctx, &req).await.expect("Should success to write");
 ```
 
-## Example
+## 示例
 
 你可以在本项目的仓库中找到[完整的例子](https://github.com/CeresDB/ceresdb-client-rs/blob/main/examples/read_write.rs)。

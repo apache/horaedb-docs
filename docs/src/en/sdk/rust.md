@@ -7,14 +7,14 @@ Just need to add dependency to Cargo.toml in your project:
 ```toml
 [dependencies.ceresdb-client-rs]
 git = "https://github.com/CeresDB/ceresdb-client-rs.git"
-rev = "69948b9963597ccdb7c73756473393972dfdebd3" 
+rev = "69948b9963597ccdb7c73756473393972dfdebd3"
 ```
 
 ## Init client
 
-At first, we need to build the client.
+At first, we need to init the client.
 
-- Create builder for the client, and you must set `endpoint` and `mode`:
+- New builder for the client, and you must set `endpoint` and `mode`:
   - `endpoint` is a string which is usually like "ip/domain_name:port".
   - `mode` is used to define the way to access ceresdb server, [detail about mode](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/db_client/builder.rs#L20).
 
@@ -22,7 +22,7 @@ At first, we need to build the client.
 let mut builder = Builder::new("ip/domain_name:port", Mode::Direct/Mode::Proxy);
 ```
 
-- New and set `rpc_config`, it can be defined on demand or just use the default value, [detail about rpc configs](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/options.rs):
+- New and set `rpc_config`, it can be defined on demand or just use the default value, [detail about rpc config](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/options.rs):
 
 ```rust
 let rpc_config = RpcConfig {
@@ -45,14 +45,14 @@ let builder = builder.rpc_config(rpc_config);
     let client = builder.build();
 ```
 
-## Create or drop table
+## Manage table
 
 CeresDB is a Schema-less time-series database, so creating table schema ahead of data ingestion is not required (CeresDB will create a default schema according to the very first data you write into it). Of course, you can also manually create a schema for fine grained management purposes, e.g. managing index.
 
 You can use the sql query interface to create or drop table, related setting will be introduced in `sql query` section.
 
 - Create table:
-  
+
 ```rust
 let create_table_sql = r#"CREATE TABLE IF NOT EXISTS ceresdb (
             str_tag string TAG,
@@ -76,7 +76,7 @@ let resp = client
 ```
 
 - Drop table:
-  
+
 ```rust
 let drop_table_sql = "DROP TABLE ceresdb";
 let req = SqlQueryRequest {
@@ -127,7 +127,7 @@ let mut write_req = WriteRequest::default();
 write_req.add_point(point);
 ```
 
-- New `rpc_ctx`, the `rpc ctx` is used to carry user information, and it can be defined on demand or just use the default value, [detail about rpc ctx](https://github.com/CeresDB/ceresdb-client-rs/blob/a72e673103463c7962e01a097592fc7edbcc0b79/src/rpc_client/mod.rs#L29):
+- New `rpc_ctx`, and it can also be defined on demand or just use the default value, [detail about rpc ctx](https://github.com/CeresDB/ceresdb-client-rs/blob/a72e673103463c7962e01a097592fc7edbcc0b79/src/rpc_client/mod.rs#L29):
 
 - Finally, write to server by client.
 
@@ -141,9 +141,9 @@ let resp = client.write(rpc_ctx, &write_req).await.expect("Should success to wri
 
 ## Sql query
 
-Query data with sql is supported.
+We support to query data with sql.
 
-- Define related tables and sql in `read request`:
+- Define related tables and sql in `sql query request`:
 
 ```rust
 let req = SqlQueryRequest {
@@ -152,7 +152,7 @@ let req = SqlQueryRequest {
 };
 ```
 
-- Query from client:
+- Query by client:
 
 ```rust
 let resp = client.sql_query(rpc_ctx, &req).await.expect("Should success to write");
