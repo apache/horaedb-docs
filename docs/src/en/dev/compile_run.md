@@ -1,4 +1,4 @@
-为了编译CeresDB, 首先需要安装相关的依赖（包括 `Rust` 的工具链) .
+为了编译 CeresDB, 首先需要安装相关的依赖（包括 `Rust` 的工具链) .
 
 # 依赖(Ubuntu20.04)
 
@@ -8,9 +8,9 @@
 apt install git curl gcc g++ libssl-dev pkg-config cmake
 ```
 
-需要注意的是，项目的编译对cmake、gcc、g++等依赖项有版本要求。
+需要注意的是，项目的编译对 cmake、gcc、g++等依赖项有版本要求。
 
-如果你的开发环境是旧的Linux发行版，有必要手动安装这些依赖项的高版本。
+如果你的开发环境是旧的 Linux 发行版，有必要手动安装这些依赖项的高版本。
 
 # 依赖(MacOS)
 
