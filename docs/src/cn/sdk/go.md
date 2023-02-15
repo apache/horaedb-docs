@@ -33,7 +33,7 @@ go get github.com/CeresDB/ceresdb-client-go/ceresdb
 CeresDB 使用 SQL 来管理表格，比如创建表、删除表或者新增列等等，这和你在使用 SQL 管理其他的数据库时没有太大的区别。
 
 CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 schema 就立刻写入数据（CeresDB 会根据你的第一次写入帮你创建一个默认的 schema）。
-当然你也可以自行创建一个 schema 来更精细化的管理的表（比如索引等）。
+当然你也可以自行创建一个 schema 来更精细化的管理的表（比如添加索引等）。
 
 **创建表的样例**
 

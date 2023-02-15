@@ -41,6 +41,7 @@
   - [System Table](operation/system_table.md)
   - [Block List](operation/block_list.md)
   - [Observability](operation/observability.md)
+  - [Cluster](operation/cluster.md)
 - [Ecosystem](ecosystem/README.md)
   - [Prometheus](ecosystem/prometheus.md)
 

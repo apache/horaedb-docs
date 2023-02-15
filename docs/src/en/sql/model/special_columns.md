@@ -11,11 +11,11 @@ Tables in CeresDB have the following constraints:
 Tables in CeresDB must have one timestamp column maps to timestamp in timeseries data, such as timestamp in OpenTSDB/Prometheus.
 The timestamp column can be set with `timestamp key` keyword, like `TIMESTAMP KEY(ts)`.
 
-## Tag column
+## Tag Column
 
 `Tag` is use to defined column as tag column, similar to tag in timeseries data, such as tag in OpenTSDB and label in Prometheus.
 
-## Primary key
+## Primary Key
 
 The primary key is used for data deduplication and sorting. The primary key is composed of some columns and one time column.
 The primary key can be set in the following some ways：

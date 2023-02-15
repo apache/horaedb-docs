@@ -10,7 +10,7 @@ CeresDB is observable with Prometheus and Grafana.
 
 Save the following configuration into the `prometheus.yml` file. For example, in the `tmp` directory, `/tmp/prometheus.yml`.
 
-Two ceresdb http service are started on localhost:5440 and localhost:5441.
+Two CeresDB http service are started on localhost:5440 and localhost:5441.
 
 ```yaml
 global:
@@ -93,6 +93,6 @@ After importing the dashboard, you will see the following page:
 - rows by table: The rows of data written to each table.
 - table rows by instance: The written rows by instance.
 - total tables to write: Number of tables with data written.
-- flush count: Number of ceresdb flush.
+- flush count: Number of CeresDB flush.
 - 99th flush duration details by instance: 99th quantile of flush duration group by instance.
 - 99th write stall duration details by instance: 99th quantile of write stall duration group by instance.

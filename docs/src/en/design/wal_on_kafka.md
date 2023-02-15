@@ -44,9 +44,9 @@ Read ◄─────────┼─┼─┤ └────────�
                       └──────────────────────────────────────────────────────────┘
 ```
 
-## Data model
+## Data Model
 
-### Log format
+### Log Format
 
 The common log format described in [WAL on RocksDB](wal_on_rocksdb.md) is used here.
 
@@ -85,7 +85,7 @@ We briefly introduce the variables in `TableMeta` here:
  └─────────────────────────────────────────────────────┘
 ```
 
-## Main process
+## Main Process
 
 We focus on the main process in one region, following process will be introduced:
 
@@ -93,7 +93,7 @@ We focus on the main process in one region, following process will be introduced
 - Write and read logs.
 - Delete logs.
 
-### Open or create region
+### Open or Create Region
 
 #### Steps
 
@@ -176,7 +176,7 @@ high watermark in snapshot: 64
 └────────────────────────────────────┘
 ```
 
-### Write and read logs
+### Write and Read Logs
 
 The writing and reading process in a region is simple.
 
@@ -191,7 +191,7 @@ For reading:
 - Open the specified region.
 - Just read all the logs of the region, and the split and replay work will be done by the caller.
 
-### Delete logs
+### Delete Logs
 
 Log deletion can be divided into two steps:
 

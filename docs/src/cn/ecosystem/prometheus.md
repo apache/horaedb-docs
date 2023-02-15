@@ -1,6 +1,6 @@
 # Prometheus
 
-[Prometheus](https://prometheus.io/)是一个流行的云原生监控工具，由于其可扩展性、可靠性和可伸缩性，被企业广泛采用。它用于从云原生服务（如 Kubernetes 和 OpenShift）中获取指标，并将其存储在时间序列数据库中。Prometheus 也很容易扩展，允许用户用其他数据库扩展其特性和功能。
+[Prometheus](https://prometheus.io/)是一个流行的云原生监控工具，由于其可扩展性、可靠性和可伸缩性，被企业广泛采用。它用于从云原生服务（如 Kubernetes 和 OpenShift）中获取指标，并将其存储在时序数据库中。Prometheus 也很容易扩展，允许用户用其他数据库扩展其特性和功能。
 
 CeresDB 可以作为 Prometheus 的长期存储解决方案，同时支持远程读取和远程写入 API。
 

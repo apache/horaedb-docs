@@ -20,7 +20,7 @@
   - [数据操作](sql/dml/README.md)
     - [数据写入](sql/dml/insert.md)
     - [数据查询](sql/dml/select.md)
-  - [引擎参数](sql/engine_options.md)
+  - [引擎配置](sql/engine_options.md)
   - [常见 SQL](sql/utility.md)
   - [标量函数](sql/functions/scalar_functions.md)
   - [聚合函数](sql/functions/aggregate_functions.md)
@@ -41,6 +41,7 @@
   - [系统表](operation/system_table.md)
   - [黑名单](operation/block_list.md)
   - [监控](operation/observability.md)
+  - [集群运维](operation/cluster.md)
 - [周边生态](ecosystem/README.md)
   - [Prometheus](ecosystem/prometheus.md)
 

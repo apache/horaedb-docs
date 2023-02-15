@@ -6,7 +6,7 @@ CeresDB 使用的分区表语法类似于 [MySQL](https://dev.mysql.com/doc/refm
 
 一般的分区表包括`Range Partitioning`、`List Partitoning`、`Hash Partitioning`和`Key Partititioning`。
 
-CeresDB 目前仅支持 Key Partititioning。
+CeresDB 目前仅支持 Key Partitioning。
 
 ## 设计
 

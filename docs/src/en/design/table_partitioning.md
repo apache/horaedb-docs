@@ -6,7 +6,7 @@ The partition table syntax used by CeresDB is similar to that of [MySQL](https:/
 
 General partition tables include `Range Partitioning`, `List Partitoning`, `Hash Partitioning`, and `Key Partititioning`.
 
-CeresDB currently only supports `Key Partititioning`.
+CeresDB currently only supports `Key Partitioning`.
 
 ## Architecture
 
