@@ -57,8 +57,9 @@
 - [整体架构](design/architecture.md)
 - [集群](design/clustering.md)
 - [存储介绍](design/storage.md)
+- [WAL 介绍](design/wal.md)
+  - [WAL on RocksDB](design/wal_on_rocksdb.md)
+  - [WAL on Kafka](design/wal_on_kafka.md)
+- [分区表](design/table_partitioning.md)
 
 [//]: # "- [查询介绍](query.md)"
-
-- [Wal 介绍](design/wal.md)
-- [分区表](design/table_partitioning.md)

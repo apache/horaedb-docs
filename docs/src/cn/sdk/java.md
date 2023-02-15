@@ -34,14 +34,21 @@ if (!client.init(opts)) {
 }
 ```
 
-配置详情见 [configuration](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/configuration.md)。
+客户端初始化至少需要三个参数：
+
+- EndPoint: 127.0.0.1
+- Port: 8831
+- RouteMode: DIRECT/PROXY
+
+这里重点解释下 `RouteMode` 参数，`PROXY` 模式用在客户端和服务端存在网络隔离，请求需要经过转发的场景；`DIRECT` 模式用在客户端和服务端网络连通的场景，节省转发的开销，具有更高的性能。
+更多的参数配置详情见 [configuration](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/configuration.md)。
 
 注意: CeresDB 当前仅支持默认的 `public` database , 未来会支持多个 database。
 
-## 建表 Example
+## 建表
 
 CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 schema 就立刻写入数据（CeresDB 会根据你的第一次写入帮你创建一个默认的 schema）。
-当然你也可以自行创建一个 schema 来更精细化的管理的表（比如索引等）
+当然你也可以自行创建一个 schema 来更精细化的管理表（比如索引等）
 
 下面的建表语句（使用 SDK 的 SQL API）包含了 CeresDB 支持的所有字段类型：
 
@@ -61,11 +68,22 @@ if (!createResult.isOk()) {
 }
 ```
 
-详情见 [table](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/table.md)
+## 删表
 
-## 构建写入数据
+下面是一个删表的示例：
 
-构建数据的方式如下：
+```java
+String dropTableSql = "DROP TABLE machine_table";
+
+Result<SqlQueryOk, Err> dropResult = client.sqlQuery(new SqlQueryRequest(dropTableSql)).get();
+if (!createResult.isOk()) {
+        throw new IllegalStateException("Fail to drop table");
+}
+```
+
+## 数据写入
+
+首先我们需要构建数据，示例如下：
 
 ```java
 List<Point> pointList = new LinkedList<>();
@@ -79,7 +97,7 @@ for (int i = 0; i < 100; i++) {
 }
 ```
 
-## 写入 Example
+然后使用 `write` 接口写入数据，示例如下：
 
 ```java
 final CompletableFuture<Result<WriteOk, Err>> wf = client.write(pointList);
@@ -96,7 +114,7 @@ Assert.assertEquals(0, writeResult.mapOr(-1, WriteOk::getFailed).intValue());
 
 详情见 [write](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/write.md)
 
-## 查询 Example
+## 数据查询
 
 ```java
 final SqlQueryRequest queryRequest = SqlQueryRequest.newBuilder()
@@ -127,7 +145,7 @@ rowStream.forEach(row -> System.out.println(row.toString()));
 
 详情见 [read](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/read.md)
 
-## 流式读写 Example
+## 流式读写
 
 CeresDB 支持流式读写，适用于大规模数据读写。
 
