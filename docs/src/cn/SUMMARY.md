@@ -41,6 +41,7 @@
   - [系统表](operation/system_table.md)
   - [黑名单](operation/block_list.md)
   - [监控](operation/observability.md)
+  - [集群运维](operation/cluster.md)
 - [周边生态](ecosystem/README.md)
   - [Prometheus](ecosystem/prometheus.md)
 

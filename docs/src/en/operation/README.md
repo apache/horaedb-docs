@@ -6,3 +6,4 @@ This guide introduces the operation and maintenance of CeresDB, including cluste
 - [System Table](./system_table.md)
 - [Block List](./block_list.md)
 - [Observability](./observability.md)
+- [Cluster](./cluster.md)
