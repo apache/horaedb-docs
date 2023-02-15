@@ -1,19 +1,19 @@
-# Options
+# 配置项
 
-Options below can be used when create table for analytic engine
+建表时可以使用下列的选项配置引擎：
 
-- `enable_ttl`, `bool`. When enable TTL on a table, rows older than `ttl` will be deleted and can't be querid, default `true`
-- `ttl`, `duration`, lifetime of a row, only used when `enable_ttl` is `true`. default `7d`.
-- `storage_format`, `string`. The underlying column's format. Availiable values:
+- `enable_ttl`, `bool`. 默认为 `true`，当一个表打开 TTL 能力，早于 `ttl` 的数据不会被查询到并且会被删除
+- `ttl`, `duration`, 默认值为`7d`，此项定义数据的生命周期，只在 `enable_ttl` 为 `true` 的情况下使用。
+- `storage_format`, `string`. 数据存储的格式，有两种可选:
 
-  - `columnar`, default
+  - `columnar`, 默认值
   - `hybrid`
 
-  The meaning of those two values are in [Storage format](#storage-format) section.
+上述两种存储格式详见 [存储格式](#存储格式) 部分.
 
-## Storage Format
+## 存储格式
 
-There are mainly two formats supported in analytic engine. One is `columnar`, which is the traditional columnar format, with one table column in one physical column:
+CeresDB 支持两种存储格式，一个是 `columnar`, 这是传统的列式格式，一个物理列中存储一个数据表列。
 
 ```plaintext
 | Timestamp | Device ID | Status Code | Tag 1 | Tag 2 |
@@ -27,9 +27,10 @@ There are mainly two formats supported in analytic engine. One is `columnar`, wh
 | .....     |           |             |       |       |
 ```
 
-The other one is `hybrid`, an experimental format used to simulate row-oriented storage in columnar storage to accelerate classic time-series query.
+另一个是 `hybrid`, 这是一种实验阶段的存储格式，用于在列式存储中模拟面向行的存储，以加速经典的时序查询。
 
-In classic time-series user cases like IoT or DevOps, queries will typically first group their result by series id(or device id), then by timestamp. In order to achieve good performance in those scenarios, the data physical layout should match this style, so the `hybrid` format is proposed like this:
+在经典的时序场景中，如 IoT 或 DevOps，查询通常会先按系列 ID（或设备 ID）分组，然后再按时间戳分组。
+为了在这些场景中实现良好的性能，数据的物理布局应该与这种风格相匹配， `hybrid` 格式就是这样提出的。
 
 ```plaintext
  | Device ID | Timestamp           | Status Code | Tag 1 | Tag 2 | minTime | maxTime |
@@ -39,16 +40,16 @@ In classic time-series user cases like IoT or DevOps, queries will typically fir
  | ...       |                     |             |       |       |         |         |
 ```
 
-- Within one file, rows belonging to the same primary key(eg: series/device id) are collapsed into one row
-- The columns besides primary key are divided into two categories:
-  - `collapsible`, those columns will be collapsed into a list. Used to encode `fields` in time-series table
-    - Note: only fixed-length type is supported now
-  - `non-collapsible`, those columns should only contain one distinct value. Used to encode `tags` in time-series table
-    - Note: only string type is supported now
-- Two more columns are added, `minTime` and `maxTime`. Those are used to cut unnecessary rows out in query.
-  - Note: Not implemented yet.
+- 在一个文件中，同一个主键（例如设备 ID）的数据会被压缩到一行。
+- 除了主键之外的列被分成两类：
+  - `collapsible`, 这些列会被压缩成一个 list，常用于时序表中的`field`字段。
+    - 注意: 当前仅支持定长的字段。
+  - `non-collapsible`, 这些列只能包含一个去重值，常用于时序表中的`tag`字段。
+    - 注意: 当前仅支持字符串类型
+- 另外多加了两个字段，`minTime` 和 `maxTime`， 用于查询中过滤不必要的数据。
+  - 注意: 暂未实现此能力.
 
-### Example
+### 示例
 
 ```sql
 CREATE TABLE `device` (
@@ -64,7 +65,8 @@ CREATE TABLE `device` (
 );
 ```
 
-This will create a table with hybrid format, users can inspect data format with [parquet-tools](https://formulae.brew.sh/formula/parquet-tools). The table above should have following parquet schema:
+这段语句会创建一个混合存储格式的表, 这种情况下用户可以通过 [parquet-tools](https://formulae.brew.sh/formula/parquet-tools)查看数据格式.
+上面定义的表的 parquet 结构如下所示:
 
 ```
 message arrow_schema {

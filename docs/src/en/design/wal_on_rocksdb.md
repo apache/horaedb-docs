@@ -27,9 +27,9 @@ In this section we present a standalone WAL implementation (based on RocksDB). W
             └───────────────────────────────┘
 ```
 
-## Data model
+## Data Model
 
-### Common log format
+### Common Log Format
 
 We use the common key and value format here.
 Here is the defined key format, and the following is introduction for fields in it:
@@ -76,7 +76,7 @@ Here is the defined metadata value format, as you can see, just the `version` an
 +-------------+--------------+
 ```
 
-## Main process
+## Main Process
 
 - Open `TableUnit`:
   - Read the latest log entry of all tables to recover the next sequence numbers of tables mainly.

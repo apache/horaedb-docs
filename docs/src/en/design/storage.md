@@ -7,7 +7,7 @@ The storage engine mainly provides the following two functions：
 
 This document will introduce the internal implementation of the storage engine in CeresDB. Readers can refer to the content here to explore how to use CeresDB efficiently.
 
-# Overall structure
+# Overall Structure
 
 CeresDB is a distributed storage system based on the share-nothing architecture.
 

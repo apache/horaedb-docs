@@ -48,7 +48,7 @@ if (!client.init(opts)) {
 ## 建表
 
 CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 schema 就立刻写入数据（CeresDB 会根据你的第一次写入帮你创建一个默认的 schema）。
-当然你也可以自行创建一个 schema 来更精细化的管理表（比如索引等）
+当然你也可以自行创建一个 schema 来更精细化的管理表（比如添加索引等）
 
 下面的建表语句（使用 SDK 的 SQL API）包含了 CeresDB 支持的所有字段类型：
 
