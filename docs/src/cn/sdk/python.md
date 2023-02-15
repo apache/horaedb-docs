@@ -32,10 +32,10 @@ rpc_config = RpcConfig()
 rpc_config.thread_num = 1
 rpc_config.default_write_timeout_ms = 1000
 
-client = Builder('127.0.0.1:8831', Mode.Direct) \
-    .rpc_config(rpc_config) \
-    .default_database('public') \
-    .build()
+builder = Builder('127.0.0.1:8831', Mode.Direct)
+builder.set_rpc_config(rpc_config)
+builder.set_default_database('public')
+client = builder.build()
 ```
 
 代码的最开始部分是依赖库的导入，在后面的示例中将省略这部分。
@@ -90,11 +90,10 @@ async def async_write(client, ctx, req):
     return await client.write(ctx, req)
 
 point_builder = PointBuilder('demo')
-point = point_builder \
-    .timestamp(int(round(datetime.datetime.now().timestamp()))) \
-    .tag("name", ValueBuilder().string("test_tag1")) \
-    .field("value", ValueBuilder().double(0.4242)) \
-    .build()
+point_builder.set_timestamp(int(round(datetime.datetime.now().timestamp())))
+point_builder.set_tag("name", ValueBuilder().string("test_tag1"))
+point_builder.set_field("value", ValueBuilder().double(0.4242))
+point = point_builder.build()
 
 write_request = WriteRequest()
 write_request.add_point(point)
