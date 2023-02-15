@@ -1,32 +1,34 @@
-In order to compile CeresDB, some relevant dependencies(including the `Rust` toolchain) should be installed.
+为了编译 CeresDB, 首先需要安装相关的依赖（包括 `Rust` 的工具链) .
 
-# Dependencies(Ubuntu20.04)
+# 依赖(Ubuntu20.04)
 
-Assuming the development environment is Ubuntu20.04, execute the following command to install the required dependencies:
+假设我们的开发环境是 Ubuntu20.04, 可以执行如下命令来安装所需的依赖。
 
 ```shell
 apt install git curl gcc g++ libssl-dev pkg-config cmake
 ```
 
-It should be noted that the compilation of the project has version requirements for dependencies such as cmake, gcc, g++, etc. If your development environment is an old Linux distribution, it is necessary to manually install these dependencies of a higher version.
+需要注意的是，项目的编译对 cmake、gcc、g++等依赖项有版本要求。
 
-# Dependencies(MacOS)
+如果你的开发环境是旧的 Linux 发行版，有必要手动安装这些依赖项的高版本。
 
-If the development environment is MacOS, execute the following command to install the required dependencies.
+# 依赖(MacOS)
 
-1. Install command line tools:
+如果你的开发环境是 `MacOS` ，可以使用如下命令手动安装这些依赖项的高版本。
+
+1. 安装命令行工具：
 
 ```shell
 xcode-select --install
 ```
 
-2. Install cmake:
+2. 安装 cmake:
 
 ```shell
 brew install cmake
 ```
 
-3. Install protobuf:
+3. 安装 protobuf:
 
 ```shell
 brew install protobuf
@@ -34,23 +36,24 @@ brew install protobuf
 
 # Rust
 
-`Rust` can be installed by [rustup](https://rustup.rs/). After installing rustup, when entering the CeresDB project, the specified `Rust` version will be automatically downloaded according to the rust-toolchain file.
+`Rust` 可以使用 [rustup](https://rustup.rs/)来安装。
+安装 `Rust` 后，进入 CeresDB 工程目录，根据工具链文件指定的 `Rust` 版本会被自动下载。
 
-After execution, you need to add environment variables to use the `Rust` toolchain. Basically, just put the following commands into your `~/.bashrc` or `~/.bash_profile`:
+执行后，你需要添加环境变量来使用`Rust`工具链。只要把下面的命令放到你的`~/.bashrc`或`~/.bash_profile`中即可。
 
 ```shell
 source $HOME/.cargo/env
 ```
 
-# Compile and run
+# 编译运行
 
-Compile CeresDB by the following command:
+编译 CeresDB 命令如下:
 
 ```
 cargo build --release
 ```
 
-Then you can run CeresDB using the default configuration file provided in the codebase.
+然后可以使用特定的配置文件运行 CeresDB。
 
 ```bash
 ./target/release/ceresdb-server --config ./docs/minimal.toml

@@ -1,4 +1,4 @@
-# System Table
+# 系统表
 
 ## 查询 Table 信息
 
