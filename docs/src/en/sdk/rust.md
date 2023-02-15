@@ -10,7 +10,7 @@ git = "https://github.com/CeresDB/ceresdb-client-rs.git"
 rev = "69948b9963597ccdb7c73756473393972dfdebd3"
 ```
 
-## Init client
+## Init Client
 
 At first, we need to init the client.
 
@@ -45,7 +45,7 @@ let builder = builder.rpc_config(rpc_config);
     let client = builder.build();
 ```
 
-## Manage table
+## Manage Table
 
 CeresDB is a Schema-less time-series database, so creating table schema ahead of data ingestion is not required (CeresDB will create a default schema according to the very first data you write into it). Of course, you can also manually create a schema for fine grained management purposes, e.g. managing index.
 
@@ -139,7 +139,7 @@ let rpc_ctx = RpcContext {
 let resp = client.write(rpc_ctx, &write_req).await.expect("Should success to write");
 ```
 
-## Sql query
+## Sql Query
 
 We support to query data with sql.
 
