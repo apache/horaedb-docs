@@ -112,12 +112,16 @@ conversion is required, for example: convert `node-name` to `NODE_NAME`.
 In the `NoMeta` mode, CeresDB only requires the local disk as the underlying storage because the topology of the CeresDB cluster is static. However, with CeresMeta, the cluster topology can be dynamic, that is to say, CeresDB can be configured to use a non-local storage service for the features of a distributed system: HA, load balancing, scalability and so on. And CeresDB can be still configured to use a local storage with CeresMeta, which certainly leads to a static cluster topology.
 
 The relevant storage configurations include two parts:
+
 - Object Storage
 - WAL Storage
 
 ### Object Storage
+
 #### Local Storage
+
 Similarly, we can configure CeresDB to use a local disk as the underlying storage:
+
 ```toml
 [analytic.storage.object_store]
 type = "Local"
@@ -125,7 +129,9 @@ data_dir = "/home/admin/data/ceresdb"
 ```
 
 #### OSS
+
 Aliyun OSS can be also used as the underlying storage for CeresDB, with which the data is replicated for disaster recovery. Here is a example config, and you have to replace the templates with the real OSS parameters:
+
 ```toml
 [analytic.storage.object_store]
 type = "Aliyun"
@@ -137,8 +143,11 @@ prefix = "{data_dir}"
 ```
 
 ### WAL Storage
+
 #### RocksDB
+
 The WAL based on RocksDB is also a kind of local storage for CeresDB, which is easy for a quick start:
+
 ```toml
 [analytic.wal]
 type = "RocksDB"
@@ -146,7 +155,9 @@ data_dir = "/home/admin/data/ceresdb"
 ```
 
 #### OceanBase
+
 If you have deployed a OceanBase cluster, CeresDB can use it as the WAL storage for data disaster recovery. Here is a example config for such WAL, and you have to replace the templates with real OceanBase parameters:
+
 ```toml
 [analytic.wal]
 type = "Obkv"
@@ -165,7 +176,9 @@ sys_password = "{sys_password}"
 ```
 
 #### Kafka
+
 If you have deployed a Kafka cluster, CeresDB can also use it as the WAL storage. Here is example config for it, and you have to replace the templates with real parameters of the Kafka cluster:
+
 ```toml
 [analytic.wal]
 type = "Kafka"
@@ -175,7 +188,9 @@ boost_broker = "{boost_broker}"
 ```
 
 ### Meta Client Config
+
 Besides the storage configurations, CeresDB must be configured to start in `WithMeta` mode and connect to the deployed CeresMeta:
+
 ```toml
 [cluster_deployment]
 mode = "WithMeta"
@@ -187,9 +202,10 @@ lease = "10s"
 timeout = "5s"
 ```
 
-
 ### Complete Config of CeresDB
+
 With all the parts of the configurations mentioned above, a runnable complete config for CeresDB can be made. In order to make the CeresDB cluster runnable, we can decide to adopt RocksDB-based WAL and local-disk-based Object Storage:
+
 ```toml
 [server]
 bind_addr = "0.0.0.0"
@@ -254,17 +270,21 @@ memory_limit = "4G"
 ```
 
 Let's name this config file as `config.toml`. And the example configs, in which the templates must be replaced with real parameters before use, for remote storages are also provided:
+
 - [RocksDB WAL + OSS](../../resources/config_local_oss.toml)
 - [OceanBase WAL + OSS](../../resources/config_obkv_oss.toml)
 - [Kafka WAL + OSS](../../resources/config_kafka_oss.toml)
 
 ## Run CeresDB cluster with CeresMeta
+
 Firstly, let's start the CeresMeta:
+
 ```bash
 (TODO)
 ```
 
 With the started CeresMeta cluster, let's start the CeresDB instance:
+
 ```bash
 docker run -d --name ceresdb-server \
   -p 8831:8831 \

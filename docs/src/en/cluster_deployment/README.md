@@ -10,6 +10,7 @@ Currently, work about the integration with kubernetes is still in process, so Ce
 - [WithMeta Mode](with_meta.md)
 
 The `NoMeta Mode` is suggested to be adopted only in these scenes:
+
 - No requirement for HA and data disaster recovery;
 - No massive data traffic;
 - POC;

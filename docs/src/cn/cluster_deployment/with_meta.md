@@ -1,4 +1,4 @@
-# WithMeta 模式 
+# WithMeta 模式
 
 本文展示如何部署一个由 CeresMeta 控制的 CeresDB 集群，有了 CeresMeta 提供的服务，如果 CeresDB 使用存储不在本地的话，就可以实现很多分布式特性，比如水平扩容、负载均衡、服务高可用等。
 
@@ -101,15 +101,20 @@ mkdir /tmp/ceresmeta2
 上述的配置名均为配置文件中的使用方式，如果需要以环境变量的方式使用，需要做一个简单的修改，例如：将 `node-name` 转换为 `NODE_NAME`。
 
 ## 部署 CeresDB
+
 在 `NoMeta` 模式中，由于 CeresDB 集群拓扑是静态的，因此 CeresDB 只需要一个本地存储来作为底层的存储层即可。但是在 `WithMeta` 模式中，集群的拓扑是可以变化的，因此如果 CeresDB 的底层存储使用一个独立的存储服务的话，CeresDB 集群就可以获得一个分布式系统的特性：高可用、负载均衡、水平扩展等特性。当然，CeresDB 仍然可以使用本地存储，这样的话，集群的拓扑仍然是静态的。
 
 存储相关的配置主要包括两个部分：
+
 - Object Storage
 - WAL Storage
 
 ### Object Storage
+
 #### 本地存储
+
 类似 `NoMeta` 模式，我们仍然可以为 CeresDB 配置一个本地磁盘作为底层存储：
+
 ```toml
 [analytic.storage.object_store]
 type = "Local"
@@ -117,7 +122,9 @@ data_dir = "/home/admin/data/ceresdb"
 ```
 
 #### OSS
+
 Aliyun OSS 也可以作为 CeresDB 的底层存储，以此提供数据容灾能力。下面是一个配置示例，示例中的模版变量需要被替换成实际的 OSS 参数才可以真正的使用：
+
 ```toml
 [analytic.storage.object_store]
 type = "Aliyun"
@@ -129,9 +136,11 @@ prefix = "{data_dir}"
 ```
 
 ### WAL Storage
+
 #### RocksDB
 
 基于 RocksDB 的 WAL 也是一种本地存储，无第三方依赖，可以很方便的快速部署：
+
 ```toml
 [analytic.wal]
 type = "RocksDB"
@@ -139,7 +148,9 @@ data_dir = "/home/admin/data/ceresdb"
 ```
 
 #### OceanBase
+
 如果已经有了一个部署好的 OceanBase 集群的话，CeresDB 可以使用它作为 WAL Storage 来保证其数据的容灾性。下面是一个配置示例，示例中的模版变量需要被替换成实际的 OceanBase 集群的参数才可以真正的使用：
+
 ```toml
 [analytic.wal]
 type = "Obkv"
@@ -158,7 +169,9 @@ sys_password = "{sys_password}"
 ```
 
 #### Kafka
+
 如果你已经部署了一个 Kafka 集群，CeresDB 可以也可以使用它作为 WAL Storage。下面是一个配置示例，示例中的模版变量需要被替换成实际的 Kafka 集群的参数才可以真正的使用：
+
 ```toml
 [analytic.wal]
 type = "Kafka"
@@ -168,7 +181,9 @@ boost_broker = "{boost_broker}"
 ```
 
 #### Meta 客户端配置
+
 除了存储层的配置外，CeresDB 需要 CeresMeta 相关的配置来与 CeresMeta 集群进行通信：
+
 ```
 [cluster.meta_client]
 cluster_name = 'defaultCluster'
@@ -178,7 +193,9 @@ timeout = "5s"
 ```
 
 ### 完整配置
+
 将上面提到的所有关键配置合并之后，我们可以得到一个完整的、可运行的配置。为了让这个配置可以直接运行起来，配置中均采用了本地存储：基于 RocksDB 的 WAL 和本地磁盘的 Object Storage：
+
 ```toml
 [server]
 bind_addr = "0.0.0.0"
@@ -243,17 +260,21 @@ memory_limit = "4G"
 ```
 
 将这个配置命名成 `config.toml`。至于使用远程存储的配置示例在下面我们也提供了，需要注意的是，配置中的相关参数需要被替换成实际的参数才能真正使用：
+
 - [本地 RocksDB WAL + OSS](../../resources/config_local_oss.toml)
 - [OceanBase WAL + OSS](../../resources/config_obkv_oss.toml)
 - [Kafka WAL + OSS](../../resources/config_kafka_oss.toml)
 
 ### 启动集群
+
 首先，我们先启动 CeresMeta：
+
 ```bash
 (TODO)
 ```
 
 CeresMeta 启动好了，没有问题之后，就可以把 CeresDB 的容器创建出来：
+
 ```bash
 docker run -d --name ceresdb-server \
   -p 8831:8831 \
