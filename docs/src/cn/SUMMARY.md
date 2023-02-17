@@ -8,7 +8,6 @@
 # 用户手册
 
 - [SQL 语法](sql/README.md)
-
   - [数据模型](sql/model/README.md)
     - [数据类型](sql/model/data_types.md)
     - [特殊字段](sql/model/special_columns.md)
@@ -24,19 +23,16 @@
   - [常见 SQL](sql/utility.md)
   - [标量函数](sql/functions/scalar_functions.md)
   - [聚合函数](sql/functions/aggregate_functions.md)
-
-- [部署文档](deploy/README.md)
-
-  - [支持平台](deploy/platform.md)
-  - [静态路由](deploy/static_routing.md)
-  - [动态路由](deploy/dynamic_routing.md)
-
-- [SDK 文档](sdk/README.md)
+- [集群部署](cluster_deployment/README.md)
+  - [支持平台](cluster_deployment/platform.md)
+  - [NoMeta 模式](cluster_deployment/no_meta.md)
+  - [WithMeta 模式](cluster_deployment/with_meta.md)
+- [SDK](sdk/README.md)
   - [Java SDK](sdk/java.md)
   - [Go SDK](sdk/go.md)
   - [Python SDK](sdk/python.md)
   - [Rust SDK](sdk/rust.md)
-- [运维文档](operation/README.md)
+- [运维](operation/README.md)
   - [表](operation/table.md)
   - [系统表](operation/system_table.md)
   - [黑名单](operation/block_list.md)

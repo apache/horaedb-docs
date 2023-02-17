@@ -1,18 +1,18 @@
-# Dynamic Routing
+# WithMeta
 
-This guide shows how to deploy a CeresDB cluster with CeresMeta.
+This guide shows how to deploy a CeresDB cluster with CeresMeta. And with the CeresMeta, the whole CeresDB cluster will feature: high availability, load balancing and horizontal scalability if the underlying storage used by CeresDB is separated service.
 
 ## Deploy CeresMeta
 
 ### Introduce
 
 CeresMeta is one of the core services of CeresDB distributed mode, it is used to manage and schedule the CeresDB
-cluster, CeresMeta itself ensures its high availability through embed etcd.
+cluster.By the way, the high availability of CeresMeta is ensured by embedding [ETCD](https://github.com/etcd-io/etcd).
 
 ### Build
 
 - Golang version >= 1.19.
-- run `make build`in root path of this [project](https://github.com/CeresDB/ceresmeta).
+- run `make build` in root path of [CeresMeta](https://github.com/CeresDB/ceresmeta).
 
 ### Deploy
 
@@ -38,13 +38,13 @@ mkdir /tmp/ceresmeta1
 mkdir /tmp/ceresmeta2
 
 # Ceresmeta0
-./ceresmeta --config ./config/exampl-cluster0.toml
+./ceresmeta --config ./config/example-cluster0.toml
 
 # Ceresmeta1
-./ceresmeta --config ./config/exampl-cluster1.toml
+./ceresmeta --config ./config/example-cluster1.toml
 
 # Ceresmeta2
-./ceresmeta --config ./config/exampl-cluster2.toml
+./ceresmeta --config ./config/example-cluster2.toml
 ```
 
 #### Config
@@ -117,8 +117,7 @@ Two types of storage are supported in CeresDB:
 
 - Local Storage
 
-Configuration parameters of local storage refer to [Static Routing](./static_routing.md),
-notice that data is lost when server crash in this mode.
+Configuration parameters of local storage refer to [NoMeta Deployment](./no_meta.md). Note that data is lost when server crash in this mode.
 
 - OSS
 
@@ -149,34 +148,33 @@ Similar to using local storage for data persistence, recently written data is lo
 OceanBase is a distributed, highly available storage system, and the WAL on OceanBase has high availability and scalability.
 
 ```
-[analytic.wal_storage]
+[analytic.wal]
 type = "Obkv"
 
-[analytic.wal_storage.wal]
+[analytic.wal.data_namespace]
 ttl = "365d"
 
-[analytic.wal_storage.manifest]
+[analytic.wal.meta_namespace]
 ttl = "365d"
 
-[analytic.wal_storage.obkv]
+[analytic.wal.obkv]
 full_user_name = "xxx"
 param_url = "xxxx"
 password = "xxx"
 
-[analytic.wal_storage.obkv.client]
+[analytic.wal.obkv.client]
 sys_user_name = "xxx"
 sys_password = "xxx"
-
 ```
 
 - Kafka
   Apache Kafka is an open-source distributed message queue system used by thousands of companies.
 
 ```
-[analytic.wal_storage]
+[analytic.wal]
 type = "Kafka"
 
-[analytic.wal_storage.kafka_config.client_config]
+[analytic.wal.kafka.client]
 boost_broker = "xxx"
 ```
 
@@ -199,7 +197,7 @@ timeout = "5s"
 ### Start CeresDB Instances
 
 The CeresDB cluster can be started once the configuration is complete.
-You need to replace {project_path} with the actual project path.
+You need to replace {project_path} with the path of this project.
 
 ```bash
 # Update address of CeresMeta in CeresDB config.
@@ -207,13 +205,13 @@ docker run -d --name ceresdb-server \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \
-  -v {project_path}/docs/example-cluster-0.toml:/etc/ceresdb/ceresdb.toml \
+  -v /etc/ceresdb/ceresdb.toml:{project_path}/docs/example-cluster-0.toml \
   ceresdb/ceresdb-server
 
 docker run -d --name ceresdb-server2 \
   -p 8832:8832 \
   -p 13307:13307 \
   -p 5441:5441 \
-  -v {project_path}/docs/example-cluster-1.toml:/etc/ceresdb/ceresdb.toml \
+  -v /etc/ceresdb/ceresdb.toml:{project_path}/docs/example-cluster-1.toml \
   ceresdb/ceresdb-server
 ```

@@ -1,16 +1,16 @@
 # 动态路由部署
 
-本章介绍基于 CeresMeta 的动态路由部署方式。
+本文展示如何部署一个由 CeresMeta 控制的 CeresDB 集群，有了 CeresMeta 提供的服务，如果 CeresDB 使用存储不在本地的话，就可以实现很多分布式特性，比如水平扩容、负载均衡、服务高可用等。
 
 ## 部署 CeresMeta
 
 CeresMeta 是 CeresDB 分布式模式的核心服务之一，用于管理 CeresDB 节点的调度，为 CeresDB 集群提供高可用、负载均衡、集群管控等能力。
-CeresMeta 本身通过嵌入式的 etcd 保障高可用。
+CeresMeta 本身通过嵌入式的 [ETCD](https://github.com/etcd-io/etcd) 保障高可用。
 
 ### 编译打包
 
 - 安装 Golang，版本号 >= 1.19。
-- 在项目根目录下使用 `make build`进行编译打包。
+- 在项目根目录下使用 `make build` 进行编译打包。
 
 ### 部署方式
 
@@ -35,13 +35,13 @@ mkdir /tmp/ceresmeta1
 mkdir /tmp/ceresmeta2
 
 # Ceresmeta0
-./ceresmeta --config ./config/exampl-cluster0.toml
+./ceresmeta --config ./config/example-cluster0.toml
 
 # Ceresmeta1
-./ceresmeta --config ./config/exampl-cluster1.toml
+./ceresmeta --config ./config/example-cluster1.toml
 
 # Ceresmeta2
-./ceresmeta --config ./config/exampl-cluster2.toml
+./ceresmeta --config ./config/example-cluster2.toml
 ```
 
 #### 启动配置
@@ -110,7 +110,7 @@ mkdir /tmp/ceresmeta2
 
 - 本地存储
 
-本地存储配置参数可以参考[静态路由部署](./static_routing.md)，注意本地存储在机器出现故障的时候，数据会出现丢失。
+本地存储配置参数可以参考 [NoMeta 部署模式](./no_meta.md)，注意本地存储在机器出现故障的时候，数据会出现丢失。
 
 - OSS 存储
 
@@ -132,31 +132,30 @@ WAL 配置有三种配置方式：
 
 - 本地 RocksDB
 
-使用本地 RocksDB 作为 WAL 的配置参数可以参考[静态路由部署](./static_routing.md)，同使用本地存储作为数据持久化的方式类似，在机器宕机时最近写入的数据会丢失。
+使用本地 RocksDB 作为 WAL 的配置参数可以参考 [NoMeta 部署模式](./no_meta.md)，同使用本地存储作为数据持久化的方式类似，在机器宕机时最近写入的数据会丢失。
 
 - OceanBase
 
 OceanBase 是一种分布式高可用的存储系统，基于此实现的 WAL 具备高可用可扩展的能力。
 
 ```
-[analytic.wal_storage]
+[analytic.wal]
 type = "Obkv"
 
-[analytic.wal_storage.wal]
+[analytic.wal.data_namespace]
 ttl = "365d"
 
-[analytic.wal_storage.manifest]
+[analytic.wal.meta_namespace]
 ttl = "365d"
 
-[analytic.wal_storage.obkv]
+[analytic.wal.obkv]
 full_user_name = "xxx"
 param_url = "xxxx"
 password = "xxx"
 
-[analytic.wal_storage.obkv.client]
+[analytic.wal.obkv.client]
 sys_user_name = "xxx"
 sys_password = "xxx"
-
 ```
 
 - Kafka
@@ -164,10 +163,10 @@ sys_password = "xxx"
 Apache Kafka 是一款业界常用的开源分布式消息队列系统。
 
 ```
-[analytic.wal_storage]
+[analytic.wal]
 type = "Kafka"
 
-[analytic.wal_storage.kafka_config.client_config]
+[analytic.wal.kafka.client]
 boost_broker = "xxx"
 ```
 
@@ -197,13 +196,13 @@ docker run -d --name ceresdb-server \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \
-  -v {project_path}/docs/example-cluster-0.toml:/etc/ceresdb/ceresdb.toml \
+  -v /etc/ceresdb/ceresdb.toml:{project_path}/docs/example-cluster-0.toml \
   ceresdb/ceresdb-server
 
 docker run -d --name ceresdb-server2 \
   -p 8832:8832 \
   -p 13307:13307 \
   -p 5441:5441 \
-  -v {project_path}/docs/example-cluster-1.toml:/etc/ceresdb/ceresdb.toml \
+  -v /etc/ceresdb/ceresdb.toml:{project_path}/docs/example-cluster-1.toml \
   ceresdb/ceresdb-server
 ```

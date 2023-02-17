@@ -1,17 +1,37 @@
+# Note that the config needs parameters replacement before use, including:
+# - CeresMeta addr;
+# - Parameters of Aliyun OSS;
+# - Paramsters of the OBKV cluster;
+#
+# And one thing deserves explanation that this config is used for running ceresdb docker container:
+# ```
+# docker run -d --name ceresdb-server \
+# -v /etc/ceresdb/ceresdb.toml:{path_to_this_config} \
+# ceresdb/ceresdb-server
+# ```
+
+[server]
 bind_addr = "0.0.0.0"
 http_port = 5000
 grpc_port = 8831
-log_level = "info"
-deploy_mode = "Cluster"
+
+[logger]
+level = "info"
+
+[tracing]
+dir = "/home/admin/data/ceresdb"
 
 [runtime]
 read_thread_num = 20
 write_thread_num = 16
 background_thread_num = 12
 
-[cluster.meta_client]
-cluster_name = 'defaultCluster'
-meta_addr = 'http://{CeresMetaAddr}:2379'
+[cluster_delpoyment]
+mode = "WithMeta"
+
+[cluster_deployment.meta_client]
+cluster_name = "defaultCluster"
+meta_addr = "http://{CeresMetaAddr}:2379"
 lease = "10s"
 timeout = "5s"
 
@@ -28,30 +48,30 @@ snapshot_every_n_updates = 10000
 scan_timeout = "5s"
 store_timeout = "5s"
 
-[analytic.wal_storage]
+[analytic.wal]
 type = "Obkv"
 
-[analytic.wal_storage.wal]
+[analytic.wal.data_namespace]
 ttl = "365d"
 
-[analytic.wal_storage.manifest]
+[analytic.wal.meta_namespace]
 ttl = "365d"
 
-[analytic.wal_storage.obkv]
-full_user_name = "xxx"
-param_url = "xxxx"
-password = "xxx"
+[analytic.wal.obkv]
+full_user_name = "{FullUserName}"
+param_url = "{ParamUrl}"
+password = "{Password}"
 
-[analytic.wal_storage.obkv.client]
-sys_user_name = "xxx"
-sys_password = "xxx"
+[analytic.wal.obkv.client]
+sys_user_name = "{SysUserName}"
+sys_password = "{SysPassword}"
 
 [analytic.storage]
 mem_cache_capacity = "20GB"
 # 1<<8=256
 mem_cache_partition_bits = 8
-disk_cache_path = "/home/admin/data/ceresdb/"
-disk_cache_capacity = '0G'
+disk_cache_dir = "/home/admin/data/ceresdb/"
+disk_cache_capacity = '2G'
 disk_cache_page_size = '4M'
 
 [analytic.storage.object_store]
