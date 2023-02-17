@@ -16,37 +16,6 @@ cluster.By the way, the high availability of CeresMeta is ensured by embedding [
 
 ### Deploy
 
-#### Mode
-
-CeresMeta is based on etcd to achieve high availability. In product environment, we usually deploy multiple nodes, but
-in local environment and testing, we can directly deploy a single node to simplify the entire deployment process.
-
-- Standalone
-
-```
-# ceresmeta0
-mkdir /tmp/ceresmeta0
-./ceresmeta --config ./config/example-standalone.toml
-```
-
-- Cluster
-
-```
-# Create directories.
-mkdir /tmp/ceresmeta0
-mkdir /tmp/ceresmeta1
-mkdir /tmp/ceresmeta2
-
-# Ceresmeta0
-./ceresmeta --config ./config/example-cluster0.toml
-
-# Ceresmeta1
-./ceresmeta --config ./config/example-cluster1.toml
-
-# Ceresmeta2
-./ceresmeta --config ./config/example-cluster2.toml
-```
-
 #### Config
 
 At present, CeresMeta supports specifying service startup configuration in two ways: configuration file and environment
@@ -55,57 +24,38 @@ to [config](https://github.com/CeresDB/ceresmeta/tree/main/config).
 The configuration priority of environment variables is higher than that of configuration files. When they exist at the
 same time, the environment variables shall prevail.
 
-- Global Config
+#### Start CeresMeta Instances
 
-| name                   | description                                                                                                    |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------- |
-| log-level              | Log output level.                                                                                              |
-| log-file               | Log output file.                                                                                               |
-| gprc-handle-timeout-ms | Timeout for processing grpc requests.                                                                          |
-| lease-sec              | Timeout of heartbeat of CeresMeta node.                                                                        |
-| data-dir               | Local data store directory.                                                                                    |
-| wal-dir                | Local wal file storage directory.                                                                              |
-| storage-root-path      | Root directory where data is stored in etcd.                                                                   |
-| max-scan-limit         | Maximum quantity limit of single batch when scaning data.                                                      |
-| id-allocator-step      | The number of ids applied for a single time when allocating ids is used to reduce the amount of write to etcd. |
-| default-http-port      | Http port number of CeresMeta service node.                                                                    |
+CeresMeta is based on etcd to achieve high availability. In product environment, we usually deploy multiple nodes, but in local environment and testing, we can directly deploy a single node to simplify the entire deployment process.
 
-- Etcd Config
+- Standalone
 
-| name                      | description                                                                             |
-| ------------------------- | --------------------------------------------------------------------------------------- |
-| etcd-log-level            | Etcd log output level.                                                                  |
-| etcd-log-file             | Etcd log output file.                                                                   |
-| etcd-start-timeout-ms     | Timeout for etcd startup.                                                               |
-| etcd-call-timeout-ms      | Timeout of etcd call.                                                                   |
-| etcd-max-txn-ops          | Maximum number of operations in a single transaction of etcd.                           |
-| initial-cluster           | Initial node list of the etcd cluster.                                                  |
-| initial-cluster-state     | Initial state of the etcd cluster.                                                      |
-| initial-cluster-token     | Token of etcd cluster.                                                                  |
-| tick-interval-ms          | Raft tick of etcd cluster.                                                              |
-| election-timeout-ms       | Timeout of etcd election.                                                               |
-| quota-backend-bytes       | QuotaBackendBytes Raise alarms when backend size exceeds the given quota.               |
-| auto-compaction-mode      | AutoCompactionMode is either 'periodic' or 'revision'. The default value is 'periodic'. |
-| auto-compaction-retention | AutoCompactionRetention is either duration string with time unit.                       |
-| max-request-bytes         | Size limit of a single request.                                                         |
-| client-urls               | Current node listens to the client list of other peers.                                 |
-| peer-urls                 | Current node listens to the url list of other peers.                                    |
-| advertise-client-urls     | Client url of the current node.                                                         |
-| advertise-peer-urls       | Peer url of the current node.                                                           |
+```bash
+docker run -d --name ceresmeta-server \
+  ceresdb/ceresmeta-server:latest
+```
 
-- Cluster Config
+- Cluster
 
-| name                                        | description                                                                              |
-| ------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| node-name                                   | The name of the current node cannot be the same as other nodes in the CeresMeta cluster. |
-| default-cluster-name                        | The name of the default CeresDB cluster.                                                 |
-| default-cluster-node-count                  | Number of nodes in the default CeresDB cluster.                                          |
-| default-cluster-replication-factor          | The leader-follower ratio of the default CeresDB cluster.                                |
-| default-cluster-shard-total                 | Total shards of the default CeresDB cluster.                                             |
-| default-partition_table_proportion_of_nodes | Proportion of super table to cluster nodes when creating partition table.                |
+```bash
+wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster0.toml
 
-The above configuration names are used in the configuration file. If they are set through environment variables, simple
-conversion is required, for example: convert `node-name` to `NODE_NAME`.
+docker run -d --name ceresmeta-server
+  -v $(pwd)/config-ceresmeta-cluster0.toml:/etc/ceresmeta/ceresmeta.toml \
+  ceresdb/ceresmeta-server:latest
+
+wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster1.toml
+
+docker run -d --name ceresmeta-server
+  -v $(pwd)/config-ceresmeta-cluster1.toml:/etc/ceresmeta/ceresmeta.toml \
+  ceresdb/ceresmeta-server:latest
+
+wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster2.toml
+
+docker run -d --name ceresmeta-server
+  -v $(pwd)/config-ceresmeta-cluster2.toml:/etc/ceresmeta/ceresmeta.toml \
+  ceresdb/ceresmeta-server:latest
+```
 
 ## Deploy CeresDB
 
@@ -280,16 +230,29 @@ Let's name this config file as `config.toml`. And the example configs, in which 
 Firstly, let's start the CeresMeta:
 
 ```bash
-(TODO)
+docker run -d --net=host --name ceresmeta-server \
+  -p 2379:2379 \
+  ceresdb/ceresmeta-server
 ```
 
 With the started CeresMeta cluster, let's start the CeresDB instance:
 
 ```bash
-docker run -d --name ceresdb-server \
+wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster0.toml
+
+docker run -d --net=host --name ceresdb-server0 \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \
-  -v /etc/ceresdb/ceresdb.toml:./config.toml \
+  -v $(pwd)/config-ceresdb-cluster0.toml:/etc/ceresdb/ceresdb.toml \
+  ceresdb/ceresdb-server
+
+wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster1.toml.toml
+
+docker run -d --net=host --name ceresdb-server1 \
+  -p 8832:8832 \
+  -p 13307:13307 \
+  -p 5441:5441 \
+  -v $(pwd)/config-ceresdb-cluster1.toml:/etc/ceresdb/ceresdb.toml \
   ceresdb/ceresdb-server
 ```

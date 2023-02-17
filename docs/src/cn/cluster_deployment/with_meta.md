@@ -14,91 +14,43 @@ CeresMeta 本身通过嵌入式的 [ETCD](https://github.com/etcd-io/etcd) 保�
 
 ### 部署方式
 
-#### 部署模式
-
-CeresMeta 基于 etcd 实现高可用，在线上环境我们一般部署多个节点，但是在本地环境和测试时，可以直接部署单个节点来简化整个部署流程。
-
-- 单节点
-
-```
-# ceresmeta0
-mkdir /tmp/ceresmeta0
-./ceresmeta --config ./config/example-standalone.toml
-```
-
-- 多节点
-
-```
-# Create directories.
-mkdir /tmp/ceresmeta0
-mkdir /tmp/ceresmeta1
-mkdir /tmp/ceresmeta2
-
-# Ceresmeta0
-./ceresmeta --config ./config/example-cluster0.toml
-
-# Ceresmeta1
-./ceresmeta --config ./config/example-cluster1.toml
-
-# Ceresmeta2
-./ceresmeta --config ./config/example-cluster2.toml
-```
-
 #### 启动配置
 
 目前 CeresMeta 支持以配置文件和环境变量两种方式来指定服务启动配置。我们提供了配置文件方式启动的示例，具体可以参考 [config](https://github.com/CeresDB/ceresmeta/tree/main/config)。
 环境变量的配置优先级高于配置文件，当同时存在时，以环境变量为准。
 
-- 全局配置
+#### 启动实例
 
-| name                   | description                                            |
-| ---------------------- | ------------------------------------------------------ |
-| log-level              | 日志输出级别                                           |
-| log-file               | 日志输出文件                                           |
-| gprc-handle-timeout-ms | 处理 grpc 请求的超时时间                               |
-| lease-sec              | CeresMeta 节点心跳的超时时间                           |
-| data-dir               | 本地数据存储目录                                       |
-| wal-dir                | 本地 wal 文件存储目录                                  |
-| storage-root-path      | 数据存储在 etcd 中的根目录                             |
-| max-scan-limit         | 读取数据时单批次最大数量限制                           |
-| id-allocator-step      | 分配 id 时单次申请的总 id 数，用于减小对 etcd 的写入量 |
-| default-http-port      | CeresMeta 服务节点的 http 端口号                       |
+CeresMeta 基于 etcd 实现高可用，在线上环境我们一般部署多个节点，但是在本地环境和测试时，可以直接部署单个节点来简化整个部署流程。
 
-- etcd 相关的配置
+- 单节点
 
-| name                      | description                                                                             |
-| ------------------------- | --------------------------------------------------------------------------------------- |
-| etcd-log-level            | etcd 日志输出级别                                                                       |
-| etcd-log-file             | etcd 日志输出文件                                                                       |
-| etcd-start-timeout-ms     | etcd 启动的超时时间                                                                     |
-| etcd-call-timeout-ms      | etcd 调用的超时时间                                                                     |
-| etcd-max-txn-ops          | etcd 单次事务中的操作数量最大限制                                                       |
-| initial-cluster           | etcd 集群的初始节点列表                                                                 |
-| initial-cluster-state     | etcd 集群的初始状态                                                                     |
-| initial-cluster-token     | etcd 集群的 token                                                                       |
-| tick-interval-ms          | etcd 的 raft tick                                                                       |
-| election-timeout-ms       | etcd 选举的超时时间                                                                     |
-| quota-backend-bytes       | QuotaBackendBytes Raise alarms when backend size exceeds the given quota.               |
-| auto-compaction-mode      | AutoCompactionMode is either 'periodic' or 'revision'. The default value is 'periodic'. |
-| auto-compaction-retention | AutoCompactionRetention is either duration string with time unit.                       |
-| max-request-bytes         | 单次请求的大小限制                                                                      |
-| client-urls               | 当前节点监听其它 peer 的 client list                                                    |
-| peer-urls                 | 当前节点监听其它 peer 的 url list                                                       |
-| advertise-client-urls     | 当前节点的 client url                                                                   |
-| advertise-peer-urls       | 当前节点的 peer url                                                                     |
+```bash
+docker run -d --name ceresmeta-server \
+  ceresdb/ceresmeta-server:latest
+```
 
-- 集群相关配置
+- 多节点
 
-| name                                        | description                                           |
-| ------------------------------------------- | ----------------------------------------------------- |
-| node-name                                   | 当前节点的名称，不能与 CeresMeta 集群内的其它节点重复 |
-| default-cluster-name                        | 默认 CeresDB 集群的名称                               |
-| default-cluster-node-count                  | 默认 CeresDB 集群的节点数量                           |
-| default-cluster-replication-factor          | 默认 CeresDB 集群的主从比例                           |
-| default-cluster-shard-total                 | 默认 CeresDB 集群的总 Shard 数                        |
-| default-partition_table_proportion_of_nodes | 创建分区表时超级表占集群节点数的比例                  |
+```bash
+wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster0.toml
 
-上述的配置名均为配置文件中的使用方式，如果需要以环境变量的方式使用，需要做一个简单的修改，例如：将 `node-name` 转换为 `NODE_NAME`。
+docker run -d --name ceresmeta-server
+  -v $(pwd)/config-ceresmeta-cluster0.toml:/etc/ceresmeta/ceresmeta.toml \
+  ceresdb/ceresmeta-server:latest
+
+wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster1.toml
+
+docker run -d --name ceresmeta-server
+  -v $(pwd)/config-ceresmeta-cluster1.toml:/etc/ceresmeta/ceresmeta.toml \
+  ceresdb/ceresmeta-server:latest
+
+wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster2.toml
+
+docker run -d --name ceresmeta-server
+  -v $(pwd)/config-ceresmeta-cluster2.toml:/etc/ceresmeta/ceresmeta.toml \
+  ceresdb/ceresmeta-server:latest
+```
 
 ## 部署 CeresDB
 
@@ -270,16 +222,29 @@ memory_limit = "4G"
 首先，我们先启动 CeresMeta：
 
 ```bash
-(TODO)
+docker run -d --net=host --name ceresmeta-server \
+  -p 2379:2379 \
+  ceresdb/ceresmeta-server
 ```
 
 CeresMeta 启动好了，没有问题之后，就可以把 CeresDB 的容器创建出来：
 
 ```bash
-docker run -d --name ceresdb-server \
+wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster0.toml
+
+docker run -d --net=host --name ceresdb-server0 \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \
-  -v /etc/ceresdb/ceresdb.toml:./config.toml \
+  -v $(pwd)/config-ceresdb-cluster0.toml:/etc/ceresdb/ceresdb.toml \
+  ceresdb/ceresdb-server
+
+wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster1.toml.toml
+
+docker run -d --net=host --name ceresdb-server1 \
+  -p 8832:8832 \
+  -p 13307:13307 \
+  -p 5441:5441 \
+  -v $(pwd)/config-ceresdb-cluster1.toml:/etc/ceresdb/ceresdb.toml \
   ceresdb/ceresdb-server
 ```
