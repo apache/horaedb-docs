@@ -1,4 +1,4 @@
-# 静态路由
+# NoMeta 模式
 
 本章介绍如何部署一个静态（无 CeresMeta）的 CeresDB 集群。
 

@@ -12,7 +12,7 @@
 
 [server]
 bind_addr = "0.0.0.0"
-http_port = 5000
+http_port = 5440
 grpc_port = 8831
 
 [logger]
@@ -52,9 +52,6 @@ store_timeout = "5s"
 type = "Obkv"
 
 [analytic.wal.data_namespace]
-ttl = "365d"
-
-[analytic.wal.meta_namespace]
 ttl = "365d"
 
 [analytic.wal.obkv]

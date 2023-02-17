@@ -12,18 +12,21 @@
 
 [server]
 bind_addr = "0.0.0.0"
-http_port = 5000
+http_port = 5440
 grpc_port = 8831
 
 [logger]
 level = "info"
+
+[tracing]
+dir = "/home/admin/data/ceresdb"
 
 [runtime]
 read_thread_num = 20
 write_thread_num = 16
 background_thread_num = 12
 
-[cluster_delpoyment]
+[cluster_deployment]
 type = "WithMeta"
 
 [cluster_deployment.meta_client]

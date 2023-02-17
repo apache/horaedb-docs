@@ -1,4 +1,4 @@
-# 动态路由部署
+# WithMeta 模式 
 
 本文展示如何部署一个由 CeresMeta 控制的 CeresDB 集群，有了 CeresMeta 提供的服务，如果 CeresDB 使用存储不在本地的话，就可以实现很多分布式特性，比如水平扩容、负载均衡、服务高可用等。
 
@@ -100,78 +100,75 @@ mkdir /tmp/ceresmeta2
 
 上述的配置名均为配置文件中的使用方式，如果需要以环境变量的方式使用，需要做一个简单的修改，例如：将 `node-name` 转换为 `NODE_NAME`。
 
-## 部署 CeresDB 实例
+## 部署 CeresDB
+在 `NoMeta` 模式中，由于 CeresDB 集群拓扑是静态的，因此 CeresDB 只需要一个本地存储来作为底层的存储层即可。但是在 `WithMeta` 模式中，集群的拓扑是可以变化的，因此如果 CeresDB 的底层存储使用一个独立的存储服务的话，CeresDB 集群就可以获得一个分布式系统的特性：高可用、负载均衡、水平扩展等特性。当然，CeresDB 仍然可以使用本地存储，这样的话，集群的拓扑仍然是静态的。
 
-### 配置文件
+存储相关的配置主要包括两个部分：
+- Object Storage
+- WAL Storage
 
-#### 持久化存储配置
-
-数据存储可以选择如下两种：
-
-- 本地存储
-
-本地存储配置参数可以参考 [NoMeta 部署模式](./no_meta.md)，注意本地存储在机器出现故障的时候，数据会出现丢失。
-
-- OSS 存储
-
-OSS 是阿里云提供的高可用的对象存储，在这种方式下即使 CeresDB 机器出现宕机等情况，数据也是完整的。
-
+### Object Storage
+#### 本地存储
+类似 `NoMeta` 模式，我们仍然可以为 CeresDB 配置一个本地磁盘作为底层存储：
+```toml
+[analytic.storage.object_store]
+type = "Local"
+data_dir = "/home/admin/data/ceresdb"
 ```
+
+#### OSS
+Aliyun OSS 也可以作为 CeresDB 的底层存储，以此提供数据容灾能力。下面是一个配置示例，示例中的模版变量需要被替换成实际的 OSS 参数才可以真正的使用：
+```toml
 [analytic.storage.object_store]
 type = "Aliyun"
-key_id = "key_id"
-key_secret = "key_secret"
-endpoint = "endpoint"
-bucket = "bucket"
-prefix = "data_dir"
+key_id = "{key_id}"
+key_secret = "{key_secret}"
+endpoint = "{endpoint}"
+bucket = "{bucket}"
+prefix = "{data_dir}"
 ```
 
-#### WAL 配置
+### WAL Storage
+#### RocksDB
 
-WAL 配置有三种配置方式：
-
-- 本地 RocksDB
-
-使用本地 RocksDB 作为 WAL 的配置参数可以参考 [NoMeta 部署模式](./no_meta.md)，同使用本地存储作为数据持久化的方式类似，在机器宕机时最近写入的数据会丢失。
-
-- OceanBase
-
-OceanBase 是一种分布式高可用的存储系统，基于此实现的 WAL 具备高可用可扩展的能力。
-
+基于 RocksDB 的 WAL 也是一种本地存储，无第三方依赖，可以很方便的快速部署：
+```toml
+[analytic.wal]
+type = "RocksDB"
+data_dir = "/home/admin/data/ceresdb"
 ```
+
+#### OceanBase
+如果已经有了一个部署好的 OceanBase 集群的话，CeresDB 可以使用它作为 WAL Storage 来保证其数据的容灾性。下面是一个配置示例，示例中的模版变量需要被替换成实际的 OceanBase 集群的参数才可以真正的使用：
+```toml
 [analytic.wal]
 type = "Obkv"
 
 [analytic.wal.data_namespace]
 ttl = "365d"
 
-[analytic.wal.meta_namespace]
-ttl = "365d"
-
 [analytic.wal.obkv]
-full_user_name = "xxx"
-param_url = "xxxx"
-password = "xxx"
+full_user_name = "{full_user_name}"
+param_url = "{param_url}"
+password = "{password}"
 
 [analytic.wal.obkv.client]
-sys_user_name = "xxx"
-sys_password = "xxx"
+sys_user_name = "{sys_user_name}"
+sys_password = "{sys_password}"
 ```
 
-- Kafka
-
-Apache Kafka 是一款业界常用的开源分布式消息队列系统。
-
-```
+#### Kafka
+如果你已经部署了一个 Kafka 集群，CeresDB 可以也可以使用它作为 WAL Storage。下面是一个配置示例，示例中的模版变量需要被替换成实际的 Kafka 集群的参数才可以真正的使用：
+```toml
 [analytic.wal]
 type = "Kafka"
 
 [analytic.wal.kafka.client]
-boost_broker = "xxx"
+boost_broker = "{boost_broker}"
 ```
 
 #### Meta 客户端配置
-
+除了存储层的配置外，CeresDB 需要 CeresMeta 相关的配置来与 CeresMeta 集群进行通信：
 ```
 [cluster.meta_client]
 cluster_name = 'defaultCluster'
@@ -180,29 +177,88 @@ lease = "10s"
 timeout = "5s"
 ```
 
-#### 完整配置
+### 完整配置
+将上面提到的所有关键配置合并之后，我们可以得到一个完整的、可运行的配置。为了让这个配置可以直接运行起来，配置中均采用了本地存储：基于 RocksDB 的 WAL 和本地磁盘的 Object Storage：
+```toml
+[server]
+bind_addr = "0.0.0.0"
+http_port = 5440
+grpc_port = 8831
 
+[logger]
+level = "info"
+
+[runtime]
+read_thread_num = 20
+write_thread_num = 16
+background_thread_num = 12
+
+[cluster_deployment]
+mode = "WithMeta"
+
+[cluster_deployment.meta_client]
+cluster_name = 'defaultCluster'
+meta_addr = 'http://127.0.0.1:2379'
+lease = "10s"
+timeout = "5s"
+
+[analytic]
+write_group_worker_num = 16
+replay_batch_size = 100
+max_replay_tables_per_batch = 128
+write_group_command_channel_cap = 1024
+sst_background_read_parallelism = 8
+
+[analytic.manifest]
+scan_batch_size = 100
+snapshot_every_n_updates = 10000
+scan_timeout = "5s"
+store_timeout = "5s"
+
+[analytic.wal]
+type = "RocksDB"
+data_dir = "/home/admin/data/ceresdb"
+
+[analytic.storage]
+mem_cache_capacity = "20GB"
+# 1<<8=256
+mem_cache_partition_bits = 8
+disk_cache_dir = "/home/admin/data/ceresdb/"
+disk_cache_capacity = '2G'
+disk_cache_page_size = '4M'
+
+[analytic.storage.object_store]
+type = "Local"
+data_dir = "/home/admin/data/ceresdb/"
+
+[analytic.table_opts]
+arena_block_size = 2097152
+write_buffer_size = 33554432
+
+[analytic.compaction_config]
+schedule_channel_len = 16
+schedule_interval = "30m"
+max_ongoing_tasks = 8
+memory_limit = "4G"
+```
+
+将这个配置命名成 `config.toml`。至于使用远程存储的配置示例在下面我们也提供了，需要注意的是，配置中的相关参数需要被替换成实际的参数才能真正使用：
 - [本地 RocksDB WAL + OSS](../../resources/config_local_oss.toml)
 - [OceanBase WAL + OSS](../../resources/config_obkv_oss.toml)
 - [Kafka WAL + OSS](../../resources/config_kafka_oss.toml)
 
-### 启动实例
-
-根据实际情况配置完成后便可以启动 CeresDB 集群了。
-
+### 启动集群
+首先，我们先启动 CeresMeta：
 ```bash
-# Update address of CeresMeta in CeresDB config.
+(TODO)
+```
+
+CeresMeta 启动好了，没有问题之后，就可以把 CeresDB 的容器创建出来：
+```bash
 docker run -d --name ceresdb-server \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \
-  -v /etc/ceresdb/ceresdb.toml:{project_path}/docs/example-cluster-0.toml \
-  ceresdb/ceresdb-server
-
-docker run -d --name ceresdb-server2 \
-  -p 8832:8832 \
-  -p 13307:13307 \
-  -p 5441:5441 \
-  -v /etc/ceresdb/ceresdb.toml:{project_path}/docs/example-cluster-1.toml \
+  -v /etc/ceresdb/ceresdb.toml:./config.toml \
   ceresdb/ceresdb-server
 ```

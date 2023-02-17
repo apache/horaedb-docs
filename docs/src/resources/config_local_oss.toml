@@ -17,22 +17,24 @@ grpc_port = 8831
 [logger]
 level = "info"
 
+[tracing]
+dir = "/home/admin/data/ceresdb"
+
 [runtime]
 read_thread_num = 20
 write_thread_num = 16
 background_thread_num = 12
 
-[cluster_delpoyment]
+[cluster_deployment]
 mode = "WithMeta"
 
-[cluster_delpoyment.meta_client]
+[cluster_deployment.meta_client]
 cluster_name = 'defaultCluster'
 meta_addr = 'http://{CeresMetaAddr}:2379'
 lease = "10s"
 timeout = "5s"
 
 [analytic]
-wal_path = "/home/admin/data/ceresdb/"
 write_group_worker_num = 16
 replay_batch_size = 100
 max_replay_tables_per_batch = 128
@@ -44,6 +46,10 @@ scan_batch_size = 100
 snapshot_every_n_updates = 10000
 scan_timeout = "5s"
 store_timeout = "5s"
+
+[analytic.wal]
+type = "RocksDB"
+data_dir = "/home/admin/data/ceresdb"
 
 [analytic.storage]
 mem_cache_capacity = "20GB"
