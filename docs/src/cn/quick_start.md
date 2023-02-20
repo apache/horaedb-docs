@@ -16,7 +16,7 @@ docker run -d --name ceresdb-server \
   ceresdb/ceresdb-server
 ```
 
-启动后 CeresDB 会监听如下端口 ：
+启动后 CeresDB 会监听如下端口：
 
 - 8831, gRPC port
 - 3307, MySQL port

@@ -13,7 +13,7 @@
 
 ### 基础配置
 
-CeresDB 的基础配置如下 ：
+CeresDB 的基础配置如下：
 
 ```toml
 [service]
@@ -132,7 +132,7 @@ shards = [0, 1]
 这个规则告诉 CeresDB, `public_1` 的所有表会被路由到 `public_1` 的 `shard_0` and `shard_1`, 也就是 `CeresDB0` 和 `CeresDB_1`.
 实际上如果没有定义 `public_1` 的路由规则，这是默认的路由行为。
 
-`CeresDB_0` 和 `CeresDB_1` 实例完整的配置文件如下 ：
+`CeresDB_0` 和 `CeresDB_1` 实例完整的配置文件如下：
 
 ```toml
 [service]
