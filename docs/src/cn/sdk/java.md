@@ -36,14 +36,14 @@ if (!client.init(opts)) {
 
 客户端初始化至少需要三个参数：
 
-- EndPoint: 127.0.0.1
-- Port: 8831
-- RouteMode: DIRECT/PROXY
+- EndPoint： 127.0.0.1
+- Port： 8831
+- RouteMode： DIRECT/PROXY
 
 这里重点解释下 `RouteMode` 参数，`PROXY` 模式用在客户端和服务端存在网络隔离，请求需要经过转发的场景；`DIRECT` 模式用在客户端和服务端网络连通的场景，节省转发的开销，具有更高的性能。
 更多的参数配置详情见 [configuration](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/configuration.md)。
 
-注意: CeresDB 当前仅支持默认的 `public` database , 未来会支持多个 database。
+注意： CeresDB 当前仅支持默认的 `public` database , 未来会支持多个 database。
 
 ## 建表
 

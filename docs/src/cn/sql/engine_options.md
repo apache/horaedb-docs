@@ -2,14 +2,14 @@
 
 建表时可以使用下列的选项配置引擎：
 
-- `enable_ttl`, `bool`. 默认为 `true`，当一个表打开 TTL 能力，早于 `ttl` 的数据不会被查询到并且会被删除
-- `ttl`, `duration`, 默认值为`7d`，此项定义数据的生命周期，只在 `enable_ttl` 为 `true` 的情况下使用。
+- `enable_ttl`, `bool`. 默认为 `true`，当一个表打开 TTL 能力，早于 `ttl` 的数据不会被查询到并且会被删除。
+- `ttl`, `duration`. 默认值为`7d`，此项定义数据的生命周期，只在 `enable_ttl` 为 `true` 的情况下使用。
 - `storage_format`, `string`. 数据存储的格式，有两种可选:
 
   - `columnar`, 默认值
   - `hybrid`
 
-上述两种存储格式详见 [存储格式](#存储格式) 部分.
+上述两种存储格式详见 [存储格式](#存储格式) 部分。
 
 ## 存储格式
 
@@ -43,11 +43,11 @@ CeresDB 支持两种存储格式，一个是 `columnar`, 这是传统的列式�
 - 在一个文件中，同一个主键（例如设备 ID）的数据会被压缩到一行。
 - 除了主键之外的列被分成两类：
   - `collapsible`, 这些列会被压缩成一个 list，常用于时序表中的`field`字段。
-    - 注意: 当前仅支持定长的字段。
+    - 注意: 当前仅支持定长的字段
   - `non-collapsible`, 这些列只能包含一个去重值，常用于时序表中的`tag`字段。
     - 注意: 当前仅支持字符串类型
 - 另外多加了两个字段，`minTime` 和 `maxTime`， 用于查询中过滤不必要的数据。
-  - 注意: 暂未实现此能力.
+  - 注意: 暂未实现此能力
 
 ### 示例
 
@@ -66,7 +66,7 @@ CREATE TABLE `device` (
 ```
 
 这段语句会创建一个混合存储格式的表, 这种情况下用户可以通过 [parquet-tools](https://formulae.brew.sh/formula/parquet-tools)查看数据格式.
-上面定义的表的 parquet 结构如下所示:
+上面定义的表的 parquet 结构如下所示：
 
 ```
 message arrow_schema {

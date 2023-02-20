@@ -26,7 +26,7 @@ go get github.com/CeresDB/ceresdb-client-go/ceresdb
 | RPCMaxRecvMsgSize | grpc `MaxCallRecvMsgSize` 配置, 默认是 1024 _ 1024 _ 1024                                     |
 | RouteMaxCacheSize | 如果 router 客户端中的 路由缓存超过了这个值，将会淘汰最不活跃的直至降低这个阈值, 默认是 10000 |
 
-注意: CeresDB 当前仅支持预创建的 `public` database , 未来会支持多个 database。
+注意： CeresDB 当前仅支持预创建的 `public` database , 未来会支持多个 database。
 
 ### 管理表
 
