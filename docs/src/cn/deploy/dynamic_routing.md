@@ -128,7 +128,7 @@ prefix = "data_dir"
 
 #### WAL 配置
 
-WAL 配置有三种配置方式:
+WAL 配置有三种配置方式：
 
 - 本地 RocksDB
 
