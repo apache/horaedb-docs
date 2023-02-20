@@ -27,7 +27,7 @@ write_thread_num = 16
 background_thread_num = 12
 
 [cluster_deployment]
-type = "WithMeta"
+mode = "WithMeta"
 
 [cluster_deployment.meta_client]
 cluster_name = 'defaultCluster'

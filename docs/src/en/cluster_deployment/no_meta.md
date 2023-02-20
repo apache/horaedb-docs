@@ -85,31 +85,31 @@ Here is the config for schema&shard declaration:
 
 ```toml
 [cluster_deployment]
-type = "NoMeta"
+mode = "NoMeta"
 
-[[cluster_deployment.static_route.topology.schema_shards]]
+[[cluster_deployment.topology.schema_shards]]
 schema = 'public_0'
-[[cluster_deployment.static_route.topology.schema_shards.shard_views]]
+[[cluster_deployment.topology.schema_shards.shard_views]]
 shard_id = 0
-[cluster_deployment.static_route.topology.schema_shards.shard_views.endpoint]
+[cluster_deployment.topology.schema_shards.shard_views.endpoint]
 addr = '127.0.0.1'
 port = 8831
-[[cluster_deployment.static_route.topology.schema_shards.shard_views]]
+[[cluster_deployment.topology.schema_shards.shard_views]]
 shard_id = 1
-[cluster_deployment.static_route.topology.schema_shards.shard_views.endpoint]
+[cluster_deployment.topology.schema_shards.shard_views.endpoint]
 addr = '127.0.0.1'
 port = 8831
 
-[[cluster_deployment.static_route.topology.schema_shards]]
+[[cluster_deployment.topology.schema_shards]]
 schema = 'public_1'
-[[cluster_deployment.static_route.topology.schema_shards.shard_views]]
+[[cluster_deployment.topology.schema_shards.shard_views]]
 shard_id = 0
-[cluster_deployment.static_route.topology.schema_shards.shard_views.endpoint]
+[cluster_deployment.topology.schema_shards.shard_views.endpoint]
 addr = '127.0.0.1'
 port = 8831
-[[cluster_deployment.static_route.topology.schema_shards.shard_views]]
+[[cluster_deployment.topology.schema_shards.shard_views]]
 shard_id = 1
-[cluster_deployment.static_route.topology.schema_shards.shard_views.endpoint]
+[cluster_deployment.topology.schema_shards.shard_views.endpoint]
 addr = '127.0.0.1'
 port = 18831
 ```
@@ -163,31 +163,31 @@ type = "RocksDB"
 data_dir = "/tmp/ceresdb_0"
 
 [cluster_deployment]
-type = "NoMeta"
+mode = "NoMeta"
 
-[[cluster_deployment.static_route.topology.schema_shards]]
+[[cluster_deployment.topology.schema_shards]]
 schema = 'public_0'
-[[cluster_deployment.static_route.topology.schema_shards.shard_views]]
+[[cluster_deployment.topology.schema_shards.shard_views]]
 shard_id = 0
-[cluster_deployment.static_route.topology.schema_shards.shard_views.endpoint]
+[cluster_deployment.topology.schema_shards.shard_views.endpoint]
 addr = '127.0.0.1'
 port = 8831
-[[cluster_deployment.static_route.topology.schema_shards.shard_views]]
+[[cluster_deployment.topology.schema_shards.shard_views]]
 shard_id = 1
-[cluster_deployment.static_route.topology.schema_shards.shard_views.endpoint]
+[cluster_deployment.topology.schema_shards.shard_views.endpoint]
 addr = '127.0.0.1'
 port = 8831
 
-[[cluster_deployment.static_route.topology.schema_shards]]
+[[cluster_deployment.topology.schema_shards]]
 schema = 'public_1'
-[[cluster_deployment.static_route.topology.schema_shards.shard_views]]
+[[cluster_deployment.topology.schema_shards.shard_views]]
 shard_id = 0
-[cluster_deployment.static_route.topology.schema_shards.shard_views.endpoint]
+[cluster_deployment.topology.schema_shards.shard_views.endpoint]
 addr = '127.0.0.1'
 port = 8831
-[[cluster_deployment.static_route.topology.schema_shards.shard_views]]
+[[cluster_deployment.topology.schema_shards.shard_views]]
 shard_id = 1
-[cluster_deployment.static_route.topology.schema_shards.shard_views.endpoint]
+[cluster_deployment.topology.schema_shards.shard_views.endpoint]
 addr = '127.0.0.1'
 port = 18831
 ```
@@ -211,31 +211,31 @@ type = "RocksDB"
 data_dir = "/tmp/ceresdb_1"
 
 [cluster_deployment]
-type = "NoMeta"
+mode = "NoMeta"
 
-[[cluster_deployment.static_route.topology.schema_shards]]
+[[cluster_deployment.topology.schema_shards]]
 schema = 'public_0'
-[[cluster_deployment.static_route.topology.schema_shards.shard_views]]
+[[cluster_deployment.topology.schema_shards.shard_views]]
 shard_id = 0
-[cluster_deployment.static_route.topology.schema_shards.shard_views.endpoint]
+[cluster_deployment.topology.schema_shards.shard_views.endpoint]
 addr = '127.0.0.1'
 port = 8831
-[[cluster_deployment.static_route.topology.schema_shards.shard_views]]
+[[cluster_deployment.topology.schema_shards.shard_views]]
 shard_id = 1
-[cluster_deployment.static_route.topology.schema_shards.shard_views.endpoint]
+[cluster_deployment.topology.schema_shards.shard_views.endpoint]
 addr = '127.0.0.1'
 port = 8831
 
-[[cluster_deployment.static_route.topology.schema_shards]]
+[[cluster_deployment.topology.schema_shards]]
 schema = 'public_1'
-[[cluster_deployment.static_route.topology.schema_shards.shard_views]]
+[[cluster_deployment.topology.schema_shards.shard_views]]
 shard_id = 0
-[cluster_deployment.static_route.topology.schema_shards.shard_views.endpoint]
+[cluster_deployment.topology.schema_shards.shard_views.endpoint]
 addr = '127.0.0.1'
 port = 8831
-[[cluster_deployment.static_route.topology.schema_shards.shard_views]]
+[[cluster_deployment.topology.schema_shards.shard_views]]
 shard_id = 1
-[cluster_deployment.static_route.topology.schema_shards.shard_views.endpoint]
+[cluster_deployment.topology.schema_shards.shard_views.endpoint]
 addr = '127.0.0.1'
 port = 18831
 ```
