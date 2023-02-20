@@ -23,7 +23,8 @@ command = "/bin/bash ../../move.sh"
 cname = "docs.ceresdb.io"
 git-repository-url = "https://github.com/CeresDB/ceresdb"
 edit-url-template = "https://github.com/CeresDB/docs/edit/main/docs/{path}"
+additional-css = ["style.css"]
+additional-js = ["sidebar.js"]
 
 [output.html.fold]
 enable = true
-
