@@ -77,7 +77,7 @@ type = "RocksDB"
 data_dir = "/tmp/ceresdb_1"
 ```
 
-### Schema&Shard declaration
+### Schema&Shard Declaration
 
 Then we should define the common part -- schema&shard declaration and routing rules.
 
