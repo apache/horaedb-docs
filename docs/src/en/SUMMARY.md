@@ -8,7 +8,6 @@
 # User Guide
 
 - [SQL Syntax](sql/README.md)
-
   - [Data Model](sql/model/README.md)
     - [Data Types](sql/model/data_types.md)
     - [Special Columns](sql/model/special_columns.md)
@@ -24,13 +23,10 @@
   - [Engine Options](sql/engine_options.md)
   - [Scalar Functions](sql/functions/scalar_functions.md)
   - [Aggregate Functions](sql/functions/aggregate_functions.md)
-
-- [Deployment](deploy/README.md)
-
-  - [Supported Platform](deploy/platform.md)
-  - [Static Routing](deploy/static_routing.md)
-  - [Dynamic Routing](deploy/dynamic_routing.md)
-
+- [Cluster Deployment](cluster_deployment/README.md)
+  - [Supported Platform](cluster_deployment/platform.md)
+  - [NoMeta Mode](cluster_deploymentj/no_meta.md)
+  - [WithMeta Mode](cluster_deployment/with_meta.md)
 - [Develop Kits](sdk/README.md)
   - [Java SDK](sdk/java.md)
   - [Go SDK](sdk/go.md)

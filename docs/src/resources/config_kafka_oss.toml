@@ -1,16 +1,35 @@
-[service]
+# Note that the config needs parameters replacement before use, including:
+# - CeresMeta addr;
+# - Parameters of Aliyun OSS;
+# - Kafka boost broker addr;
+#
+# And one thing deserves explanation that this config is used for running ceresdb docker container:
+# ```
+# docker run -d --name ceresdb-server \
+# -v /etc/ceresdb/ceresdb.toml:{path_to_this_config} \
+# ceresdb/ceresdb-server
+# ```
+
+[server]
 bind_addr = "0.0.0.0"
-http_port = 5000
+http_port = 5440
 grpc_port = 8831
-log_level = "info"
-deploy_mode = "Cluster"
+
+[logger]
+level = "info"
+
+[tracing]
+dir = "/home/admin/data/ceresdb"
 
 [runtime]
 read_thread_num = 20
 write_thread_num = 16
 background_thread_num = 12
 
-[cluster.meta_client]
+[cluster_deployment]
+mode = "WithMeta"
+
+[cluster_deployment.meta_client]
 cluster_name = 'defaultCluster'
 meta_addr = 'http://{CeresMetaAddr}:2379'
 lease = "10s"
@@ -29,27 +48,27 @@ snapshot_every_n_updates = 10000
 scan_timeout = "5s"
 store_timeout = "5s"
 
-[analytic.wal_storage]
+[analytic.wal]
 type = "Kafka"
 
-[analytic.wal_storage.kafka_config.client_config]
-boost_broker = "33.141.244.90:9092"
+[analytic.wal.kafka.client]
+boost_broker = "{BoostBrokerAddr}"
 
 [analytic.storage]
 mem_cache_capacity = "20GB"
 # 1<<8=256
 mem_cache_partition_bits = 8
-disk_cache_path = "/home/admin/data/ceresdb/"
-disk_cache_capacity = '0G'
+disk_cache_dir = "/home/admin/data/ceresdb/"
+disk_cache_capacity = '2G'
 disk_cache_page_size = '4M'
 
 [analytic.storage.object_store]
 type = "Aliyun"
-key_id = "key_id"
-key_secret = "key_secret"
-endpoint = "endpoint"
-bucket = "bucket"
-prefix = "data_dir"
+key_id = "{KeyID}"
+key_secret = "{KeySecret}"
+endpoint = "{Endpoint}"
+bucket = "{Bucketj}"
+prefix = "{DirPrefix}"
 
 [analytic.table_opts]
 arena_block_size = 2097152
