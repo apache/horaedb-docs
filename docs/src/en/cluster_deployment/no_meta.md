@@ -119,7 +119,7 @@ In the config above, two schemas are declared:
 - `public_0` has two shards served by `CeresDB_0`.
 - `public_1` has two shards served by both `CeresDB_0` and `CeresDB_1`.
 
-### Routing rules
+### Routing Rules
 
 Provided with schema&shard declaration, routing rules can be defined and here is an example of prefix rule:
 
