@@ -7,7 +7,7 @@ If you want to reject query for a table, you can add table name to 'read_block_l
 ### Example
 
 ```shell
-curl --location --request POST 'http://localhost:5000/block' \
+curl --location --request POST 'http://localhost:5000/admin/block' \
 --header 'Content-Type: application/json' \
 -d '{
     "operation":"Add",
@@ -32,7 +32,7 @@ You can use set operation to clear exist tables and set new tables to 'read_bloc
 ### Example
 
 ```shell
-curl --location --request POST 'http://localhost:5000/block' \
+curl --location --request POST 'http://localhost:5000/admin/block' \
 --header 'Content-Type: application/json' \
 -d '{
     "operation":"Set",
@@ -57,7 +57,7 @@ You can remove tables from 'read_block_list' like following example.
 ### Example
 
 ```shell
-curl --location --request POST 'http://localhost:5000/block' \
+curl --location --request POST 'http://localhost:5000/admin/block' \
 --header 'Content-Type: application/json' \
 -d '{
     "operation":"Remove",
