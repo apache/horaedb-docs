@@ -1,3 +1,5 @@
+Note: Some of the features mentioned in the article have not yet been implemented.
+
 # Introduction to Architecture of CeresDB Cluster
 
 ## Overview
