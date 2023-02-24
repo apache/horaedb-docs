@@ -25,7 +25,7 @@
   - [Aggregate Functions](sql/functions/aggregate_functions.md)
 - [Cluster Deployment](cluster_deployment/README.md)
   - [Supported Platform](cluster_deployment/platform.md)
-  - [NoMeta Mode](cluster_deploymentj/no_meta.md)
+  - [NoMeta Mode](cluster_deployment/no_meta.md)
   - [WithMeta Mode](cluster_deployment/with_meta.md)
 - [Develop Kits](sdk/README.md)
   - [Java SDK](sdk/java.md)
