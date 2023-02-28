@@ -4,7 +4,7 @@
 
 ## 启动
 
-使用 [CeresDB docker 镜像](https://hub.docker.com/r/ceresdb/ceresdb-server) 是一种最简单的启动方式；如果你还没有一个安装 Docker，请首先参考 [这里](https://www.docker.com/products/docker-desktop/) 安装 Docker。
+使用 [CeresDB docker 镜像](https://hub.docker.com/r/ceresdb/ceresdb-server) 是一种最简单的启动方式；如果你还没有安装 Docker，请首先参考 [这里](https://www.docker.com/products/docker-desktop/) 安装 Docker。
 
 使用如下命令安装并启动一个单机版 CeresDB。
 
@@ -84,7 +84,7 @@ DROP TABLE `demo`
 
 ## 使用 SDK
 
-当前我们支持多种开发语言 SDK，例如 Java，Rust，Python, Go 等 , 具体使用请参考 [sdk](sdk/README.md)。
+当前我们支持多种开发语言 SDK，例如 Java，Rust，Python, Go 等, 具体使用方式请参考 [sdk](sdk/README.md)。
 
 ## 下一步
 

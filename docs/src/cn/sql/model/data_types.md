@@ -22,3 +22,5 @@ CeresDB 实现了 `Table` 模型，支持的数据类型和 MySQL 比较类似�
 | int16/smallint | Int16     |
 | int8/tinyint   | Int8      |
 | boolean        | Boolean   |
+| date           | Date      |
+| time           | Time      |

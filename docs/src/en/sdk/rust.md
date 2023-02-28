@@ -92,7 +92,7 @@ let resp = client
 
 ## Write
 
-We support to write with the time series data model like [influxdb](https://awesome.influxdata.com/docs/part-2/influxdb-data-model/).
+We support to write with the time series data model like [InfluxDB](https://awesome.influxdata.com/docs/part-2/influxdb-data-model/).
 
 - Build the `point` first by `PointBuilder`, the related data structure of `tag value` and `field value` in it is defined as `Value`, [detail about Value](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/model/value.rs):
 

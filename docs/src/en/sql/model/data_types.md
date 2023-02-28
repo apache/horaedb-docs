@@ -22,3 +22,5 @@ The following table lists the mapping relationship between MySQL and CeresDB.
 | int16/smallint | Int16     |
 | int8/tinyint   | Int8      |
 | boolean        | Boolean   |
+| date           | Date      |
+| time           | Time      |

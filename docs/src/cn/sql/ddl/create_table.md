@@ -43,8 +43,8 @@ a_nullable int NULL
 b_not_null NOT NULL
 ```
 
-定义列时可以使用相关的关键字标记列为 [特殊列](../model/special_columns.md)。
+定义列时可以使用相关的关键字将列标记为 [特殊列](../model/special_columns.md)。
 
 ## 引擎设置
 
-CeresDB 支持指定某个表使用哪种引擎，目前支持的引擎类型为 [`Analytic`](../../analytic_engine/README.md)。注意这个属性设置后不可更改。
+CeresDB 支持指定某个表使用哪种引擎，目前支持的引擎类型为 `Analytic`。注意这个属性设置后不可更改。

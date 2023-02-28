@@ -54,7 +54,7 @@ A column can be marked as [special column](../model/special_columns.md) with rel
 
 ## Engine
 
-Specifies which engine this table belongs to. CeresDB current support [`Analytic`](../../analytic_engine/README.md) engine type. This attribute is immutable.
+Specifies which engine this table belongs to. CeresDB current support `Analytic` engine type. This attribute is immutable.
 
 ## Partition Options
 
