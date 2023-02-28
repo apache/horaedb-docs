@@ -5,7 +5,7 @@
 建表的基础语法如下 ( `[]` 之间的内容是可选部分):
 
 ```sql
-CREATE TABLE [IF NOT EXIST]
+CREATE TABLE [IF NOT EXISTS]
     table_name ( column_definitions )
     ENGINE = engine_type
     [WITH ( table_options )];
@@ -23,9 +23,9 @@ column_name column_type [[NOT] NULL] {[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]}
 ... WITH ( enable_ttl='false' )
 ```
 
-## IF NOT EXIST
+## IF NOT EXISTS
 
-添加 `IF NOT EXIST` 时，CeresDB 在表名已经存在时会忽略建表错误。
+添加 `IF NOT EXISTS` 时，CeresDB 在表名已经存在时会忽略建表错误。
 
 ## 定义列
 
