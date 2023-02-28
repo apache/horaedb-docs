@@ -7,7 +7,7 @@ Options below can be used when create table for analytic engine
 - `storage_format`, `string`. The underlying column's format. Availiable values:
 
   - `columnar`, default
-  - `hybrid`
+  - `hybrid`, Note: This feature is still in development, and it may change in the future.
 
   The meaning of those two values are in [Storage format](#storage-format) section.
 
