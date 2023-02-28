@@ -32,13 +32,13 @@
 
 ### v1.0.0
 
-- [ ] Formally release CeresDB and its SDKs with all breaking changes finished.
-- [ ] Finish the majority of work related to `Table Partitioning`.
-- [ ] Various efforts to improve query performance, especially for cloud-native cluster mode. These works includes:
+- [x] Formally release CeresDB and its SDKs with all breaking changes finished.
+- [x] Finish the majority of work related to `Table Partitioning`.
+- [x] Various efforts to improve query performance, especially for cloud-native cluster mode. These works include:
   - Multi-tier cache.
   - Introduce various methods to reduce the data fetched from remote storage (improve the accuracy of SST data filtering).
   - Increase the parallelism while fetching data from remote object-store.
-- [ ] Improve data ingestion performance by introducing resource control over compaction.
+- [x] Improve data ingestion performance by introducing resource control over compaction.
 
 ### Afterwards
 
