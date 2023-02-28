@@ -7,7 +7,7 @@
 示例如下：
 
 ```shell
-curl --location --request POST 'http://localhost:5000/block' \
+curl --location --request POST 'http://localhost:5000/admin/block' \
 --header 'Content-Type: application/json' \
 -d '{
     "operation":"Add",
@@ -32,7 +32,7 @@ curl --location --request POST 'http://localhost:5000/block' \
 示例如下：
 
 ```shell
-curl --location --request POST 'http://localhost:5000/block' \
+curl --location --request POST 'http://localhost:5000/admin/block' \
 --header 'Content-Type: application/json' \
 -d '{
     "operation":"Set",
@@ -55,7 +55,7 @@ curl --location --request POST 'http://localhost:5000/block' \
 如果你想把表从黑名单中移除，可以使用如下命令：
 
 ```shell
-curl --location --request POST 'http://localhost:5000/block' \
+curl --location --request POST 'http://localhost:5000/admin/block' \
 --header 'Content-Type: application/json' \
 -d '{
     "operation":"Remove",
