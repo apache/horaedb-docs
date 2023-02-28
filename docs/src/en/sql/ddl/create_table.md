@@ -5,7 +5,7 @@
 Basic syntax:
 
 ```sql
-CREATE TABLE [IF NOT EXIST]
+CREATE TABLE [IF NOT EXISTS]
     table_name ( column_definitions )
     [partition_options]
     ENGINE = engine_type
@@ -30,9 +30,9 @@ Table options syntax are key-value pairs. Value should be quoted with quotation 
 ... WITH ( enable_ttl='false' )
 ```
 
-## IF NOT EXIST
+## IF NOT EXISTS
 
-Add `IF NOT EXIST` to tell CeresDB to ignore errors if the table name already exists.
+Add `IF NOT EXISTS` to tell CeresDB to ignore errors if the table name already exists.
 
 ## Define Column
 
@@ -54,7 +54,7 @@ A column can be marked as [special column](../model/special_columns.md) with rel
 
 ## Engine
 
-Specifies which engine this table belongs to. CeresDB current support [`Analytic`](../../analytic_engine/README.md) engine type. This attribute is immutable.
+Specifies which engine this table belongs to. CeresDB current support `Analytic` engine type. This attribute is immutable.
 
 ## Partition Options
 

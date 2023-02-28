@@ -92,7 +92,7 @@ let resp = client
 
 ## 写入数据
 
-我们支持使用类似 [influxdb](https://awesome.influxdata.com/docs/part-2/influxdb-data-model) 的时序数据模型进行写入。
+我们支持使用类似 [InfluxDB](https://awesome.influxdata.com/docs/part-2/influxdb-data-model) 的时序数据模型进行写入。
 
 - 利用 `PointBuilder` 创建 `point`，`tag value` 和 `field value` 的相关数据结构为 `Value`，[`Value` 的详细信息](detail about Value](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/model/value.rs：
 

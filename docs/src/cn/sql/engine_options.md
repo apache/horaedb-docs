@@ -2,12 +2,12 @@
 
 建表时可以使用下列的选项配置引擎：
 
-- `enable_ttl`, `bool`. 默认为 `true`，当一个表打开 TTL 能力，早于 `ttl` 的数据不会被查询到并且会被删除。
-- `ttl`, `duration`. 默认值为`7d`，此项定义数据的生命周期，只在 `enable_ttl` 为 `true` 的情况下使用。
-- `storage_format`, `string`. 数据存储的格式，有两种可选:
+- `enable_ttl`：布尔类型，默认为 `true`，当一个表配置 TTL 时，早于 `ttl` 的数据不会被查询到并且会被删除。
+- `ttl`：`duration` 类型，默认值为`7d`，此项定义数据的生命周期，只在 `enable_ttl` 为 `true` 的情况下使用。
+- `storage_format`： `string` 类型，数据存储的格式，有两种可选:
 
   - `columnar`, 默认值
-  - `hybrid`
+  - `hybrid`, 注意：此功能仍在开发中，将来可能会发生变化。
 
 上述两种存储格式详见 [存储格式](#存储格式) 部分。
 

@@ -1,6 +1,6 @@
 # 监控
 
-CeresDB 使用 Prometheus 和 Grafana 做自监控。
+CeresDB 支持使用 Prometheus 和 Grafana 做自监控。
 
 ## Prometheus
 
