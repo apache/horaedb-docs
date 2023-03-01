@@ -7,7 +7,7 @@ ceresdb.Client is a Golang client for CeresDB.
 ## Installation
 
 ```
-go get github.com/CeresDB/ceresdb-client-go/ceresdb
+go get github.com/CeresDB/ceresdb-client-go@v1.1.0
 ```
 
 ## How To Use
@@ -15,7 +15,7 @@ go get github.com/CeresDB/ceresdb-client-go/ceresdb
 ### Init CeresDB Client
 
 ```go
-	client, err := ceresdb.NewClient(endpoint, types.Direct,
+	client, err := ceresdb.NewClient(endpoint, ceresdb.Direct,
 		ceresdb.WithDefaultDatabase("public"),
 	)
 ```
@@ -39,13 +39,15 @@ CeresDB is a Schema-less time-series database, so creating table schema ahead of
 **Example for creating table**
 
 ```go
-	createTableSQL := `CREATE TABLE IF NOT EXISTS demo (
-	name string TAG,
-	value double,
-	t timestamp NOT NULL,
-	TIMESTAMP KEY(t)) ENGINE=Analytic with (enable_ttl=false)`
+	createTableSQL := `
+		CREATE TABLE IF NOT EXISTS demo (
+			name string TAG,
+			value double,
+			t timestamp NOT NULL,
+			TIMESTAMP KEY(t)
+		) ENGINE=Analytic with (enable_ttl=false)`
 
-	req := types.SQLQueryRequest{
+	req := ceresdb.SQLQueryRequest{
 		Tables: []string{"demo"},
 		SQL:    createTableSQL,
 	}
@@ -56,7 +58,7 @@ CeresDB is a Schema-less time-series database, so creating table schema ahead of
 
 ```go
 	dropTableSQL := `DROP TABLE demo`
-	req := types.SQLQueryRequest{
+	req := ceresdb.SQLQueryRequest{
 		Tables: []string{"demo"},
 		SQL:    dropTableSQL,
 	}
@@ -66,12 +68,12 @@ CeresDB is a Schema-less time-series database, so creating table schema ahead of
 ### How To Build Write Data
 
 ```go
-	points := make([]types.Point, 0, 2)
+	points := make([]ceresdb.Point, 0, 2)
 	for i := 0; i < 2; i++ {
 		point, err := ceresdb.NewPointBuilder("demo").
-			SetTimestamp(utils.CurrentMS()).
-			AddTag("name", types.NewStringValue("test_tag1")).
-			AddField("value", types.NewDoubleValue(0.4242)).
+			SetTimestamp(now).
+			AddTag("name", ceresdb.NewStringValue("test_tag1")).
+			AddField("value", ceresdb.NewDoubleValue(0.4242)).
 			Build()
 		if err != nil {
 			panic(err)
@@ -83,7 +85,7 @@ CeresDB is a Schema-less time-series database, so creating table schema ahead of
 ### Write Example
 
 ```go
-	req := types.WriteRequest{
+	req := ceresdb.WriteRequest{
 		Points: points,
 	}
 	resp, err := client.Write(context.Background(), req)
@@ -93,7 +95,7 @@ CeresDB is a Schema-less time-series database, so creating table schema ahead of
 
 ```go
 	querySQL := `SELECT * FROM demo`
-	req := types.SQLQueryRequest{
+	req := ceresdb.SQLQueryRequest{
 		Tables: []string{"demo"},
 		SQL:    querySQL,
 	}
