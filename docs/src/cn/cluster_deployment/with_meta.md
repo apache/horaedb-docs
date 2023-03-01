@@ -54,12 +54,19 @@ docker run -d --name ceresmeta-server
 
 ## 部署 CeresDB
 
-在 `NoMeta` 模式中，由于 CeresDB 集群拓扑是静态的，因此 CeresDB 只需要一个本地存储来作为底层的存储层即可。但是在 `WithMeta` 模式中，集群的拓扑是可以变化的，因此如果 CeresDB 的底层存储使用一个独立的存储服务的话，CeresDB 集群就可以获得分布式系统的一些特性：高可用、负载均衡、水平扩展等。当然，CeresDB 仍然可以使用本地存储，这样的话，集群的拓扑仍然是静态的。
+在 `NoMeta` 模式中，由于 CeresDB 集群拓扑是静态的，因此 CeresDB 只需要一个本地存储来作为底层的存储层即可。但是在 `WithMeta` 模式中，集群的拓扑是可以变化的，因此如果 CeresDB 的底层存储使用一个独立的存储服务的话，CeresDB 集群就可以获得分布式系统的一些特性：高可用、负载均衡、水平扩展等。
+当然，CeresDB 仍然可以使用本地存储，这样的话，集群的拓扑仍然是静态的。
 
 存储相关的配置主要包括两个部分：
 
 - Object Storage
 - WAL Storage
+
+注意：在生产环境中如果我们把 CeresDB 部署在多个节点上时，请按照如下方式把机器的 IP 设置到环境变量中（此 IP 用于 CeresMeta 和 CeresDB 通信使用，需保证网络联通可用）：
+
+```shell
+export CERESDB_SERVER_ADDR="{server_ip}:8831"
+```
 
 ### Object Storage
 
