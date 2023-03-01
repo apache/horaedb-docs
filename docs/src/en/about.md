@@ -6,7 +6,7 @@
 [![Slack](https://badgen.net/badge/Slack/Join%20CeresDB/0abd59?icon=slack)](https://join.slack.com/t/ceresdbcommunity/shared_invite/zt-1dcbv8yq8-Fv8aVUb6ODTL7kxbzs9fnA)
 [![Docker](https://img.shields.io/docker/v/ceresdb/ceresdb-server?logo=docker)](https://hub.docker.com/r/ceresdb/ceresdb-server)
 
-CeresDB is a timeseries database that aims to handle both timeseries and analytic workloads efficiently.
+CeresDB is a high-performance, distributed, cloud native time-series database.
 
 # Motivation
 

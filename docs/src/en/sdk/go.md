@@ -34,7 +34,9 @@ Notice:
 
 CeresDB uses SQL to manage tables, such as creating tables, deleting tables, or adding columns, etc., which is not much different from when you use SQL to manage other databases.
 
-CeresDB is a Schema-less time-series database, so creating table schema ahead of data ingestion is not required (CeresDB will create a default schema according to the very first data you write into it). Of course, you can also manually create a schema for fine grained management purposes (eg. managing index).
+For ease of use, when using gRPC's write interface for writing, if a table does not exist, CeresDB will automatically create a table based on the first write.
+
+Of course, you can also use `create table` statement to manage the table more finely (such as adding indexes).
 
 **Example for creating table**
 
