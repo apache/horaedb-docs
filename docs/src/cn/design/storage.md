@@ -22,7 +22,7 @@ CeresDB 是一种基于 share-nothing 架构的分布式存储系统，不同服
 
 由于 memtable 不是实时持久化到底层存储系统，因此需要用 WAL 来保证 memtable 中数据的可靠性。
 
-另一方面，由于[分布式架构](clustering.md)的设计，要求 WAL 本身是高可用的，现在 CeresDB 中，主要有以下几种实现：
+另一方面，由于[分布式架构](cluster.md)的设计，要求 WAL 本身是高可用的，现在 CeresDB 中，主要有以下几种实现：
 
 - [本地磁盘](wal_on_rocksdb.md)（基于 [RocksDB](http://rocksdb.org/)，无分布式高可用）
 - [Oceanbase](https://www.oceanbase.com)

@@ -52,7 +52,7 @@
 # 技术系列文章
 
 - [整体架构](design/architecture.md)
-- [集群](design/clustering.md)
+- [集群](design/cluster.md)
 - [存储](design/storage.md)
 - [WAL](design/wal.md)
   - [WAL on RocksDB](design/wal_on_rocksdb.md)
