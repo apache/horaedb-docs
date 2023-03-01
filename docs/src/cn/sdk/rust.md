@@ -2,12 +2,8 @@
 
 ## 安装
 
-你只需要在项目的 Cargo.toml 文件中加入以下依赖：
-
-```toml
-[dependencies.ceresdb-client-rs]
-git = "https://github.com/CeresDB/ceresdb-client-rs.git"
-rev = "69948b9963597ccdb7c73756473393972dfdebd3"
+```bash
+cargo add ceresdb-client
 ```
 
 ## 初始化客户端

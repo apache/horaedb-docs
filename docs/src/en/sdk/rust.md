@@ -2,12 +2,8 @@
 
 ## Install
 
-Just need to add dependency to Cargo.toml in your project:
-
-```toml
-[dependencies.ceresdb-client-rs]
-git = "https://github.com/CeresDB/ceresdb-client-rs.git"
-rev = "69948b9963597ccdb7c73756473393972dfdebd3"
+```bash
+cargo add ceresdb-client
 ```
 
 ## Init Client
