@@ -62,7 +62,7 @@ docker run -d --name ceresmeta-server
 - Object Storage
 - WAL Storage
 
-注意：在生产环境中如果我们把 CeresDB 部署在多个节点上时，请按照如下方式把机器的 ip 设置到环境变量中：
+注意：在生产环境中如果我们把 CeresDB 部署在多个节点上时，请按照如下方式把机器的 IP 设置到环境变量中（此 IP 用于 CeresMeta 和 CeresDB 通信使用，需保证网络联通可用）：
 
 ```shell
 export CERESDB_SERVER_ADDR="{server_ip}:8831"
