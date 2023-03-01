@@ -53,7 +53,9 @@ By configuring the `RpcConfig`, resource and performance of the client can be ma
 
 ## Create Table
 
-CeresDB is a Schema-less time-series database, so creating table schema ahead of data ingestion is not required (CeresDB will create a default schema according to the very first data you write into it). Of course, you can also manually create a schema for fine grained management purposes, e.g. managing index.
+For ease of use, when using gRPC's write interface for writing, if a table does not exist, CeresDB will automatically create a table based on the first write.
+
+Of course, you can also use `create table` statement to manage the table more finely (such as adding indexes).
 
 Here is a example for creating table by the initialized client:
 

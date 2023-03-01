@@ -1,9 +1,5 @@
 # Go
 
-## 介绍
-
-ceresdb.Client 是 CeresDB 的 Golang 版客户端。
-
 ## 安装
 
 ```
@@ -32,8 +28,9 @@ go get github.com/CeresDB/ceresdb-client-go@v1.1.0
 
 CeresDB 使用 SQL 来管理表格，比如创建表、删除表或者新增列等等，这和你在使用 SQL 管理其他的数据库时没有太大的区别。
 
-CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 schema 就立刻写入数据（CeresDB 会根据你的第一次写入帮你创建一个默认的 schema）。
-当然你也可以自行创建一个 schema 来更精细化的管理的表（比如添加索引等）。
+为了方便使用，在使用 gRPC 的 write 接口进行写入时，如果某个表不存在，CeresDB 会根据第一次的写入自动创建一个表。
+
+当然你也可以通过 `create table` 语句来更精细化的管理的表（比如添加索引等）。
 
 **创建表的样例**
 

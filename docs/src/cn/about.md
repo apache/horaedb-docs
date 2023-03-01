@@ -6,7 +6,7 @@
 [![Slack](https://badgen.net/badge/Slack/Join%20CeresDB/0abd59?icon=slack)](https://join.slack.com/t/ceresdbcommunity/shared_invite/zt-1dcbv8yq8-Fv8aVUb6ODTL7kxbzs9fnA)
 [![Docker](https://img.shields.io/docker/v/ceresdb/ceresdb-server?logo=docker)](https://hub.docker.com/r/ceresdb/ceresdb-server)
 
-CeresDB 是一款高性能、分布式、Schema-less 的云原生时序数据库，能够同时处理时序型（time-series）以及分析型（analytics）负载。
+CeresDB 是一款高性能、分布式的云原生时序数据库。
 
 # 愿景
 

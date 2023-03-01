@@ -43,9 +43,9 @@ let builder = builder.rpc_config(rpc_config);
 
 ## 管理表
 
-CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 schema 就立刻写入数据（CeresDB 会根据你的第一次写入帮你创建一个默认的 schema）。 当然你也可以自行创建一个 schema 来更精细化的管理表（比如添加索引等）。
+为了方便使用，在使用 gRPC 的 write 接口进行写入时，如果某个表不存在，CeresDB 会根据第一次的写入自动创建一个表。
 
-你可以通过 `sql query` 接口创建或者删除表，相关设置在 `sql query` 小节中介绍。
+当然你也可以通过 `create table` 语句来更精细化的管理的表（比如添加索引等）。
 
 - 建表:
 
