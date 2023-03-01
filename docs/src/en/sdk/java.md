@@ -56,7 +56,7 @@ The following table creation statement（using the SQL API included in SDK ）sh
 
 ```java
 // Create table manually, creating table schema ahead of data ingestion is not required
-String createTableSql = "CREATE TABLE IF NOT EXISTS machine_table(" +                                                                                              "ts TIMESTAMP NOT NULL," + //
+String createTableSql = "CREATE TABLE IF NOT EXISTS machine_table(" +
         "ts TIMESTAMP NOT NULL," +
         "city STRING TAG NOT NULL," +
         "ip STRING TAG NOT NULL," +
@@ -93,9 +93,12 @@ List<Point> pointList = new LinkedList<>();
 for (int i = 0; i < 100; i++) {
     // build one point
     final Point point = Point.newPointBuilder("machine_table")
-            .setTimestamp(t0).addTag("city", "Singapore")
-            .addTag("ip", "10.0.0.1").addField("cpu", Value.withDouble(0.23))
-            .addField("mem", Value.withDouble(0.55)).build();
+            .setTimestamp(t0)
+            .addTag("city", "Singapore")
+            .addTag("ip", "10.0.0.1")
+            .addField("cpu", Value.withDouble(0.23))
+            .addField("mem", Value.withDouble(0.55))
+            .build();
     points.add(point);
 }
 ```
@@ -133,11 +136,11 @@ Assert.assertEquals(1, queryOk.getRowCount());
 
 // get rows as list
 final List<Row> rows = queryOk.getRowList();
-Assert.assertEquals(t0, rows.get(0).getColumnValue("ts").getTimestamp());
-Assert.assertEquals("Singapore", rows.get(0).getColumnValue("city").getString());
-Assert.assertEquals("10.0.0.1", rows.get(0).getColumnValue("ip").getString());
-Assert.assertEquals(0.23, rows.get(0).getColumnValue("cpu").getDouble(), 0.0000001);
-Assert.assertEquals(0.55, rows.get(0).getColumnValue("mem").getDouble(), 0.0000001);
+Assert.assertEquals(t0, rows.get(0).getColumn("ts").getValue().getTimestamp());
+Assert.assertEquals("Singapore", rows.get(0).getColumn("city").getValue().getString());
+Assert.assertEquals("10.0.0.1", rows.get(0).getColumn("ip").getValue().getString());
+Assert.assertEquals(0.23, rows.get(0).getColumn("cpu").getValue().getDouble(), 0.0000001);
+Assert.assertEquals(0.55, rows.get(0).getColumn("mem").getValue().getDouble(), 0.0000001);
 
 // get rows as stream
 final Stream<Row> rowStream = queryOk.stream();
@@ -154,18 +157,15 @@ CeresDB support streaming writing and reading，suitable for large-scale data re
 long start = System.currentTimeMillis();
 long t = start;
 final StreamWriteBuf<Point, WriteOk> writeBuf = client.streamWrite("machine_table");
-
 for (int i = 0; i < 1000; i++) {
-    final List<Point> streamData = Point.newPointsBuilder("machine_table")
-        .addPoint()
-            .setTimestamp(t)
-            .addTag("city", "Beijing")
-            .addTag("ip", "10.0.0.3")
-            .addField("cpu", Value.withDouble(0.42))
-            .addField("mem", Value.withDouble(0.67))
-            .build()
-        .build();
-        writeBuf.writeAndFlush(streamData);
+        final Point streamData = Point.newPointBuilder("machine_table")
+                .setTimestamp(t)
+                .addTag("city", "Beijing")
+                .addTag("ip", "10.0.0.3")
+                .addField("cpu", Value.withDouble(0.42))
+                .addField("mem", Value.withDouble(0.67))
+                .build();
+        writeBuf.writeAndFlush(Collections.singletonList(streamData));
         t = t+1;
 }
 final CompletableFuture<WriteOk> writeOk = writeBuf.completed();

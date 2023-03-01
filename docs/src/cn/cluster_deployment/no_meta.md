@@ -21,7 +21,9 @@ CeresDB 的基础配置如下：
 bind_addr = "0.0.0.0"
 http_port = 5440
 grpc_port = 8831
-log_level = "info"
+
+[logger]
+level = "info"
 
 [tracing]
 dir = "/tmp/ceresdb"
@@ -44,7 +46,9 @@ data_dir = "/tmp/ceresdb"
 bind_addr = "0.0.0.0"
 http_port = 5440
 grpc_port = 8831
-log_level = "info"
+
+[logger]
+level = "info"
 
 [tracing]
 dir = "/tmp/ceresdb_0"
@@ -65,7 +69,9 @@ data_dir = "/tmp/ceresdb_0"
 bind_addr = "0.0.0.0"
 http_port = 15440
 grpc_port = 18831
-log_level = "info"
+
+[logger]
+level = "info"
 
 [tracing]
 dir = "/tmp/ceresdb_1"
@@ -152,7 +158,9 @@ shards = [0, 1]
 bind_addr = "0.0.0.0"
 http_port = 5440
 grpc_port = 8831
-log_level = "info"
+
+[logger]
+level = "info"
 
 [tracing]
 dir = "/tmp/ceresdb_0"
@@ -200,7 +208,9 @@ port = 18831
 bind_addr = "0.0.0.0"
 http_port = 15440
 grpc_port = 18831
-log_level = "info"
+
+[logger]
+level = "info"
 
 [tracing]
 dir = "/tmp/ceresdb_1"

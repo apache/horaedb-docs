@@ -19,7 +19,9 @@ Suppose the basic config of CeresDB is:
 bind_addr = "0.0.0.0"
 http_port = 5440
 grpc_port = 8831
-log_level = "info"
+
+[logger]
+level = "info"
 
 [tracing]
 dir = "/tmp/ceresdb"
@@ -42,7 +44,9 @@ Say the `CeresDB_0`'s config is:
 bind_addr = "0.0.0.0"
 http_port = 5440
 grpc_port = 8831
-log_level = "info"
+
+[logger]
+level = "info"
 
 [tracing]
 dir = "/tmp/ceresdb_0"
@@ -63,7 +67,9 @@ Then the `CeresDB_1`'s config is:
 bind_addr = "0.0.0.0"
 http_port = 15440
 grpc_port = 18831
-log_level = "info"
+
+[logger]
+level = "info"
 
 [tracing]
 dir = "/tmp/ceresdb_1"
@@ -149,7 +155,9 @@ For now, we can provide the full example config for `CeresDB_0` and `CeresDB_1`:
 bind_addr = "0.0.0.0"
 http_port = 5440
 grpc_port = 8831
-log_level = "info"
+
+[logger]
+level = "info"
 
 [tracing]
 dir = "/tmp/ceresdb_0"
@@ -197,7 +205,9 @@ port = 18831
 bind_addr = "0.0.0.0"
 http_port = 15440
 grpc_port = 18831
-log_level = "info"
+
+[logger]
+level = "info"
 
 [tracing]
 dir = "/tmp/ceresdb_1"

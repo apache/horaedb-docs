@@ -53,7 +53,7 @@ CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 sche
 下面的建表语句（使用 SDK 的 SQL API）包含了 CeresDB 支持的所有字段类型：
 
 ```java
-String createTableSql = "CREATE TABLE IF NOT EXISTS machine_table(" +                                                                                              "ts TIMESTAMP NOT NULL," + //
+String createTableSql = "CREATE TABLE IF NOT EXISTS machine_table(" +
         "ts TIMESTAMP NOT NULL," +
         "city STRING TAG NOT NULL," +
         "ip STRING TAG NOT NULL," +
@@ -90,9 +90,12 @@ List<Point> pointList = new LinkedList<>();
 for (int i = 0; i < 100; i++) {
     // 构建单个Point
     final Point point = Point.newPointBuilder("machine_table")
-            .setTimestamp(t0).addTag("city", "Singapore")
-            .addTag("ip", "10.0.0.1").addField("cpu", Value.withDouble(0.23))
-            .addField("mem", Value.withDouble(0.55)).build();
+            .setTimestamp(t0)
+            .addTag("city", "Singapore")
+            .addTag("ip", "10.0.0.1")
+            .addField("cpu", Value.withDouble(0.23))
+            .addField("mem", Value.withDouble(0.55))
+            .build();
     points.add(point);
 }
 ```
@@ -132,11 +135,11 @@ Assert.assertEquals(1, queryOk.getRowCount());
 
 // 直接获取结果数组
 final List<Row> rows = queryOk.getRowList();
-Assert.assertEquals(t0, rows.get(0).getColumnValue("ts").getTimestamp());
-Assert.assertEquals("Singapore", rows.get(0).getColumnValue("city").getString());
-Assert.assertEquals("10.0.0.1", rows.get(0).getColumnValue("ip").getString());
-Assert.assertEquals(0.23, rows.get(0).getColumnValue("cpu").getDouble(), 0.0000001);
-Assert.assertEquals(0.55, rows.get(0).getColumnValue("mem").getDouble(), 0.0000001);
+Assert.assertEquals(t0, rows.get(0).getColumn("ts").getValue().getTimestamp());
+Assert.assertEquals("Singapore", rows.get(0).getColumn("city").getValue().getString());
+Assert.assertEquals("10.0.0.1", rows.get(0).getColumn("ip").getValue().getString());
+Assert.assertEquals(0.23, rows.get(0).getColumn("cpu").getValue().getDouble(), 0.0000001);
+Assert.assertEquals(0.55, rows.get(0).getColumn("mem").getValue().getDouble(), 0.0000001);
 
 // 获取结果流
 final Stream<Row> rowStream = queryOk.stream();
@@ -154,16 +157,14 @@ long start = System.currentTimeMillis();
 long t = start;
 final StreamWriteBuf<Point, WriteOk> writeBuf = client.streamWrite("machine_table");
 for (int i = 0; i < 1000; i++) {
-final List<Point> streamData = Point.newPointsBuilder("machine_table")
-        .addPoint()
-            .setTimestamp(t)
-            .addTag("city", "Beijing")
-            .addTag("ip", "10.0.0.3")
-            .addField("cpu", Value.withDouble(0.42))
-            .addField("mem", Value.withDouble(0.67))
-            .build()
-        .build();
-        writeBuf.writeAndFlush(streamData);
+        final Point streamData = Point.newPointBuilder("machine_table")
+                .setTimestamp(t)
+                .addTag("city", "Beijing")
+                .addTag("ip", "10.0.0.3")
+                .addField("cpu", Value.withDouble(0.42))
+                .addField("mem", Value.withDouble(0.67))
+                .build();
+        writeBuf.writeAndFlush(Collections.singletonList(streamData));
         t = t+1;
 }
 final CompletableFuture<WriteOk> writeOk = writeBuf.completed();

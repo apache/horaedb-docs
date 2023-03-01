@@ -7,7 +7,7 @@ ceresdb.Client 是 CeresDB 的 Golang 版客户端。
 ## 安装
 
 ```
-go get github.com/CeresDB/ceresdb-client-go/ceresdb
+go get github.com/CeresDB/ceresdb-client-go@v1.1.0
 ```
 
 ## 如何使用
@@ -15,7 +15,7 @@ go get github.com/CeresDB/ceresdb-client-go/ceresdb
 ### 初始化客户端
 
 ```go
-	client, err := ceresdb.NewClient(endpoint, types.Direct,
+	client, err := ceresdb.NewClient(endpoint, ceresdb.Direct,
 		ceresdb.WithDefaultDatabase("public"), // Client所使用的database
 	)
 ```
@@ -38,13 +38,15 @@ CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 sche
 **创建表的样例**
 
 ```go
-	createTableSQL := `CREATE TABLE IF NOT EXISTS demo (
-	name string TAG,
-	value double,
-	t timestamp NOT NULL,
-	TIMESTAMP KEY(t)) ENGINE=Analytic with (enable_ttl=false)`
+	createTableSQL := `
+		CREATE TABLE IF NOT EXISTS demo (
+			name string TAG,
+			value double,
+			t timestamp NOT NULL,
+			TIMESTAMP KEY(t)
+		) ENGINE=Analytic with (enable_ttl=false)`
 
-	req := types.SQLQueryRequest{
+	req := ceresdb.SQLQueryRequest{
 		Tables: []string{"demo"},
 		SQL:    createTableSQL,
 	}
@@ -55,7 +57,7 @@ CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 sche
 
 ```go
 	dropTableSQL := `DROP TABLE demo`
-	req := types.SQLQueryRequest{
+	req := ceresdb.SQLQueryRequest{
 		Tables: []string{"demo"},
 		SQL:    dropTableSQL,
 	}
@@ -65,12 +67,12 @@ CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 sche
 ### 构建写入数据
 
 ```go
-	points := make([]types.Point, 0, 2)
+	points := make([]ceresdb.Point, 0, 2)
 	for i := 0; i < 2; i++ {
 		point, err := ceresdb.NewPointBuilder("demo").
-			SetTimestamp(utils.CurrentMS()).
-			AddTag("name", types.NewStringValue("test_tag1")).
-			AddField("value", types.NewDoubleValue(0.4242)).
+			SetTimestamp(now)).
+			AddTag("name", ceresdb.NewStringValue("test_tag1")).
+			AddField("value", ceresdb.NewDoubleValue(0.4242)).
 			Build()
 		if err != nil {
 			panic(err)
@@ -82,7 +84,7 @@ CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 sche
 ### 写入数据
 
 ```go
-	req := types.WriteRequest{
+	req := ceresdb.WriteRequest{
 		Points: points,
 	}
 	resp, err := client.Write(context.Background(), req)
@@ -92,7 +94,7 @@ CeresDB 是一个 Schema-less 的时序数据引擎，你可以不必创建 sche
 
 ```go
 	querySQL := `SELECT * FROM demo`
-	req := types.SQLQueryRequest{
+	req := ceresdb.SQLQueryRequest{
 		Tables: []string{"demo"},
 		SQL:    querySQL,
 	}
