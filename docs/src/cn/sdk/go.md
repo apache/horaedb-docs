@@ -101,3 +101,7 @@ CeresDB 使用 SQL 来管理表格，比如创建表、删除表或者新增列�
 	}
 	fmt.Printf("query table success, rows:%+v\n", resp.Rows)
 ```
+
+## 示例
+
+你可以在[这里](https://github.com/CeresDB/ceresdb-client-go/blob/main/examples/read_write.go)找到完整的示例。
