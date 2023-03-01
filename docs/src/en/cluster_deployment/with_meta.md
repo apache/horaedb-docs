@@ -237,22 +237,18 @@ docker run -d --net=host --name ceresmeta-server \
 
 With the started CeresMeta cluster, let's start the CeresDB instance:
 
+Note: `docker --net=host` only takes effect under Linux, so the above deployment methods can only be used in Linux. We will supplement the startup methods on other platforms later.
+
 ```bash
 wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster0.toml
 
 docker run -d --net=host --name ceresdb-server0 \
-  -p 8831:8831 \
-  -p 3307:3307 \
-  -p 5440:5440 \
   -v $(pwd)/config-ceresdb-cluster0.toml:/etc/ceresdb/ceresdb.toml \
   ceresdb/ceresdb-server
 
 wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster1.toml
 
 docker run -d --net=host --name ceresdb-server1 \
-  -p 8832:8832 \
-  -p 13307:13307 \
-  -p 5441:5441 \
   -v $(pwd)/config-ceresdb-cluster1.toml:/etc/ceresdb/ceresdb.toml \
   ceresdb/ceresdb-server
 ```

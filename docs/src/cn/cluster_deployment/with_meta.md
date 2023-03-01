@@ -229,22 +229,18 @@ docker run -d --net=host --name ceresmeta-server \
 
 CeresMeta 启动好了，没有问题之后，就可以把 CeresDB 的容器创建出来：
 
+注意: `docker --net=host` 只在 Linux 下生效，所以以上部署方式只适用于 Linux，稍后我们会补充其它平台上的启动方式。
+
 ```bash
 wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster0.toml
 
 docker run -d --net=host --name ceresdb-server0 \
-  -p 8831:8831 \
-  -p 3307:3307 \
-  -p 5440:5440 \
   -v $(pwd)/config-ceresdb-cluster0.toml:/etc/ceresdb/ceresdb.toml \
   ceresdb/ceresdb-server
 
 wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster1.toml
 
 docker run -d --net=host --name ceresdb-server1 \
-  -p 8832:8832 \
-  -p 13307:13307 \
-  -p 5441:5441 \
   -v $(pwd)/config-ceresdb-cluster1.toml:/etc/ceresdb/ceresdb.toml \
   ceresdb/ceresdb-server
 ```
