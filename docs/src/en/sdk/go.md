@@ -1,9 +1,5 @@
 # Go
 
-## Introduction
-
-ceresdb.Client is a Golang client for CeresDB.
-
 ## Installation
 
 ```
@@ -107,3 +103,7 @@ Of course, you can also use `create table` statement to manage the table more fi
 	}
 	fmt.Printf("query table success, rows:%+v\n", resp.Rows)
 ```
+
+## Example
+
+You can find the complete example [here](https://github.com/CeresDB/ceresdb-client-go/blob/main/examples/read_write.go).
