@@ -239,7 +239,7 @@ docker run -d --net=host --name ceresdb-server0 \
   -v $(pwd)/config-ceresdb-cluster0.toml:/etc/ceresdb/ceresdb.toml \
   ceresdb/ceresdb-server
 
-wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster1.toml.toml
+wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster1.toml
 
 docker run -d --net=host --name ceresdb-server1 \
   -p 8832:8832 \
