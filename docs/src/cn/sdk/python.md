@@ -91,7 +91,7 @@ async def async_write(client, ctx, req):
     return await client.write(ctx, req)
 
 point_builder = PointBuilder('demo')
-point_builder.set_timestamp(int(round(datetime.datetime.now().timestamp())))
+point_builder.set_timestamp(1000 * int(round(datetime.datetime.now().timestamp())))
 point_builder.set_tag("name", ValueBuilder().string("test_tag1"))
 point_builder.set_field("value", ValueBuilder().double(0.4242))
 point = point_builder.build()
@@ -123,15 +123,21 @@ resp = event_loop.run_until_complete(async_query(client, ctx, req))
 查询到数据后，逐行逐列处理数据的示例如下：
 
 ```python
-for row_idx in range(0, resp.row_num()):
+# Access row by index in the resp.
+for row_idx in range(0, resp.num_rows()):
     row_tokens = []
-
-    row = resp.get_row(row_idx)
+    row = resp.row_by_idx(row_idx)
     for col_idx in range(0, row.num_cols()):
         col = row.column_by_idx(col_idx)
         row_tokens.append(f"{col.name()}:{col.value()}#{col.data_type()}")
+    print(f"row#{row_idx}: {','.join(row_tokens)}")
 
-    print(f"row#{col_idx}: {','.join(row_tokens)}")
+# Access row by iter in the resp.
+for row in resp.iter_rows():
+    row_tokens = []
+    for col in row.iter_columns():
+        row_tokens.append(f"{col.name()}:{col.value()}#{col.data_type()}")
+    print(f"row: {','.join(row_tokens)}")
 ```
 
 ## 删表
