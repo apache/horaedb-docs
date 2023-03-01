@@ -66,6 +66,12 @@ The relevant storage configurations include two parts:
 - Object Storage
 - WAL Storage
 
+Note: When deploying CeresDB over multiple nodes in a production environment, please set the server IP to the environment variable as follows:
+
+```shell
+export CERESDB_SERVER_ADDR="{server_ip}:8831"
+```
+
 ### Object Storage
 
 #### Local Storage
