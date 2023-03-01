@@ -52,7 +52,7 @@
 # Technical and Design
 
 - [Architecture](design/architecture.md)
-- [Cluster](design/cluster.md)
+- [Cluster](design/clustering.md)
 - [Storage](design/storage.md)
 - [WAL](design/wal.md)
   - [WAL on RocksDB](design/wal_on_rocksdb.md)
