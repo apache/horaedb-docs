@@ -14,7 +14,7 @@ CeresDB Client is a high-performance Java client for CeresDB.
 <dependency>
   <groupId>io.ceresdb</groupId>
   <artifactId>ceresdb-all</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
@@ -81,7 +81,7 @@ Here is an example of dropping table：
 String dropTableSql = "DROP TABLE machine_table";
 
 Result<SqlQueryOk, Err> dropResult = client.sqlQuery(new SqlQueryRequest(dropTableSql)).get();
-if (!createResult.isOk()) {
+if (!dropResult.isOk()) {
         throw new IllegalStateException("Fail to drop table");
 }
 ```
