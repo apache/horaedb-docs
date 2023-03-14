@@ -91,5 +91,5 @@ See [sdk](./sdk/README.md)
 Congrats, you have finished this tutorial. For more information about CeresDB, see the following:
 
 - [SQL Syntax](sql/README.md)
-- [Deployment](deploy/README.md)
+- [Deployment](cluster_deployment/README.md)
 - [Operation](operation/README.md)

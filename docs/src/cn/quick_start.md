@@ -91,5 +91,5 @@ DROP TABLE `demo`
 恭喜你，你已经学习了 CeresDB 的简单使用。关于 CeresDB 的更多信息，请参见以下内容。
 
 - [SQL 语法](sql/README.md)
-- [部署文档](deploy/README.md)
+- [部署文档](cluster_deployment/README.md)
 - [运维文档](operation/README.md)
