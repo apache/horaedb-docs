@@ -247,7 +247,7 @@ In order to make debugging easier, leaf errors in error chain should contains a 
 // Error in module A
 pub enum Error {
     #[snafu(display("This is a leaf error, source:{}.\nBacktrace:\n{}", source, backtrace))]
-    LeftError {
+    LeafError {
         source: ErrorFromDependency,
         backtrace: Backtrace
     },
@@ -257,7 +257,12 @@ pub enum Error {
 pub enum Error {
     #[snafu(display("Another error, source:{}.\nBacktrace:\n{}", source, backtrace))]
     AnotherError {
-        source: crate::A:Error,
+        /// This error wraps another error that already has a
+        /// backtrace. Instead of capturing our own, we forward the
+        /// request for the backtrace to the inner error. This gives a
+        /// more accurate backtrace.
+        #[snafu(backtrace)]
+        source: crate::A::Error,
     },
 }
 ```
