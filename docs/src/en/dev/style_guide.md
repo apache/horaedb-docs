@@ -169,7 +169,7 @@ input_reader
 _Hint for `Box<dyn::std::error::Error>` in Snafu_:
 
 If your error contains a trait object (e.g. `Box<dyn std::error::Error + Send + Sync>`), in order
-to use `context()` you need to wrap the error in a `Box`, and there is an `box_err` function to do this:
+to use `context()` you need to wrap the error in a `Box`, we provide a `box_err` function to help do this conversion:
 
 ```rust
 #[derive(Debug, Snafu)]
