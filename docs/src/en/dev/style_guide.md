@@ -242,6 +242,7 @@ close_writer.context(WritingError {
 ### Leaf error should contains backtrace
 
 In order to make debugging easier, leaf errors in error chain should contains a backtrace.
+
 ```rust
 // Error in module A
 pub enum Error {
@@ -260,6 +261,7 @@ pub enum Error {
     },
 }
 ```
+
 ## Tests
 
 ### Don't return `Result` from test functions
