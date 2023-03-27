@@ -207,9 +207,6 @@ data_dir = "/home/admin/data/ceresdb"
 mem_cache_capacity = "20GB"
 # 1<<8=256
 mem_cache_partition_bits = 8
-disk_cache_dir = "/home/admin/data/ceresdb/"
-disk_cache_capacity = '0G'
-disk_cache_page_size = '4M'
 
 [analytic.storage.object_store]
 type = "Local"
