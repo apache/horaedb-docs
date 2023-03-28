@@ -86,11 +86,11 @@ docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
 - tps: 集群写入请求数。
 - qps: 集群查询请求数。
 - 99th query/write duration: 查询写入的 99% 分位数。
-- query by table: 表级别的查询请求数。
+- table query by table: 表查询请求数。
 - 99th write duration details by instance: 写入耗时的 99% 分位数。
 - 99th query duration details by instance: 查询耗时的 99% 分位数。
 - 99th write partition table duration: 分区表查询耗时的 99% 分位数。
-- rows by table: 表级别的写入行数。
+- table rows: 表的写入行数。
 - table rows by instance: 实例级别的写入行数。
 - total tables to write: 有数据写入的表数目。
 - flush count: CeresDB flush 的次数。
