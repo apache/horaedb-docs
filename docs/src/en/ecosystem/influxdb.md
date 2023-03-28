@@ -14,20 +14,20 @@ curl -i -XPOST "http://localhost:5440/influxdb/v1/write?db=public&precision=ms" 
 
 - Body:
 
-  - Inserted data formatted by [line protocol](https://docs.influxdata.com/influxdb/v1.8/concepts/glossary/#influxdb-line-protocol).
+  1. Inserted data formatted by [line protocol](https://docs.influxdata.com/influxdb/v1.8/concepts/glossary/#influxdb-line-protocol).
 
 - Query parameters:
-  
-  - `precision`, precision of timestamps in the line protocol, default to `ms`.
-  - `db`, not supported to set now.
-  
+
+  1. `precision`, precision of timestamps in the line protocol, default to `ms`.
+  2. `db`, not supported to set now.
+
 Measurement will be created automatically like what in influxDB, and each measurement will be mapped to a table.
 
-Currently you need to add this line to the server config for making the automatically created table's schema compatible with influxDB(surely, we may optimize this in later development):
+You need to mention that timestamp column must be time now, and users who want to try influxql should add following config:
 
 ```toml
-  [server.default_schema_config]
-  default_timestamp_column_name = "time"
+[server.default_schema_config]
+default_timestamp_column_name = "time"
 ```
 
 For example, when inserting data above, table as following will be created in CeresDB:
@@ -35,10 +35,10 @@ For example, when inserting data above, table as following will be created in Ce
 ```sql
   CREATE TABLE `mymeas` (
     `tsid` uint64 NOT NULL,
-    `timestamp` timestamp NOT NULL,
+    `time` timestamp NOT NULL,
     `myfield` double,
     `mytag` string TAG,
-    PRIMARY KEY(tsid,timestamp), TIMESTAMP KEY(timestamp)
+    PRIMARY KEY(tsid,time), TIMESTAMP KEY(time)
   )
 ```
 
@@ -49,10 +49,10 @@ For example, when inserting data above, table as following will be created in Ce
 ```
 
 - Body:
-  
-  - `q`, influxQL string to execute(when query by POST requests).
+
+  1. `q`, influxQL string to execute(when query by POST requests).
 
 - Query parameters:
 
-  - `q`, when query by GET requests, see also in body.
-  - `db`, `epoch`, `pretty`, `chunked` are not supported to set now.
+  1. `q`, when query by GET requests, see also in body.
+  2. `db`, `epoch`, `pretty`, `chunked` are not supported to set now.
