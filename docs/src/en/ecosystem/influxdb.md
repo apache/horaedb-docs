@@ -23,6 +23,13 @@ curl -i -XPOST "http://localhost:5440/influxdb/v1/write?db=public&precision=ms" 
   
 Measurement will be created automatically like what in influxDB, and each measurement will be mapped to a table.
 
+Currently you need to add this line to the server config for making the automatically created table's schema compatible with influxDB(surely, we may optimize this in later development):
+
+```toml
+  [server.default_schema_config]
+  default_timestamp_column_name = "time"
+```
+
 For example, when inserting data above, table as following will be created in CeresDB:
 
 ```sql
