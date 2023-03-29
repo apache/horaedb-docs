@@ -40,6 +40,7 @@
   - [Cluster](operation/cluster.md)
 - [Ecosystem](ecosystem/README.md)
   - [Prometheus](ecosystem/prometheus.md)
+  - [InfluxDB](ecosystem/influxdb.md)
 
 # Dev Guide
 

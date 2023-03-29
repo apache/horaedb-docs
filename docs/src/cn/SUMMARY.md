@@ -40,6 +40,7 @@
   - [集群运维](operation/cluster.md)
 - [周边生态](ecosystem/README.md)
   - [Prometheus](ecosystem/prometheus.md)
+  - [InfluxDB](ecosystem/influxdb.md)
 
 # 开发者手册
 

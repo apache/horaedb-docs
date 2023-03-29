@@ -2,57 +2,75 @@
 
 [InfluxDB](https://www.influxdata.com/products/influxdb-overview/) is a time series database designed to handle high write and query loads. It is an integral component of the TICK stack. InfluxDB is meant to be used as a backing store for any use case involving large amounts of timestamped data, including DevOps monitoring, application metrics, IoT sensor data, and real-time analytics.
 
-CeresDB support both write and query through [influxDB 1.x http api described in doc of influxDB 1.8](https://docs.influxdata.com/influxdb/v1.8/tools/api/#influxdb-1x-http-endpoints).
+CeresDB support [InfluxDB v1.8](https://docs.influxdata.com/influxdb/v1.8/tools/api/#influxdb-1x-http-endpoints) write and query API.
 
-## Write api
-
-Insert data by POST HTTP requests:
-
-```shell
-curl -i -XPOST "http://localhost:5440/influxdb/v1/write?db=public&precision=ms" --data-binary 'mymeas,mytag=1 myfield=90 1463683075'
-```
-
-- Body:
-
-  1. Inserted data formatted by [line protocol](https://docs.influxdata.com/influxdb/v1.8/concepts/glossary/#influxdb-line-protocol).
-
-- Query parameters:
-
-  1. `precision`, precision of timestamps in the line protocol, default to `ms`.
-  2. `db`, not supported to set now.
-
-Measurement will be created automatically like what in influxDB, and each measurement will be mapped to a table.
-
-You need to mention that timestamp column must be time now, and users who want to try influxql should add following config:
+> Warn: users need to add following config to server's config in order to try InfluxDB write/query.
 
 ```toml
 [server.default_schema_config]
 default_timestamp_column_name = "time"
 ```
 
-For example, when inserting data above, table as following will be created in CeresDB:
-
-```sql
-  CREATE TABLE `mymeas` (
-    `tsid` uint64 NOT NULL,
-    `time` timestamp NOT NULL,
-    `myfield` double,
-    `mytag` string TAG,
-    PRIMARY KEY(tsid,time), TIMESTAMP KEY(time)
-  )
-```
-
-## Query api
+## Write
 
 ```shell
- curl -G 'http://localhost:5440/influxdb/v1/query?db=public' --data-urlencode 'q=SELECT * FROM "mymeas"'
+curl -i -XPOST "http://localhost:5440/influxdb/v1/write" --data-binary '
+demo,tag1=t1,tag2=t2 field1=90,field2=100 1679994647000
+demo,tag1=t1,tag2=t2 field1=91,field2=101 1679994648000
+demo,tag1=t11,tag2=t22 field1=90,field2=100 1679994647000
+demo,tag1=t11,tag2=t22 field1=91,field2=101 1679994648000
+'
 ```
 
-- Body:
+Post payload is in [InfluxDB line protocol](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_reference/) format.
 
-  1. `q`, influxQL string to execute(when query by POST requests).
+> Note: Query string parameters such as `precision`, `db` aren't supported.
 
-- Query parameters:
+Measurement will be created automatically like what in influxDB, and each measurement will be mapped to a table in CeresDB.
 
-  1. `q`, when query by GET requests, see also in body.
-  2. `db`, `epoch`, `pretty`, `chunked` are not supported to set now.
+For example, when inserting data above, table below will be created in CeresDB:
+
+```sql
+CREATE TABLE `demo` (
+    `tsid` uint64 NOT NULL,
+    `timestamp` timestamp NOT NULL,
+    `field1` double,
+    `field2` double,
+    `tag1` string TAG,
+    `tag2` string TAG,
+    PRIMARY KEY (tsid, timestamp),
+    timestamp KEY (timestamp))
+```
+
+## Query
+
+```shell
+ curl -G 'http://localhost:5440/influxdb/v1/query' --data-urlencode 'q=SELECT * FROM "demo"'
+```
+
+```json
+{
+  "results": [
+    {
+      "statement_id": 0,
+      "series": [
+        {
+          "name": "demo",
+          "columns": ["time", "field1", "field2", "tag1", "tag2"],
+          "values": [
+            [1679994647000, 90.0, 100.0, "t1", "t2"],
+            [1679994647000, 90.0, 100.0, "t11", "t22"],
+            [1679994648000, 91.0, 101.0, "t1", "t2"],
+            [1679994648000, 91.0, 101.0, "t11", "t22"]
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+Note:
+
+1. Query string parameters such as `epoch`, `db`, `pretty` aren't supported.
+2. We don't support aggregator/group by now, will support those in next release.
