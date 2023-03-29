@@ -26,9 +26,9 @@ Post payload is in [InfluxDB line protocol](https://docs.influxdata.com/influxdb
 
 > Note: Query string parameters such as `precision`, `db` aren't supported.
 
-Measurement will be created automatically like what in influxDB, and each measurement will be mapped to a table in CeresDB.
+Measurement will be mapped to table in CeresDB, and it will be created automatically in first write.
 
-For example, when inserting data above, table below will be created in CeresDB:
+For example, when inserting data above, table below will be automatically created in CeresDB:
 
 ```sql
 CREATE TABLE `demo` (
@@ -47,6 +47,8 @@ CREATE TABLE `demo` (
 ```shell
  curl -G 'http://localhost:5440/influxdb/v1/query' --data-urlencode 'q=SELECT * FROM "demo"'
 ```
+
+Query result is same with InfluxDB:
 
 ```json
 {
