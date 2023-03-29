@@ -11,7 +11,7 @@ CeresDB support [InfluxDB v1.8](https://docs.influxdata.com/influxdb/v1.8/tools/
 default_timestamp_column_name = "time"
 ```
 
-## Write
+# Write
 
 ```shell
 curl -i -XPOST "http://localhost:5440/influxdb/v1/write" --data-binary '
@@ -23,8 +23,6 @@ demo,tag1=t11,tag2=t22 field1=91,field2=101 1679994648000
 ```
 
 Post payload is in [InfluxDB line protocol](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_reference/) format.
-
-> Note: Query string parameters such as `precision`, `db` aren't supported.
 
 Measurement will be mapped to table in CeresDB, and it will be created automatically in first write.
 
@@ -42,7 +40,11 @@ CREATE TABLE `demo` (
     timestamp KEY (timestamp))
 ```
 
-## Query
+## Note
+
+- Query string parameters such as `precision`, `db` aren't supported.
+
+# Query
 
 ```shell
  curl -G 'http://localhost:5440/influxdb/v1/query' --data-urlencode 'q=SELECT * FROM "demo"'
@@ -72,7 +74,7 @@ Query result is same with InfluxDB:
 }
 ```
 
-Note:
+## Note
 
 1. Query string parameters such as `epoch`, `db`, `pretty` aren't supported.
 2. We don't support aggregator/group by now, will support those in next release.

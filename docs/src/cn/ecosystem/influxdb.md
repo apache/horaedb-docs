@@ -24,8 +24,6 @@ demo,tag1=t11,tag2=t22 field1=91,field2=101 1679994648000
 
 Post 的内容采用的是 [InfluxDB line protocol](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_reference/) 格式。
 
-> 注意：暂时不支持诸如 `precision` `db` 查询参数
-
 `measurement` 将映射到 CeresDB 中的一个表，在首次写入时 server 会自动进行建表。
 
 例如，在上面插入数据时，CeresDB 中将创建下表：
@@ -41,6 +39,10 @@ CREATE TABLE `demo` (
     PRIMARY KEY (tsid, timestamp),
     timestamp KEY (timestamp))
 ```
+
+## 注意事项
+
+- 暂时不支持诸如 `precision`， `db` 等查询参数
 
 # 查询
 
@@ -72,7 +74,7 @@ CREATE TABLE `demo` (
 }
 ```
 
-注意事项：
+## 注意事项
 
 1. 暂时不支持诸如 `epoch`, `db` 等的查询参数
 2. 暂时不支持聚合查询，将在下一个版本中支持
