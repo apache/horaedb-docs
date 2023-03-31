@@ -74,7 +74,15 @@ Query result is same with InfluxDB:
 }
 ```
 
+## Usage in Grafana
+
+CeresDB can be used as InfluxDB data source in Grafana.
+
+- Select InfluxDB type when add data source
+- Then input `http://{ip}:{5440}/influxdb/v1/` in HTTP URL. For local deployment, URL is http://localhost:5440/influxdb/v1/
+- `Save & test`
+
 ## Note
 
 1. Query string parameters such as `epoch`, `db`, `pretty` aren't supported.
-2. We don't support aggregator/group by now, will support those in next release.
+2. Query with `aggregator`, `group by` aren't support now, will support those in next release.
