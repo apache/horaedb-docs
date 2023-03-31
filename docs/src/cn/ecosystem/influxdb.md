@@ -76,7 +76,7 @@ CREATE TABLE `demo` (
 
 ## 如何在 Grafana 中使用
 
-CersDB 可以用作 Grafana 中的 InfluxDB 数据源。具体方式如下：
+CeresDB 可以用作 Grafana 中的 InfluxDB 数据源。具体方式如下：
 
 - 在新增数据源时，选择 InfluxDB 类型
 - 在 HTTP URL 处，输入 `http://{ip}:{5440}/influxdb/v1/` 。对于本地部署的场景，可以直接输入 http://localhost:5440/influxdb/v1/
