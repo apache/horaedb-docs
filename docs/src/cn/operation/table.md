@@ -69,4 +69,3 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ```shell
 curl --location --request GET 'http://127.0.0.1:5000/route/{table_name}'
 ```
-
