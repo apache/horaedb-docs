@@ -169,7 +169,7 @@ input_reader
 _Hint for `Box<dyn::std::error::Error>` in Snafu_:
 
 If your error contains a trait object (e.g. `Box<dyn std::error::Error + Send + Sync>`), in order
-to use `context()` you need to wrap the error in a `Box`:
+to use `context()` you need to wrap the error in a `Box`, we provide a `box_err` function to help do this conversion:
 
 ```rust
 #[derive(Debug, Snafu)]
@@ -183,27 +183,14 @@ pub enum Error {
 
 ...
 
+use use common_util::error::BoxError;
+
   // Wrap error in a box prior to calling context()
 database
   .partition_keys()
   .await
-  .map_err(|e| Box::new(e) as _)
+  .box_err()
   .context(ListingPartitions)?;
-```
-
-Note the `as _` in the `map_err` call. Without it, you may get an error such as:
-
-```console
-error[E0271]: type mismatch resolving `<ListingPartitions as IntoError<influxrpc::Error>>::Source == Box<<D as Database>::Error>`
-  --> query/src/frontend/influxrpc.rs:63:14
-   |
-63 |             .context(ListingPartitions)?;
-   |              ^^^^^^^ expected trait object `dyn snafu::Error`, found associated type
-   |
-   = note: expected struct `Box<(dyn snafu::Error + Send + Sync + 'static)>`
-              found struct `Box<<D as Database>::Error>`
-   = help: consider constraining the associated type `<D as Database>::Error` to `(dyn snafu::Error + Send + Sync + 'static)`
-   = note: for more information, visit https://doc.rust-lang.org/book/ch19-03-advanced-traits.html
 ```
 
 ### Each error cause in a module should have a distinct `Error` enum variant
@@ -250,6 +237,34 @@ write_lines.context(WritingError {
 close_writer.context(WritingError {
     message: String::from("Error while closing the table writer"),
 })?;
+```
+
+### Leaf error should contains backtrace
+
+In order to make debugging easier, leaf errors in error chain should contains a backtrace.
+
+```rust
+// Error in module A
+pub enum Error {
+    #[snafu(display("This is a leaf error, source:{}.\nBacktrace:\n{}", source, backtrace))]
+    LeafError {
+        source: ErrorFromDependency,
+        backtrace: Backtrace
+    },
+}
+
+// Error in module B
+pub enum Error {
+    #[snafu(display("Another error, source:{}.\nBacktrace:\n{}", source, backtrace))]
+    AnotherError {
+        /// This error wraps another error that already has a
+        /// backtrace. Instead of capturing our own, we forward the
+        /// request for the backtrace to the inner error. This gives a
+        /// more accurate backtrace.
+        #[snafu(backtrace)]
+        source: crate::A::Error,
+    },
+}
 ```
 
 ## Tests
@@ -299,4 +314,4 @@ fn google_cloud() -> Result<()> {
 
 ## Thanks
 
-Fork from [influxdb_iox](https://github.com/influxdata/influxdb_iox/blob/main/docs/style_guide.md).
+Initial version of this doc is forked from [influxdb_iox](https://github.com/influxdata/influxdb_iox/blob/main/docs/style_guide.md), thanks for their hard work.

@@ -5,3 +5,4 @@ CeresDB has an open ecosystem that encourages collaboration and innovation, allo
 Currently following systems are supported:
 
 - [Prometheus](prometheus.md)
+- [InfluxDB](influxdb.md)

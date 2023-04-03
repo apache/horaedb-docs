@@ -86,11 +86,11 @@ After importing the dashboard, you will see the following page:
 - tps: Number of cluster write requests.
 - qps: Number of cluster query requests.
 - 99th query/write duration: 99th quantile of write and query duration.
-- query by table: Query group by table.
+- table query: Query group by table.
 - 99th write duration details by instance: 99th quantile of write duration group by instance.
 - 99th query duration details by instance: 99th quantile of query duration group by instance.
 - 99th write partition table duration: 99th quantile of write duration of partition table.
-- rows by table: The rows of data written to each table.
+- table rows: The rows of data written.
 - table rows by instance: The written rows by instance.
 - total tables to write: Number of tables with data written.
 - flush count: Number of CeresDB flush.

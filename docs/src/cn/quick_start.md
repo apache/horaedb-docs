@@ -6,6 +6,8 @@
 
 使用 [CeresDB docker 镜像](https://hub.docker.com/r/ceresdb/ceresdb-server) 是一种最简单的启动方式；如果你还没有安装 Docker，请首先参考 [这里](https://www.docker.com/products/docker-desktop/) 安装 Docker。
 
+> 注意：请选择一个大于等于 v1.0.0 的 tag 镜像。
+
 使用如下命令安装并启动一个单机版 CeresDB。
 
 ```bash
@@ -91,5 +93,5 @@ DROP TABLE `demo`
 恭喜你，你已经学习了 CeresDB 的简单使用。关于 CeresDB 的更多信息，请参见以下内容。
 
 - [SQL 语法](sql/README.md)
-- [部署文档](deploy/README.md)
+- [部署文档](cluster_deployment/README.md)
 - [运维文档](operation/README.md)

@@ -40,6 +40,7 @@
   - [集群运维](operation/cluster.md)
 - [周边生态](ecosystem/README.md)
   - [Prometheus](ecosystem/prometheus.md)
+  - [InfluxDB](ecosystem/influxdb.md)
 
 # 开发者手册
 
@@ -52,7 +53,7 @@
 # 技术系列文章
 
 - [整体架构](design/architecture.md)
-- [集群](design/cluster.md)
+- [集群](design/clustering.md)
 - [存储](design/storage.md)
 - [WAL](design/wal.md)
   - [WAL on RocksDB](design/wal_on_rocksdb.md)
