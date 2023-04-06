@@ -61,3 +61,11 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
     "query": "DROP TABLE demo"
 }'
 ```
+
+## Route Table
+
+### Example
+
+```shell
+curl --location --request GET 'http://127.0.0.1:5000/route/{table_name}'
+```
