@@ -60,7 +60,7 @@ Of course, you can also use `create table` statement to manage the table more fi
 Here is a example for creating table by the initialized client:
 
 ```python
-def async_query(client, ctx, req):
+async def async_query(client, ctx, req):
     await client.sql_query(ctx, req)
 
 create_table_sql = 'CREATE TABLE IF NOT EXISTS demo ( \
