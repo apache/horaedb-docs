@@ -84,4 +84,4 @@ CeresDB 可以用作 Grafana 中的 InfluxDB 数据源。具体方式如下：
 
 ## 注意事项
 
-1. 暂时不支持诸如 `epoch`, `db` 等的查询参数
+暂时不支持诸如 `epoch`, `db` 等的查询参数

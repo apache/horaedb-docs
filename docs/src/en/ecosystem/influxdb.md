@@ -84,4 +84,4 @@ CeresDB can be used as InfluxDB data source in Grafana.
 
 ## Note
 
-1. Query string parameters such as `epoch`, `db`, `pretty` aren't supported.
+Query string parameters such as `epoch`, `db`, `pretty` aren't supported.
