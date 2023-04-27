@@ -31,13 +31,13 @@ For example, when inserting data above, table below will be automatically create
 ```sql
 CREATE TABLE `demo` (
     `tsid` uint64 NOT NULL,
-    `timestamp` timestamp NOT NULL,
+    `time` timestamp NOT NULL,
     `field1` double,
     `field2` double,
     `tag1` string TAG,
     `tag2` string TAG,
-    PRIMARY KEY (tsid, timestamp),
-    timestamp KEY (timestamp))
+    PRIMARY KEY (tsid, time),
+    timestamp KEY (time))
 ```
 
 ## Note
@@ -85,4 +85,3 @@ CeresDB can be used as InfluxDB data source in Grafana.
 ## Note
 
 1. Query string parameters such as `epoch`, `db`, `pretty` aren't supported.
-2. Query with `aggregator`, `group by` aren't support now, will support those in next release.
