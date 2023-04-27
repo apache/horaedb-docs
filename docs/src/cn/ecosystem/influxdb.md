@@ -31,13 +31,13 @@ Post 的内容采用的是 [InfluxDB line protocol](https://docs.influxdata.com/
 ```
 CREATE TABLE `demo` (
     `tsid` uint64 NOT NULL,
-    `timestamp` timestamp NOT NULL,
+    `time` timestamp NOT NULL,
     `field1` double,
     `field2` double,
     `tag1` string TAG,
     `tag2` string TAG,
-    PRIMARY KEY (tsid, timestamp),
-    timestamp KEY (timestamp))
+    PRIMARY KEY (tsid, time),
+    timestamp KEY (time))
 ```
 
 ## 注意事项
@@ -84,5 +84,4 @@ CeresDB 可以用作 Grafana 中的 InfluxDB 数据源。具体方式如下：
 
 ## 注意事项
 
-1. 暂时不支持诸如 `epoch`, `db` 等的查询参数
-2. 暂时不支持聚合查询，将在下一个版本中支持
+暂时不支持诸如 `epoch`, `db` 等的查询参数
