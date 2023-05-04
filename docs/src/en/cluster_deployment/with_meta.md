@@ -72,6 +72,7 @@ The relevant storage configurations include two parts:
 - WAL Storage
 
 Note: If you are deploying CeresDB over multiple nodes in a production environment, please set the environment variable for the server address as follows:
+
 ```shell
 export CERESDB_SERVER_ADDR="{server_address}:8831"
 ```
