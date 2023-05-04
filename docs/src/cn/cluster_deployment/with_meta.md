@@ -5,7 +5,7 @@
 ## 部署 CeresMeta
 
 CeresMeta 是 CeresDB 分布式模式的核心服务之一，用于管理 CeresDB 节点的调度，为 CeresDB 集群提供高可用、负载均衡、集群管控等能力。
-CeresMeta 本身通过嵌入式的 [ETCD](https://github.com/etcd-io/etcd) 保障高可用。
+CeresMeta 本身通过嵌入式的 [ETCD](https://github.com/etcd-io/etcd) 保障高可用。此外，ETCD 的服务也被暴露给 CeresDB 用于实现分布式锁使用。
 
 ### 编译打包
 
@@ -19,6 +19,14 @@ CeresMeta 本身通过嵌入式的 [ETCD](https://github.com/etcd-io/etcd) 保�
 目前 CeresMeta 支持以配置文件和环境变量两种方式来指定服务启动配置。我们提供了配置文件方式启动的示例，具体可以参考 [config](https://github.com/CeresDB/ceresmeta/tree/main/config)。
 环境变量的配置优先级高于配置文件，当同时存在时，以环境变量为准。
 
+#### 动态拓扑和静态拓扑
+即使使用了 CeresMeta 来部署 CeresDB 集群，也可以选择静态拓扑或动态拓扑。对于静态拓扑，表的分布在集群初始化后是静态的，而对于动态拓扑，表可以在不同的 CeresDB 节点之间进行动态迁移以达到负载平衡或者 failover 的目的。但是动态拓扑只有在 CeresDB 节点使用的存储是非本地的情况下才能启用，否则会因为表的数据是持久化在本地，当表转移到不同的 CeresDB 节点时可能导致数据损坏。
+
+目前，CeresMeta 默认关闭集群拓扑的动态调度，并且在本篇指南中，这个选项也不会被开启，因为指南中的例子采用的是本地存储。如果要启用动态调度，可以将 `ENABLE_SCHEDULE` 设置为 true，之后负载均衡和 failover 将会起作用。但是需要注意的是，如果底层存储是本地磁盘，则不要启用它。
+
+此外对于静态拓扑，参数 `DEFAULT_CLUSTER_NODE_COUNT` 表示已部署集群中 CeresDB 节点的数量，应该被设置为 CeresDB 服务器的实际机器数，这个参数非常重要，因为一定集群初始化完毕之后，是无法再增减机器的。
+
+
 #### 启动实例
 
 CeresMeta 基于 etcd 实现高可用，在线上环境我们一般部署多个节点，但是在本地环境和测试时，可以直接部署单个节点来简化整个部署流程。
@@ -26,7 +34,7 @@ CeresMeta 基于 etcd 实现高可用，在线上环境我们一般部署多个�
 - 单节点
 
 ```bash
-docker run -d --name ceresmeta-server \
+docker run -d --net=host --name ceresmeta-server \
   ceresdb/ceresmeta-server:latest
 ```
 
@@ -35,22 +43,24 @@ docker run -d --name ceresmeta-server \
 ```bash
 wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster0.toml
 
-docker run -d --name ceresmeta-server
+docker run -d --name ceresmeta-server \
   -v $(pwd)/config-ceresmeta-cluster0.toml:/etc/ceresmeta/ceresmeta.toml \
   ceresdb/ceresmeta-server:latest
 
 wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster1.toml
 
-docker run -d --name ceresmeta-server
+docker run -d --name ceresmeta-server \
   -v $(pwd)/config-ceresmeta-cluster1.toml:/etc/ceresmeta/ceresmeta.toml \
   ceresdb/ceresmeta-server:latest
 
 wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster2.toml
 
-docker run -d --name ceresmeta-server
+docker run -d --name ceresmeta-server \
   -v $(pwd)/config-ceresmeta-cluster2.toml:/etc/ceresmeta/ceresmeta.toml \
   ceresdb/ceresmeta-server:latest
 ```
+
+如果 CeresDB 底层采用的是远程存储，可以环境变量来开启动态调度：只需将 `-e ENABLE_SCHEDULE=true` 加入到 docker run 命令中去。
 
 ## 部署 CeresDB
 
@@ -62,11 +72,13 @@ docker run -d --name ceresmeta-server
 - Object Storage
 - WAL Storage
 
-注意：在生产环境中如果我们把 CeresDB 部署在多个节点上时，请按照如下方式把机器的 IP 设置到环境变量中（此 IP 用于 CeresMeta 和 CeresDB 通信使用，需保证网络联通可用）：
+注意：在生产环境中如果我们把 CeresDB 部署在多个节点上时，请按照如下方式把机器的网络地址设置到环境变量中：
 
 ```shell
-export CERESDB_SERVER_ADDR="{server_ip}:8831"
+export CERESDB_SERVER_ADDR="{server_addr}:8831"
 ```
+
+注意，此网络地址用于 CeresMeta 和 CeresDB 通信使用，需保证网络联通可用。
 
 ### Object Storage
 
@@ -149,6 +161,9 @@ cluster_name = 'defaultCluster'
 meta_addr = 'http://{CeresMetaAddr}:2379'
 lease = "10s"
 timeout = "5s"
+
+[cluster_deployment.etcd_client]
+server_addrs = ['http://{CeresMetaAddr}:2379']
 ```
 
 ### 完整配置
@@ -177,6 +192,9 @@ cluster_name = 'defaultCluster'
 meta_addr = 'http://127.0.0.1:2379'
 lease = "10s"
 timeout = "5s"
+
+[cluster_deployment.etcd_client]
+server_addrs = ['127.0.0.1:2379']
 
 [analytic]
 write_group_worker_num = 16
@@ -208,7 +226,7 @@ data_dir = "/home/admin/data/ceresdb/"
 arena_block_size = 2097152
 write_buffer_size = 33554432
 
-[analytic.compaction_config]
+[analytic.compaction]
 schedule_channel_len = 16
 schedule_interval = "30m"
 max_ongoing_tasks = 8
