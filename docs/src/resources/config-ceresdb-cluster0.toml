@@ -27,7 +27,6 @@ mode = "WithMeta"
 cmd_channel_buffer_size = 10
 
 [cluster_deployment.meta_client]
-# Only support "defaultCluster" currently.
 cluster_name = "defaultCluster"
 meta_addr = "http://127.0.0.1:2379"
 lease = "10s"

@@ -23,7 +23,7 @@ At present, CeresMeta supports specifying service startup configuration in two w
 
 Even with the CeresMeta, the CeresDB cluster can be deployed with a static or a dynamic topology. With a static topology, the table distribution is static after the cluster is initialized while with the dynamic topology, the tables can migrate between different CeresDB nodes to achieve load balance or failover. However, the dynamic topology can be enabled only if the storage used by the CeresDB node is remote, otherwise the data may be corrupted when tables are transferred to a different CeresDB node when the data of CeresDB is persisted locally.
 
-Currently, the dynamic scheduling over the cluster topology is disabled by default in CeresMeta, and in this guide, we won't enable it because local storage is adopted here. If you want to enable the dynamic scheduling, the `ENABLE_SCHEDULE` can be set as true, and after that, load balancing and failover will work. However, don't enable it if what the underlying storage is local disk.
+Currently, the dynamic scheduling over the cluster topology is disabled by default in CeresMeta, and in this guide, we won't enable it because local storage is adopted here. If you want to enable the dynamic scheduling, the `TOPOLOGY_TYPE` can be set as `dynamic` (`static` by default), and after that, load balancing and failover will work. However, don't enable it if what the underlying storage is local disk.
 
 With the static topology, the params `DEFAULT_CLUSTER_NODE_COUNT`, which denotes the number of the CeresDB nodes in the deployed cluster and should be set to the real number of machines for CeresDB server, matters a lot because after cluster initialization the CeresDB nodes can't be changed any more.
 
@@ -35,6 +35,7 @@ CeresMeta is based on etcd to achieve high availability. In product environment,
 
 ```bash
 docker run -d --name ceresmeta-server \
+  -p 2379:2379 \
   ceresdb/ceresmeta-server:latest
 ```
 
@@ -60,7 +61,7 @@ docker run -d --name ceresmeta-server \
   ceresdb/ceresmeta-server:latest
 ```
 
-And if the storage used by the CeresDB is remote and you want to enable the dynamic schedule features of the CeresDB cluster, the `-e ENABLE_SCHEDULE=true` can be added to the docker run command.
+And if the storage used by the CeresDB is remote and you want to enable the dynamic schedule features of the CeresDB cluster, the `-e TOPOLOGY_TYPE=dynamic` can be added to the docker run command.
 
 ## Deploy CeresDB
 
@@ -246,24 +247,29 @@ Let's name this config file as `config.toml`. And the example configs, in which 
 Firstly, let's start the CeresMeta:
 
 ```bash
-docker run -d --net=host --name ceresmeta-server \
+docker run -d --name ceresmeta-server \
+  -p 2379:2379 \
   ceresdb/ceresmeta-server
 ```
 
 With the started CeresMeta cluster, let's start the CeresDB instance:
 
-Note: `docker --net=host` only takes effect under Linux, so the above deployment methods can only be used in Linux. We will supplement the startup methods on other platforms later.
-
 ```bash
 wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster0.toml
 
-docker run -d --net=host --name ceresdb-server0 \
+docker run -d --name ceresdb-server0 \
+  -p 5440:5440 \
+  -p 8831:8831 \
+  -p 3307:3307 \
   -v $(pwd)/config-ceresdb-cluster0.toml:/etc/ceresdb/ceresdb.toml \
   ceresdb/ceresdb-server
 
 wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster1.toml
 
-docker run -d --net=host --name ceresdb-server1 \
+docker run -d --name ceresdb-server1 \
+  -p 5441:5441 \
+  -p 8832:8832 \
+  -p 13307:13307 \
   -v $(pwd)/config-ceresdb-cluster1.toml:/etc/ceresdb/ceresdb.toml \
   ceresdb/ceresdb-server
 ```
