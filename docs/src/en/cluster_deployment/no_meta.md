@@ -155,6 +155,7 @@ For now, we can provide the full example config for `CeresDB_0` and `CeresDB_1`:
 bind_addr = "0.0.0.0"
 http_port = 5440
 grpc_port = 8831
+mysql_port = 3307
 
 [logger]
 level = "info"
@@ -205,6 +206,7 @@ port = 18831
 bind_addr = "0.0.0.0"
 http_port = 15440
 grpc_port = 18831
+mysql_port = 13307
 
 [logger]
 level = "info"

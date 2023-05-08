@@ -35,6 +35,9 @@ meta_addr = 'http://{CeresMetaAddr}:2379'
 lease = "10s"
 timeout = "5s"
 
+[cluster_deployment.etcd_client]
+server_addrs = ['{CeresMetaAddr}:2379']
+
 [analytic]
 write_group_worker_num = 16
 replay_batch_size = 100
@@ -71,7 +74,7 @@ prefix = "{DirPrefix}"
 arena_block_size = 2097152
 write_buffer_size = 33554432
 
-[analytic.compaction_config]
+[analytic.compaction]
 schedule_channel_len = 16
 schedule_interval = "30m"
 max_ongoing_tasks = 8
