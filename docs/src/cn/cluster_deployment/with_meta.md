@@ -44,19 +44,19 @@ docker run -d --name ceresmeta-server \
 ```bash
 wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster0.toml
 
-docker run -d --name ceresmeta-server \
+docker run -d --network=host --name ceresmeta-server0 \
   -v $(pwd)/config-ceresmeta-cluster0.toml:/etc/ceresmeta/ceresmeta.toml \
   ceresdb/ceresmeta-server:latest
 
 wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster1.toml
 
-docker run -d --name ceresmeta-server \
+docker run -d --network=host --name ceresmeta-server1 \
   -v $(pwd)/config-ceresmeta-cluster1.toml:/etc/ceresmeta/ceresmeta.toml \
   ceresdb/ceresmeta-server:latest
 
 wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster2.toml
 
-docker run -d --name ceresmeta-server \
+docker run -d --network=host --name ceresmeta-server2 \
   -v $(pwd)/config-ceresmeta-cluster2.toml:/etc/ceresmeta/ceresmeta.toml \
   ceresdb/ceresmeta-server:latest
 ```
