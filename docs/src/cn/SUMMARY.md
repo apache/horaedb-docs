@@ -54,7 +54,7 @@
 
 - [整体架构](design/architecture.md)
 - [集群](design/clustering.md)
-- [集群一致性](design/cluster_consistency.md)
+- [Shared-Nothing](design/shared_nothing.md)
 - [存储](design/storage.md)
 - [WAL](design/wal.md)
   - [WAL on RocksDB](design/wal_on_rocksdb.md)
