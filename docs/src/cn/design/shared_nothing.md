@@ -15,7 +15,7 @@
 
 ## 数据划分
 
-为了达到 Shared Nothing 的效果，首先需要将数据在共享的存储层上面进行好逻辑和物理的划分。 在 [此前的集群介绍文章](./clustering.md#shard) 中介绍了 Shard 的基本作用，作为集群的基本调度单元，实际上也是数据分布的划分单元，也就是说不同的 Shard 在存储层的数据是隔离的：
+为了达到 Shared Nothing 的效果，首先需要将数据在共享的存储层上面进行好逻辑和物理的划分。在 [此前的集群介绍文章](./clustering.md#shard) 中介绍了 Shard 的基本作用，作为集群的基本调度单元，实际上也是数据分布的划分单元，也就是说不同的 Shard 在存储层的数据是隔离的：
 
 - 在 WAL 中，写入的 Table 数据会按照 Shard 组织起来，按照 Shard 写入到 WAL 的不同区域中，不同的 Shard 在 WAL 中的数据是隔离开的；
 - 在 Object Storage 中，数据的管理是按照 Table 来划分的，而 Shard 和 Table 之间的关系是一对多的关系，也就说，任何一个 Table 只属于一个 Shard，因此在 Object Storage 中，Shard 之间的数据也是隔离的；
