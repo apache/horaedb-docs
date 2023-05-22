@@ -1,3 +1,5 @@
+**Note: This feature is for testing use only, not recommended for production use, related features may change in the future.**
+
 # NoMeta
 
 This guide shows how to deploy a CeresDB cluster without CeresMeta, but with static, rule-based routing.

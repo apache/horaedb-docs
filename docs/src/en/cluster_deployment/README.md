@@ -6,11 +6,5 @@ Besides, as a distributed timeseries database, multiple CeresDB instances can be
 
 Currently, work about the integration with kubernetes is still in process, so CeresDB cluster can only be deployed manually. And there are two modes of cluster deployment:
 
-- [NoMeta Mode](no_meta.md)
+- [NoMeta Mode(Only for testing)](no_meta.md)
 - [WithMeta Mode](with_meta.md)
-
-The `NoMeta Mode` is suggested to be adopted only in these scenes:
-
-- No requirement for HA and data disaster recovery;
-- No massive data traffic;
-- POC;
