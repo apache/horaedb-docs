@@ -78,3 +78,35 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/split' \
     "splitTables":["demo"]
 }'
 ```
+
+- Create cluster
+
+```
+curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/createCluster' \
+--header 'Content-Type: application/json' \
+--data '{
+    "clusterName":"testCluster",
+    "clusterNodeCount":3,
+    "clusterShardTotal":9,
+    "enableScheduler":true,
+    "topologyType":"static"
+}'
+```
+
+- Update cluster
+
+```
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/updateCluster' \
+--header 'Content-Type: application/json' \
+--data '{
+    "clusterName":"testCluster",
+    "enableSchedule":true,
+    "topologyType":"dynamic"
+}'
+```
+
+- list clusters
+
+```
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/listClusters'
+```
