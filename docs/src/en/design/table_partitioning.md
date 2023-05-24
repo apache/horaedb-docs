@@ -1,4 +1,4 @@
-Note: This feature is still in development, and the API may change in the future.
+**Note: This feature is still in development, and the API may change in the future.**
 
 # Table Partitioning
 
