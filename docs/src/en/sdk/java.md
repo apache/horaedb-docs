@@ -17,6 +17,7 @@ CeresDB Client is a high-performance Java client for CeresDB.
   <version>${CERESDB.VERSION}</version>
 </dependency>
 ```
+
 You can get latest version [here](https://github.com/CeresDB/ceresdb-client-java/blob/main/docs/CHANGELOG.md).
 
 ## Init CeresDB Client
