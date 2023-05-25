@@ -14,9 +14,10 @@ Java 8 及以上
 <dependency>
   <groupId>io.ceresdb</groupId>
   <artifactId>ceresdb-all</artifactId>
-  <version>1.0.1</version>
+  <version>${CERESDB.VERSION}</version>
 </dependency>
 ```
+最新的版本可以从[这里](https://github.com/CeresDB/ceresdb-client-java/releases)获取。
 
 ## 初始化客户端
 
