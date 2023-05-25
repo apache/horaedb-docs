@@ -3,7 +3,7 @@
 ## 安装
 
 ```
-go get github.com/CeresDB/ceresdb-client-go@v1.1.0
+go get github.com/CeresDB/ceresdb-client-go
 ```
 
 ## 如何使用
