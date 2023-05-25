@@ -1,4 +1,4 @@
-# Develop Kits
+# SDK
 
 - [Rust](./rust.md)
 - [Java](./java.md)
