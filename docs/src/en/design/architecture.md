@@ -66,7 +66,7 @@ Basically, HTTP and MySQL are used to debug CeresDB, query manually and perform 
 
 ### SQL Layer
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/sql
+module path: https://github.com/CeresDB/ceresdb/tree/main/query_frontend
 
 SQL layer takes responsibilities for parsing sql and generating the query plan.
 
