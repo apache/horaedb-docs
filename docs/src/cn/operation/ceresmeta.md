@@ -82,12 +82,12 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/split' \
 - 创建 CeresDB 集群
 
 ```
-curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/createCluster' \
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters' \
 --header 'Content-Type: application/json' \
 --data '{
-    "clusterName":"testCluster",
-    "clusterNodeCount":3,
-    "clusterShardTotal":9,
+    "name":"testCluster",
+    "nodeCount":3,
+    "ShardTotal":9,
     "enableScheduler":true,
     "topologyType":"static"
 }'
@@ -96,10 +96,11 @@ curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/createCluster'
 - 更新 CeresDB 集群
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/updateCluster' \
+curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/clusters/{NewClusterName}' \
 --header 'Content-Type: application/json' \
 --data '{
-    "clusterName":"testCluster",
+    "nodeCount":28,
+    "shardTotal":128,
     "enableSchedule":true,
     "topologyType":"dynamic"
 }'
@@ -108,5 +109,5 @@ curl --location 'http://{CeresMetaAddr}:8080/api/v1/updateCluster' \
 - 列出 CeresDB 集群
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/listClusters'
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters'
 ```
