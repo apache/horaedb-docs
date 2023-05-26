@@ -54,6 +54,7 @@
 
 - [Architecture](design/architecture.md)
 - [Cluster](design/clustering.md)
+- [Sharded-Nothing](design/shared_nothing.md)
 - [Storage](design/storage.md)
 - [WAL](design/wal.md)
   - [WAL on RocksDB](design/wal_on_rocksdb.md)
