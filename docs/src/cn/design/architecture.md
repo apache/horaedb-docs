@@ -66,7 +66,7 @@ CeresDB 是一个时序数据库，与经典时序数据库相比，CeresDB 的�
 
 ### SQL 层
 
-模块路径：https://github.com/CeresDB/ceresdb/tree/main/sql
+模块路径：https://github.com/CeresDB/ceresdb/tree/main/query_frontend
 
 SQL 层负责解析 SQL 并生成查询计划。
 
