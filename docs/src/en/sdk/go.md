@@ -6,6 +6,8 @@
 go get github.com/CeresDB/ceresdb-client-go@v1.1.0
 ```
 
+You can get latest version [here](https://github.com/CeresDB/ceresdb-client-go/tags).
+
 ## How To Use
 
 ### Init CeresDB Client

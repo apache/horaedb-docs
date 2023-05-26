@@ -6,6 +6,8 @@
 cargo add ceresdb-client
 ```
 
+You can get latest version [here](https://github.com/CeresDB/ceresdb-client-rs/tags).
+
 ## Init Client
 
 At first, we need to init the client.

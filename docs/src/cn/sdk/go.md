@@ -6,6 +6,8 @@
 go get github.com/CeresDB/ceresdb-client-go@v1.1.0
 ```
 
+你可以在这里找到最新的版本 [here](https://github.com/CeresDB/ceresdb-client-go/tags).
+
 ## 如何使用
 
 ### 初始化客户端
