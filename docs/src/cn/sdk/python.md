@@ -18,6 +18,8 @@
 pip install ceresdb-client
 ```
 
+你可以在这里找到最新的版本 [here](https://github.com/CeresDB/ceresdb-client-py/tags).
+
 ## 初始化客户端
 
 首先介绍下如何初始化客户端，代码示例如下：

@@ -18,6 +18,8 @@ The guide will give a basic introduction to the python client by [example](https
 pip install ceresdb-client
 ```
 
+You can get latest version [here](https://github.com/CeresDB/ceresdb-client-py/tags).
+
 ## Init CeresDB Client
 
 The client initialization comes first, here is a code snippet:

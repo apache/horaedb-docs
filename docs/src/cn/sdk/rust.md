@@ -6,6 +6,8 @@
 cargo add ceresdb-client
 ```
 
+你可以在这里找到最新的版本 [here](https://github.com/CeresDB/ceresdb-client-rs/tags).
+
 ## 初始化客户端
 
 首先，我们需要初始化客户端。
