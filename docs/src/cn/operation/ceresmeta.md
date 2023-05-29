@@ -115,7 +115,7 @@ curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters'
 - flow limiter 更新
 
 ```
-curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/updateFlowLimiter' \
+curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter' \
 --header 'Content-Type: application/json' \
 --data '{
     "tokenBucketFillRate":1000,
