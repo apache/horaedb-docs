@@ -1,12 +1,12 @@
-# 集群运维
+# Cluster Operation
 
-集群运维接口的使用前提是，CeresDB 部署为使用 CeresMeta 的集群模式。
+The Operations for CeresDB cluster mode, it can only be used when CeresMeta is deployed.
 
-## 运维接口
+## Operation Interface
 
-注意： 如下接口在实际使用时需要将 {CeresMetaAddr} 替换为 CeresMeta 的真实地址，如果部署在本地，可以直接替换为 `127.0.0.1`
+You need to replace {CeresMetaAddr} with the actual project path, if you are start CeresMeta in localhost, You can directly replace it with `127.0.0.1`.
 
-- 查询表的路由信息
+- Query the route of table
 
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/route' \
@@ -18,7 +18,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/route' \
 }'
 ```
 
-- 查询节点对应的 Shard 信息
+- Query the mapping of shard and node
 
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getNodeShards' \
@@ -28,7 +28,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getNodeShards
 }'
 ```
 
-- 查询 Shard 对应的表信息
+- Query the mapping of table and shard
 
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getShardTables' \
@@ -40,7 +40,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getShardTable
 }'
 ```
 
-- 删除指定表的元数据
+- Drop table
 
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/dropTable' \
@@ -52,7 +52,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/dropTable' \
 }'
 ```
 
-- Shard 切主
+- Transfer leader shard
 
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/transferLeader' \
@@ -65,7 +65,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/transferLeade
 }'
 ```
 
-- Shard 分裂
+- Split shard
 
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/split' \
@@ -77,4 +77,37 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/split' \
     "shardID" : 0,
     "splitTables":["demo"]
 }'
+```
+
+- Create cluster
+
+```
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name":"testCluster",
+    "nodeCount":3,
+    "shardTotal":9,
+    "enableScheduler":true,
+    "topologyType":"static"
+}'
+```
+
+- Update cluster
+
+```
+curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/clusters/{NewClusterName}' \
+--header 'Content-Type: application/json' \
+--data '{
+    "nodeCount":28,
+    "shardTotal":128,
+    "enableSchedule":true,
+    "topologyType":"dynamic"
+}'
+```
+
+- list clusters
+
+```
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters'
 ```
