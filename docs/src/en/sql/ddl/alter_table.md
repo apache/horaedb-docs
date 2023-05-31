@@ -25,7 +25,6 @@ a       int         false       true        false
 b       string      false       true        false
 ```
 
-
 ## ALTER TABLE OPTIONS
 
 CeresDB current supports `MODIFY SETTING` to alter table schema.
