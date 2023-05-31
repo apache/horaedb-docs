@@ -112,7 +112,7 @@ curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/clusters/{NewC
 curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters'
 ```
 
-- flow limiter 更新
+- 更新 flow limiter
 
 ```
 curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter' \
