@@ -2,15 +2,15 @@
 
 ## Background
 
-In the [article](./clustering.md) on cluster architecture, CeresDB's cluster solution was introduced, which can be
+In the [cluster architecture](./clustering.md) CeresDB's cluster solution is introduced, which can be
 summarized as follows:
 
 - Computing and storage are separated;
 - Managed by a centralized metadata center that oversees the entire cluster;
 
 However, in the architecture of computing and storage separation, an important issue is how to ensure that data in the
-shared storage layer will not be corrupted due to different computing nodes accessing it during the cluster scheduling
-process. For example, if the same data block is updated by multiple computing nodes simultaneously, data corruption may
+shared storage layer will not be corrupted due to different computing nodes accessing it during the cluster scheduling .
+For example, if the same data block is updated by multiple computing nodes simultaneously, data corruption may
 occur.
 
 CeresDB's solution is to achieve a similar effect to
@@ -23,13 +23,14 @@ the cluster topology**. If this correctness is ensured, data will not be damaged
 cluster.
 
 This article does not elaborate on the pros and cons of the Shared-Nothing architecture. Instead, it mainly shares how
-CeresDB's cluster solution achieves the Shared-Nothing effect (i.e. how to ensure the **correctness of the cluster
+CeresDB's cluster solution implements it (i.e. how to ensure the **correctness of the cluster
 topology**) in the case of computing and storage separation.
 
 ## Data partitioning
 
-To achieve the effect of Shared Nothing, it is necessary to logically and physically partition the data on the shared
-storage layer. The basic function of Shard was introduced in the previous cluster
+To implement the Shared-Nothing architecture, it is necessary to partition the data logically and physically on the
+shared
+storage layer. The basic function of `Shard` was introduced in the previous cluster
 introduction [article](./clustering.md#shard). As the basic
 scheduling unit of the cluster, it is also the basic partition unit of data distribution. Different Shards correspond to
 isolated data in the storage layer:
