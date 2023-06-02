@@ -307,7 +307,7 @@ CeresDB 的分布式架构的一个核心特性就是存储和计算分离，因
            └───────────────────────┘
 ```
 
-```
+```markdown
 1. 收到请求经过各种协议转换会转到`handle_sql`中执行,由于该请求可能是非本节点处理的，可能需要转发，进入`maybe_forward_sql_query`处理转发逻辑。
 2. 在`maybe_forward_sql_query`中构造好`ForwardRequest`后，调用`forward`
 3. 在`forward`中构造好`RouteRequest`,后调用`route`
