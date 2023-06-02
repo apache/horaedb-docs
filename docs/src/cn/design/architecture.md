@@ -251,7 +251,7 @@ CeresDB 的分布式架构的一个核心特性就是存储和计算分离，因
 - `SelectInterpreter` 获取结果并将其传输给 Protocol 模块；
 - 协议模块完成转换结果后，Server 模块将其响应给客户端。
 
-以下是`32d3d366ee3137a00a9a249b99e064540bbbd402`的函数调用流程。
+以下是[v1.2.2](https://github.com/CeresDB/ceresdb/releases/tag/v1.2.2)的函数调用流程。
 ```
                                                        ┌───────────────────────◀─────────────┐    ┌───────────────────────┐                                             
                                                        │      handle_sql       │────────┐    │    │       parse_sql       │                                             
