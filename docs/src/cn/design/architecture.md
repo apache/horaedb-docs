@@ -251,6 +251,99 @@ CeresDB 的分布式架构的一个核心特性就是存储和计算分离，因
 - `SelectInterpreter` 获取结果并将其传输给 Protocol 模块；
 - 协议模块完成转换结果后，Server 模块将其响应给客户端。
 
+以下是[v1.2.2](https://github.com/CeresDB/ceresdb/releases/tag/v1.2.2)的函数调用流程:
+
+```
+                                                       ┌───────────────────────◀─────────────┐    ┌───────────────────────┐
+                                                       │      handle_sql       │────────┐    │    │       parse_sql       │
+                                                       └───────────────────────┘        │    │    └────────────────┬──────┘
+                                                           │             ▲              │    │           ▲         │
+                                                           │             │              │    │           │         │
+                                                           │             │              │    └36───┐     │        11
+                                                          1│             │              │          │     │         │
+                                                           │            8│              │          │     │         │
+                                                           │             │              │          │    10         │
+                                                           │             │              │          │     │         │
+                                                           ▼             │              │          │     │         ▼
+                                                       ┌─────────────────┴─────┐       9│         ┌┴─────┴────────────────┐───────12─────────▶┌───────────────────────┐
+                                                       │maybe_forward_sql_query│        └────────▶│fetch_sql_query_output │                   │   statement_to_plan   │
+                                                       └───┬───────────────────┘                  └────┬──────────────────┘◀───────19─────────└───────────────────────┘
+                                                           │             ▲                             │              ▲                           │               ▲
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │             35                          13              18
+                                                          2│            7│                            20              │                           │               │
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │              │                           ▼               │
+                                                           ▼             │                             ▼              │                       ┌───────────────────────┐
+          ┌───────────────────────┐───────────6───────▶┌─────────────────┴─────┐                    ┌─────────────────┴─────┐                 │Planner::statement_to_p│
+          │ forward_with_endpoint │                    │        forward        │                    │execute_plan_involving_│                 │          lan          │
+          └───────────────────────┘◀────────5──────────└───┬───────────────────┘                 ┌──│    partition_table    │◀────────┐       └───┬───────────────────┘
+                                                           │             ▲                       │  └───────────────────────┘         │           │              ▲
+                                                           │             │                       │     │              ▲               │           │              │
+                                                           │             │                       │     │              │               │          14             17
+           ┌───────────────────────┐                       │            4│                       │     │              │               │           │              │
+     ┌─────│ PhysicalPlan::execute │                      3│             │                       │    21              │               │           │              │
+     │     └───────────────────────┘◀──┐                   │             │                       │     │             22               │           │              │
+     │                                 │                   │             │                       │     │              │               │           ▼              │
+     │                                 │                   │             │                       │     │              │               │       ┌────────────────────────┐
+     │                                 │                   ▼             │                       │     ▼              │              34       │sql_statement_to_datafus│
+     │     ┌───────────────────────┐  30               ┌─────────────────┴─────┐                 │  ┌─────────────────┴─────┐         │       │        ion_plan        │
+    31     │ build_df_session_ctx  │   │               │         route         │                 │  │   build_interpreter   │         │       └────────────────────────┘
+     │     └────┬──────────────────┘   │               └───────────────────────┘                 │  └───────────────────────┘         │           │              ▲
+     │          │           ▲          │                                                         │                                    │           │              │
+     │         27          26          │                                                        23                                    │          15             16
+     │          ▼           │          │                                                         │                                    │           │              │
+     └────▶┌────────────────┴──────┐   │               ┌───────────────────────┐                 │                                    │           │              │
+           │ execute_logical_plan  ├───┴────32────────▶│       execute         │──────────┐      │   ┌───────────────────────┐        │           ▼              │
+           └────┬──────────────────┘◀────────────25────┴───────────────────────┘         33      │   │interpreter_execute_pla│        │       ┌────────────────────────┐
+                │           ▲                                           ▲                 └──────┴──▶│           n           │────────┘       │SqlToRel::sql_statement_│
+               28           │                                           └──────────24────────────────┴───────────────────────┘                │   to_datafusion_plan   │
+                │          29                                                                                                                 └────────────────────────┘
+                ▼           │
+           ┌────────────────┴──────┐
+           │     optimize_plan     │
+           └───────────────────────┘
+
+1. 收到请求经过各种协议转换会转到 handle_sql 中执行,由于该请求可能是非本节点处理的，可能需要转发，进入 maybe_forward_sql_query 处理转发逻辑。
+2. 在 maybe_forward_sql_query 中构造好 ForwardRequest 后，调用 forward
+3. 在 forward 中构造好 RouteRequest ,后调用 route
+4. 使用 route 获取目的节点 endpoint 后回到 forward
+5. 调用 forward_with_endpoint 将请求进行转发
+6. 回到 forward
+7. 回到 maybe_forward_sql_query
+8. 回到 handle_sql
+9. 此时若是 Local 请求，调用 fetch_sql_query_output 进行处理
+10. 调用 parse_sql 将 sql 解析成 Statment
+11. 回到 fetch_sql_query_output
+12. 使用 Statment 调用 statement_to_plan
+13. 在其中使用 ctx 和 Statment 构造 Planner ,调用 planner 的 statement_to_plan 方法
+14.  planner 中会对于请求的类别调用对应的 planner 方法，此时我们的 sql 是查询，会调用 sql_statement_to_plan
+15. 调用 sql_statement_to_datafusion_plan ,其中会生成 datafusion 的对象，然后调用 SqlToRel::sql_statement_to_plan
+16.  SqlToRel::sql_statement_to_plan 中会返回生成的逻辑计划
+17. 返回
+18. 返回
+19. 返回
+20. 调用 execute_plan_involving_partition_table （默认配置）进行该逻辑计划的后续优化和执行
+21. 调用 build_interpreter  生成 Interpreter
+22. 返回
+23. 使用刚刚生成的 Interpreter 调用 interpreter_execute_plan 进行逻辑计划的执行
+24. 调用对应执行函数，此时 sql 是查询，所以会调用 SelectInterpreter 的 execute
+25. 调用 execute_logical_plan ，其中会调用 build_df_session_ctx 生成优化器
+26.  build_df_session_ctx 中会使用 config 信息生成对应上下文,首先生成逻辑计划优化器，使用 datafusion 和自定义的一些优化规则生成(在 logical_optimize_rules() 中)生成逻辑计划优化器,使用 apply_adapters_for_physical_optimize_rules 生成物理计划优化器
+27. 将优化器返回
+28. 调用 optimize_plan 使用刚刚生成的优化器首先进行逻辑计划的优化随后进行物理计划的计划
+29. 返回优化后物理计划
+30. 执行物理计划
+31. 执行后返回
+32. 收集所以分片的结果后，返回
+33. 返回
+34. 返回
+35. 返回
+36. 返回，随后进行网络协议转化后返回给请求发送方
+```
+
 ### Write
 
 ```plaintext
