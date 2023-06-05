@@ -250,6 +250,100 @@ Here are the details:
 - `SelectInterpreter` gets the results and feeds them to the protocol module;
 - After the protocol layer converts the results, the server module responds to the client with them.
 
+The following is the flow of function calls in version [v1.2.2](https://github.com/CeresDB/ceresdb/releases/tag/v1.2.2):
+
+```
+                                                       ┌───────────────────────◀─────────────┐    ┌───────────────────────┐
+                                                       │      handle_sql       │────────┐    │    │       parse_sql       │
+                                                       └───────────────────────┘        │    │    └────────────────┬──────┘
+                                                           │             ▲              │    │           ▲         │
+                                                           │             │              │    │           │         │
+                                                           │             │              │    └36───┐     │        11
+                                                          1│             │              │          │     │         │
+                                                           │            8│              │          │     │         │
+                                                           │             │              │          │    10         │
+                                                           │             │              │          │     │         │
+                                                           ▼             │              │          │     │         ▼
+                                                       ┌─────────────────┴─────┐       9│         ┌┴─────┴────────────────┐───────12─────────▶┌───────────────────────┐
+                                                       │maybe_forward_sql_query│        └────────▶│fetch_sql_query_output │                   │   statement_to_plan   │
+                                                       └───┬───────────────────┘                  └────┬──────────────────┘◀───────19─────────└───────────────────────┘
+                                                           │             ▲                             │              ▲                           │               ▲
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │             35                          13              18
+                                                          2│            7│                            20              │                           │               │
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │              │                           ▼               │
+                                                           ▼             │                             ▼              │                       ┌───────────────────────┐
+          ┌───────────────────────┐───────────6───────▶┌─────────────────┴─────┐                    ┌─────────────────┴─────┐                 │Planner::statement_to_p│
+          │ forward_with_endpoint │                    │        forward        │                    │execute_plan_involving_│                 │          lan          │
+          └───────────────────────┘◀────────5──────────└───┬───────────────────┘                 ┌──│    partition_table    │◀────────┐       └───┬───────────────────┘
+                                                           │             ▲                       │  └───────────────────────┘         │           │              ▲
+                                                           │             │                       │     │              ▲               │           │              │
+                                                           │             │                       │     │              │               │          14             17
+           ┌───────────────────────┐                       │            4│                       │     │              │               │           │              │
+     ┌─────│ PhysicalPlan::execute │                      3│             │                       │    21              │               │           │              │
+     │     └───────────────────────┘◀──┐                   │             │                       │     │             22               │           │              │
+     │                                 │                   │             │                       │     │              │               │           ▼              │
+     │                                 │                   │             │                       │     │              │               │       ┌────────────────────────┐
+     │                                 │                   ▼             │                       │     ▼              │              34       │sql_statement_to_datafus│
+     │     ┌───────────────────────┐  30               ┌─────────────────┴─────┐                 │  ┌─────────────────┴─────┐         │       │        ion_plan        │
+    31     │ build_df_session_ctx  │   │               │         route         │                 │  │   build_interpreter   │         │       └────────────────────────┘
+     │     └────┬──────────────────┘   │               └───────────────────────┘                 │  └───────────────────────┘         │           │              ▲
+     │          │           ▲          │                                                         │                                    │           │              │
+     │         27          26          │                                                        23                                    │          15             16
+     │          ▼           │          │                                                         │                                    │           │              │
+     └────▶┌────────────────┴──────┐   │               ┌───────────────────────┐                 │                                    │           │              │
+           │ execute_logical_plan  ├───┴────32────────▶│       execute         │──────────┐      │   ┌───────────────────────┐        │           ▼              │
+           └────┬──────────────────┘◀────────────25────┴───────────────────────┘         33      │   │interpreter_execute_pla│        │       ┌────────────────────────┐
+                │           ▲                                           ▲                 └──────┴──▶│           n           │────────┘       │SqlToRel::sql_statement_│
+               28           │                                           └──────────24────────────────┴───────────────────────┘                │   to_datafusion_plan   │
+                │          29                                                                                                                 └────────────────────────┘
+                ▼           │
+           ┌────────────────┴──────┐
+           │     optimize_plan     │
+           └───────────────────────┘
+
+```
+
+1. The received request will be forwarded to `handle_sql` after various protocol conversions, and since the request may not be processed by this node, it may need to be forwarded to `maybe_forward_sql_query` to handle the forwarding logic.
+2. After constructing the `ForwardRequest` in `maybe_forward_sql_query`, call `forward`
+3. After constructing the `RouteRequest` in `forward`, call `route`
+4. Use `route` to get the destination node `endpoint` and return to `forward`.
+5. Call `forward_with_endpoint` to forward the request
+6. return `forward`
+7. return `maybe_forward_sql_query`
+8. return `handle_sql`
+9. If this is a `Local` request, call `fetch_sql_query_output` to process it
+10. Call `parse_sql` to parse `sql` into `Statment`
+11. return `fetch_sql_query_output`
+12. Call `statement_to_plan` with `Statment`
+13. Construct `Planner` with `ctx` and `Statment`, and call the `statement_to_plan` method of `Planner`
+14. The `planner` will call the corresponding `planner` method for the requested category, at this point our `sql` is a query and will call `sql_statement_to_plan`
+15. Call `sql_statement_to_datafusion_plan` , which will generate the `datafusion` object, and then call `SqlToRel::sql_statement_to_plan`
+16. The generated logical plan is returned from `SqlToRel::sql_statement_to_plan`
+17. return
+18. return
+19. return
+20. Call `execute_plan_involving_partition_table` (in the default configuration) for subsequent optimization and execution of this logical plan
+21. Call `build_interpreter` to generate `Interpreter`
+22. return
+23. Call `Interpreter's` `interpreter_execute_plan` method for logical plan execution.
+24. The corresponding `execute` function is called, at this time the `sql` is a query, so the execute of the `SelectInterpreter` will be called
+25. call `execute_logical_plan` , which will call `build_df_session_ctx` to generate the optimizer
+26. `build_df_session_ctx` will use the `config` information to generate the corresponding context, first using datafusion and some custom optimization rules (in logical_optimize_rules()) to generate the logical plan optimizer, using `apply_adapters_for_physical_optimize_rules` to generate the physical plan optimizer
+27. return optimizer
+28. Call `optimize_plan`, using the optimizer just generated to first optimize the logical plan and then the physical plan
+29. Return to optimized physical plan
+30. execute physical plan
+31. returned after execution
+32. After collecting the results of all slices, return
+33. return
+34. return
+35. return
+36. Return to the upper layer for network protocol conversion and finally return to the request sender
+
 ### Write
 
 ```plaintext
