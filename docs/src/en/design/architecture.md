@@ -323,7 +323,6 @@ The following is the flow of function calls in version [v1.2.2](https://github.c
 13. Construct `Planner` with `ctx` and `Statment`, and call the `statement_to_plan` method of `Planner`
 14. The `planner` will call the corresponding `planner` method for the requested category, at this point our `sql` is a query and will call `sql_statement_to_plan`
 15. Call `sql_statement_to_datafusion_plan` , which will generate the `datafusion` object, and then call `SqlToRel::sql_statement_to_plan`
-16.  SqlToRel::sql_statement_to_plan 中会返回生成的逻辑计划
 16. The generated logical plan is returned from `SqlToRel::sql_statement_to_plan`
 17. return
 18. return
