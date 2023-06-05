@@ -250,7 +250,6 @@ Here are the details:
 - `SelectInterpreter` gets the results and feeds them to the protocol module;
 - After the protocol layer converts the results, the server module responds to the client with them.
 
-
 The following is the flow of function calls in version [v1.2.2](https://github.com/CeresDB/ceresdb/releases/tag/v1.2.2):
 
 ```
