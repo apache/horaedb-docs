@@ -106,8 +106,20 @@ curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/clusters/{NewC
 }'
 ```
 
-- list clusters
+- List clusters
 
 ```
 curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters'
+```
+
+- Update flow limiter
+
+```
+curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter' \
+--header 'Content-Type: application/json' \
+--data '{
+    "limit":1000,
+    "burst":10000,
+    "enable":true
+}'
 ```
