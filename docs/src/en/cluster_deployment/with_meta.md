@@ -106,6 +106,21 @@ bucket = "{bucket}"
 prefix = "{data_dir}"
 ```
 
+#### S3
+
+Amazon S3 can be also used as the underlying storage for CeresDB. Here is a example config, and you have to replace the templates with the real S3 parameters:
+
+```toml
+[analytic.storage.object_store]
+type = "S3"
+region = "{region}"
+key_id = "{key_id}"
+key_secret = "{key_secret}"
+endpoint = "{endpoint}"
+bucket = "{bucket}"
+prefix = "{prefix}"
+```
+
 ### WAL Storage
 
 #### RocksDB
