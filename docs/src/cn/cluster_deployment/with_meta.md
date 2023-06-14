@@ -107,6 +107,21 @@ bucket = "{bucket}"
 prefix = "{data_dir}"
 ```
 
+#### S3
+
+Amazon S3 也可以作为 CeresDB 的底层存储，下面是一个配置示例，示例中的模版变量需要被替换成实际的 S3 参数才可以真正的使用：
+
+```toml
+[analytic.storage.object_store]
+type = "S3"
+region = "{region}"
+key_id = "{key_id}"
+key_secret = "{key_secret}"
+endpoint = "{endpoint}"
+bucket = "{bucket}"
+prefix = "{prefix}"
+```
+
 ### WAL Storage
 
 #### RocksDB
