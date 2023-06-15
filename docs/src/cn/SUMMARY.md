@@ -46,6 +46,7 @@
 
 - [支持平台](dev/platform.md)
 - [编译运行](dev/compile_run.md)
+  - [剖析](dev/profiling.md)
 - [开发规约](dev/conventional_commit.md)
 - [风格规范](dev/style_guide.md)
 - [里程碑](dev/roadmap.md)
