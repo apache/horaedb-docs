@@ -26,6 +26,24 @@ docker run -d --name ceresdb-server \
 
 `HTTP` 协议是最简单的交互方式，接下来的演示会使用 `HTTP` 协议进行介绍。不过在生产环境，我们推荐使用 `gRPC/MySQL`。
 
+### 自定义 docker 的配置
+
+参考如命令，可以自定义 docker 中 ceresdb-server 的配置，并把数据目录 `/data` 挂载到docker母机的硬盘上。
+
+```
+wget -c https://raw.githubusercontent.com/CeresDB/ceresdb/main/docs/minimal.toml -O ceresdb.toml
+
+sed -i 's/\/tmp\/ceresdb/\/data/g' ceresdb.toml
+
+docker run -d --name ceresdb-server \
+  -p 8831:8831 \
+  -p 3307:3307 \
+  -p 5440:5440 \
+  -v ./ceresdb.toml:/etc/ceresdb/ceresdb.toml \
+  -v ./data:/data \
+  ceresdb/ceresdb-server
+```
+
 ## 写入和查询数据
 
 ### 建表
