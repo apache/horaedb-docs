@@ -28,7 +28,7 @@ The easiest to use is HTTP, so sections below will use it for demo. For producti
 
 ### Customize docker configuration
 
-Refer to the command, you can customize the configuration of ceresdb-server in docker, and mount the data directory `/data` to the hard disk of the docker host machine.
+Refer the command as below, you can customize the configuration of ceresdb-server in docker, and mount the data directory `/data` to the hard disk of the docker host machine.
 
 ```
 wget -c https://raw.githubusercontent.com/CeresDB/ceresdb/main/docs/minimal.toml -O ceresdb.toml
