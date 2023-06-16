@@ -26,6 +26,24 @@ CeresDB will listen three ports when start:
 
 The easiest to use is HTTP, so sections below will use it for demo. For production environments, gRPC/MySQL are recommended.
 
+### Customize docker configuration
+
+Refer the command as below, you can customize the configuration of ceresdb-server in docker, and mount the data directory `/data` to the hard disk of the docker host machine.
+
+```
+wget -c https://raw.githubusercontent.com/CeresDB/ceresdb/main/docs/minimal.toml -O ceresdb.toml
+
+sed -i 's/\/tmp\/ceresdb/\/data/g' ceresdb.toml
+
+docker run -d --name ceresdb-server \
+  -p 8831:8831 \
+  -p 3307:3307 \
+  -p 5440:5440 \
+  -v ./ceresdb.toml:/etc/ceresdb/ceresdb.toml \
+  -v ./data:/data \
+  ceresdb/ceresdb-server
+```
+
 ## Write and read data
 
 ### Create table
