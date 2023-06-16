@@ -28,7 +28,7 @@ docker run -d --name ceresdb-server \
 
 ### 自定义 docker 的配置
 
-参考如命令，可以自定义 docker 中 ceresdb-server 的配置，并把数据目录 `/data` 挂载到 docker 母机的硬盘上。
+参考如下命令，可以自定义 docker 中 ceresdb-server 的配置，并把数据目录 `/data` 挂载到 docker 母机的硬盘上。
 
 ```
 wget -c https://raw.githubusercontent.com/CeresDB/ceresdb/main/docs/minimal.toml -O ceresdb.toml
