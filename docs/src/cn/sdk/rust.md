@@ -125,7 +125,7 @@ let mut write_req = WriteRequest::default();
 write_req.add_point(point);
 ```
 
-- 创建 `rpc_ctx`，同样地可以按需设置或者使用默认值，`rpc_ctx` 的详细信息请参考[这里](https://github.com/CeresDB/ceresdb-client-rs/blob/a72e673103463c7962e01a097592fc7edbcc0b79/src/rpc_client/mod.rs#L29)：
+- 创建 `rpc_ctx`，同样地可以按需设置或者使用默认值，`rpc_ctx` 的详细信息请参考[这里](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/rpc_client/mod.rs#L23)：
 
 ```rust
 let rpc_ctx = RpcContext {
