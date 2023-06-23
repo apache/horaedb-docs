@@ -34,7 +34,7 @@ let builder = builder.rpc_config(rpc_config);
 - 设置 `default_database`，这会在执行 RPC 请求时未通过 RpcContext 设置 database 的情况下，将被作为目标 database 使用。
 
 ```rust
-    let builder = builder.default_database('public');
+    let builder = builder.default_database("public");
 ```
 
 - 最后，我们从 builder 中创建客户端：
