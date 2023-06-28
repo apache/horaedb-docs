@@ -15,7 +15,7 @@ CREATE TABLE [IF NOT EXISTS]
 Column definition syntax:
 
 ```sql
-column_name column_type [[NOT] NULL] [TAG | TIMESTAMP KEY | PRIMARY KEY]
+column_name column_type [[NOT] NULL] [TAG | TIMESTAMP KEY | PRIMARY KEY] [COMMENT '']
 ```
 
 Partition options syntax:
@@ -58,10 +58,23 @@ Specifies which engine this table belongs to. CeresDB current support `Analytic`
 
 ## Partition Options
 
-`partition_options` can be used to control partitioning of the table. This example shows a table partitioned by key, with 8 partitions:
+> Note: This feature is only supported in distributed version.
 
 ```sql
-CREATE TABLE `demo` (`name` string TAG, `value` double NOT NULL, `t` timestamp NOT NULL, TIMESTAMP KEY(t))
+CREATE TABLE ... PARTITION BY KEY
+```
+Example below shows a table partitioned by key, with 8 partitions:
+
+```sql
+CREATE TABLE `demo` (
+    `name` string TAG COMMENT 'client username',
+    `value` double NOT NULL,
+    `t` timestamp NOT NULL,
+    timestamp KEY (t)
+)
     PARTITION BY KEY(name) PARTITIONS 8
-    ENGINE=Analytic with (enable_ttl='false')
+    ENGINE=Analytic
+    with (
+    enable_ttl='false'
+)
 ```
