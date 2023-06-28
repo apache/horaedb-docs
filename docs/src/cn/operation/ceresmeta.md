@@ -123,3 +123,9 @@ curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter' \
     "enable":true
 }'
 ```
+
+- 查询限流器信息
+
+```
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter'
+```
