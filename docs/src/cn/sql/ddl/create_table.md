@@ -14,7 +14,7 @@ CREATE TABLE [IF NOT EXISTS]
 列定义的语法 :
 
 ```sql
-column_name column_type [[NOT] NULL] {[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]}
+column_name column_type [[NOT] NULL] {[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]} [COMMENT '']
 ```
 
 表选项的语法是键-值对，值用单引号（`'`）来引用。例如：
