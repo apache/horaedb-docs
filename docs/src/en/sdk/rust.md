@@ -34,7 +34,7 @@ let builder = builder.rpc_config(rpc_config);
 - Set `default_database`, it will be used if following rpc calling without setting the database in the `RpcContext`(will be introduced in later):
 
 ```rust
-    let builder = builder.default_database('public');
+    let builder = builder.default_database("public");
 ```
 
 - Finally, we build client from builder:

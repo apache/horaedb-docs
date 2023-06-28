@@ -42,7 +42,8 @@ CREATE TABLE `demo` (
 
 ## Note
 
-- Query string parameters such as `precision`, `db` aren't supported.
+- When InfluxDB writes data, the timestamp precision is nanosecond by default, CeresDB only supports millisecond timestamp, user can specify the data precision by `precision` parameter, CeresDB will automatically convert to millisecond precision internally.
+- Query string parameters such as `db` aren't supported.
 
 # Query
 

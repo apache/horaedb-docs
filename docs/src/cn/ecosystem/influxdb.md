@@ -42,7 +42,8 @@ CREATE TABLE `demo` (
 
 ## 注意事项
 
-- 暂时不支持诸如 `precision`， `db` 等查询参数
+- InfluxDB 在写入时，时间戳精度默认是纳秒，CeresDB 只支持毫秒级时间戳，用户可以通过 `precision` 参数指定数据精度，CeresDB 内部会自动转成毫秒精度。
+- 暂时不支持诸如 `db` 等查询参数
 
 # 查询
 
