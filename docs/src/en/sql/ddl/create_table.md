@@ -63,7 +63,8 @@ Specifies which engine this table belongs to. CeresDB current support `Analytic`
 ```sql
 CREATE TABLE ... PARTITION BY KEY
 ```
-Example below shows a table partitioned by key, with 8 partitions:
+
+Example below creates a table with 8 partitions, and partitioned by `name`:
 
 ```sql
 CREATE TABLE `demo` (

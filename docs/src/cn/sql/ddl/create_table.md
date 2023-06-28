@@ -57,7 +57,7 @@ CeresDB 支持指定某个表使用哪种引擎，目前支持的引擎类型为
 CREATE TABLE ... PARTITION BY KEY
 ```
 
-下面这个例子创建了一个具有8个分区的表，分区键为 `name`：
+下面这个例子创建了一个具有 8 个分区的表，分区键为 `name`：
 
 ```sql
 CREATE TABLE `demo` (
