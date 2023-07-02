@@ -14,7 +14,7 @@ CREATE TABLE [IF NOT EXISTS]
 列定义的语法 :
 
 ```sql
-column_name column_type [[NOT] NULL] {[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]}
+column_name column_type [[NOT] NULL] {[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]} [COMMENT '']
 ```
 
 表选项的语法是键-值对，值用单引号（`'`）来引用。例如：
@@ -48,3 +48,27 @@ b_not_null NOT NULL
 ## 引擎设置
 
 CeresDB 支持指定某个表使用哪种引擎，目前支持的引擎类型为 `Analytic`。注意这个属性设置后不可更改。
+
+## 分区设置
+
+> 仅适用于集群部署模式
+
+```
+CREATE TABLE ... PARTITION BY KEY
+```
+
+下面这个例子创建了一个具有 8 个分区的表，分区键为 `name`：
+
+```sql
+CREATE TABLE `demo` (
+    `name` string TAG COMMENT 'client username',
+    `value` double NOT NULL,
+    `t` timestamp NOT NULL,
+    timestamp KEY (t)
+)
+    PARTITION BY KEY(name) PARTITIONS 8
+    ENGINE=Analytic
+    with (
+    enable_ttl='false'
+)
+```
