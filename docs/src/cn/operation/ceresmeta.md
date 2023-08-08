@@ -129,3 +129,41 @@ curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter' \
 ```
 curl --location 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter'
 ```
+
+- CeresMeta 列出节点
+
+```
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/member'
+```
+
+- CeresMeta 节点切主
+
+```
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/moveLeader' \
+--header 'Content-Type: application/json' \
+--data '{
+    "memberName":"meta1"
+}'
+```
+
+- CeresMeta 节点扩容
+
+```
+curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/etcd/member' \
+--header 'Content-Type: application/json' \
+--data '{
+    "membersAddr":["http://127.0.0.1:42380"]
+}'
+```
+
+- CeresMeta 替换节点
+
+```
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/member' \
+--header 'Content-Type: application/json' \
+--data '{
+    "oldMemberName":"meta0",
+    "newMemberAddr":["http://127.0.0.1:42380"]
+}'
+```
+
