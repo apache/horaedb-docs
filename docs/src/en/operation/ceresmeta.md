@@ -129,3 +129,40 @@ curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter' \
 ```
 curl --location 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter'
 ```
+
+- List nodes of CeresMeta cluster
+
+```
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/member'
+```
+
+- Move leader of CeresMeta cluster
+
+```
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/moveLeader' \
+--header 'Content-Type: application/json' \
+--data '{
+    "memberName":"meta1"
+}'
+```
+
+- Add node of CeresMeta cluster
+
+```
+curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/etcd/member' \
+--header 'Content-Type: application/json' \
+--data '{
+    "memberAddrs":["http://127.0.0.1:42380"]
+}'
+```
+
+- Replace node of CeresMeta cluster
+
+```
+curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/member' \
+--header 'Content-Type: application/json' \
+--data '{
+    "oldMemberName":"meta0",
+    "newMemberAddr":["http://127.0.0.1:42380"]
+}'
+```
