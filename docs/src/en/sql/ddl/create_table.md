@@ -53,6 +53,7 @@ b_not_null NOT NULL
 A column can be marked as [special column](../model/special_columns.md) with related keyword.
 
 For string tag column, we recommend to define it as dictionary to reduce memory consumption:
+
 ```sql
 `tag1` string TAG DICTIONARY
 ```

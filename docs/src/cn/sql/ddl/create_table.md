@@ -46,6 +46,7 @@ b_not_null NOT NULL
 定义列时可以使用相关的关键字将列标记为 [特殊列](../model/special_columns.md)。
 
 对于 string 的 tag 列，推荐设置为字典类型来减少内存占用：
+
 ```sql
 `tag1` string TAG DICTIONARY
 ```
