@@ -15,7 +15,7 @@ CREATE TABLE [IF NOT EXISTS]
 Column definition syntax:
 
 ```sql
-column_name column_type [[NOT] NULL] [TAG | TIMESTAMP KEY | PRIMARY KEY] [COMMENT '']
+column_name column_type [[NOT] NULL] [TAG | TIMESTAMP KEY | PRIMARY KEY] [DICTIONARY] [COMMENT '']
 ```
 
 Partition options syntax:
@@ -51,6 +51,12 @@ b_not_null NOT NULL
 ```
 
 A column can be marked as [special column](../model/special_columns.md) with related keyword.
+
+For string tag column, we recommend to define it as dictionary to reduce memory consumption:
+
+```sql
+`tag1` string TAG DICTIONARY
+```
 
 ## Engine
 
