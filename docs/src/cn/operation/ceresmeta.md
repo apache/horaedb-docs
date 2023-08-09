@@ -166,4 +166,3 @@ curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/member' \
     "newMemberAddr":["http://127.0.0.1:42380"]
 }'
 ```
-
