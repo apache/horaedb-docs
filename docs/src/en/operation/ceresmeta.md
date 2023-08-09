@@ -152,7 +152,7 @@ curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/moveLeader' \
 curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/etcd/member' \
 --header 'Content-Type: application/json' \
 --data '{
-    "membersAddr":["http://127.0.0.1:42380"]
+    "memberAddrs":["http://127.0.0.1:42380"]
 }'
 ```
 
