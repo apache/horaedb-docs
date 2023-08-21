@@ -31,7 +31,7 @@ curl --location 'http://localhost:5440/opentsdb/api/put' \
 '
 ```
 
-Metric will be mapped to table in CeresDB, and it will be created automatically in first write(Note: The default TTL is 7d, and data written beyond the current cycle will be discarded).
+Metric will be mapped to table in CeresDB, and it will be created automatically in first write(Note: The default TTL is 7d, and points written exceed TTL will be discarded directly).
 
 For example, when inserting data above, table below will be automatically created in CeresDB:
 

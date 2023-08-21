@@ -28,7 +28,6 @@ curl --location 'http://localhost:5440/opentsdb/api/put' \
        "host": "web01"
     }
 }]'
-'
 ```
 
 `metric` 将映射到 CeresDB 中的一个表，在首次写入时 server 会自动进行建表(注意：创建表的 TTL 是 7d，写入超过当前周期数据会被丢弃)。

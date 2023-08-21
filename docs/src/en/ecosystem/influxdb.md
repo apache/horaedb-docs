@@ -24,7 +24,7 @@ demo,tag1=t11,tag2=t22 field1=91,field2=101 1679994648000
 
 Post payload is in [InfluxDB line protocol](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_reference/) format.
 
-Measurement will be mapped to table in CeresDB, and it will be created automatically in first write(Note: The default TTL is 7d, and data written beyond the current cycle will be discarded).
+Measurement will be mapped to table in CeresDB, and it will be created automatically in first write(Note: The default TTL is 7d, and points written exceed TTL will be discarded directly).
 
 For example, when inserting data above, table below will be automatically created in CeresDB:
 
