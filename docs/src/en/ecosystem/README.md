@@ -6,3 +6,4 @@ Currently following systems are supported:
 
 - [Prometheus](prometheus.md)
 - [InfluxDB](influxdb.md)
+- [OpenTSDB](opentsdb.md)

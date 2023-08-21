@@ -27,7 +27,7 @@ remote_read:
 up{env="dev", instance="127.0.0.1:9090", job="prometheus-server"}
 ```
 
-对应 CeresDB 中如下的表：
+对应 CeresDB 中如下的表(注意：创建表的 TTL 是 7d，写入超过当前周期数据会被丢弃)：
 
 ```
 CREATE TABLE `up` (

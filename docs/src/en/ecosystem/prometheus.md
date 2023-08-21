@@ -27,7 +27,7 @@ For example, `up` metric below will be mapped to `up` table:
 up{env="dev", instance="127.0.0.1:9090", job="prometheus-server"}
 ```
 
-Its corresponding table in CeresDB:
+Its corresponding table in CeresDB(Note: The TTL for creating a table is 7d, and data written beyond the current cycle will be discarded):
 
 ```
 CREATE TABLE `up` (
