@@ -41,6 +41,7 @@
 - [Ecosystem](ecosystem/README.md)
   - [Prometheus](ecosystem/prometheus.md)
   - [InfluxDB](ecosystem/influxdb.md)
+  - [OpenTSDB](ecosystem/opentsdb.md)
 
 # Dev Guide
 
