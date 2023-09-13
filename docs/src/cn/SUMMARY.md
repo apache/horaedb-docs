@@ -41,6 +41,7 @@
 - [周边生态](ecosystem/README.md)
   - [Prometheus](ecosystem/prometheus.md)
   - [InfluxDB](ecosystem/influxdb.md)
+  - [OpenTSDB](ecosystem/opentsdb.md)
 
 # 开发者手册
 
