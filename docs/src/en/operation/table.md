@@ -9,7 +9,7 @@ CeresDB supports standard SQL protocols and allows you to create tables and read
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
---data-raw '{
+-d '{
     "query": "CREATE TABLE `demo` (`name` string TAG, `value` double NOT NULL, `t` timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE=Analytic with (enable_ttl='\''false'\'')"
 }'
 ```
@@ -21,7 +21,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
---data-raw '{
+-d '{
     "query": "INSERT INTO demo(t, name, value) VALUES(1651737067000, '\''ceresdb'\'', 100)"
 }'
 ```
@@ -33,7 +33,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
---data-raw '{
+-d '{
     "query": "select * from demo"
 }'
 ```
@@ -45,7 +45,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
---data-raw '{
+-d '{
     "query": "show create table demo"
 }'
 ```
@@ -57,7 +57,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 ```shell
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
---data-raw '{
+-d '{
     "query": "DROP TABLE demo"
 }'
 ```

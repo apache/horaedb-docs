@@ -11,7 +11,7 @@
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/route' \
 --header 'Content-Type: application/json' \
---data-raw '{
+-d '{
     "clusterName":"defaultCluster",
     "schemaName":"public",
     "table":["demo"]
@@ -23,7 +23,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/route' \
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getNodeShards' \
 --header 'Content-Type: application/json' \
---data-raw '{
+-d '{
     "ClusterName":"defaultCluster"
 }'
 ```
@@ -33,7 +33,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getNodeShards
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getShardTables' \
 --header 'Content-Type: application/json' \
---data-raw '{
+-d '{
     "clusterName":"defaultCluster",
     "nodeName":"127.0.0.1:8831",
     "shardIDs": [1,2]
@@ -45,7 +45,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getShardTable
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/dropTable' \
 --header 'Content-Type: application/json' \
---data-raw '{
+-d '{
     "clusterName": "defaultCluster",
     "schemaName": "public",
     "table": "demo"
@@ -57,7 +57,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/dropTable' \
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/transferLeader' \
 --header 'Content-Type: application/json' \
---data-raw '{
+-d '{
     "clusterName":"defaultCluster",
     "shardID": 1,
     "oldLeaderNodeName": "127.0.0.1:8831",
@@ -70,7 +70,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/transferLeade
 ```
 curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/split' \
 --header 'Content-Type: application/json' \
---data-raw '{
+-d '{
     "clusterName" : "defaultCluster",
     "schemaName" :"public",
     "nodeName" :"127.0.0.1:8831",
