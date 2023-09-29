@@ -50,7 +50,7 @@ docker run -d --name ceresdb-server \
 
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
---data-raw '
+-d '
 CREATE TABLE `demo` (
     `name` string TAG,
     `value` double NOT NULL,
@@ -66,7 +66,7 @@ ENGINE=Analytic
 
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
---data-raw '
+-d '
 INSERT INTO demo (t, name, value)
     VALUES (1651737067000, "ceresdb", 100)
 '
@@ -76,7 +76,7 @@ INSERT INTO demo (t, name, value)
 
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
---data-raw '
+-d '
 SELECT
     *
 FROM
@@ -88,7 +88,7 @@ FROM
 
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
---data-raw '
+-d '
 SHOW CREATE TABLE `demo`
 '
 ```
@@ -97,7 +97,7 @@ SHOW CREATE TABLE `demo`
 
 ```shell
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
---data-raw '
+-d '
 DROP TABLE `demo`
 '
 ```
