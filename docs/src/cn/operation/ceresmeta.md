@@ -4,12 +4,33 @@
 
 ## 运维接口
 
-注意： 如下接口在实际使用时需要将 {CeresMetaAddr} 替换为 CeresMeta 的真实地址，如果部署在本地，可以直接替换为 `127.0.0.1`
+注意： 如下接口在实际使用时需要将 127.0.0.1 替换为 CeresMeta 的真实地址。
+
+- 查询表元信息
+  当 tableNames 不为空的时候，使用 tableNames 进行查询。
+  当 tableNames 为空的时候，使用 ids 进行查询。使用 ids 查询的时候，schemaName 不生效。
+
+```
+curl --location 'http://127.0.0.1:8080/api/v1/table/query' \
+--header 'Content-Type: application/json' \
+-d '{
+    "clusterName":"defaultCluster",
+    "schemaName":"public",
+    "names":["demo1", "__demo1_0"],
+}'
+
+curl --location 'http://127.0.0.1:8080/api/v1/table/query' \
+--header 'Content-Type: application/json' \
+-d '{
+    "clusterName":"defaultCluster",
+    "ids":[0, 1]
+}'
+```
 
 - 查询表的路由信息
 
 ```
-curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/route' \
+curl --location --request POST 'http://127.0.0.1:8080/api/v1/route' \
 --header 'Content-Type: application/json' \
 -d '{
     "clusterName":"defaultCluster",
@@ -21,7 +42,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/route' \
 - 查询节点对应的 Shard 信息
 
 ```
-curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getNodeShards' \
+curl --location --request POST 'http://127.0.0.1:8080/api/v1/getNodeShards' \
 --header 'Content-Type: application/json' \
 -d '{
     "ClusterName":"defaultCluster"
@@ -29,13 +50,13 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getNodeShards
 ```
 
 - 查询 Shard 对应的表信息
+  如果 shardIDs 为空时，查询所有 shard 上表信息。
 
 ```
-curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getShardTables' \
+curl --location --request POST 'http://127.0.0.1:8080/api/v1/getShardTables' \
 --header 'Content-Type: application/json' \
 -d '{
     "clusterName":"defaultCluster",
-    "nodeName":"127.0.0.1:8831",
     "shardIDs": [1,2]
 }'
 ```
@@ -43,7 +64,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getShardTable
 - 删除指定表的元数据
 
 ```
-curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/dropTable' \
+curl --location --request POST 'http://127.0.0.1:8080/api/v1/dropTable' \
 --header 'Content-Type: application/json' \
 -d '{
     "clusterName": "defaultCluster",
@@ -55,7 +76,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/dropTable' \
 - Shard 切主
 
 ```
-curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/transferLeader' \
+curl --location --request POST 'http://127.0.0.1:8080/api/v1/transferLeader' \
 --header 'Content-Type: application/json' \
 -d '{
     "clusterName":"defaultCluster",
@@ -68,7 +89,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/transferLeade
 - Shard 分裂
 
 ```
-curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/split' \
+curl --location --request POST 'http://127.0.0.1:8080/api/v1/split' \
 --header 'Content-Type: application/json' \
 -d '{
     "clusterName" : "defaultCluster",
@@ -82,7 +103,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/split' \
 - 创建 CeresDB 集群
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters' \
+curl --location 'http://127.0.0.1:8080/api/v1/clusters' \
 --header 'Content-Type: application/json' \
 --data '{
     "name":"testCluster",
@@ -96,7 +117,7 @@ curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters' \
 - 更新 CeresDB 集群
 
 ```
-curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/clusters/{NewClusterName}' \
+curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewClusterName}' \
 --header 'Content-Type: application/json' \
 --data '{
     "nodeCount":28,
@@ -109,13 +130,13 @@ curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/clusters/{NewC
 - 列出 CeresDB 集群
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters'
+curl --location 'http://127.0.0.1:8080/api/v1/clusters'
 ```
 
 - 更新限流器
 
 ```
-curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter' \
+curl --location --request PUT 'http://127.0.0.1:8080/api/v1/flowLimiter' \
 --header 'Content-Type: application/json' \
 --data '{
     "limit":1000,
@@ -127,19 +148,19 @@ curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter' \
 - 查询限流器信息
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter'
+curl --location 'http://127.0.0.1:8080/api/v1/flowLimiter'
 ```
 
 - CeresMeta 列出节点
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/member'
+curl --location 'http://127.0.0.1:8080/api/v1/etcd/member'
 ```
 
 - CeresMeta 节点切主
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/moveLeader' \
+curl --location 'http://127.0.0.1:8080/api/v1/etcd/moveLeader' \
 --header 'Content-Type: application/json' \
 --data '{
     "memberName":"meta1"
@@ -149,7 +170,7 @@ curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/moveLeader' \
 - CeresMeta 节点扩容
 
 ```
-curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/etcd/member' \
+curl --location --request PUT 'http://127.0.0.1:8080/api/v1/etcd/member' \
 --header 'Content-Type: application/json' \
 --data '{
     "memberAddrs":["http://127.0.0.1:42380"]
@@ -159,7 +180,7 @@ curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/etcd/member' \
 - CeresMeta 替换节点
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/member' \
+curl --location 'http://127.0.0.1:8080/api/v1/etcd/member' \
 --header 'Content-Type: application/json' \
 --data '{
     "oldMemberName":"meta0",
