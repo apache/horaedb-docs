@@ -4,12 +4,33 @@ The Operations for CeresDB cluster mode, it can only be used when CeresMeta is d
 
 ## Operation Interface
 
-You need to replace {CeresMetaAddr} with the actual project path, if you are start CeresMeta in localhost, You can directly replace it with `127.0.0.1`.
+You need to replace 127.0.0.1 with the actual project path.
+
+- Query table
+  When tableNames is not empty, use tableNames for query.
+  When tableNames is empty, ids are used for query. When querying with ids, schemaName is useless.
+
+```
+curl --location 'http://127.0.0.1:8080/api/v1/table/query' \
+--header 'Content-Type: application/json' \
+-d '{
+    "clusterName":"defaultCluster",
+    "schemaName":"public",
+    "names":["demo1", "__demo1_0"],
+}'
+
+curl --location 'http://127.0.0.1:8080/api/v1/table/query' \
+--header 'Content-Type: application/json' \
+-d '{
+    "clusterName":"defaultCluster",
+    "ids":[0, 1]
+}'
+```
 
 - Query the route of table
 
 ```
-curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/route' \
+curl --location --request POST 'http://127.0.0.1:8080/api/v1/route' \
 --header 'Content-Type: application/json' \
 -d '{
     "clusterName":"defaultCluster",
@@ -21,7 +42,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/route' \
 - Query the mapping of shard and node
 
 ```
-curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getNodeShards' \
+curl --location --request POST 'http://127.0.0.1:8080/api/v1/getNodeShards' \
 --header 'Content-Type: application/json' \
 -d '{
     "ClusterName":"defaultCluster"
@@ -29,13 +50,13 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getNodeShards
 ```
 
 - Query the mapping of table and shard
+  If ShardIDs in the request is empty, query with all shardIDs in the cluster.
 
 ```
-curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getShardTables' \
+curl --location --request POST 'http://127.0.0.1:8080/api/v1/getShardTables' \
 --header 'Content-Type: application/json' \
 -d '{
     "clusterName":"defaultCluster",
-    "nodeName":"127.0.0.1:8831",
     "shardIDs": [1,2]
 }'
 ```
@@ -43,7 +64,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/getShardTable
 - Drop table
 
 ```
-curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/dropTable' \
+curl --location --request POST 'http://127.0.0.1:8080/api/v1/dropTable' \
 --header 'Content-Type: application/json' \
 -d '{
     "clusterName": "defaultCluster",
@@ -55,7 +76,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/dropTable' \
 - Transfer leader shard
 
 ```
-curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/transferLeader' \
+curl --location --request POST 'http://127.0.0.1:8080/api/v1/transferLeader' \
 --header 'Content-Type: application/json' \
 -d '{
     "clusterName":"defaultCluster",
@@ -68,7 +89,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/transferLeade
 - Split shard
 
 ```
-curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/split' \
+curl --location --request POST 'http://127.0.0.1:8080/api/v1/split' \
 --header 'Content-Type: application/json' \
 -d '{
     "clusterName" : "defaultCluster",
@@ -82,7 +103,7 @@ curl --location --request POST 'http://{CeresMetaAddr}:8080/api/v1/split' \
 - Create cluster
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters' \
+curl --location 'http://127.0.0.1:8080/api/v1/clusters' \
 --header 'Content-Type: application/json' \
 --data '{
     "name":"testCluster",
@@ -96,7 +117,7 @@ curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters' \
 - Update cluster
 
 ```
-curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/clusters/{NewClusterName}' \
+curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewClusterName}' \
 --header 'Content-Type: application/json' \
 --data '{
     "nodeCount":28,
@@ -109,13 +130,13 @@ curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/clusters/{NewC
 - List clusters
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/clusters'
+curl --location 'http://127.0.0.1:8080/api/v1/clusters'
 ```
 
 - Update flow limiter
 
 ```
-curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter' \
+curl --location --request PUT 'http://127.0.0.1:8080/api/v1/flowLimiter' \
 --header 'Content-Type: application/json' \
 --data '{
     "limit":1000,
@@ -127,19 +148,19 @@ curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter' \
 - Query information of flow limiter
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/flowLimiter'
+curl --location 'http://127.0.0.1:8080/api/v1/flowLimiter'
 ```
 
 - List nodes of CeresMeta cluster
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/member'
+curl --location 'http://127.0.0.1:8080/api/v1/etcd/member'
 ```
 
 - Move leader of CeresMeta cluster
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/moveLeader' \
+curl --location 'http://127.0.0.1:8080/api/v1/etcd/moveLeader' \
 --header 'Content-Type: application/json' \
 --data '{
     "memberName":"meta1"
@@ -149,7 +170,7 @@ curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/moveLeader' \
 - Add node of CeresMeta cluster
 
 ```
-curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/etcd/member' \
+curl --location --request PUT 'http://127.0.0.1:8080/api/v1/etcd/member' \
 --header 'Content-Type: application/json' \
 --data '{
     "memberAddrs":["http://127.0.0.1:42380"]
@@ -159,7 +180,7 @@ curl --location --request PUT 'http://{CeresMetaAddr}:8080/api/v1/etcd/member' \
 - Replace node of CeresMeta cluster
 
 ```
-curl --location 'http://{CeresMetaAddr}:8080/api/v1/etcd/member' \
+curl --location 'http://127.0.0.1:8080/api/v1/etcd/member' \
 --header 'Content-Type: application/json' \
 --data '{
     "oldMemberName":"meta0",
