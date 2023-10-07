@@ -6,6 +6,12 @@
 
 注意： 如下接口在实际使用时需要将 127.0.0.1 替换为 CeresMeta 的真实地址。
 
+- 查询 ceresmeta leader
+
+```
+curl --location 'http://127.0.0.1:8080/debug/leader'
+```
+
 - 查询表元信息
   当 tableNames 不为空的时候，使用 tableNames 进行查询。
   当 tableNames 为空的时候，使用 ids 进行查询。使用 ids 查询的时候，schemaName 不生效。
@@ -100,10 +106,16 @@ curl --location --request POST 'http://127.0.0.1:8080/api/v1/split' \
 }'
 ```
 
+- 列出 CeresDB 集群
+
+```
+curl --location 'http://127.0.0.1:8080/api/v1/clusters'
+```
+
 - 创建 CeresDB 集群
 
 ```
-curl --location 'http://127.0.0.1:8080/api/v1/clusters' \
+curl --location 'http://127.0.0.1:8080/api/v1/cluster' \
 --header 'Content-Type: application/json' \
 --data '{
     "name":"testCluster",
@@ -117,7 +129,7 @@ curl --location 'http://127.0.0.1:8080/api/v1/clusters' \
 - 更新 CeresDB 集群
 
 ```
-curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewClusterName}' \
+curl --location --request PUT 'http://127.0.0.1:8080/api/v1/cluster/{NewClusterName}' \
 --header 'Content-Type: application/json' \
 --data '{
     "nodeCount":28,
@@ -125,12 +137,6 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewCluster
     "enableSchedule":true,
     "topologyType":"dynamic"
 }'
-```
-
-- 列出 CeresDB 集群
-
-```
-curl --location 'http://127.0.0.1:8080/api/v1/clusters'
 ```
 
 - 更新限流器
@@ -186,4 +192,11 @@ curl --location 'http://127.0.0.1:8080/api/v1/etcd/member' \
     "oldMemberName":"meta0",
     "newMemberAddr":["http://127.0.0.1:42380"]
 }'
+```
+
+- 诊断集群 shards 状态
+  `defaultCluster` 需要修改成对应集群。
+
+```
+  curl 0:18080/api/v1/debug/diagnose/defaultCluster/shards
 ```

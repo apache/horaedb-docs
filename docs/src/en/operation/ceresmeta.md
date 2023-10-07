@@ -6,6 +6,12 @@ The Operations for CeresDB cluster mode, it can only be used when CeresMeta is d
 
 You need to replace 127.0.0.1 with the actual project path.
 
+- Get the leader of ceresmeta
+
+```
+curl --location 'http://127.0.0.1:8080/debug/leader'
+```
+
 - Query table
   When tableNames is not empty, use tableNames for query.
   When tableNames is empty, ids are used for query. When querying with ids, schemaName is useless.
@@ -100,10 +106,16 @@ curl --location --request POST 'http://127.0.0.1:8080/api/v1/split' \
 }'
 ```
 
+- List clusters
+
+```
+curl --location 'http://127.0.0.1:8080/api/v1/clusters'
+```
+
 - Create cluster
 
 ```
-curl --location 'http://127.0.0.1:8080/api/v1/clusters' \
+curl --location 'http://127.0.0.1:8080/api/v1/cluster' \
 --header 'Content-Type: application/json' \
 --data '{
     "name":"testCluster",
@@ -117,7 +129,7 @@ curl --location 'http://127.0.0.1:8080/api/v1/clusters' \
 - Update cluster
 
 ```
-curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewClusterName}' \
+curl --location --request PUT 'http://127.0.0.1:8080/api/v1/cluster/{NewClusterName}' \
 --header 'Content-Type: application/json' \
 --data '{
     "nodeCount":28,
@@ -125,12 +137,6 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewCluster
     "enableSchedule":true,
     "topologyType":"dynamic"
 }'
-```
-
-- List clusters
-
-```
-curl --location 'http://127.0.0.1:8080/api/v1/clusters'
 ```
 
 - Update flow limiter
@@ -186,4 +192,11 @@ curl --location 'http://127.0.0.1:8080/api/v1/etcd/member' \
     "oldMemberName":"meta0",
     "newMemberAddr":["http://127.0.0.1:42380"]
 }'
+```
+
+- Diagnose shards
+  `defaultCluster` needs to be changed to your cluster.
+
+```
+  curl 0:18080/api/v1/debug/diagnose/defaultCluster/shards
 ```
