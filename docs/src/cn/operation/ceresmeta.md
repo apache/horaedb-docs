@@ -133,6 +133,22 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewCluster
 curl --location 'http://127.0.0.1:8080/api/v1/clusters'
 ```
 
+- 修改 DeployMode
+
+```
+curl --location --request PUT 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName}/deployMode' \
+--header 'Content-Type: application/json' \
+--data '{
+    "enable":true
+}'
+```
+
+- 查询 DeployMode
+
+```
+curl --location 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName}/deployMode'
+```
+
 - 更新限流器
 
 ```
