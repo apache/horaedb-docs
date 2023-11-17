@@ -4,7 +4,7 @@
 
 ## ALTER TABLE SCHEMA
 
-CeresDB current supports `ADD COLUMN` to alter table schema.
+HoraeDB current supports `ADD COLUMN` to alter table schema.
 
 ```sql
 -- create a table and add a column to it

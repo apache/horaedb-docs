@@ -37,7 +37,7 @@
   - [系统表](operation/system_table.md)
   - [黑名单](operation/block_list.md)
   - [监控](operation/observability.md)
-  - [CeresMeta](operation/ceresmeta.md)
+  - [HoraeMeta](operation/horaemeta.md)
 - [周边生态](ecosystem/README.md)
   - [Prometheus](ecosystem/prometheus.md)
   - [InfluxDB](ecosystem/influxdb.md)

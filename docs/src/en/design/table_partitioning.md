@@ -4,17 +4,17 @@
 
 This chapter discusses `PartitionTable`.
 
-The partition table syntax used by CeresDB is similar to that of [MySQL](https://dev.mysql.com/doc/refman/8.0/en/partitioning-types.html).
+The partition table syntax used by HoraeDB is similar to that of [MySQL](https://dev.mysql.com/doc/refman/8.0/en/partitioning-types.html).
 
 General partition tables include `Range Partitioning`, `List Partitoning`, `Hash Partitioning`, and `Key Partititioning`.
 
-CeresDB currently only supports `Key Partitioning`.
+HoraeDB currently only supports `Key Partitioning`.
 
 ## Architecture
 
 Similar to MySQL, different portions of a partition table are stored as separate tables in different locations.
 
-Currently designed, a partition table can be opened on multiple CeresDB nodes, supports writing and querying at the same time, and can be expanded horizontally.
+Currently designed, a partition table can be opened on multiple HoraeDB nodes, supports writing and querying at the same time, and can be expanded horizontally.
 
 As shown in the figure below, `PartitionTable` is opened on node0 and node1, and the physical subtables where the actual data are stored on node2 and node3.
 
@@ -44,7 +44,7 @@ As shown in the figure below, `PartitionTable` is opened on node0 and node1, and
 
 ### Key Partitioning
 
-`Key Partitioning` supports one or more column calculations, using the hash algorithm provided by CeresDB for calculations.
+`Key Partitioning` supports one or more column calculations, using the hash algorithm provided by HoraeDB for calculations.
 
 Use restrictions:
 

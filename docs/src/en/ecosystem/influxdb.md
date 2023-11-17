@@ -2,7 +2,7 @@
 
 [InfluxDB](https://www.influxdata.com/products/influxdb-overview/) is a time series database designed to handle high write and query loads. It is an integral component of the TICK stack. InfluxDB is meant to be used as a backing store for any use case involving large amounts of timestamped data, including DevOps monitoring, application metrics, IoT sensor data, and real-time analytics.
 
-CeresDB support [InfluxDB v1.8](https://docs.influxdata.com/influxdb/v1.8/tools/api/#influxdb-1x-http-endpoints) write and query API.
+HoraeDB support [InfluxDB v1.8](https://docs.influxdata.com/influxdb/v1.8/tools/api/#influxdb-1x-http-endpoints) write and query API.
 
 > Warn: users need to add following config to server's config in order to try InfluxDB write/query.
 
@@ -24,9 +24,9 @@ demo,tag1=t11,tag2=t22 field1=91,field2=101 1679994648000
 
 Post payload is in [InfluxDB line protocol](https://docs.influxdata.com/influxdb/v1.8/write_protocols/line_protocol_reference/) format.
 
-Measurement will be mapped to table in CeresDB, and it will be created automatically in first write(Note: The default TTL is 7d, and points written exceed TTL will be discarded directly).
+Measurement will be mapped to table in HoraeDB, and it will be created automatically in first write(Note: The default TTL is 7d, and points written exceed TTL will be discarded directly).
 
-For example, when inserting data above, table below will be automatically created in CeresDB:
+For example, when inserting data above, table below will be automatically created in HoraeDB:
 
 ```sql
 CREATE TABLE `demo` (
@@ -42,7 +42,7 @@ CREATE TABLE `demo` (
 
 ## Note
 
-- When InfluxDB writes data, the timestamp precision is nanosecond by default, CeresDB only supports millisecond timestamp, user can specify the data precision by `precision` parameter, CeresDB will automatically convert to millisecond precision internally.
+- When InfluxDB writes data, the timestamp precision is nanosecond by default, HoraeDB only supports millisecond timestamp, user can specify the data precision by `precision` parameter, HoraeDB will automatically convert to millisecond precision internally.
 - Query string parameters such as `db` aren't supported.
 
 # Query
@@ -77,7 +77,7 @@ Query result is same with InfluxDB:
 
 ## Usage in Grafana
 
-CeresDB can be used as InfluxDB data source in Grafana.
+HoraeDB can be used as InfluxDB data source in Grafana.
 
 - Select InfluxDB type when add data source
 - Then input `http://{ip}:{5440}/influxdb/v1/` in HTTP URL. For local deployment, URL is http://localhost:5440/influxdb/v1/

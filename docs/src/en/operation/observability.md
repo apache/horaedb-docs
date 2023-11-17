@@ -1,6 +1,6 @@
 # Observability
 
-CeresDB is observable with Prometheus and Grafana.
+HoraeDB is observable with Prometheus and Grafana.
 
 ## Prometheus
 
@@ -10,7 +10,7 @@ CeresDB is observable with Prometheus and Grafana.
 
 Save the following configuration into the `prometheus.yml` file. For example, in the `tmp` directory, `/tmp/prometheus.yml`.
 
-Two CeresDB http service are started on localhost:5440 and localhost:5441.
+Two HoraeDB http service are started on localhost:5440 and localhost:5441.
 
 ```yaml
 global:
@@ -75,7 +75,7 @@ See more details [here](https://grafana.com/docs/grafana/latest/datasources/prom
 
 <img src="../../resources/images/grafana-dashboard.png" height="400" width="200"/>
 
-## CeresDB Metrics
+## HoraeDB Metrics
 
 After importing the dashboard, you will see the following page:
 
@@ -93,6 +93,6 @@ After importing the dashboard, you will see the following page:
 - table rows: The rows of data written.
 - table rows by instance: The written rows by instance.
 - total tables to write: Number of tables with data written.
-- flush count: Number of CeresDB flush.
+- flush count: Number of HoraeDB flush.
 - 99th flush duration details by instance: 99th quantile of flush duration group by instance.
 - 99th write stall duration details by instance: 99th quantile of write stall duration group by instance.

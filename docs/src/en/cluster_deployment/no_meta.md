@@ -2,19 +2,19 @@
 
 # NoMeta
 
-This guide shows how to deploy a CeresDB cluster without CeresMeta, but with static, rule-based routing.
+This guide shows how to deploy a HoraeDB cluster without CeresMeta, but with static, rule-based routing.
 
-The crucial point here is that CeresDB server provides configurable routing function on table name so what we need is just a valid config containing routing rules which will be shipped to every CeresDB instance in the cluster.
+The crucial point here is that HoraeDB server provides configurable routing function on table name so what we need is just a valid config containing routing rules which will be shipped to every HoraeDB instance in the cluster.
 
 ## Target
 
-First, let's assume that our target is to deploy a cluster consisting of two CeresDB instances on the same machine. And a large cluster of more CeresDB instances can be deployed according to the two-instance example.
+First, let's assume that our target is to deploy a cluster consisting of two HoraeDB instances on the same machine. And a large cluster of more HoraeDB instances can be deployed according to the two-instance example.
 
 ## Prepare Config
 
 ### Basic
 
-Suppose the basic config of CeresDB is:
+Suppose the basic config of HoraeDB is:
 
 ```toml
 [server]
@@ -37,9 +37,9 @@ type = "RocksDB"
 data_dir = "/tmp/ceresdb"
 ```
 
-In order to deploy two CeresDB instances on the same machine, the config should choose different ports to serve and data directories to store data.
+In order to deploy two HoraeDB instances on the same machine, the config should choose different ports to serve and data directories to store data.
 
-Say the `CeresDB_0`'s config is:
+Say the `HoraeDB_0`'s config is:
 
 ```toml
 [server]
@@ -62,7 +62,7 @@ type = "RocksDB"
 data_dir = "/tmp/ceresdb_0"
 ```
 
-Then the `CeresDB_1`'s config is:
+Then the `HoraeDB_1`'s config is:
 
 ```toml
 [server]
@@ -124,8 +124,8 @@ port = 18831
 
 In the config above, two schemas are declared:
 
-- `public_0` has two shards served by `CeresDB_0`.
-- `public_1` has two shards served by both `CeresDB_0` and `CeresDB_1`.
+- `public_0` has two shards served by `HoraeDB_0`.
+- `public_1` has two shards served by both `HoraeDB_0` and `HoraeDB_1`.
 
 ### Routing Rules
 

@@ -2,7 +2,7 @@
 
 ## Query Table Information
 
-Like Mysql's `information_schema.tables`, CeresDB provides `system.public.tables` to save tables information.
+Like Mysql's `information_schema.tables`, HoraeDB provides `system.public.tables` to save tables information.
 Columns:
 
 - timestamp([TimeStamp])

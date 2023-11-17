@@ -1,24 +1,24 @@
 # Quick Start
 
-This page shows you how to get started with CeresDB quickly. You'll start a standalone CeresDB server, and then insert and read some sample data using SQL.
+This page shows you how to get started with HoraeDB quickly. You'll start a standalone HoraeDB server, and then insert and read some sample data using SQL.
 
 ## Start server
 
-[CeresDB docker image](https://hub.docker.com/r/ceresdb/ceresdb-server) is the easiest way to get started, if you haven't installed Docker, go [there](https://www.docker.com/products/docker-desktop/) to install it first.
+[HoraeDB docker image](https://hub.docker.com/r/ceresdb/ceresdb-server) is the easiest way to get started, if you haven't installed Docker, go [there](https://www.docker.com/products/docker-desktop/) to install it first.
 
 > Note: please choose tag version >= v1.0.0, others are mainly for testing.
 
 You can use command below to start a standalone server
 
 ```bash
-docker run -d --name ceresdb-server \
+docker run -d --name horaedb-server \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \
   ceresdb/ceresdb-server
 ```
 
-CeresDB will listen three ports when start:
+HoraeDB will listen three ports when start:
 
 - 8831, gRPC port
 - 3307, MySQL port
@@ -108,7 +108,7 @@ See [sdk](./sdk/README.md)
 
 ## Next Step
 
-Congrats, you have finished this tutorial. For more information about CeresDB, see the following:
+Congrats, you have finished this tutorial. For more information about HoraeDB, see the following:
 
 - [SQL Syntax](sql/README.md)
 - [Deployment](cluster_deployment/README.md)

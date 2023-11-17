@@ -2,7 +2,7 @@
 # - CeresMeta addr;
 # - Parameters of Aliyun OSS;
 #
-# And one thing deserves explanation that this config is used for running ceresdb docker container:
+# And one thing deserves explanation that this config is used for running horaedb docker container:
 # ```
 # docker run -d --name ceresdb-server \
 # -v /etc/ceresdb/ceresdb.toml:{path_to_this_config} \

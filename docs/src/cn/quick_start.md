@@ -1,17 +1,17 @@
 # 快速开始
 
-本章介绍如何快速启动 CeresDB。在这里你将会学到启动一个单机模式的 CeresDB，然后使用 SQL 写入一些数据并查询结果。
+本章介绍如何快速启动 HoraeDB。在这里你将会学到启动一个单机模式的 CeresDB，然后使用 SQL 写入一些数据并查询结果。
 
 ## 启动
 
-使用 [CeresDB docker 镜像](https://hub.docker.com/r/ceresdb/ceresdb-server) 是一种最简单的启动方式；如果你还没有安装 Docker，请首先参考 [这里](https://www.docker.com/products/docker-desktop/) 安装 Docker。
+使用 [HoraeDB docker 镜像](https://hub.docker.com/r/ceresdb/ceresdb-server) 是一种最简单的启动方式；如果你还没有安装 Docker，请首先参考 [这里](https://www.docker.com/products/docker-desktop/) 安装 Docker。
 
 > 注意：请选择一个大于等于 v1.0.0 的 tag 镜像。
 
-使用如下命令安装并启动一个单机版 CeresDB。
+使用如下命令安装并启动一个单机版 HoraeDB。
 
 ```bash
-docker run -d --name ceresdb-server \
+docker run -d --name horaedb-server \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \
@@ -108,7 +108,7 @@ DROP TABLE `demo`
 
 ## 下一步
 
-恭喜你，你已经学习了 CeresDB 的简单使用。关于 CeresDB 的更多信息，请参见以下内容。
+恭喜你，你已经学习了 HoraeDB 的简单使用。关于 HoraeDB 的更多信息，请参见以下内容。
 
 - [SQL 语法](sql/README.md)
 - [部署文档](cluster_deployment/README.md)

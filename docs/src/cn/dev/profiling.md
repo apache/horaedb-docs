@@ -2,7 +2,7 @@
 
 ### CPU 剖析
 
-CeresDB 提供 CPU 剖析 http 接口 `debug/profile/cpu`.
+HoraeDB 提供 CPU 剖析 http 接口 `debug/profile/cpu`.
 
 例子:
 
@@ -16,7 +16,7 @@ curl 0:5000/debug/profile/cpu/60
 
 ### 内存剖析
 
-CeresDB 提供内存剖析 http 接口 `debug/profile/heap`.
+HoraeDB 提供内存剖析 http 接口 `debug/profile/heap`.
 
 ### 安装依赖
 

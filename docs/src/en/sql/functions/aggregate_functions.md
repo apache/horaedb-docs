@@ -1,6 +1,6 @@
 # Aggregate Functions
 
-CeresDB SQL is implemented with [DataFusion](https://github.com/CeresDB/arrow-datafusion), Here is the list of aggregate functions. See more detail, Refer to [Datafusion](https://github.com/CeresDB/arrow-datafusion/blob/master/docs/source/user-guide/sql/aggregate_functions.md)
+HoraeDB SQL is implemented with [DataFusion](https://github.com/CeresDB/arrow-datafusion), Here is the list of aggregate functions. See more detail, Refer to [Datafusion](https://github.com/CeresDB/arrow-datafusion/blob/master/docs/source/user-guide/sql/aggregate_functions.md)
 
 ## General
 

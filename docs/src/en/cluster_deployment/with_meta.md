@@ -1,12 +1,12 @@
 # WithMeta
 
-This guide shows how to deploy a CeresDB cluster with CeresMeta. And with the CeresMeta, the whole CeresDB cluster will feature: high availability, load balancing and horizontal scalability if the underlying storage used by CeresDB is separated service.
+This guide shows how to deploy a HoraeDB cluster with CeresMeta. And with the CeresMeta, the whole HoraeDB cluster will feature: high availability, load balancing and horizontal scalability if the underlying storage used by HoraeDB is separated service.
 
 ## Deploy CeresMeta
 
 ### Introduce
 
-CeresMeta is one of the core services of CeresDB distributed mode, it is used to manage and schedule the CeresDB cluster. By the way, the high availability of CeresMeta is ensured by embedding [ETCD](https://github.com/etcd-io/etcd). Also, the ETCD service is provided for CeresDB servers to manage the distributed shard locks.
+CeresMeta is one of the core services of HoraeDB distributed mode, it is used to manage and schedule the HoraeDB cluster. By the way, the high availability of CeresMeta is ensured by embedding [ETCD](https://github.com/etcd-io/etcd). Also, the ETCD service is provided for HoraeDB servers to manage the distributed shard locks.
 
 ### Build
 

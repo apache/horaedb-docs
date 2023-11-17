@@ -32,7 +32,7 @@ Table options syntax are key-value pairs. Value should be quoted with quotation 
 
 ## IF NOT EXISTS
 
-Add `IF NOT EXISTS` to tell CeresDB to ignore errors if the table name already exists.
+Add `IF NOT EXISTS` to tell HoraeDB to ignore errors if the table name already exists.
 
 ## Define Column
 

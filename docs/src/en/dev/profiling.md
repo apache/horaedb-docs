@@ -2,7 +2,7 @@
 
 ### CPU profiling
 
-CeresDB provides cpu profiling http api `debug/profile/cpu`.
+HoraeDB provides cpu profiling http api `debug/profile/cpu`.
 
 Example:
 
@@ -16,7 +16,7 @@ curl 0:5000/debug/profile/cpu/60
 
 ### Heap profiling
 
-CeresDB provides heap profiling http api `debug/profile/heap`.
+HoraeDB provides heap profiling http api `debug/profile/heap`.
 
 ### Install dependencies
 
