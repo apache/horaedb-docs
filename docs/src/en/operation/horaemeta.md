@@ -1,14 +1,14 @@
-# 集群运维
+# Cluster Operation
 
-集群运维接口的使用前提是，CeresDB 部署为使用 CeresMeta 的集群模式。
+The Operations for HoraeDB cluster mode, it can only be used when HoraeMeta is deployed.
 
-## 运维接口
+## Operation Interface
 
-注意： 如下接口在实际使用时需要将 127.0.0.1 替换为 CeresMeta 的真实地址。
+You need to replace 127.0.0.1 with the actual project path.
 
-- 查询表元信息
-  当 tableNames 不为空的时候，使用 tableNames 进行查询。
-  当 tableNames 为空的时候，使用 ids 进行查询。使用 ids 查询的时候，schemaName 不生效。
+- Query table
+  When tableNames is not empty, use tableNames for query.
+  When tableNames is empty, ids are used for query. When querying with ids, schemaName is useless.
 
 ```
 curl --location 'http://127.0.0.1:8080/api/v1/table/query' \
@@ -27,7 +27,7 @@ curl --location 'http://127.0.0.1:8080/api/v1/table/query' \
 }'
 ```
 
-- 查询表的路由信息
+- Query the route of table
 
 ```
 curl --location --request POST 'http://127.0.0.1:8080/api/v1/route' \
@@ -39,7 +39,7 @@ curl --location --request POST 'http://127.0.0.1:8080/api/v1/route' \
 }'
 ```
 
-- 查询节点对应的 Shard 信息
+- Query the mapping of shard and node
 
 ```
 curl --location --request POST 'http://127.0.0.1:8080/api/v1/getNodeShards' \
@@ -49,8 +49,8 @@ curl --location --request POST 'http://127.0.0.1:8080/api/v1/getNodeShards' \
 }'
 ```
 
-- 查询 Shard 对应的表信息
-  如果 shardIDs 为空时，查询所有 shard 上表信息。
+- Query the mapping of table and shard
+  If ShardIDs in the request is empty, query with all shardIDs in the cluster.
 
 ```
 curl --location --request POST 'http://127.0.0.1:8080/api/v1/getShardTables' \
@@ -61,7 +61,7 @@ curl --location --request POST 'http://127.0.0.1:8080/api/v1/getShardTables' \
 }'
 ```
 
-- 删除指定表的元数据
+- Drop table
 
 ```
 curl --location --request POST 'http://127.0.0.1:8080/api/v1/dropTable' \
@@ -73,7 +73,7 @@ curl --location --request POST 'http://127.0.0.1:8080/api/v1/dropTable' \
 }'
 ```
 
-- Shard 切主
+- Transfer leader shard
 
 ```
 curl --location --request POST 'http://127.0.0.1:8080/api/v1/transferLeader' \
@@ -86,7 +86,7 @@ curl --location --request POST 'http://127.0.0.1:8080/api/v1/transferLeader' \
 }'
 ```
 
-- Shard 分裂
+- Split shard
 
 ```
 curl --location --request POST 'http://127.0.0.1:8080/api/v1/split' \
@@ -100,7 +100,7 @@ curl --location --request POST 'http://127.0.0.1:8080/api/v1/split' \
 }'
 ```
 
-- 创建 CeresDB 集群
+- Create cluster
 
 ```
 curl --location 'http://127.0.0.1:8080/api/v1/clusters' \
@@ -108,13 +108,13 @@ curl --location 'http://127.0.0.1:8080/api/v1/clusters' \
 --data '{
     "name":"testCluster",
     "nodeCount":3,
-    "ShardTotal":9,
+    "shardTotal":9,
     "enableScheduler":true,
     "topologyType":"static"
 }'
 ```
 
-- 更新 CeresDB 集群
+- Update cluster
 
 ```
 curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewClusterName}' \
@@ -127,13 +127,13 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewCluster
 }'
 ```
 
-- 列出 CeresDB 集群
+- List clusters
 
 ```
 curl --location 'http://127.0.0.1:8080/api/v1/clusters'
 ```
 
-- 修改 DeployMode
+- Update DeployMode
 
 ```
 curl --location --request PUT 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName}/deployMode' \
@@ -143,13 +143,13 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName
 }'
 ```
 
-- 查询 DeployMode
+- Query DeployMode
 
 ```
 curl --location 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName}/deployMode'
 ```
 
-- 更新限流器
+- Update flow limiter
 
 ```
 curl --location --request PUT 'http://127.0.0.1:8080/api/v1/flowLimiter' \
@@ -161,19 +161,19 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/flowLimiter' \
 }'
 ```
 
-- 查询限流器信息
+- Query information of flow limiter
 
 ```
 curl --location 'http://127.0.0.1:8080/api/v1/flowLimiter'
 ```
 
-- CeresMeta 列出节点
+- List nodes of HoraeMeta cluster
 
 ```
 curl --location 'http://127.0.0.1:8080/api/v1/etcd/member'
 ```
 
-- CeresMeta 节点切主
+- Move leader of HoraeMeta cluster
 
 ```
 curl --location 'http://127.0.0.1:8080/api/v1/etcd/moveLeader' \
@@ -183,7 +183,7 @@ curl --location 'http://127.0.0.1:8080/api/v1/etcd/moveLeader' \
 }'
 ```
 
-- CeresMeta 节点扩容
+- Add node of HoraeMeta cluster
 
 ```
 curl --location --request PUT 'http://127.0.0.1:8080/api/v1/etcd/member' \
@@ -193,7 +193,7 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/etcd/member' \
 }'
 ```
 
-- CeresMeta 替换节点
+- Replace node of HoraeMeta cluster
 
 ```
 curl --location 'http://127.0.0.1:8080/api/v1/etcd/member' \

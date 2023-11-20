@@ -2,7 +2,7 @@
 
 # Introduction
 
-- [What is CeresDB](about.md)
+- [What is HoraeDB](about.md)
 - [Quick Start](quick_start.md)
 
 # User Guide
@@ -37,7 +37,7 @@
   - [System Table](operation/system_table.md)
   - [Block List](operation/block_list.md)
   - [Observability](operation/observability.md)
-  - [CeresMeta](operation/ceresmeta.md)
+  - [HoraeMeta](operation/horaemeta.md)
 - [Ecosystem](ecosystem/README.md)
   - [Prometheus](ecosystem/prometheus.md)
   - [InfluxDB](ecosystem/influxdb.md)

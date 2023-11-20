@@ -1,11 +1,11 @@
 # Data Types
 
-CeresDB implements table model, and the supported data types are similar to MySQL.
-The following table lists the mapping relationship between MySQL and CeresDB.
+HoraeDB implements table model, and the supported data types are similar to MySQL.
+The following table lists the mapping relationship between MySQL and HoraeDB.
 
 ## Support Data Type(case-insensitive)
 
-| SQL            | CeresDB   |
+| SQL            | HoraeDB   |
 | -------------- | --------- |
 | null           | Null      |
 | timestamp      | Timestamp |

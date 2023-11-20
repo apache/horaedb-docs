@@ -79,11 +79,11 @@ digraph G {
 
     df_operator -> arrow_deps
 
-    ceresdb -> analytic_engine
-    ceresdb -> catalog
-    ceresdb -> catalog_impls
-    ceresdb -> query_engine
-    ceresdb -> server
-    ceresdb -> table_engine
-    ceresdb -> df_operator
+    horaedb -> analytic_engine
+    horaedb -> catalog
+    horaedb -> catalog_impls
+    horaedb -> query_engine
+    horaedb -> server
+    horaedb -> table_engine
+    horaedb -> df_operator
 }

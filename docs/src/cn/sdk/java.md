@@ -2,7 +2,7 @@
 
 ## 介绍
 
-CeresDBClient 是 CeresDB 的高性能 Java 版客户端。
+HoraeDBClient 是 HoraeDB 的高性能 Java 版客户端。
 
 ## 环境要求
 
@@ -18,7 +18,7 @@ Java 8 及以上
 </dependency>
 ```
 
-最新的版本可以从[这里](https://github.com/CeresDB/ceresdb-client-java/blob/main/docs/CHANGELOG.md)获取。
+最新的版本可以从[这里](https://github.com/CeresDB/horaedb-client-java/blob/main/docs/CHANGELOG.md)获取。
 
 ## 初始化客户端
 
@@ -43,17 +43,17 @@ if (!client.init(opts)) {
 - RouteMode： DIRECT/PROXY
 
 这里重点解释下 `RouteMode` 参数，`PROXY` 模式用在客户端和服务端存在网络隔离，请求需要经过转发的场景；`DIRECT` 模式用在客户端和服务端网络连通的场景，节省转发的开销，具有更高的性能。
-更多的参数配置详情见 [configuration](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/configuration.md)。
+更多的参数配置详情见 [configuration](https://github.com/CeresDB/horaedb-client-java/tree/main/docs/configuration.md)。
 
-注意： CeresDB 当前仅支持默认的 `public` database , 未来会支持多个 database。
+注意： HoraeDB 当前仅支持默认的 `public` database , 未来会支持多个 database。
 
 ## 建表
 
-为了方便使用，在使用 gRPC 的 write 接口进行写入时，如果某个表不存在，CeresDB 会根据第一次的写入自动创建一个表。
+为了方便使用，在使用 gRPC 的 write 接口进行写入时，如果某个表不存在，HoraeDB 会根据第一次的写入自动创建一个表。
 
 当然你也可以通过 `create table` 语句来更精细化的管理的表（比如添加索引等）。
 
-下面的建表语句（使用 SDK 的 SQL API）包含了 CeresDB 支持的所有字段类型：
+下面的建表语句（使用 SDK 的 SQL API）包含了 HoraeDB 支持的所有字段类型：
 
 ```java
 String createTableSql = "CREATE TABLE IF NOT EXISTS machine_table(" +
@@ -118,7 +118,7 @@ Assert.assertEquals(0, writeResult.getOk().getFailed());
 Assert.assertEquals(0, writeResult.mapOr(-1, WriteOk::getFailed).intValue());
 ```
 
-详情见 [write](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/write.md)
+详情见 [write](https://github.com/CeresDB/horaedb-client-java/tree/main/docs/write.md)
 
 ## 数据查询
 
@@ -149,11 +149,11 @@ final Stream<Row> rowStream = queryOk.stream();
 rowStream.forEach(row -> System.out.println(row.toString()));
 ```
 
-详情见 [read](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/read.md)
+详情见 [read](https://github.com/CeresDB/horaedb-client-java/tree/main/docs/read.md)
 
 ## 流式读写
 
-CeresDB 支持流式读写，适用于大规模数据读写。
+HoraeDB 支持流式读写，适用于大规模数据读写。
 
 ```java
 long start = System.currentTimeMillis();
@@ -180,4 +180,4 @@ Assert.assertTrue(streamQueryResult.isOk());
 Assert.assertEquals(1000, streamQueryResult.getOk().getRowCount());
 ```
 
-详情见 [streaming](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/streaming.md)
+详情见 [streaming](https://github.com/CeresDB/horaedb-client-java/tree/main/docs/streaming.md)

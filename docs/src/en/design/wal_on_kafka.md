@@ -17,7 +17,7 @@ As shown in the following figure, regions are mapped to topics(with only one par
                                                  │ │                     │  │
                                          Delete  │ │ ┌─────────────────┐ │  │
                ┌──────────────────────┐  ┌───────┼─┼─►    Partition    │ │  │
-               │       CeresDB        │  │       │ │ │                 │ │  │
+               │       HoraeDB        │  │       │ │ │                 │ │  │
                │                      │  │       │ │ └─────────────────┘ │  │
                │ ┌──────────────────┐ │  │       │ │                     │  │
                │ │       WAL        │ │  │       │ └─────────────────────┘  │

@@ -32,7 +32,7 @@ Table options syntax are key-value pairs. Value should be quoted with quotation 
 
 ## IF NOT EXISTS
 
-Add `IF NOT EXISTS` to tell CeresDB to ignore errors if the table name already exists.
+Add `IF NOT EXISTS` to tell HoraeDB to ignore errors if the table name already exists.
 
 ## Define Column
 
@@ -60,7 +60,7 @@ For string tag column, we recommend to define it as dictionary to reduce memory 
 
 ## Engine
 
-Specifies which engine this table belongs to. CeresDB current support `Analytic` engine type. This attribute is immutable.
+Specifies which engine this table belongs to. HoraeDB current support `Analytic` engine type. This attribute is immutable.
 
 ## Partition Options
 

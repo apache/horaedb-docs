@@ -2,7 +2,7 @@
 
 ## 查询 Table 信息
 
-类似于 Mysql's `information_schema.tables`, CeresDB 提供 `system.public.tables` 存储表信息。
+类似于 Mysql's `information_schema.tables`, HoraeDB 提供 `system.public.tables` 存储表信息。
 
 `system.public.tables` 表的列如下 :
 

@@ -25,7 +25,7 @@ column_name column_type [[NOT] NULL] {[TAG] | [TIMESTAMP KEY] | [PRIMARY KEY]} [
 
 ## IF NOT EXISTS
 
-添加 `IF NOT EXISTS` 时，CeresDB 在表名已经存在时会忽略建表错误。
+添加 `IF NOT EXISTS` 时，HoraeDB 在表名已经存在时会忽略建表错误。
 
 ## 定义列
 
@@ -53,7 +53,7 @@ b_not_null NOT NULL
 
 ## 引擎设置
 
-CeresDB 支持指定某个表使用哪种引擎，目前支持的引擎类型为 `Analytic`。注意这个属性设置后不可更改。
+HoraeDB 支持指定某个表使用哪种引擎，目前支持的引擎类型为 `Analytic`。注意这个属性设置后不可更改。
 
 ## 分区设置
 

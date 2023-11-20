@@ -4,7 +4,7 @@
 
 # 写入
 
-CeresDB 遵循 [OpenTSDB put](http://opentsdb.net/docs/build/html/api_http/put.html) 写入接口。
+HoraeDB 遵循 [OpenTSDB put](http://opentsdb.net/docs/build/html/api_http/put.html) 写入接口。
 
 `summary` 和 `detailed` 还未支持。
 
@@ -30,9 +30,9 @@ curl --location 'http://localhost:5440/opentsdb/api/put' \
 }]'
 ```
 
-`metric` 将映射到 CeresDB 中的一个表，在首次写入时 server 会自动进行建表(注意：创建表的 TTL 是 7d，写入超过当前周期数据会被丢弃)。
+`metric` 将映射到 HoraeDB 中的一个表，在首次写入时 server 会自动进行建表(注意：创建表的 TTL 是 7d，写入超过当前周期数据会被丢弃)。
 
-例如，在上面插入数据时，CeresDB 中将创建下表：
+例如，在上面插入数据时，HoraeDB 中将创建下表：
 
 ```
 CREATE TABLE `sys.cpu.nice`(
@@ -52,4 +52,4 @@ CREATE TABLE `sys.cpu.nice`(
 
 # 查询
 
-暂不支持 OpenTSDB 查询，[tracking issue](https://github.com/CeresDB/ceresdb/issues/904)。
+暂不支持 OpenTSDB 查询，[tracking issue](https://github.com/CeresDB/horaedb/issues/904)。

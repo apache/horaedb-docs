@@ -1,6 +1,6 @@
 # SQL Syntax
 
-This chapter introduces the SQL statements of CeresDB.
+This chapter introduces the SQL statements of HoraeDB.
 
 - [Data Model](model/README.md)
   - [Data Types](model/data_types.md)

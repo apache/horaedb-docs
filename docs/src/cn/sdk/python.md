@@ -2,11 +2,11 @@
 
 ## 介绍
 
-[ceresdb-client](https://pypi.org/project/ceresdb-client/) 是 [CeresDB](https://github.com/CeresDB/ceresdb) python 客户端.
+[horaedb-client](https://pypi.org/project/ceresdb-client/) 是 [HoraeDB](https://github.com/CeresDB/horaedb) python 客户端.
 
-借助于 [PyO3](https://github.com/PyO3)，python 客户端的实现实际上是基于 [rust 客户端](https://github.com/CeresDB/ceresdb-client-rs) 的封装。
+借助于 [PyO3](https://github.com/PyO3)，python 客户端的实现实际上是基于 [rust 客户端](https://github.com/CeresDB/horaedb-client-rs) 的封装。
 
-本手册将会介绍 python client 的一些基本用法，其中涉及到的完整示例，可以查看[该示例代码](https://github.com/CeresDB/ceresdb-client-py/blob/main/examples/read_write.py).
+本手册将会介绍 python client 的一些基本用法，其中涉及到的完整示例，可以查看[该示例代码](https://github.com/CeresDB/horaedb-client-py/blob/main/examples/read_write.py).
 
 ## 环境要求
 
@@ -18,7 +18,7 @@
 pip install ceresdb-client
 ```
 
-你可以在这里找到最新的版本 [here](https://github.com/CeresDB/ceresdb-client-py/tags).
+你可以在这里找到最新的版本 [here](https://github.com/CeresDB/horaedb-client-py/tags).
 
 ## 初始化客户端
 
@@ -51,11 +51,11 @@ client = builder.build()
 
 至于 `default_database`，会在执行 RPC 请求时未通过 `RpcContext` 设置 database 的情况下，将被作为目标 database 使用。
 
-最后，通过配置 `RpcConfig`, 可以管理客户端使用的资源和调整其性能，所有的配置参数可以参考[这里](https://github.com/CeresDB/ceresdb-client-py/blob/main/ceresdb_client.pyi).
+最后，通过配置 `RpcConfig`, 可以管理客户端使用的资源和调整其性能，所有的配置参数可以参考[这里](https://github.com/CeresDB/horaedb-client-py/blob/main/ceresdb_client.pyi).
 
 ## 建表
 
-为了方便使用，在使用 gRPC 的 write 接口进行写入时，如果某个表不存在，CeresDB 会根据第一次的写入自动创建一个表。
+为了方便使用，在使用 gRPC 的 write 接口进行写入时，如果某个表不存在，HoraeDB 会根据第一次的写入自动创建一个表。
 
 当然你也可以通过 `create table` 语句来更精细化的管理的表（比如添加索引等）。
 

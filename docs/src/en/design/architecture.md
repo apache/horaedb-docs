@@ -1,17 +1,17 @@
-# Introduction to CeresDB's Architecture
+# Introduction to HoraeDB's Architecture
 
 ## Target
 
-- Provide the overview of CeresDB to the developers who want to know more about CeresDB but have no idea where to start.
-- Make a brief introduction to the important modules of CeresDB and the connections between these modules but details about their implementations are not be involved.
+- Provide the overview of HoraeDB to the developers who want to know more about HoraeDB but have no idea where to start.
+- Make a brief introduction to the important modules of HoraeDB and the connections between these modules but details about their implementations are not be involved.
 
 ## Motivation
 
-CeresDB is a timeseries database (**TSDB**). However, CeresDB's goal is to handle both timeseries and analytic workloads compared with the classic TSDB, which usually have a poor performance in handling analytic workloads.
+HoraeDB is a timeseries database (**TSDB**). However, HoraeDB's goal is to handle both timeseries and analytic workloads compared with the classic TSDB, which usually have a poor performance in handling analytic workloads.
 
 In the classic timeseries database, the `Tag` columns (InfluxDB calls them `Tag` and Prometheus calls them `Label`) are normally indexed by generating an inverted index. However, it is found that the cardinality of `Tag` varies in different scenarios. And in some scenarios the cardinality of `Tag` is very high (we name this case after analytic workload), and it takes a very high cost to store and retrieve the inverted index. On the other hand, it is observed that scanning+pruning often used by the analytical databases can do a good job to handle such analytic workload.
 
-The basic design idea of CeresDB is to adopt a hybrid storage format and the corresponding query method for a better performance in processing both timeseries and analytic workloads.
+The basic design idea of HoraeDB is to adopt a hybrid storage format and the corresponding query method for a better performance in processing both timeseries and analytic workloads.
 
 ## Architecture
 
@@ -54,19 +54,19 @@ The basic design idea of CeresDB is to adopt a hybrid storage format and the cor
 └──────────────────────────────────────────┘
 ```
 
-The figure above shows the architecture of CeresDB stand-alone service and the details of some important modules will be described in the following part.
+The figure above shows the architecture of HoraeDB stand-alone service and the details of some important modules will be described in the following part.
 
 ### RPC Layer
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/server
+module path: https://github.com/CeresDB/horaedb/tree/main/server
 
 The current RPC supports multiple protocols including HTTP, gRPC, MySQL.
 
-Basically, HTTP and MySQL are used to debug CeresDB, query manually and perform DDL operations (such as creating, deleting tables, etc.). And gRPC protocol can be regarded as a customized protocol for high-performance, which is suitable for massive reading and writing operations.
+Basically, HTTP and MySQL are used to debug HoraeDB, query manually and perform DDL operations (such as creating, deleting tables, etc.). And gRPC protocol can be regarded as a customized protocol for high-performance, which is suitable for massive reading and writing operations.
 
 ### SQL Layer
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/query_frontend
+module path: https://github.com/CeresDB/horaedb/tree/main/query_frontend
 
 SQL layer takes responsibilities for parsing sql and generating the query plan.
 
@@ -74,31 +74,31 @@ Based on [sqlparser](https://github.com/sqlparser-rs/sqlparser-rs) a sql dialect
 
 ### Interpreter
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/interpreters
+module path: https://github.com/CeresDB/horaedb/tree/main/interpreters
 
-The `Interpreter` module encapsulates the SQL `CRUD` operations. In the query procedure, a sql received by CeresDB is parsed, converted into the query plan and then executed in some specific interpreter, such as `SelectInterpreter`, `InsertInterpreter` and etc.
+The `Interpreter` module encapsulates the SQL `CRUD` operations. In the query procedure, a sql received by HoraeDB is parsed, converted into the query plan and then executed in some specific interpreter, such as `SelectInterpreter`, `InsertInterpreter` and etc.
 
 ### Catalog
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/catalog_impls
+module path: https://github.com/CeresDB/horaedb/tree/main/catalog_impls
 
-`Catalog` is actually the module managing metadata and the levels of metadata adopted by CeresDB is similar to PostgreSQL: `Catalog > Schema > Table`, but they are only used as namespace.
+`Catalog` is actually the module managing metadata and the levels of metadata adopted by HoraeDB is similar to PostgreSQL: `Catalog > Schema > Table`, but they are only used as namespace.
 
 At present, `Catalog` and `Schema` have two different kinds of implementation for standalone and distributed mode because some strategies to generate ids and ways to persist metadata differ in different mode.
 
 ### Query Engine
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/query_engine
+module path: https://github.com/CeresDB/horaedb/tree/main/query_engine
 
 `Query Engine` is responsible for optimizing and executing query plan given a basic SQL plan provided by SQL layer and now such work is mainly delegated to [DataFusion](https://github.com/apache/arrow-datafusion).
 
-In addition to the basic functions of SQL, CeresDB also defines some customized query protocols and optimization rules for some specific query plans by utilizing the extensibility provided by [DataFusion](https://github.com/apache/arrow-datafusion). For example, the implementation of `PromQL` is implemented in this way and read it if you are interested.
+In addition to the basic functions of SQL, HoraeDB also defines some customized query protocols and optimization rules for some specific query plans by utilizing the extensibility provided by [DataFusion](https://github.com/apache/arrow-datafusion). For example, the implementation of `PromQL` is implemented in this way and read it if you are interested.
 
 ### Pluggable Table Engine
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/table_engine
+module path: https://github.com/CeresDB/horaedb/tree/main/table_engine
 
-`Table Engine` is actually a storage engine for managing tables in CeresDB and the pluggability of `Table Engine` is a core design of CeresDB which matters in achieving our long-term target, e.g supporting handle log or tracing workload by implementing new storage engines. CeresDB will have multiple kinds of `Table Engine` for different workloads and the most appropriate one should be chosen as the storage engine according to the workload pattern.
+`Table Engine` is actually a storage engine for managing tables in HoraeDB and the pluggability of `Table Engine` is a core design of HoraeDB which matters in achieving our long-term target, e.g supporting handle log or tracing workload by implementing new storage engines. HoraeDB will have multiple kinds of `Table Engine` for different workloads and the most appropriate one should be chosen as the storage engine according to the workload pattern.
 
 Now the requirements for a `Table Engine` are:
 
@@ -111,15 +111,15 @@ Now the requirements for a `Table Engine` are:
 - Take responsibilities for creating, opening, dropping and closing `Table` instance;
 - ....
 
-Actually the things that a `Table Engine` needs to process are a little complicated. And now in CeresDB only one `Table Engine` called `Analytic` is provided and does a good job in processing analytical workload, but it is not ready yet to handle the timeseries workload (we plan to enhance it for a better performance by adding some indexes which help handle timeseries workload).
+Actually the things that a `Table Engine` needs to process are a little complicated. And now in HoraeDB only one `Table Engine` called `Analytic` is provided and does a good job in processing analytical workload, but it is not ready yet to handle the timeseries workload (we plan to enhance it for a better performance by adding some indexes which help handle timeseries workload).
 
 The following part gives a description about details of `Analytic Table Engine`.
 
 #### WAL
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/wal
+module path: https://github.com/CeresDB/horaedb/tree/main/wal
 
-The model of CeresDB processing data is `WAL` + `MemTable` that the recent written data is written to `WAL` first and then to `MemTable` and after a certain amount of data in `MemTable` is accumulated, the data will be organized in a query-friendly form to persistent devices.
+The model of HoraeDB processing data is `WAL` + `MemTable` that the recent written data is written to `WAL` first and then to `MemTable` and after a certain amount of data in `MemTable` is accumulated, the data will be organized in a query-friendly form to persistent devices.
 
 Now three implementations of `WAL` are provided for standalone and distributed mode:
 
@@ -129,15 +129,15 @@ Now three implementations of `WAL` are provided for standalone and distributed m
 
 #### MemTable
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/analytic_engine/src/memtable
+module path: https://github.com/CeresDB/horaedb/tree/main/analytic_engine/src/memtable
 
-For `WAL` can't provide efficient data retrieval, the newly written data is also stored in `Memtable` for efficient data retrieval, after a certain amount of data is reached, CeresDB organizes the data in `MemTable` into a query-friendly storage format (`SST`) and stores it to the persistent device.
+For `WAL` can't provide efficient data retrieval, the newly written data is also stored in `Memtable` for efficient data retrieval, after a certain amount of data is reached, HoraeDB organizes the data in `MemTable` into a query-friendly storage format (`SST`) and stores it to the persistent device.
 
-The current implementation of `MemTable` is based on [agatedb's skiplist](https://github.com/tikv/agatedb/blob/8510bff2bfde5b766c3f83cf81c00141967d48a4/skiplist). It allows concurrent reads and writes and can control memory usage based on [Arena](https://github.com/CeresDB/ceresdb/tree/main/components/skiplist).
+The current implementation of `MemTable` is based on [agatedb's skiplist](https://github.com/tikv/agatedb/blob/8510bff2bfde5b766c3f83cf81c00141967d48a4/skiplist). It allows concurrent reads and writes and can control memory usage based on [Arena](https://github.com/CeresDB/horaedb/tree/main/components/skiplist).
 
 #### Flush
 
-module path: https://github.com/CeresDB/ceresdb/blob/main/analytic_engine/src/instance/flush_compaction.rs
+module path: https://github.com/CeresDB/horaedb/blob/main/analytic_engine/src/instance/flush_compaction.rs
 
 What `Flush` does is that when the memory usage of `MemTable` reaches the threshold, some `MemTables` are selected for flushing into query-friendly `SST`s saved on persistent device.
 
@@ -145,13 +145,13 @@ During the flushing procedure, the data will be divided by a certain time range 
 
 #### Compaction
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/analytic_engine/src/compaction
+module path: https://github.com/CeresDB/horaedb/tree/main/analytic_engine/src/compaction
 
 The data of `MemTable` is flushed as `SST`s, but the file size of recently flushed `SST` may be very small. And too small or too many `SST`s lead to the poor query performance. Therefore, `Compaction` is then introduced to rearrange the `SST`s so that the multiple smaller `SST` files can be compacted into a larger `SST` file.
 
 #### Manifest
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/analytic_engine/src/meta
+module path: https://github.com/CeresDB/horaedb/tree/main/analytic_engine/src/meta
 
 `Manifest` takes responsibilities for managing tables' metadata of `Analytic Engine` including:
 
@@ -163,18 +163,18 @@ Now the `Manifest` is based on `WAL` and `Object Storage`. The newly written upd
 
 #### Object Storage
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/components/object_store
+module path: https://github.com/CeresDB/horaedb/tree/main/components/object_store
 
 The `SST` generated by `Flush` needs to be persisted and the abstraction of the persistent storage device is `ObjectStore` including multiple implementations:
 
 - Based on local file system;
 - Based on [Alibaba Cloud OSS](https://www.alibabacloud.com/product/object-storage-service).
 
-The distributed architecture of CeresDB separates storage and computing, which requires `Object Store` needs to be a highly available and reliable service independent of CeresDB. Therefore, storage systems like [Amazon S3](https://aws.amazon.com/s3/), [Alibaba Cloud OSS](https://www.alibabacloud.com/product/object-storage-service) is a good choice and in the future implementations on storage systems of some other cloud service providers is planned to provide.
+The distributed architecture of HoraeDB separates storage and computing, which requires `Object Store` needs to be a highly available and reliable service independent of HoraeDB. Therefore, storage systems like [Amazon S3](https://aws.amazon.com/s3/), [Alibaba Cloud OSS](https://www.alibabacloud.com/product/object-storage-service) is a good choice and in the future implementations on storage systems of some other cloud service providers is planned to provide.
 
 #### SST
 
-module path: https://github.com/CeresDB/ceresdb/tree/main/analytic_engine/src/sst
+module path: https://github.com/CeresDB/horaedb/tree/main/analytic_engine/src/sst
 
 `SST` is actually an abstraction that can have multiple specific implementations. The current implementation is based on [Parquet](https://parquet.apache.org/), which is a column-oriented data file format designed for efficient data storage and retrieval.
 
@@ -182,7 +182,7 @@ The format of `SST` is very critical for retrieving data and is also the most im
 
 #### Space
 
-module path: https://github.com/CeresDB/ceresdb/blob/main/analytic_engine/src/space.rs
+module path: https://github.com/CeresDB/horaedb/blob/main/analytic_engine/src/space.rs
 
 In `Analytic Engine`, there is a concept called `space` and here is an explanation for it to resolve some ambiguities when read source code. Actually `Analytic Engine` does not have the concept of `catalog` and `schema` and only provides two levels of relationship: `space` and `table`. And in the implementation, the `schema id` (which should be unique across all `catalog`s) on the upper layer is actually mapped to `space id`.
 
@@ -190,7 +190,7 @@ The `space` in `Analytic Engine` serves mainly for isolation of resources for di
 
 ## Critical Path
 
-After a brief introduction to some important modules of CeresDB, we will give a description for some critical paths in code, hoping to provide interested developers with a guide for reading the code.
+After a brief introduction to some important modules of HoraeDB, we will give a description for some critical paths in code, hoping to provide interested developers with a guide for reading the code.
 
 ### Query
 
@@ -250,7 +250,7 @@ Here are the details:
 - `SelectInterpreter` gets the results and feeds them to the protocol module;
 - After the protocol layer converts the results, the server module responds to the client with them.
 
-The following is the flow of function calls in version [v1.2.2](https://github.com/CeresDB/ceresdb/releases/tag/v1.2.2):
+The following is the flow of function calls in version [v1.2.2](https://github.com/CeresDB/horaedb/releases/tag/v1.2.2):
 
 ```
                                                        ┌───────────────────────◀─────────────┐    ┌───────────────────────┐

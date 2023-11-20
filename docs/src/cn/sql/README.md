@@ -1,6 +1,6 @@
 # SQL 语法
 
-本章介绍 CeresDB 的 SQL 使用语法。
+本章介绍 HoraeDB 的 SQL 使用语法。
 
 - [数据模型](model/README.md)
   - [数据类型](model/data_types.md)

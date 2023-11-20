@@ -1,4 +1,4 @@
-In order to compile CeresDB, some relevant dependencies(including the `Rust` toolchain) should be installed.
+In order to compile HoraeDB, some relevant dependencies(including the `Rust` toolchain) should be installed.
 
 # Dependencies(Ubuntu20.04)
 
@@ -34,7 +34,7 @@ brew install protobuf
 
 # Rust
 
-`Rust` can be installed by [rustup](https://rustup.rs/). After installing rustup, when entering the CeresDB project, the specified `Rust` version will be automatically downloaded according to the rust-toolchain file.
+`Rust` can be installed by [rustup](https://rustup.rs/). After installing rustup, when entering the HoraeDB project, the specified `Rust` version will be automatically downloaded according to the rust-toolchain file.
 
 After execution, you need to add environment variables to use the `Rust` toolchain. Basically, just put the following commands into your `~/.bashrc` or `~/.bash_profile`:
 
@@ -44,13 +44,13 @@ source $HOME/.cargo/env
 
 # Compile and Run
 
-Compile CeresDB by the following command:
+Compile HoraeDB by the following command:
 
 ```
 cargo build --release
 ```
 
-Then you can run CeresDB using the default configuration file provided in the codebase.
+Then you can run HoraeDB using the default configuration file provided in the codebase.
 
 ```bash
 ./target/release/ceresdb-server --config ./docs/minimal.toml

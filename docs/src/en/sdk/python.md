@@ -2,11 +2,11 @@
 
 ## Introduction
 
-[ceresdb-client](https://pypi.org/project/ceresdb-client/) is the python client for [CeresDB](https://github.com/CeresDB/ceresdb).
+[horaedb-client](https://pypi.org/project/ceresdb-client/) is the python client for [HoraeDB](https://github.com/CeresDB/horaedb).
 
-Thanks to [PyO3](https://github.com/PyO3), the python client is actually a wrapper on the [rust client](https://github.com/CeresDB/ceresdb-client-rs).
+Thanks to [PyO3](https://github.com/PyO3), the python client is actually a wrapper on the [rust client](https://github.com/CeresDB/horaedb-client-rs).
 
-The guide will give a basic introduction to the python client by [example](https://github.com/CeresDB/ceresdb-client-py/blob/main/examples/read_write.py).
+The guide will give a basic introduction to the python client by [example](https://github.com/CeresDB/horaedb-client-py/blob/main/examples/read_write.py).
 
 ## Requirements
 
@@ -18,9 +18,9 @@ The guide will give a basic introduction to the python client by [example](https
 pip install ceresdb-client
 ```
 
-You can get latest version [here](https://github.com/CeresDB/ceresdb-client-py/tags).
+You can get latest version [here](https://github.com/CeresDB/horaedb-client-py/tags).
 
-## Init CeresDB Client
+## Init HoraeDB Client
 
 The client initialization comes first, here is a code snippet:
 
@@ -51,11 +51,11 @@ The initialization requires at least two parameters:
 
 The `default_database` can be set and will be used if following rpc calling without setting the database in the `RpcContext`.
 
-By configuring the `RpcConfig`, resource and performance of the client can be manipulated, and all of the configurations can be referred at [here](https://github.com/CeresDB/ceresdb-client-py/blob/main/ceresdb_client.pyi).
+By configuring the `RpcConfig`, resource and performance of the client can be manipulated, and all of the configurations can be referred at [here](https://github.com/CeresDB/horaedb-client-py/blob/main/ceresdb_client.pyi).
 
 ## Create Table
 
-For ease of use, when using gRPC's write interface for writing, if a table does not exist, CeresDB will automatically create a table based on the first write.
+For ease of use, when using gRPC's write interface for writing, if a table does not exist, HoraeDB will automatically create a table based on the first write.
 
 Of course, you can also use `create table` statement to manage the table more finely (such as adding indexes).
 

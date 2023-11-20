@@ -1,6 +1,6 @@
 # Special Columns
 
-Tables in CeresDB have the following constraints:
+Tables in HoraeDB have the following constraints:
 
 - Primary key is required
 - The primary key must contain a time column, and can only contain one time column
@@ -8,7 +8,7 @@ Tables in CeresDB have the following constraints:
 
 ## Timestamp Column
 
-Tables in CeresDB must have one timestamp column maps to timestamp in timeseries data, such as timestamp in OpenTSDB/Prometheus.
+Tables in HoraeDB must have one timestamp column maps to timestamp in timeseries data, such as timestamp in OpenTSDB/Prometheus.
 The timestamp column can be set with `timestamp key` keyword, like `TIMESTAMP KEY(ts)`.
 
 ## Tag Column
@@ -21,8 +21,8 @@ The primary key is used for data deduplication and sorting. The primary key is c
 The primary key can be set in the following some ways：
 
 - use `primary key` keyword
-- use `tag` to auto generate TSID, CeresDB will use `(TSID,timestamp)` as primary key
-- only set Timestamp column, CeresDB will use `(timestamp)` as primary key
+- use `tag` to auto generate TSID, HoraeDB will use `(TSID,timestamp)` as primary key
+- only set Timestamp column, HoraeDB will use `(timestamp)` as primary key
 
 Notice: If the primary key and tag are specified at the same time, then the tag column is just an additional information identification and will not affect the logic.
 

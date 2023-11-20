@@ -2,13 +2,13 @@
 
 # NoMeta 模式
 
-本章介绍如何部署一个静态（无 CeresMeta）的 CeresDB 集群。
+本章介绍如何部署一个静态（无 HoraeMeta）的 HoraeDB 集群。
 
-在没有 CeresMeta 的情况下，利用 CeresDB 服务端针对表名提供了可配置的路由功能即可实现集群化部署，为此我们需要提供一个包含路由规则的正确配置。根据这个配置，请求会被发送到集群中的每个 CeresDB 实例。
+在没有 HoraeMeta 的情况下，利用 HoraeDB 服务端针对表名提供了可配置的路由功能即可实现集群化部署，为此我们需要提供一个包含路由规则的正确配置。根据这个配置，请求会被发送到集群中的每个 HoraeDB 实例。
 
 ## 目标
 
-本文的目标是：在同一台机器上部署一个集群，这个集群包含两个 CeresDB 实例。
+本文的目标是：在同一台机器上部署一个集群，这个集群包含两个 HoraeDB 实例。
 
 如果想要部署一个更大规模的集群，参考此方案也可以进行部署。
 
@@ -16,7 +16,7 @@
 
 ### 基础配置
 
-CeresDB 的基础配置如下：
+HoraeDB 的基础配置如下：
 
 ```toml
 [server]
@@ -28,20 +28,20 @@ grpc_port = 8831
 level = "info"
 
 [tracing]
-dir = "/tmp/ceresdb"
+dir = "/tmp/horaedb"
 
 [analytic.storage.object_store]
 type = "Local"
-data_dir = "/tmp/ceresdb"
+data_dir = "/tmp/horaedb"
 
 [analytic.wal]
 type = "RocksDB"
-data_dir = "/tmp/ceresdb"
+data_dir = "/tmp/horaedb"
 ```
 
 为了在同一个机器上部署两个实例，我们需要为每个实例配置不同的服务端口和数据目录。
 
-实例 `CeresDB_0` 的配置如下：
+实例 `HoraeDB_0` 的配置如下：
 
 ```toml
 [server]
@@ -53,18 +53,18 @@ grpc_port = 8831
 level = "info"
 
 [tracing]
-dir = "/tmp/ceresdb_0"
+dir = "/tmp/horaedb_0"
 
 [analytic.storage.object_store]
 type = "Local"
-data_dir = "/tmp/ceresdb_0"
+data_dir = "/tmp/horaedb_0"
 
 [analytic.wal]
 type = "RocksDB"
-data_dir = "/tmp/ceresdb_0"
+data_dir = "/tmp/horaedb_0"
 ```
 
-实例 `CeresDB_1` 的配置如下：
+实例 `HoraeDB_1` 的配置如下：
 
 ```toml
 [server]
@@ -76,15 +76,15 @@ grpc_port = 18831
 level = "info"
 
 [tracing]
-dir = "/tmp/ceresdb_1"
+dir = "/tmp/horaedb_1"
 
 [analytic.storage.object_store]
 type = "Local"
-data_dir = "/tmp/ceresdb_1"
+data_dir = "/tmp/horaedb_1"
 
 [analytic.wal]
 type = "RocksDB"
-data_dir = "/tmp/ceresdb_1"
+data_dir = "/tmp/horaedb_1"
 ```
 
 ### Schema 和 Shard
@@ -126,8 +126,8 @@ port = 18831
 
 上述的配置中，定义了两个 `Schema`：
 
-- `public_0` 有两个分片在 `CeresDB_0` 实例上。
-- `public_1` 有两个分片同时在 `CeresDB_0` 和 `CeresDB_1` 实例上。
+- `public_0` 有两个分片在 `HoraeDB_0` 实例上。
+- `public_1` 有两个分片同时在 `HoraeDB_0` 和 `HoraeDB_1` 实例上。
 
 ### 路由规则
 
@@ -140,7 +140,7 @@ prefix = 'prod_'
 shard = 0
 ```
 
-在这个规则里，`public_0` 中表名以 `prod_` 为前缀的所有表属于，相关操作会被路由到 `shard_0` 也就是 `CeresDB_0` 实例。 `public_0` 中其他的表会以 hash 的方式路由到 `shard_0` 和 `shard_1`.
+在这个规则里，`public_0` 中表名以 `prod_` 为前缀的所有表属于，相关操作会被路由到 `shard_0` 也就是 `HoraeDB_0` 实例。 `public_0` 中其他的表会以 hash 的方式路由到 `shard_0` 和 `shard_1`.
 
 在前缀规则之外，我们也可以定义一个 hash 规则：
 
@@ -150,10 +150,10 @@ schema = 'public_1'
 shards = [0, 1]
 ```
 
-这个规则告诉 CeresDB, `public_1` 的所有表会被路由到 `public_1` 的 `shard_0` and `shard_1`, 也就是 `CeresDB0` 和 `CeresDB_1`.
+这个规则告诉 HoraeDB, `public_1` 的所有表会被路由到 `public_1` 的 `shard_0` and `shard_1`, 也就是 `HoraeDB0` 和 `HoraeDB_1`.
 实际上如果没有定义 `public_1` 的路由规则，这是默认的路由行为。
 
-`CeresDB_0` 和 `CeresDB_1` 实例完整的配置文件如下：
+`HoraeDB_0` 和 `HoraeDB_1` 实例完整的配置文件如下：
 
 ```toml
 [server]
@@ -165,15 +165,15 @@ grpc_port = 8831
 level = "info"
 
 [tracing]
-dir = "/tmp/ceresdb_0"
+dir = "/tmp/horaedb_0"
 
 [analytic.storage.object_store]
 type = "Local"
-data_dir = "/tmp/ceresdb_0"
+data_dir = "/tmp/horaedb_0"
 
 [analytic.wal]
 type = "RocksDB"
-data_dir = "/tmp/ceresdb_0"
+data_dir = "/tmp/horaedb_0"
 
 [cluster_deployment]
 mode = "NoMeta"
@@ -215,15 +215,15 @@ grpc_port = 18831
 level = "info"
 
 [tracing]
-dir = "/tmp/ceresdb_1"
+dir = "/tmp/horaedb_1"
 
 [analytic.storage.object_store]
 type = "Local"
-data_dir = "/tmp/ceresdb_1"
+data_dir = "/tmp/horaedb_1"
 
 [analytic.wal]
 type = "RocksDB"
-data_dir = "/tmp/ceresdb_1"
+data_dir = "/tmp/horaedb_1"
 
 [cluster_deployment]
 mode = "NoMeta"
@@ -258,15 +258,15 @@ port = 18831
 我们给这两份不同的配置文件分别命名为 `config_0.toml` 和 `config_1.toml`；
 但是在实际环境中不同的实例可以部署在不同的服务器上，也就是说，不同的实例没有必要设置不同的服务端口和数据目录，这种情况下实例的配置可以使用同一份配置文件。
 
-## 启动 CeresDB
+## 启动 HoraeDB
 
-配置准备好后，我们就可以开始启动 CeresDB 容器了。
+配置准备好后，我们就可以开始启动 HoraeDB 容器了。
 
 启动命令如下：
 
 ```shell
-sudo docker run -d -t --name ceresdb_0 -p 5440:5440 -p 8831:8831 -v $(pwd)/config_0.toml:/etc/ceresdb/ceresdb.toml ceresdb/ceresdb-server
-sudo docker run -d -t --name ceresdb_1 -p 15440:15440 -p 18831:18831 -v $(pwd)/config_1.toml:/etc/ceresdb/ceresdb.toml ceresdb/ceresdb-server
+sudo docker run -d -t --name horaedb_0 -p 5440:5440 -p 8831:8831 -v $(pwd)/config_0.toml:/etc/ceresdb/ceresdb.toml ceresdb/ceresdb-server
+sudo docker run -d -t --name horaedb_1 -p 15440:15440 -p 18831:18831 -v $(pwd)/config_1.toml:/etc/ceresdb/ceresdb.toml ceresdb/ceresdb-server
 ```
 
-容器启动成功后，两个实例的 CeresDB 集群就搭建完成了，可以开始提供读写服务。
+容器启动成功后，两个实例的 HoraeDB 集群就搭建完成了，可以开始提供读写服务。

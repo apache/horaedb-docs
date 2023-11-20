@@ -1,4 +1,4 @@
-As an open source cloud-native, CeresDB can be deployed in the Intel/ARM-based architecture server, and major virtualization environments.
+As an open source cloud-native, HoraeDB can be deployed in the Intel/ARM-based architecture server, and major virtualization environments.
 
 |                         OS                         | status |
 | :------------------------------------------------: | :----: |

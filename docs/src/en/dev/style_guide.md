@@ -13,7 +13,7 @@ and understand for both existing and new contributors.
 
 One of the main reasons to use Rust as an implementation language is its strong memory safety
 guarantees; Almost all of these guarantees are voided by the use of `unsafe`. Thus, unless there is
-an excellent reason and the use is discussed beforehand, it is unlikely CeresDB will accept patches
+an excellent reason and the use is discussed beforehand, it is unlikely HoraeDB will accept patches
 with `unsafe` code.
 
 We may consider taking unsafe code given:
@@ -24,7 +24,7 @@ We may consider taking unsafe code given:
 
 ### Avoid platform-specific conditional compilation `cfg`
 
-We hope that CeresDB is usable across many different platforms and Operating systems, which means we
+We hope that HoraeDB is usable across many different platforms and Operating systems, which means we
 put a high value on standard Rust.
 
 While some performance critical code may require architecture specific instructions, (e.g.

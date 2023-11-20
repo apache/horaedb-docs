@@ -6,7 +6,7 @@
 cargo add ceresdb-client
 ```
 
-你可以在这里找到最新的版本 [here](https://github.com/CeresDB/ceresdb-client-rs/tags).
+你可以在这里找到最新的版本 [here](https://github.com/CeresDB/horaedb-client-rs/tags).
 
 ## 初始化客户端
 
@@ -14,13 +14,13 @@ cargo add ceresdb-client
 
 - 创建客户端的 builder，你必须设置 `endpoint` 和 `mode`：
   - `endpoint` 是类似 "ip/domain_name:port" 形式的字符串。
-  - `mode` 用于指定访问 CeresDB 服务器的方式，[关于 mode 的详细信息](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/db_client/builder.rs#L20)。
+  - `mode` 用于指定访问 HoraeDB 服务器的方式，[关于 mode 的详细信息](https://github.com/CeresDB/horaedb-client-rs/blob/main/src/db_client/builder.rs#L20)。
 
 ```rust
 let mut builder = Builder::new("ip/domain_name:port", Mode::Direct/Mode::Proxy);
 ```
 
-- 创建和设置 `rpc_config`，可以按需进行定义或者直接使用默认值，更多详细参数请参考[这里](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/options.rs)：
+- 创建和设置 `rpc_config`，可以按需进行定义或者直接使用默认值，更多详细参数请参考[这里](https://github.com/CeresDB/horaedb-client-rs/blob/main/src/options.rs)：
 
 ```rust
 let rpc_config = RpcConfig {
@@ -45,7 +45,7 @@ let builder = builder.rpc_config(rpc_config);
 
 ## 管理表
 
-为了方便使用，在使用 gRPC 的 write 接口进行写入时，如果某个表不存在，CeresDB 会根据第一次的写入自动创建一个表。
+为了方便使用，在使用 gRPC 的 write 接口进行写入时，如果某个表不存在，HoraeDB 会根据第一次的写入自动创建一个表。
 
 当然你也可以通过 `create table` 语句来更精细化的管理的表（比如添加索引等）。
 
@@ -92,7 +92,7 @@ let resp = client
 
 我们支持使用类似 [InfluxDB](https://awesome.influxdata.com/docs/part-2/influxdb-data-model) 的时序数据模型进行写入。
 
-- 利用 `PointBuilder` 创建 `point`，`tag value` 和 `field value` 的相关数据结构为 `Value`，[`Value` 的详细信息](detail about Value](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/model/value.rs：
+- 利用 `PointBuilder` 创建 `point`，`tag value` 和 `field value` 的相关数据结构为 `Value`，[`Value` 的详细信息](detail about Value](https://github.com/CeresDB/horaedb-client-rs/blob/main/src/model/value.rs：
 
 ```rust
 let test_table = "ceresdb";
@@ -125,7 +125,7 @@ let mut write_req = WriteRequest::default();
 write_req.add_point(point);
 ```
 
-- 创建 `rpc_ctx`，同样地可以按需设置或者使用默认值，`rpc_ctx` 的详细信息请参考[这里](https://github.com/CeresDB/ceresdb-client-rs/blob/main/src/rpc_client/mod.rs#L23)：
+- 创建 `rpc_ctx`，同样地可以按需设置或者使用默认值，`rpc_ctx` 的详细信息请参考[这里](https://github.com/CeresDB/horaedb-client-rs/blob/main/src/rpc_client/mod.rs#L23)：
 
 ```rust
 let rpc_ctx = RpcContext {
@@ -165,4 +165,4 @@ let resp = client.sql_query(rpc_ctx, &req).await.expect("Should success to write
 
 ## 示例
 
-你可以在本项目的仓库中找到[完整的例子](https://github.com/CeresDB/ceresdb-client-rs/blob/main/examples/read_write.rs)。
+你可以在本项目的仓库中找到[完整的例子](https://github.com/CeresDB/horaedb-client-rs/blob/main/examples/read_write.rs)。

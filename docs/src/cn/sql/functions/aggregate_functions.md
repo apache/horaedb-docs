@@ -1,6 +1,6 @@
 # 聚合函数
 
-CeresDB SQL 基于 [DataFusion](https://github.com/CeresDB/arrow-datafusion) 实现，支持的聚合函数如下。更多详情请参考： [Datafusion](https://github.com/CeresDB/arrow-datafusion/blob/master/docs/source/user-guide/sql/aggregate_functions.md)
+HoraeDB SQL 基于 [DataFusion](https://github.com/CeresDB/arrow-datafusion) 实现，支持的聚合函数如下。更多详情请参考： [Datafusion](https://github.com/CeresDB/arrow-datafusion/blob/master/docs/source/user-guide/sql/aggregate_functions.md)
 
 ## 常用
 

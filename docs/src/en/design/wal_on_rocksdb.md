@@ -6,7 +6,7 @@ In this section we present a standalone WAL implementation (based on RocksDB). W
 
 ```text
             ┌───────────────────────────────┐
-            │         CeresDB               │
+            │         HoraeDB               │
             │                               │
             │ ┌─────────────────────┐       │
             │ │         WAL         │       │

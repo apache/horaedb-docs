@@ -1,6 +1,6 @@
 # Utility Statements
 
-There are serval utilities SQL in CeresDB that can help in table manipulation or query inspection.
+There are serval utilities SQL in HoraeDB that can help in table manipulation or query inspection.
 
 ## SHOW CREATE TABLE
 

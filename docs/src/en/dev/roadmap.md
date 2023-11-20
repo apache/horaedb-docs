@@ -15,12 +15,12 @@
 ### v0.3.0
 
 - [x] Release multi-language clients, including Java, Rust and Python.
-- [x] Static cluster mode with `CeresMeta`.
+- [x] Static cluster mode with `HoraeMeta`.
 - [x] Basic implementation of hybrid storage format.
 
 ### v0.4.0
 
-- [x] Implement more sophisticated cluster solution that enhances reliability and scalability of CeresDB.
+- [x] Implement more sophisticated cluster solution that enhances reliability and scalability of HoraeDB.
 - [x] Set up nightly benchmark with TSBS.
 
 ### v1.0.0-alpha (Released)
@@ -32,7 +32,7 @@
 
 ### v1.0.0
 
-- [x] Formally release CeresDB and its SDKs with all breaking changes finished.
+- [x] Formally release HoraeDB and its SDKs with all breaking changes finished.
 - [x] Finish the majority of work related to `Table Partitioning`.
 - [x] Various efforts to improve query performance, especially for cloud-native cluster mode. These works include:
   - Multi-tier cache.
@@ -48,5 +48,5 @@ With an in-depth understanding of the time-series database and its various use c
 - [ ] Provide basic utilities for operation and maintenance. Specifically, the following are included:
   - Deployment tools that fit well for cloud infrastructures like `Kubernetes`.
   - Enhance self-observability, especially critical logs and metrics should be supplemented.
-- [ ] Develop various tools that ease the use of CeresDB. For example, data import and export tools.
+- [ ] Develop various tools that ease the use of HoraeDB. For example, data import and export tools.
 - [ ] Explore new storage formats that will improve performance on hybrid workloads (analytical and time-series workloads).

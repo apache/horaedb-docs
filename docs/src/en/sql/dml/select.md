@@ -14,7 +14,7 @@ SELECT select_expr [, select_expr] ...
     [LIMIT [offset,] row_count ]
 ```
 
-`Select` syntax in CeresDB is similar to mysql, here is an example:
+`Select` syntax in HoraeDB is similar to mysql, here is an example:
 
 ```sql
 SELECT * FROM `demo` WHERE time_stamp > '2022-10-11 00:00:00' AND time_stamp < '2022-10-12 00:00:00' LIMIT 10
