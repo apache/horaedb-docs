@@ -60,7 +60,7 @@ For string tag column, we recommend to define it as dictionary to reduce memory 
 
 ## Engine
 
-Specifies which engine this table belongs to. CeresDB current support `Analytic` engine type. This attribute is immutable.
+Specifies which engine this table belongs to. HoraeDB current support `Analytic` engine type. This attribute is immutable.
 
 ## Partition Options
 

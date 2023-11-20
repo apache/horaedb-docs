@@ -1,6 +1,6 @@
 # 集群运维
 
-集群运维接口的使用前提是，HoraeDB 部署为使用 CeresMeta 的集群模式。
+集群运维接口的使用前提是，HoraeDB 部署为使用 HoraeMeta 的集群模式。
 
 ## 运维接口
 
@@ -100,7 +100,7 @@ curl --location --request POST 'http://127.0.0.1:8080/api/v1/split' \
 }'
 ```
 
-- 创建 CeresDB 集群
+- 创建 HoraeDB 集群
 
 ```
 curl --location 'http://127.0.0.1:8080/api/v1/clusters' \

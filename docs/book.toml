@@ -1,9 +1,9 @@
 [book]
-authors = ["CeresDB Authors"]
+authors = ["HoraeDB Authors"]
 language = "en"
 multilingual = true
 src = "src/en"
-title = "CeresDB Documentation"
+title = "HoraeDB Documentation"
 
 [build]
 use-default-preprocessors = false
@@ -13,15 +13,15 @@ use-default-preprocessors = false
 [[output.i18n.translations]]
 src = "src/cn"
 language = "cn"
-translators = ["CeresDB Authors"]
-title = "CeresDB 文档"
+translators = ["HoraeDB Authors"]
+title = "HoraeDB 文档"
 
 [output.random]
 command = "/bin/bash ../../move.sh"
 
 [output.html]
 cname = "docs.ceresdb.io"
-git-repository-url = "https://github.com/CeresDB/ceresdb"
+git-repository-url = "https://github.com/CeresDB/horaedb"
 edit-url-template = "https://github.com/CeresDB/docs/edit/main/docs/{path}"
 additional-css = ["style.css"]
 additional-js = ["sidebar.js"]

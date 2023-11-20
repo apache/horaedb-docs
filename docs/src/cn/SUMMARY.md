@@ -2,7 +2,7 @@
 
 # 简介
 
-- [什么是 CeresDB](about.md)
+- [什么是 HoraeDB](about.md)
 - [快速开始](quick_start.md)
 
 # 用户手册

@@ -4,7 +4,7 @@
 
 # Write
 
-CeresDB follows the [OpenTSDB put](http://opentsdb.net/docs/build/html/api_http/put.html) write protocol.
+HoraeDB follows the [OpenTSDB put](http://opentsdb.net/docs/build/html/api_http/put.html) write protocol.
 
 `summary` and `detailed` are not yet supported.
 
@@ -31,9 +31,9 @@ curl --location 'http://localhost:5440/opentsdb/api/put' \
 '
 ```
 
-Metric will be mapped to table in CeresDB, and it will be created automatically in first write(Note: The default TTL is 7d, and points written exceed TTL will be discarded directly).
+Metric will be mapped to table in HoraeDB, and it will be created automatically in first write(Note: The default TTL is 7d, and points written exceed TTL will be discarded directly).
 
-For example, when inserting data above, table below will be automatically created in CeresDB:
+For example, when inserting data above, table below will be automatically created in HoraeDB:
 
 ```
 CREATE TABLE `sys.cpu.nice`(
@@ -53,4 +53,4 @@ CREATE TABLE `sys.cpu.nice`(
 
 # Query
 
-OpenTSDB query protocol is not currently supported, [tracking issue](https://github.com/CeresDB/ceresdb/issues/904).
+OpenTSDB query protocol is not currently supported, [tracking issue](https://github.com/CeresDB/horaedb/issues/904).

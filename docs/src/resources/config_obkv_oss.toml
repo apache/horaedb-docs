@@ -1,11 +1,11 @@
 # Note that the config needs parameters replacement before use, including:
-# - CeresMeta addr;
+# - HoraeMeta addr;
 # - Parameters of Aliyun OSS;
 # - Paramsters of the OBKV cluster;
 #
 # And one thing deserves explanation that this config is used for running horaedb docker container:
 # ```
-# docker run -d --name ceresdb-server \
+# docker run -d --name horaedb-server \
 # -v /etc/ceresdb/ceresdb.toml:{path_to_this_config} \
 # ceresdb/ceresdb-server
 # ```
@@ -31,12 +31,12 @@ mode = "WithMeta"
 
 [cluster_deployment.meta_client]
 cluster_name = "defaultCluster"
-meta_addr = "http://{CeresMetaAddr}:2379"
+meta_addr = "http://{HoraeMetaAddr}:2379"
 lease = "10s"
 timeout = "5s"
 
 [cluster_deployment.etcd_client]
-server_addrs = ['{CeresMetaAddr}:2379']
+server_addrs = ['{HoraeMetaAddr}:2379']
 
 [analytic]
 write_group_worker_num = 16

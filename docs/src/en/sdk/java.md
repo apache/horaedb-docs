@@ -2,7 +2,7 @@
 
 ## Introduction
 
-CeresDB Client is a high-performance Java client for CeresDB.
+HoraeDB Client is a high-performance Java client for HoraeDB.
 
 ## Requirements
 
@@ -18,9 +18,9 @@ CeresDB Client is a high-performance Java client for CeresDB.
 </dependency>
 ```
 
-You can get latest version [here](https://github.com/CeresDB/ceresdb-client-java/blob/main/docs/CHANGELOG.md).
+You can get latest version [here](https://github.com/CeresDB/horaedb-client-java/blob/main/docs/CHANGELOG.md).
 
-## Init CeresDB Client
+## Init HoraeDB Client
 
 ```java
 final CeresDBOptions opts = CeresDBOptions.newBuilder("127.0.0.1", 8831, DIRECT) // CeresDB default grpc port 8831，use DIRECT RouteMode
@@ -46,17 +46,17 @@ The initialization requires at least three parameters:
 
 Here is the explanation of `RouteMode`. There are two kinds of `RouteMode`,The `Direct` mode should be adopted to avoid forwarding overhead if all the servers are accessible to the client.
 However, the `Proxy` mode is the only choice if the access to the servers from the client must go through a gateway.
-For more configuration options, see [configuration](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/configuration.md)
+For more configuration options, see [configuration](https://github.com/CeresDB/horaedb-client-java/tree/main/docs/configuration.md)
 
-Notice: CeresDB currently only supports the default database `public` now, multiple databases will be supported in the future;
+Notice: HoraeDB currently only supports the default database `public` now, multiple databases will be supported in the future;
 
 ## Create Table Example
 
-For ease of use, when using gRPC's write interface for writing, if a table does not exist, CeresDB will automatically create a table based on the first write.
+For ease of use, when using gRPC's write interface for writing, if a table does not exist, HoraeDB will automatically create a table based on the first write.
 
 Of course, you can also use `create table` statement to manage the table more finely (such as adding indexes).
 
-The following table creation statement（using the SQL API included in SDK ）shows all field types supported by CeresDB：
+The following table creation statement（using the SQL API included in SDK ）shows all field types supported by HoraeDB：
 
 ```java
 // Create table manually, creating table schema ahead of data ingestion is not required
@@ -90,7 +90,7 @@ if (!dropResult.isOk()) {
 
 ## Write Data Example
 
-Firstly, you can use `PointBuilder` to build CeresDB points:
+Firstly, you can use `PointBuilder` to build HoraeDB points:
 
 ```java
 List<Point> pointList = new LinkedList<>();
@@ -120,7 +120,7 @@ final Result<WriteOk, Err> writeResult = wf.get();
         Assert.assertEquals(0, writeResult.mapOr(-1, WriteOk::getFailed).intValue());
 ```
 
-See [write](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/write.md)
+See [write](https://github.com/CeresDB/horaedb-client-java/tree/main/docs/write.md)
 
 ## Query Data Example
 
@@ -151,11 +151,11 @@ final Stream<Row> rowStream = queryOk.stream();
 rowStream.forEach(row -> System.out.println(row.toString()));
 ```
 
-See [read](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/read.md)
+See [read](https://github.com/CeresDB/horaedb-client-java/tree/main/docs/read.md)
 
 ## Stream Write/Read Example
 
-CeresDB support streaming writing and reading，suitable for large-scale data reading and writing。
+HoraeDB support streaming writing and reading，suitable for large-scale data reading and writing。
 
 ```java
 long start = System.currentTimeMillis();
@@ -182,4 +182,4 @@ Assert.assertTrue(streamQueryResult.isOk());
 Assert.assertEquals(1000, streamQueryResult.getOk().getRowCount());
 ```
 
-See [streaming](https://github.com/CeresDB/ceresdb-client-java/tree/main/docs/streaming.md)
+See [streaming](https://github.com/CeresDB/horaedb-client-java/tree/main/docs/streaming.md)

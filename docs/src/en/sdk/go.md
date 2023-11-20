@@ -3,14 +3,14 @@
 ## Installation
 
 ```
-go get github.com/CeresDB/ceresdb-client-go
+go get github.com/CeresDB/horaedb-client-go
 ```
 
-You can get latest version [here](https://github.com/CeresDB/ceresdb-client-go/tags).
+You can get latest version [here](https://github.com/CeresDB/horaedb-client-go/tags).
 
 ## How To Use
 
-### Init CeresDB Client
+### Init HoraeDB Client
 
 ```go
 	client, err := ceresdb.NewClient(endpoint, ceresdb.Direct,
@@ -26,13 +26,13 @@ You can get latest version [here](https://github.com/CeresDB/ceresdb-client-go/t
 
 Notice:
 
-- CeresDB currently only supports the default database `public` now, multiple databases will be supported in the future
+- HoraeDB currently only supports the default database `public` now, multiple databases will be supported in the future
 
 ### Manage Table
 
-CeresDB uses SQL to manage tables, such as creating tables, deleting tables, or adding columns, etc., which is not much different from when you use SQL to manage other databases.
+HoraeDB uses SQL to manage tables, such as creating tables, deleting tables, or adding columns, etc., which is not much different from when you use SQL to manage other databases.
 
-For ease of use, when using gRPC's write interface for writing, if a table does not exist, CeresDB will automatically create a table based on the first write.
+For ease of use, when using gRPC's write interface for writing, if a table does not exist, HoraeDB will automatically create a table based on the first write.
 
 Of course, you can also use `create table` statement to manage the table more finely (such as adding indexes).
 
@@ -108,4 +108,4 @@ Of course, you can also use `create table` statement to manage the table more fi
 
 ## Example
 
-You can find the complete example [here](https://github.com/CeresDB/ceresdb-client-go/blob/main/examples/read_write.go).
+You can find the complete example [here](https://github.com/CeresDB/horaedb-client-go/blob/main/examples/read_write.go).

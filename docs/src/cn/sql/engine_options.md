@@ -13,7 +13,7 @@
 
 ## 存储格式
 
-CeresDB 支持两种存储格式，一个是 `columnar`, 这是传统的列式格式，一个物理列中存储表的一个列。
+HoraeDB 支持两种存储格式，一个是 `columnar`, 这是传统的列式格式，一个物理列中存储表的一个列。
 
 ```plaintext
 | Timestamp | Device ID | Status Code | Tag 1 | Tag 2 |

@@ -1,6 +1,6 @@
 # 监控
 
-CeresDB 支持使用 Prometheus 和 Grafana 做自监控。
+HoraeDB 支持使用 Prometheus 和 Grafana 做自监控。
 
 ## Prometheus
 
@@ -10,7 +10,7 @@ CeresDB 支持使用 Prometheus 和 Grafana 做自监控。
 
 把下面的配置保存到 `prometheus.yml` 文件中。比如，在 `tmp` 目录下，文件地址为 `/tmp/prometheus.yml`。
 
-有两个 CeresDB http 服务启动在 `localhost:5440`、`localhost:5441`。
+有两个 HoraeDB http 服务启动在 `localhost:5440`、`localhost:5441`。
 
 ```yaml
 global:
@@ -75,7 +75,7 @@ docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
 
 <img src="../../resources/images/grafana-dashboard.png" height="400" width="200"/>
 
-## CeresDB 指标
+## HoraeDB 指标
 
 当导入完成后，你可以看到如下页面：
 
@@ -93,6 +93,6 @@ docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
 - table rows: 表的写入行数。
 - table rows by instance: 实例级别的写入行数。
 - total tables to write: 有数据写入的表数目。
-- flush count: CeresDB flush 的次数。
+- flush count: HoraeDB flush 的次数。
 - 99th flush duration details by instance: 实例级别的 flush 耗时的 99% 分位数。
 - 99th write stall duration details by instance: 实例级别的写入停顿时间的 99% 分位数 。

@@ -1,6 +1,6 @@
 # 快速开始
 
-本章介绍如何快速启动 HoraeDB。在这里你将会学到启动一个单机模式的 CeresDB，然后使用 SQL 写入一些数据并查询结果。
+本章介绍如何快速启动 HoraeDB。在这里你将会学到启动一个单机模式的 HoraeDB，然后使用 SQL 写入一些数据并查询结果。
 
 ## 启动
 
@@ -18,7 +18,7 @@ docker run -d --name horaedb-server \
   ceresdb/ceresdb-server
 ```
 
-启动后 CeresDB 会监听如下端口：
+启动后 HoraeDB 会监听如下端口：
 
 - 8831, gRPC port
 - 3307, MySQL port
@@ -31,11 +31,11 @@ docker run -d --name horaedb-server \
 参考如下命令，可以自定义 docker 中 ceresdb-server 的配置，并把数据目录 `/data` 挂载到 docker 母机的硬盘上。
 
 ```
-wget -c https://raw.githubusercontent.com/CeresDB/ceresdb/main/docs/minimal.toml -O ceresdb.toml
+wget -c https://raw.githubusercontent.com/CeresDB/horaedb/main/docs/minimal.toml -O ceresdb.toml
 
 sed -i 's/\/tmp\/ceresdb/\/data/g' ceresdb.toml
 
-docker run -d --name ceresdb-server \
+docker run -d --name horaedb-server \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \

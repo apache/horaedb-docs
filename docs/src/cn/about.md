@@ -18,7 +18,7 @@ HoraeDB 的基础设计思想是采用混合存储格式和相应的查询方法
 
 # 如何使用 HoraeDB？
 
-- 查看 [快速开始](quick_start.md) 掌握快速使用 CeresDB 的方式
+- 查看 [快速开始](quick_start.md) 掌握快速使用 HoraeDB 的方式
 - HoraeDB 支持的数据模型请查看 [Data Model](sql/model/README.md)
 - SQL 使用相关请查看 [SQL](sql/README.md)
 - HoraeDB 支持的相关 SDK 请查看 [SDK](sdk/README.md)

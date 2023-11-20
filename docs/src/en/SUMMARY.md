@@ -2,7 +2,7 @@
 
 # Introduction
 
-- [What is CeresDB](about.md)
+- [What is HoraeDB](about.md)
 - [Quick Start](quick_start.md)
 
 # User Guide
