@@ -5,7 +5,7 @@
 假设我们的开发环境是 Ubuntu20.04, 可以执行如下命令来安装所需的依赖。
 
 ```shell
-apt install git curl gcc g++ libssl-dev pkg-config cmake
+sudo apt install git curl gcc g++ libssl-dev pkg-config cmake
 ```
 
 需要注意的是，项目的编译对 cmake、gcc、g++等依赖项有版本要求。
