@@ -13,5 +13,5 @@ INSERT [INTO] tbl_name
 写入一行数据的示例如下：
 
 ```sql
-INSERT INTO demo(`timestamp`, tag1) VALUES(1667374200022, 'ceresdb')
+INSERT INTO demo(`timestamp`, tag1) VALUES(1667374200022, 'horaedb')
 ```

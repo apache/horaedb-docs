@@ -16,11 +16,11 @@ Two HoraeDB http service are started on localhost:5440 and localhost:5441.
 global:
   scrape_interval: 30s
 scrape_configs:
-  - job_name: ceresdb-server
+  - job_name: horaedb-server
     static_configs:
       - targets: [your_ip:5440, your_ip:5441]
         labels:
-          env: ceresdbcluster
+          env: horaedbcluster
 ```
 
 See details about configuration [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).
@@ -79,7 +79,7 @@ See more details [here](https://grafana.com/docs/grafana/latest/datasources/prom
 
 After importing the dashboard, you will see the following page:
 
-<img src="../../resources/images/grafana-ceresdb-dashboard.png" height="400" width="600"/>
+<img src="../../resources/images/grafana-horaedb-dashboard.png" height="400" width="600"/>
 
 ### Panels
 

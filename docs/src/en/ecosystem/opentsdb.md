@@ -53,4 +53,4 @@ CREATE TABLE `sys.cpu.nice`(
 
 # Query
 
-OpenTSDB query protocol is not currently supported, [tracking issue](https://github.com/CeresDB/horaedb/issues/904).
+OpenTSDB query protocol is not currently supported, [tracking issue](https://github.com/apache/incubator-horaedb/issues/904).

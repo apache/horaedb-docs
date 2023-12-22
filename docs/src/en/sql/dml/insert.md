@@ -13,5 +13,5 @@ INSERT [INTO] tbl_name
 `INSERT` inserts new rows into a HoraeDB table. Here is an example:
 
 ```sql
-INSERT INTO demo(`time_stammp`, tag1) VALUES(1667374200022, 'ceresdb')
+INSERT INTO demo(`time_stammp`, tag1) VALUES(1667374200022, 'horaedb')
 ```

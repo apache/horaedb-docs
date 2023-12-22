@@ -16,7 +16,7 @@ HoraeMeta 本身通过嵌入式的 [ETCD](https://github.com/etcd-io/etcd) 保�
 
 #### 启动配置
 
-目前 HoraeMeta 支持以配置文件和环境变量两种方式来指定服务启动配置。我们提供了配置文件方式启动的示例，具体可以参考 [config](https://github.com/CeresDB/horaemeta/tree/main/config)。
+目前 HoraeMeta 支持以配置文件和环境变量两种方式来指定服务启动配置。我们提供了配置文件方式启动的示例，具体可以参考 [config](https://github.com/apache/incubator-horaedb-meta/tree/main/config)。
 环境变量的配置优先级高于配置文件，当同时存在时，以环境变量为准。
 
 #### 动态拓扑和静态拓扑
@@ -36,29 +36,29 @@ HoraeMeta 基于 etcd 实现高可用，在线上环境我们一般部署多个�
 ```bash
 docker run -d --name horaemeta-server \
   -p 2379:2379 \
-  ceresdb/ceresmeta-server:latest
+  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
 ```
 
 - 多节点
 
 ```bash
-wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster0.toml
+wget https://raw.githubusercontent.com/apache/incubator-horaedb-docs/main/docs/src/resources/config-horaemeta-cluster0.toml
 
 docker run -d --network=host --name horaemeta-server0 \
-  -v $(pwd)/config-ceresmeta-cluster0.toml:/etc/ceresmeta/ceresmeta.toml \
-  ceresdb/ceresmeta-server:latest
+  -v $(pwd)/config-horaemeta-cluster0.toml:/etc/horaemeta/horaemeta.toml \
+  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
 
-wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster1.toml
+wget https://raw.githubusercontent.com/apache/incubator-horaedb-docs/main/docs/src/resources/config-horaemeta-cluster1.toml
 
 docker run -d --network=host --name horaemeta-server1 \
-  -v $(pwd)/config-ceresmeta-cluster1.toml:/etc/ceresmeta/ceresmeta.toml \
-  ceresdb/ceresmeta-server:latest
+  -v $(pwd)/config-horaemeta-cluster1.toml:/etc/horaemeta/horaemeta.toml \
+  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
 
-wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster2.toml
+wget https://raw.githubusercontent.com/apache/incubator-horaedb-docs/main/docs/src/resources/config-horaemeta-cluster2.toml
 
 docker run -d --network=host --name horaemeta-server2 \
-  -v $(pwd)/config-ceresmeta-cluster2.toml:/etc/ceresmeta/ceresmeta.toml \
-  ceresdb/ceresmeta-server:latest
+  -v $(pwd)/config-horaemeta-cluster2.toml:/etc/horaemeta/horaemeta.toml \
+  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
 ```
 
 如果 HoraeDB 底层采用的是远程存储，可以环境变量来开启动态调度：只需将 `-e ENABLE_SCHEDULE=true` 加入到 docker run 命令中去。
@@ -76,7 +76,7 @@ docker run -d --network=host --name horaemeta-server2 \
 注意：在生产环境中如果我们把 HoraeDB 部署在多个节点上时，请按照如下方式把机器的网络地址设置到环境变量中：
 
 ```shell
-export CERESDB_SERVER_ADDR="{server_addr}:8831"
+export HORAEDB_SERVER_ADDR="{server_addr}:8831"
 ```
 
 注意，此网络地址用于 HoraeMeta 和 HoraeDB 通信使用，需保证网络联通可用。
@@ -90,7 +90,7 @@ export CERESDB_SERVER_ADDR="{server_addr}:8831"
 ```toml
 [analytic.storage.object_store]
 type = "Local"
-data_dir = "/home/admin/data/ceresdb"
+data_dir = "/home/admin/data/horaedb"
 ```
 
 #### OSS
@@ -131,7 +131,7 @@ prefix = "{prefix}"
 ```toml
 [analytic.wal]
 type = "RocksDB"
-data_dir = "/home/admin/data/ceresdb"
+data_dir = "/home/admin/data/horaedb"
 ```
 
 #### OceanBase
@@ -227,7 +227,7 @@ store_timeout = "5s"
 
 [analytic.wal]
 type = "RocksDB"
-data_dir = "/home/admin/data/ceresdb"
+data_dir = "/home/admin/data/horaedb"
 
 [analytic.storage]
 mem_cache_capacity = "20GB"
@@ -236,7 +236,7 @@ mem_cache_partition_bits = 8
 
 [analytic.storage.object_store]
 type = "Local"
-data_dir = "/home/admin/data/ceresdb/"
+data_dir = "/home/admin/data/horaedb/"
 
 [analytic.table_opts]
 arena_block_size = 2097152
@@ -262,27 +262,8 @@ memory_limit = "4G"
 ```bash
 docker run -d --name horaemeta-server \
   -p 2379:2379 \
-  ceresdb/ceresmeta-server
+  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
 ```
 
 HoraeMeta 启动好了，没有问题之后，就可以把 HoraeDB 的容器创建出来：
-
-```bash
-wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster0.toml
-
-docker run -d --name horaedb-server0 \
-  -p 5440:5440 \
-  -p 8831:8831 \
-  -p 3307:3307 \
-  -v $(pwd)/config-ceresdb-cluster0.toml:/etc/ceresdb/ceresdb.toml \
-  ceresdb/ceresdb-server
-
-wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster1.toml
-
-docker run -d --name horaedb-server1 \
-  -p 5441:5441 \
-  -p 8832:8832 \
-  -p 13307:13307 \
-  -v $(pwd)/config-ceresdb-cluster1.toml:/etc/ceresdb/ceresdb.toml \
-  ceresdb/ceresdb-server
-```
+TODO: 补充完整

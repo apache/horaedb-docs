@@ -30,12 +30,12 @@ sudo yum install -y jemalloc-devel ghostscript graphviz
 // 开启 malloc prof
 export MALLOC_CONF=prof:true
 
-// 运行 ceresdb-server
-./ceresdb-server ....
+// 运行 horaedb-server
+./horaedb-server ....
 
 // 60s 内存采样数据
 curl -L '0:5000/debug/profile/heap/60' > /tmp/heap_profile
-jeprof --show_bytes --pdf /usr/bin/ceresdb-server /tmp/heap_profile > profile_heap.pdf
+jeprof --show_bytes --pdf /usr/bin/horaedb-server /tmp/heap_profile > profile_heap.pdf
 
-jeprof --show_bytes --svg /usr/bin/ceresdb-server /tmp/heap_profile > profile_heap.svg
+jeprof --show_bytes --svg /usr/bin/horaedb-server /tmp/heap_profile > profile_heap.svg
 ```

@@ -56,5 +56,5 @@ cargo build --release
 然后可以使用特定的配置文件运行 HoraeDB。
 
 ```bash
-./target/release/ceresdb-server --config ./docs/minimal.toml
+./target/release/horaedb-server --config ./docs/minimal.toml
 ```

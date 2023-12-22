@@ -18,7 +18,7 @@ HoraeDB Client is a high-performance Java client for HoraeDB.
 </dependency>
 ```
 
-You can get latest version [here](https://github.com/CeresDB/horaedb-client-java/blob/main/docs/CHANGELOG.md).
+You can get latest version [here](https://github.com/apache/incubator-horaedb-client-java/blob/main/docs/CHANGELOG.md).
 
 ## Init HoraeDB Client
 
@@ -46,7 +46,7 @@ The initialization requires at least three parameters:
 
 Here is the explanation of `RouteMode`. There are two kinds of `RouteMode`,The `Direct` mode should be adopted to avoid forwarding overhead if all the servers are accessible to the client.
 However, the `Proxy` mode is the only choice if the access to the servers from the client must go through a gateway.
-For more configuration options, see [configuration](https://github.com/CeresDB/horaedb-client-java/tree/main/docs/configuration.md)
+For more configuration options, see [configuration](https://github.com/apache/incubator-horaedb-client-java/tree/main/docs/configuration.md)
 
 Notice: HoraeDB currently only supports the default database `public` now, multiple databases will be supported in the future;
 
@@ -120,7 +120,7 @@ final Result<WriteOk, Err> writeResult = wf.get();
         Assert.assertEquals(0, writeResult.mapOr(-1, WriteOk::getFailed).intValue());
 ```
 
-See [write](https://github.com/CeresDB/horaedb-client-java/tree/main/docs/write.md)
+See [write](https://github.com/apache/incubator-horaedb-client-java/tree/main/docs/write.md)
 
 ## Query Data Example
 
@@ -151,7 +151,7 @@ final Stream<Row> rowStream = queryOk.stream();
 rowStream.forEach(row -> System.out.println(row.toString()));
 ```
 
-See [read](https://github.com/CeresDB/horaedb-client-java/tree/main/docs/read.md)
+See [read](https://github.com/apache/incubator-horaedb-client-java/tree/main/docs/read.md)
 
 ## Stream Write/Read Example
 
@@ -182,4 +182,4 @@ Assert.assertTrue(streamQueryResult.isOk());
 Assert.assertEquals(1000, streamQueryResult.getOk().getRowCount());
 ```
 
-See [streaming](https://github.com/CeresDB/horaedb-client-java/tree/main/docs/streaming.md)
+See [streaming](https://github.com/apache/incubator-horaedb-client-java/tree/main/docs/streaming.md)

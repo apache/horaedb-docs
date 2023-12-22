@@ -53,4 +53,4 @@ But you don't need to add a scope every time. This isn't mandatory. It's just a 
 
 # After all
 
-There are many other rules or scenarios in [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/)'s website. We are still exploring a better and more friendly workflow. Please do let us know by [open an issue](https://github.com/CeresDB/horaedb/issues/new/choose) if you have any suggestions ❤️
+There are many other rules or scenarios in [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/)'s website. We are still exploring a better and more friendly workflow. Please do let us know by [open an issue](https://github.com/apache/incubator-horaedb/issues/new/choose) if you have any suggestions ❤️

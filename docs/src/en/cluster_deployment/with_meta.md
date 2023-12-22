@@ -11,13 +11,13 @@ HoraeMeta is one of the core services of HoraeDB distributed mode, it is used to
 ### Build
 
 - Golang version >= 1.19.
-- run `make build` in root path of [HoraeMeta](https://github.com/CeresDB/horaemeta).
+- run `make build` in root path of [HoraeMeta](https://github.com/apache/incubator-horaedb-meta).
 
 ### Deploy
 
 #### Config
 
-At present, HoraeMeta supports specifying service startup configuration in two ways: configuration file and environment variable. We provide an example of configuration file startup. For details, please refer to [config](https://github.com/CeresDB/horaemeta/tree/main/config). The configuration priority of environment variables is higher than that of configuration files. When they exist at the same time, the environment variables shall prevail.
+At present, HoraeMeta supports specifying service startup configuration in two ways: configuration file and environment variable. We provide an example of configuration file startup. For details, please refer to [config](https://github.com/apache/incubator-horaedb-meta/tree/main/config). The configuration priority of environment variables is higher than that of configuration files. When they exist at the same time, the environment variables shall prevail.
 
 #### Dynamic or Static
 
@@ -36,29 +36,29 @@ HoraeMeta is based on etcd to achieve high availability. In product environment,
 ```bash
 docker run -d --name horaemeta-server \
   -p 2379:2379 \
-  ceresdb/ceresmeta-server:latest
+  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
 ```
 
 - Cluster
 
 ```bash
-wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster0.toml
+wget https://raw.githubusercontent.com/apache/incubator-horaedb-docs/main/docs/src/resources/config-horaemeta-cluster0.toml
 
 docker run -d --network=host --name horaemeta-server0 \
-  -v $(pwd)/config-ceresmeta-cluster0.toml:/etc/ceresmeta/ceresmeta.toml \
-  ceresdb/ceresmeta-server:latest
+  -v $(pwd)/config-horaemeta-cluster0.toml:/etc/horaemeta/horaemeta.toml \
+  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
 
-wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster1.toml
+wget https://raw.githubusercontent.com/apache/incubator-horaedb-docs/main/docs/src/resources/config-horaemeta-cluster1.toml
 
 docker run -d --network=host --name horaemeta-server1 \
-  -v $(pwd)/config-ceresmeta-cluster1.toml:/etc/ceresmeta/ceresmeta.toml \
-  ceresdb/ceresmeta-server:latest
+  -v $(pwd)/config-horaemeta-cluster1.toml:/etc/horaemeta/horaemeta.toml \
+  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
 
-wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresmeta-cluster2.toml
+wget https://raw.githubusercontent.com/apache/incubator-horaedb-docs/main/docs/src/resources/config-horaemeta-cluster2.toml
 
 docker run -d --network=host --name horaemeta-server2 \
-  -v $(pwd)/config-ceresmeta-cluster2.toml:/etc/ceresmeta/ceresmeta.toml \
-  ceresdb/ceresmeta-server:latest
+  -v $(pwd)/config-horaemeta-cluster2.toml:/etc/horaemeta/horaemeta.toml \
+  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
 ```
 
 And if the storage used by the HoraeDB is remote and you want to enable the dynamic schedule features of the HoraeDB cluster, the `-e TOPOLOGY_TYPE=dynamic` can be added to the docker run command.
@@ -75,7 +75,7 @@ The relevant storage configurations include two parts:
 Note: If you are deploying HoraeDB over multiple nodes in a production environment, please set the environment variable for the server address as follows:
 
 ```shell
-export CERESDB_SERVER_ADDR="{server_address}:8831"
+export HORAEDB_SERVER_ADDR="{server_address}:8831"
 ```
 
 This address is used for communication between HoraeMeta and HoraeDB, please ensure it is valid.
@@ -89,7 +89,7 @@ Similarly, we can configure HoraeDB to use a local disk as the underlying storag
 ```toml
 [analytic.storage.object_store]
 type = "Local"
-data_dir = "/home/admin/data/ceresdb"
+data_dir = "/home/admin/data/horaedb"
 ```
 
 #### OSS
@@ -130,7 +130,7 @@ The WAL based on RocksDB is also a kind of local storage for HoraeDB, which is e
 ```toml
 [analytic.wal]
 type = "RocksDB"
-data_dir = "/home/admin/data/ceresdb"
+data_dir = "/home/admin/data/horaedb"
 ```
 
 #### OceanBase
@@ -229,7 +229,7 @@ store_timeout = "5s"
 
 [analytic.wal]
 type = "RocksDB"
-data_dir = "/home/admin/data/ceresdb"
+data_dir = "/home/admin/data/horaedb"
 
 [analytic.storage]
 mem_cache_capacity = "20GB"
@@ -238,7 +238,7 @@ mem_cache_partition_bits = 8
 
 [analytic.storage.object_store]
 type = "Local"
-data_dir = "/home/admin/data/ceresdb/"
+data_dir = "/home/admin/data/horaedb/"
 
 [analytic.table_opts]
 arena_block_size = 2097152
@@ -264,27 +264,9 @@ Firstly, let's start the HoraeMeta:
 ```bash
 docker run -d --name horaemeta-server \
   -p 2379:2379 \
-  ceresdb/ceresmeta-server
+  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
 ```
 
 With the started HoraeMeta cluster, let's start the HoraeDB instance:
+TODO: complete it later
 
-```bash
-wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster0.toml
-
-docker run -d --name horaedb-server0 \
-  -p 5440:5440 \
-  -p 8831:8831 \
-  -p 3307:3307 \
-  -v $(pwd)/config-ceresdb-cluster0.toml:/etc/ceresdb/ceresdb.toml \
-  ceresdb/ceresdb-server
-
-wget https://raw.githubusercontent.com/CeresDB/docs/main/docs/src/resources/config-ceresdb-cluster1.toml
-
-docker run -d --name horaedb-server1 \
-  -p 5441:5441 \
-  -p 8832:8832 \
-  -p 13307:13307 \
-  -v $(pwd)/config-ceresdb-cluster1.toml:/etc/ceresdb/ceresdb.toml \
-  ceresdb/ceresdb-server
-```

@@ -22,7 +22,7 @@ curl --location --request POST 'http://127.0.0.1:5000/sql' \
 curl --location --request POST 'http://127.0.0.1:5000/sql' \
 --header 'Content-Type: application/json' \
 -d '{
-    "query": "INSERT INTO demo(t, name, value) VALUES(1651737067000, '\''ceresdb'\'', 100)"
+    "query": "INSERT INTO demo(t, name, value) VALUES(1651737067000, '\''horaedb'\'', 100)"
 }'
 ```
 
