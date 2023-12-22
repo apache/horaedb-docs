@@ -4,9 +4,7 @@ This page shows you how to get started with HoraeDB quickly. You'll start a stan
 
 ## Start server
 
-[HoraeDB docker image](https://hub.docker.com/r/ceresdb/ceresdb-server) is the easiest way to get started, if you haven't installed Docker, go [there](https://www.docker.com/products/docker-desktop/) to install it first.
-
-> Note: please choose tag version >= v1.0.0, others are mainly for testing.
+[HoraeDB docker image](https://github.com/apache/incubator-horaedb/pkgs/container/horaedb-server) is the easiest way to get started, if you haven't installed Docker, go [there](https://www.docker.com/products/docker-desktop/) to install it first.
 
 You can use command below to start a standalone server
 
@@ -15,7 +13,7 @@ docker run -d --name horaedb-server \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \
-  ceresdb/ceresdb-server
+  ghcr.io/apache/horaedb-server:nightly-20231222-f57b3827
 ```
 
 HoraeDB will listen three ports when start:
@@ -28,20 +26,20 @@ The easiest to use is HTTP, so sections below will use it for demo. For producti
 
 ### Customize docker configuration
 
-Refer the command as below, you can customize the configuration of ceresdb-server in docker, and mount the data directory `/data` to the hard disk of the docker host machine.
+Refer the command as below, you can customize the configuration of horaedb-server in docker, and mount the data directory `/data` to the hard disk of the docker host machine.
 
 ```
-wget -c https://raw.githubusercontent.com/CeresDB/horaedb/main/docs/minimal.toml -O ceresdb.toml
+wget -c https://raw.githubusercontent.com/apache/incubator-horaedb/main/docs/minimal.toml -O horaedb.toml
 
-sed -i 's/\/tmp\/ceresdb/\/data/g' ceresdb.toml
+sed -i 's/\/tmp\/horaedb/\/data/g' horaedb.toml
 
 docker run -d --name horaedb-server \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \
-  -v ./ceresdb.toml:/etc/ceresdb/ceresdb.toml \
+  -v ./horaedb.toml:/etc/horaedb/horaedb.toml \
   -v ./data:/data \
-  ceresdb/ceresdb-server
+  ghcr.io/apache/horaedb-server:nightly-20231222-f57b3827
 ```
 
 ## Write and read data
@@ -68,7 +66,7 @@ ENGINE=Analytic
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 -d '
 INSERT INTO demo (t, name, value)
-    VALUES (1651737067000, "ceresdb", 100)
+    VALUES (1702224000000, "horaedb", 100)
 '
 ```
 
