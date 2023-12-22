@@ -5,7 +5,7 @@ In order to compile HoraeDB, some relevant dependencies(including the `Rust` too
 Assuming the development environment is Ubuntu20.04, execute the following command to install the required dependencies:
 
 ```shell
-apt install git curl gcc g++ libssl-dev pkg-config cmake
+sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler
 ```
 
 It should be noted that the compilation of the project has version requirements for dependencies such as cmake, gcc, g++, etc. If your development environment is an old Linux distribution, it is necessary to manually install these dependencies of a higher version.
