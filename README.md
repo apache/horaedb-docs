@@ -12,5 +12,5 @@ We very much welcome any contributions from the community to make HoraeDB docume
 
 You can
 
-- Open an [issue](https://github.com/CeresDB/docs/issues) with any suggestions, or
-- Submit a [pull request](https://github.com/CeresDB/docs/pulls) to fix errors.
+- Open an [issue](https://github.com/apache/incubator-horaedb-docs/issues) with any suggestions, or
+- Submit a [pull request](https://github.com/apache/incubator-horaedb-docs/pulls) to fix errors.
