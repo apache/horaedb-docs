@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
 # Allow one concurrent deployment
 concurrency:
@@ -25,5 +26,5 @@ jobs:
         if: github.event_name != 'pull_request'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/book/html
+          publish_dir: ./docs/book
           publish_branch: asf-site
