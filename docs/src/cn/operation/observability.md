@@ -16,11 +16,11 @@ HoraeDB 支持使用 Prometheus 和 Grafana 做自监控。
 global:
   scrape_interval: 30s
 scrape_configs:
-  - job_name: ceresdb-server
+  - job_name: horaedb-server
     static_configs:
       - targets: [your_ip:5440, your_ip:5441]
         labels:
-          env: ceresdbcluster
+          env: horaedbcluster
 ```
 
 Prometheus 详细配置见[这里](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)。
@@ -79,7 +79,7 @@ docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
 
 当导入完成后，你可以看到如下页面：
 
-<img src="../../resources/images/grafana-ceresdb-dashboard.png" height="400" width="600"/>
+<img src="../../resources/images/grafana-horaedb-dashboard.png" height="400" width="600"/>
 
 ### Panels
 

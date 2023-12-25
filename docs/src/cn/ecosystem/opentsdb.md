@@ -52,4 +52,4 @@ CREATE TABLE `sys.cpu.nice`(
 
 # 查询
 
-暂不支持 OpenTSDB 查询，[tracking issue](https://github.com/CeresDB/horaedb/issues/904)。
+暂不支持 OpenTSDB 查询，[tracking issue](https://github.com/apache/incubator-horaedb/issues/904)。

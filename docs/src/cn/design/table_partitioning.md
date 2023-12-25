@@ -69,9 +69,9 @@ CREATE TABLE `demo`(
 
 由于分区表数据实际上是存放在不同的物理表中，所以查询时需要根据查询请求计算出实际请求的物理表。
 
-首先查询会根据查询语句计算出要查询的物理表， 然后通过 HoraeDB 内部服务 [remote engine](https://github.com/CeresDB/horaedb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/server/src/grpc/remote_engine_service/mod.rs) 远程请求物理表所在节点获取数据（支持谓词下推）。
+首先查询会根据查询语句计算出要查询的物理表， 然后通过 HoraeDB 内部服务 [remote engine](https://github.com/apache/incubator-horaedb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/server/src/grpc/remote_engine_service/mod.rs) 远程请求物理表所在节点获取数据（支持谓词下推）。
 
-分区表的实现在 [PartitionTableImpl](https://github.com/CeresDB/horaedb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/analytic_engine/src/table/partition.rs) 中。
+分区表的实现在 [PartitionTableImpl](https://github.com/apache/incubator-horaedb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/analytic_engine/src/table/partition.rs) 中。
 
 - 第一步：解析查询 sql，根据查询参数计算出要查询的物理表。
 - 第二步：查询物理表数据。
@@ -105,7 +105,7 @@ CREATE TABLE `demo`(
 - 带有 `and`, `or`, `in`, `=` 的过滤器将选择特定的子表。
 - 支持模糊匹配过滤器，如 `<`, `>`，但可能性能较差，因为它会扫描所有物理表。
 
-`Key partitioning` 规则实现在 [KeyRule](https://github.com/CeresDB/horaedb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/table_engine/src/partition/rule/key.rs)。
+`Key partitioning` 规则实现在 [KeyRule](https://github.com/apache/incubator-horaedb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/table_engine/src/partition/rule/key.rs)。
 
 ## 写入
 

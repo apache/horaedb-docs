@@ -6,8 +6,8 @@
 # And one thing deserves explanation that this config is used for running horaedb docker container:
 # ```
 # docker run -d --name horaedb-server \
-# -v /etc/horaedb/ceresdb.toml:{path_to_this_config} \
-# ceresdb/ceresdb-server
+# -v /etc/horaedb/horaedb.toml:{path_to_this_config} \
+# horaedb/horaedb-server
 # ```
 
 [server]
@@ -19,7 +19,7 @@ grpc_port = 8831
 level = "info"
 
 [tracing]
-dir = "/home/admin/data/ceresdb"
+dir = "/home/admin/data/horaedb"
 
 [runtime]
 read_thread_num = 20

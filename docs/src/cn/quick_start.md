@@ -4,7 +4,7 @@
 
 ## 启动
 
-使用 [HoraeDB docker 镜像](https://hub.docker.com/r/ceresdb/ceresdb-server) 是一种最简单的启动方式；如果你还没有安装 Docker，请首先参考 [这里](https://www.docker.com/products/docker-desktop/) 安装 Docker。
+使用 [HoraeDB docker 镜像](https://github.com/apache/incubator-horaedb/pkgs/container/horaedb-server) 是一种最简单的启动方式；如果你还没有安装 Docker，请首先参考 [这里](https://www.docker.com/products/docker-desktop/) 安装 Docker。
 
 > 注意：请选择一个大于等于 v1.0.0 的 tag 镜像。
 
@@ -15,7 +15,7 @@ docker run -d --name horaedb-server \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \
-  ceresdb/ceresdb-server
+  ghcr.io/apache/horaedb-server:nightly-20231222-f57b3827
 ```
 
 启动后 HoraeDB 会监听如下端口：
@@ -28,20 +28,20 @@ docker run -d --name horaedb-server \
 
 ### 自定义 docker 的配置
 
-参考如下命令，可以自定义 docker 中 ceresdb-server 的配置，并把数据目录 `/data` 挂载到 docker 母机的硬盘上。
+参考如下命令，可以自定义 docker 中 horaedb-server 的配置，并把数据目录 `/data` 挂载到 docker 母机的硬盘上。
 
 ```
-wget -c https://raw.githubusercontent.com/CeresDB/horaedb/main/docs/minimal.toml -O ceresdb.toml
+wget -c https://raw.githubusercontent.com/apache/incubator-horaedb/main/docs/minimal.toml -O horaedb.toml
 
-sed -i 's/\/tmp\/ceresdb/\/data/g' ceresdb.toml
+sed -i 's/\/tmp\/horaedb/\/data/g' horaedb.toml
 
 docker run -d --name horaedb-server \
   -p 8831:8831 \
   -p 3307:3307 \
   -p 5440:5440 \
-  -v ./ceresdb.toml:/etc/ceresdb/ceresdb.toml \
+  -v ./horaedb.toml:/etc/horaedb/horaedb.toml \
   -v ./data:/data \
-  ceresdb/ceresdb-server
+  ghcr.io/apache/horaedb-server:nightly-20231222-f57b3827
 ```
 
 ## 写入和查询数据
@@ -68,7 +68,7 @@ ENGINE=Analytic
 curl --location --request POST 'http://127.0.0.1:5440/sql' \
 -d '
 INSERT INTO demo (t, name, value)
-    VALUES (1651737067000, "ceresdb", 100)
+    VALUES (1651737067000, "horaedb", 100)
 '
 ```
 

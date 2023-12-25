@@ -3,18 +3,18 @@
 ## 安装
 
 ```
-go get github.com/CeresDB/horaedb-client-go
+go get github.com/apache/incubator-horaedb-client-go
 ```
 
-你可以在这里找到最新的版本 [here](https://github.com/CeresDB/horaedb-client-go/tags).
+你可以在这里找到最新的版本 [here](https://github.com/apache/incubator-horaedb-client-go/tags).
 
 ## 如何使用
 
 ### 初始化客户端
 
 ```go
-	client, err := ceresdb.NewClient(endpoint, ceresdb.Direct,
-		ceresdb.WithDefaultDatabase("public"), // Client所使用的database
+	client, err := horaedb.NewClient(endpoint, horaedb.Direct,
+		horaedb.WithDefaultDatabase("public"), // Client所使用的database
 	)
 ```
 
@@ -45,7 +45,7 @@ HoraeDB 使用 SQL 来管理表格，比如创建表、删除表或者新增列�
 			TIMESTAMP KEY(t)
 		) ENGINE=Analytic with (enable_ttl=false)`
 
-	req := ceresdb.SQLQueryRequest{
+	req := horaedb.SQLQueryRequest{
 		Tables: []string{"demo"},
 		SQL:    createTableSQL,
 	}
@@ -56,7 +56,7 @@ HoraeDB 使用 SQL 来管理表格，比如创建表、删除表或者新增列�
 
 ```go
 	dropTableSQL := `DROP TABLE demo`
-	req := ceresdb.SQLQueryRequest{
+	req := horaedb.SQLQueryRequest{
 		Tables: []string{"demo"},
 		SQL:    dropTableSQL,
 	}
@@ -66,12 +66,12 @@ HoraeDB 使用 SQL 来管理表格，比如创建表、删除表或者新增列�
 ### 构建写入数据
 
 ```go
-	points := make([]ceresdb.Point, 0, 2)
+	points := make([]horaedb.Point, 0, 2)
 	for i := 0; i < 2; i++ {
-		point, err := ceresdb.NewPointBuilder("demo").
+		point, err := horaedb.NewPointBuilder("demo").
 			SetTimestamp(now)).
-			AddTag("name", ceresdb.NewStringValue("test_tag1")).
-			AddField("value", ceresdb.NewDoubleValue(0.4242)).
+			AddTag("name", horaedb.NewStringValue("test_tag1")).
+			AddField("value", horaedb.NewDoubleValue(0.4242)).
 			Build()
 		if err != nil {
 			panic(err)
@@ -83,7 +83,7 @@ HoraeDB 使用 SQL 来管理表格，比如创建表、删除表或者新增列�
 ### 写入数据
 
 ```go
-	req := ceresdb.WriteRequest{
+	req := horaedb.WriteRequest{
 		Points: points,
 	}
 	resp, err := client.Write(context.Background(), req)
@@ -93,7 +93,7 @@ HoraeDB 使用 SQL 来管理表格，比如创建表、删除表或者新增列�
 
 ```go
 	querySQL := `SELECT * FROM demo`
-	req := ceresdb.SQLQueryRequest{
+	req := horaedb.SQLQueryRequest{
 		Tables: []string{"demo"},
 		SQL:    querySQL,
 	}
@@ -106,4 +106,4 @@ HoraeDB 使用 SQL 来管理表格，比如创建表、删除表或者新增列�
 
 ## 示例
 
-你可以在[这里](https://github.com/CeresDB/horaedb-client-go/blob/main/examples/read_write.go)找到完整的示例。
+你可以在[这里](https://github.com/apache/incubator-horaedb-client-go/blob/main/examples/read_write.go)找到完整的示例。

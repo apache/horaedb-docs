@@ -20,8 +20,7 @@ title = "HoraeDB 文档"
 command = "/bin/bash ../../move.sh"
 
 [output.html]
-cname = "docs.ceresdb.io"
-git-repository-url = "https://github.com/CeresDB/horaedb"
+git-repository-url = "https://github.com/apache/incubator-horaedb"
 edit-url-template = "https://github.com/CeresDB/docs/edit/main/docs/{path}"
 additional-css = ["style.css"]
 additional-js = ["sidebar.js"]

@@ -3,18 +3,18 @@
 ## Installation
 
 ```
-go get github.com/CeresDB/horaedb-client-go
+go get github.com/apache/incubator-horaedb-client-go
 ```
 
-You can get latest version [here](https://github.com/CeresDB/horaedb-client-go/tags).
+You can get latest version [here](https://github.com/apache/incubator-horaedb-client-go/tags).
 
 ## How To Use
 
 ### Init HoraeDB Client
 
 ```go
-	client, err := ceresdb.NewClient(endpoint, ceresdb.Direct,
-		ceresdb.WithDefaultDatabase("public"),
+	client, err := horaedb.NewClient(endpoint, horaedb.Direct,
+		horaedb.WithDefaultDatabase("public"),
 	)
 ```
 
@@ -47,7 +47,7 @@ Of course, you can also use `create table` statement to manage the table more fi
 			TIMESTAMP KEY(t)
 		) ENGINE=Analytic with (enable_ttl=false)`
 
-	req := ceresdb.SQLQueryRequest{
+	req := horaedb.SQLQueryRequest{
 		Tables: []string{"demo"},
 		SQL:    createTableSQL,
 	}
@@ -58,7 +58,7 @@ Of course, you can also use `create table` statement to manage the table more fi
 
 ```go
 	dropTableSQL := `DROP TABLE demo`
-	req := ceresdb.SQLQueryRequest{
+	req := horaedb.SQLQueryRequest{
 		Tables: []string{"demo"},
 		SQL:    dropTableSQL,
 	}
@@ -68,12 +68,12 @@ Of course, you can also use `create table` statement to manage the table more fi
 ### How To Build Write Data
 
 ```go
-	points := make([]ceresdb.Point, 0, 2)
+	points := make([]horaedb.Point, 0, 2)
 	for i := 0; i < 2; i++ {
-		point, err := ceresdb.NewPointBuilder("demo").
+		point, err := horaedb.NewPointBuilder("demo").
 			SetTimestamp(now).
-			AddTag("name", ceresdb.NewStringValue("test_tag1")).
-			AddField("value", ceresdb.NewDoubleValue(0.4242)).
+			AddTag("name", horaedb.NewStringValue("test_tag1")).
+			AddField("value", horaedb.NewDoubleValue(0.4242)).
 			Build()
 		if err != nil {
 			panic(err)
@@ -85,7 +85,7 @@ Of course, you can also use `create table` statement to manage the table more fi
 ### Write Example
 
 ```go
-	req := ceresdb.WriteRequest{
+	req := horaedb.WriteRequest{
 		Points: points,
 	}
 	resp, err := client.Write(context.Background(), req)
@@ -95,7 +95,7 @@ Of course, you can also use `create table` statement to manage the table more fi
 
 ```go
 	querySQL := `SELECT * FROM demo`
-	req := ceresdb.SQLQueryRequest{
+	req := horaedb.SQLQueryRequest{
 		Tables: []string{"demo"},
 		SQL:    querySQL,
 	}
@@ -108,4 +108,4 @@ Of course, you can also use `create table` statement to manage the table more fi
 
 ## Example
 
-You can find the complete example [here](https://github.com/CeresDB/horaedb-client-go/blob/main/examples/read_write.go).
+You can find the complete example [here](https://github.com/apache/incubator-horaedb-client-go/blob/main/examples/read_write.go).

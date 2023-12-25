@@ -58,7 +58,7 @@ HoraeDB 是一个时序数据库，与经典时序数据库相比，HoraeDB 的�
 
 ### RPC 层
 
-模块路径：https://github.com/CeresDB/horaedb/tree/main/server
+模块路径：https://github.com/apache/incubator-horaedb/tree/main/server
 
 当前的 RPC 支持多种协议，包括 HTTP、gRPC、MySQL。
 
@@ -66,7 +66,7 @@ HoraeDB 是一个时序数据库，与经典时序数据库相比，HoraeDB 的�
 
 ### SQL 层
 
-模块路径：https://github.com/CeresDB/horaedb/tree/main/query_frontend
+模块路径：https://github.com/apache/incubator-horaedb/tree/main/query_frontend
 
 SQL 层负责解析 SQL 并生成查询计划。
 
@@ -74,13 +74,13 @@ HoraeDB 基于 [sqlparser](https://github.com/sqlparser-rs/sqlparser-rs) 提供�
 
 ### Interpreter
 
-模块路径：https://github.com/CeresDB/horaedb/tree/main/interpreters
+模块路径：https://github.com/apache/incubator-horaedb/tree/main/interpreters
 
 `Interpreter` 模块封装了 SQL 的 `CRUD` 操作。在查询流程中，一个 SQL 语句会经过解析，生成出对应的查询计划，然后便会在特定的解释器中执行，例如 `SelectInterpreter`、`InsertInterpreter` 等。
 
 ### Catalog
 
-模块路径：https://github.com/CeresDB/horaedb/tree/main/catalog_impls
+模块路径：https://github.com/apache/incubator-horaedb/tree/main/catalog_impls
 
 `Catalog` 实际上是管理元数据的模块，HoraeDB 采用的元数据分级与 PostgreSQL 类似：`Catalog > Schema > Table`，但目前它们只用作命名空间。
 
@@ -88,7 +88,7 @@ HoraeDB 基于 [sqlparser](https://github.com/sqlparser-rs/sqlparser-rs) 提供�
 
 ### 查询引擎
 
-模块路径：https://github.com/CeresDB/horaedb/tree/main/query_engine
+模块路径：https://github.com/apache/incubator-horaedb/tree/main/query_engine
 
 查询引擎负责优化和执行由 SQL 层解析出来的 SQL 计划，目前查询引擎实际上基于 [DataFusion](https://github.com/apache/arrow-datafusion) 来实现的。
 
@@ -96,7 +96,7 @@ HoraeDB 基于 [sqlparser](https://github.com/sqlparser-rs/sqlparser-rs) 提供�
 
 ### Pluggable Table Engine
 
-模块路径：https://github.com/CeresDB/horaedb/tree/main/table_engine
+模块路径：https://github.com/apache/incubator-horaedb/tree/main/table_engine
 
 `Table Engine` 是 HoraeDB 中用于管理表的存储引擎，其可插拔性是 HoraeDB 的一个核心设计，对于实现我们的一些长远目标（比如增加 Log 或 Tracing 类型数据的存储引擎）至关重要。HoraeDB 将会有多种 `Table Engine` 用于不同的工作负载，根据工作负载模式，应该选择最合适的存储引擎。
 
@@ -117,7 +117,7 @@ HoraeDB 基于 [sqlparser](https://github.com/sqlparser-rs/sqlparser-rs) 提供�
 
 #### WAL
 
-模块路径：https://github.com/CeresDB/horaedb/tree/main/wal
+模块路径：https://github.com/apache/incubator-horaedb/tree/main/wal
 
 HoraeDB 处理数据的模型是 `WAL` + `MemTable`，最近写入的数据首先被写入 `WAL`，然后写入 `MemTable`，在 `MemTable` 中累积了一定数量的数据后，该数据将以便于查询的形式被重新构建，并存储到持久化设备上。
 
@@ -129,15 +129,15 @@ HoraeDB 处理数据的模型是 `WAL` + `MemTable`，最近写入的数据首�
 
 #### MemTable
 
-模块路径：https://github.com/CeresDB/horaedb/tree/main/analytic_engine/src/memtable
+模块路径：https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/memtable
 
 由于 `WAL` 无法提供高效的查询，因此新写入的数据会存储一份到 `Memtable` 用于查询，并且在积累了一定数量后，HoraeDB 将 `MemTable` 中的数据组织成便于查询的存储格式（`SST`）并存储到持久化设备中。
 
-MemTable 的当前实现基于 [agatedb 的 skiplist](https://github.com/tikv/agatedb/blob/8510bff2bfde5b766c3f83cf81c00141967d48a4/skiplist)。它允许并发读取和写入，并且可以根据 [Arena](https://github.com/CeresDB/horaedb/tree/main/components/skiplist) 控制内存使用。
+MemTable 的当前实现基于 [agatedb 的 skiplist](https://github.com/tikv/agatedb/blob/8510bff2bfde5b766c3f83cf81c00141967d48a4/skiplist)。它允许并发读取和写入，并且可以根据 [Arena](https://github.com/apache/incubator-horaedb/tree/main/components/skiplist) 控制内存使用。
 
 #### Flush
 
-模块路径：https://github.com/CeresDB/horaedb/blob/main/analytic_engine/src/instance/flush_compaction.rs
+模块路径：https://github.com/apache/incubator-horaedb/blob/main/analytic_engine/src/instance/flush_compaction.rs
 
 当 `MemTable` 的内存使用量达到阈值时，`Flush` 操作会选择一些老的 `MemTable`，将其中的数据组织成便于查询的 `SST` 存储到持久化设备上。
 
@@ -145,13 +145,13 @@ MemTable 的当前实现基于 [agatedb 的 skiplist](https://github.com/tikv/ag
 
 #### Compaction
 
-模块路径：https://github.com/CeresDB/horaedb/tree/main/analytic_engine/src/compaction
+模块路径：https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/compaction
 
 `MemTable` 的数据被刷新为 `SST` 文件，但最近刷新的 `SST` 文件可能非常小，而过小或过多的 `SST` 文件会导致查询性能不佳，因此，引入 `Compaction` 来重新整理 SST 文件，使多个较小的 `SST` 文件可以合并成较大的 `SST` 文件。
 
 #### Manifest
 
-模块路径：https://github.com/CeresDB/horaedb/tree/main/analytic_engine/src/meta
+模块路径：https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/meta
 
 `Manifest` 负责管理每个表的元数据，包括：
 
@@ -163,7 +163,7 @@ MemTable 的当前实现基于 [agatedb 的 skiplist](https://github.com/tikv/ag
 
 #### Object Storage
 
-模块路径：https://github.com/CeresDB/horaedb/tree/main/components/object_store
+模块路径：https://github.com/apache/incubator-horaedb/tree/main/components/object_store
 
 `Flush` 操作产生的 `SST` 文件需要持久化存储，而用于抽象持久化存储设备的就是 `Object Storage`，其中包括多种实现：
 
@@ -174,7 +174,7 @@ HoraeDB 的分布式架构的一个核心特性就是存储和计算分离，因
 
 #### SST
 
-模块路径：https://github.com/CeresDB/horaedb/tree/main/analytic_engine/src/sst
+模块路径：https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/sst
 
 `SST` 本身实际上是一种抽象，可以有多种具体实现。目前的实现是基于 [Parquet](https://parquet.apache.org/)，它是一种面向列的数据文件格式，旨在实现高效的数据存储和检索。
 
@@ -182,7 +182,7 @@ HoraeDB 的分布式架构的一个核心特性就是存储和计算分离，因
 
 #### Space
 
-模块路径：https://github.com/CeresDB/horaedb/blob/main/analytic_engine/src/space.rs
+模块路径：https://github.com/apache/incubator-horaedb/blob/main/analytic_engine/src/space.rs
 
 在 `Analytic Engine` 中，有一个叫做 `space` 的概念，这里着重解释一下，以解决阅读源代码时出现的一些歧义。
 实际上，`Analytic Engine` 没有 `catalog` 和 `schema` 的概念，只提供两个层级的关系：`space` 和 `table`。在实现中，上层的 `schema id`（要求在所有的 `catalogs` 中都应该是唯一的）实际上会直接映射成 `space id`。
@@ -251,7 +251,7 @@ HoraeDB 的分布式架构的一个核心特性就是存储和计算分离，因
 - `SelectInterpreter` 获取结果并将其传输给 Protocol 模块；
 - 协议模块完成转换结果后，Server 模块将其响应给客户端。
 
-以下是[v1.2.2](https://github.com/CeresDB/horaedb/releases/tag/v1.2.2)的函数调用流程:
+以下是[v1.2.2](https://github.com/apache/incubator-horaedb/releases/tag/v1.2.2)的函数调用流程:
 
 ```
                                                        ┌───────────────────────◀─────────────┐    ┌───────────────────────┐
