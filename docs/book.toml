@@ -2,19 +2,13 @@
 authors = ["HoraeDB Authors"]
 language = "en"
 multilingual = true
-src = "src/en"
+src = "src"
 title = "HoraeDB Documentation"
 
 [build]
 use-default-preprocessors = false
 
 [preprocessor.links]
-
-[[output.i18n.translations]]
-src = "src/cn"
-language = "cn"
-translators = ["HoraeDB Authors"]
-title = "HoraeDB 文档"
 
 [output.html]
 git-repository-url = "https://github.com/apache/incubator-horaedb"
