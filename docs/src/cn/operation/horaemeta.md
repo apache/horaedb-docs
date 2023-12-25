@@ -109,7 +109,7 @@ curl --location 'http://127.0.0.1:8080/api/v1/clusters' \
     "name":"testCluster",
     "nodeCount":3,
     "ShardTotal":9,
-    "enableScheduler":true,
+    "enableSchedule":true,
     "topologyType":"static"
 }'
 ```
@@ -133,7 +133,7 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewCluster
 curl --location 'http://127.0.0.1:8080/api/v1/clusters'
 ```
 
-- 修改 enableSchedule
+- 修改 `enableSchedule`
 
 ```
 curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule' \
@@ -143,7 +143,7 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{ClusterNam
 }'
 ```
 
-- 查询 enableSchedule
+- 查询 `enableSchedule`
 
 ```
 curl --location 'http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule'

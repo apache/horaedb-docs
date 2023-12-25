@@ -131,7 +131,7 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewCluster
 curl --location 'http://127.0.0.1:8080/api/v1/clusters'
 ```
 
-- Update enableSchedule
+- Update `enableSchedule`
 
 ```
 curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule' \
@@ -141,7 +141,7 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{ClusterNam
 }'
 ```
 
-- Query enableSchedule
+- Query `enableSchedule`
 
 ```
 curl --location 'http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule'
