@@ -269,4 +269,3 @@ docker run -d --name horaemeta-server \
 
 With the started HoraeMeta cluster, let's start the HoraeDB instance:
 TODO: complete it later
-
