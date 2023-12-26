@@ -21,9 +21,11 @@ jobs:
           fetch-depth: 0
       - run: make install
       - run: make build
+      # copy .asf.yaml to docs/book/html which asf site needs
+      - run: cp .asf.yaml docs/book/html
       - uses: peaceiris/actions-gh-pages@v3
         if: github.event_name != 'pull_request'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/book
+          publish_dir: ./docs/book/html
           publish_branch: asf-site
