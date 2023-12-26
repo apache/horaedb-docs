@@ -21,7 +21,7 @@ command = "/bin/bash ../../move.sh"
 
 [output.html]
 git-repository-url = "https://github.com/apache/incubator-horaedb"
-edit-url-template = "https://github.com/CeresDB/docs/edit/main/docs/{path}"
+edit-url-template = "https://github.com/apache/incubator-horaedb-docs/edit/main/docs/{path}"
 additional-css = ["style.css"]
 additional-js = ["sidebar.js"]
 
