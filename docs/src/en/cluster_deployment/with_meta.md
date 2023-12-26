@@ -253,9 +253,9 @@ memory_limit = "4G"
 
 Let's name this config file as `config.toml`. And the example configs, in which the templates must be replaced with real parameters before use, for remote storages are also provided:
 
-- [RocksDB WAL + OSS](../resources/config_local_oss.toml)
-- [OceanBase WAL + OSS](../resources/config_obkv_oss.toml)
-- [Kafka WAL + OSS](../resources/config_kafka_oss.toml)
+- [RocksDB WAL + OSS](../../resources/config_local_oss.toml)
+- [OceanBase WAL + OSS](../../resources/config_obkv_oss.toml)
+- [Kafka WAL + OSS](../../resources/config_kafka_oss.toml)
 
 ## Run HoraeDB cluster with HoraeMeta
 

@@ -65,21 +65,21 @@ For more detailed installation methods, refer to [here](https://grafana.com/docs
 
 Note: The url of Prometheus is `http://your_ip:9090`.
 
-<img src="../resources/images/grafana-datasource.png" height="400" width="200"/>
+<img src="../../resources/images/grafana-datasource.png" height="400" width="200"/>
 
 See more details [here](https://grafana.com/docs/grafana/latest/datasources/prometheus/).
 
 ### Import grafana dashboard
 
-<a href="../resources/grafana-dashboard.json">dashboard json</a>
+<a href="../../resources/grafana-dashboard.json">dashboard json</a>
 
-<img src="../resources/images/grafana-dashboard.png" height="400" width="200"/>
+<img src="../../resources/images/grafana-dashboard.png" height="400" width="200"/>
 
 ## HoraeDB Metrics
 
 After importing the dashboard, you will see the following page:
 
-<img src="../resources/images/grafana-horaedb-dashboard.png" height="400" width="600"/>
+<img src="../../resources/images/grafana-horaedb-dashboard.png" height="400" width="600"/>
 
 ### Panels
 
