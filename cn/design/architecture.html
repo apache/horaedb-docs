@@ -1,0 +1,643 @@
+<!DOCTYPE HTML>
+<html lang="cn" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>整体架构 - HoraeDB 文档</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../style.css">
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><li class="part-title">简介</li><li class="chapter-item "><a href="../about.html"><strong aria-hidden="true">1.</strong> 什么是 HoraeDB</a></li><li class="chapter-item "><a href="../quick_start.html"><strong aria-hidden="true">2.</strong> 快速开始</a></li><li class="chapter-item affix "><li class="part-title">用户手册</li><li class="chapter-item "><a href="../sql/README.html"><strong aria-hidden="true">3.</strong> SQL 语法</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../sql/model/README.html"><strong aria-hidden="true">3.1.</strong> 数据模型</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../sql/model/data_types.html"><strong aria-hidden="true">3.1.1.</strong> 数据类型</a></li><li class="chapter-item "><a href="../sql/model/special_columns.html"><strong aria-hidden="true">3.1.2.</strong> 特殊字段</a></li></ol></li><li class="chapter-item "><a href="../sql/identifier.html"><strong aria-hidden="true">3.2.</strong> 标识符</a></li><li class="chapter-item "><a href="../sql/ddl/README.html"><strong aria-hidden="true">3.3.</strong> 表结构操作</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../sql/ddl/create_table.html"><strong aria-hidden="true">3.3.1.</strong> 建表</a></li><li class="chapter-item "><a href="../sql/ddl/alter_table.html"><strong aria-hidden="true">3.3.2.</strong> 表结构变更</a></li><li class="chapter-item "><a href="../sql/ddl/drop_table.html"><strong aria-hidden="true">3.3.3.</strong> 删除表</a></li></ol></li><li class="chapter-item "><a href="../sql/dml/README.html"><strong aria-hidden="true">3.4.</strong> 数据操作</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../sql/dml/insert.html"><strong aria-hidden="true">3.4.1.</strong> 数据写入</a></li><li class="chapter-item "><a href="../sql/dml/select.html"><strong aria-hidden="true">3.4.2.</strong> 数据查询</a></li></ol></li><li class="chapter-item "><a href="../sql/engine_options.html"><strong aria-hidden="true">3.5.</strong> 引擎配置</a></li><li class="chapter-item "><a href="../sql/utility.html"><strong aria-hidden="true">3.6.</strong> 常见 SQL</a></li><li class="chapter-item "><a href="../sql/functions/scalar_functions.html"><strong aria-hidden="true">3.7.</strong> 标量函数</a></li><li class="chapter-item "><a href="../sql/functions/aggregate_functions.html"><strong aria-hidden="true">3.8.</strong> 聚合函数</a></li></ol></li><li class="chapter-item "><a href="../cluster_deployment/README.html"><strong aria-hidden="true">4.</strong> 集群部署</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../cluster_deployment/platform.html"><strong aria-hidden="true">4.1.</strong> 支持平台</a></li><li class="chapter-item "><a href="../cluster_deployment/no_meta.html"><strong aria-hidden="true">4.2.</strong> NoMeta 模式</a></li><li class="chapter-item "><a href="../cluster_deployment/with_meta.html"><strong aria-hidden="true">4.3.</strong> WithMeta 模式</a></li></ol></li><li class="chapter-item "><a href="../sdk/README.html"><strong aria-hidden="true">5.</strong> SDK</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../sdk/java.html"><strong aria-hidden="true">5.1.</strong> Java SDK</a></li><li class="chapter-item "><a href="../sdk/go.html"><strong aria-hidden="true">5.2.</strong> Go SDK</a></li><li class="chapter-item "><a href="../sdk/python.html"><strong aria-hidden="true">5.3.</strong> Python SDK</a></li><li class="chapter-item "><a href="../sdk/rust.html"><strong aria-hidden="true">5.4.</strong> Rust SDK</a></li></ol></li><li class="chapter-item "><a href="../operation/README.html"><strong aria-hidden="true">6.</strong> 运维</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../operation/table.html"><strong aria-hidden="true">6.1.</strong> 表</a></li><li class="chapter-item "><a href="../operation/system_table.html"><strong aria-hidden="true">6.2.</strong> 系统表</a></li><li class="chapter-item "><a href="../operation/block_list.html"><strong aria-hidden="true">6.3.</strong> 黑名单</a></li><li class="chapter-item "><a href="../operation/observability.html"><strong aria-hidden="true">6.4.</strong> 监控</a></li><li class="chapter-item "><a href="../operation/horaemeta.html"><strong aria-hidden="true">6.5.</strong> HoraeMeta</a></li></ol></li><li class="chapter-item "><a href="../ecosystem/README.html"><strong aria-hidden="true">7.</strong> 周边生态</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../ecosystem/prometheus.html"><strong aria-hidden="true">7.1.</strong> Prometheus</a></li><li class="chapter-item "><a href="../ecosystem/influxdb.html"><strong aria-hidden="true">7.2.</strong> InfluxDB</a></li><li class="chapter-item "><a href="../ecosystem/opentsdb.html"><strong aria-hidden="true">7.3.</strong> OpenTSDB</a></li></ol></li><li class="chapter-item "><li class="part-title">开发者手册</li><li class="chapter-item "><a href="../dev/platform.html"><strong aria-hidden="true">8.</strong> 支持平台</a></li><li class="chapter-item "><a href="../dev/compile_run.html"><strong aria-hidden="true">9.</strong> 编译运行</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../dev/profiling.html"><strong aria-hidden="true">9.1.</strong> 剖析</a></li></ol></li><li class="chapter-item "><a href="../dev/conventional_commit.html"><strong aria-hidden="true">10.</strong> 开发规约</a></li><li class="chapter-item "><a href="../dev/style_guide.html"><strong aria-hidden="true">11.</strong> 风格规范</a></li><li class="chapter-item "><a href="../dev/roadmap.html"><strong aria-hidden="true">12.</strong> 里程碑</a></li><li class="chapter-item affix "><li class="part-title">技术系列文章</li><li class="chapter-item expanded "><a href="../design/architecture.html" class="active"><strong aria-hidden="true">13.</strong> 整体架构</a></li><li class="chapter-item "><a href="../design/clustering.html"><strong aria-hidden="true">14.</strong> 集群</a></li><li class="chapter-item "><a href="../design/shared_nothing.html"><strong aria-hidden="true">15.</strong> Shared-Nothing</a></li><li class="chapter-item "><a href="../design/storage.html"><strong aria-hidden="true">16.</strong> 存储</a></li><li class="chapter-item "><a href="../design/wal.html"><strong aria-hidden="true">17.</strong> WAL</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../design/wal_on_rocksdb.html"><strong aria-hidden="true">17.1.</strong> WAL on RocksDB</a></li><li class="chapter-item "><a href="../design/wal_on_kafka.html"><strong aria-hidden="true">17.2.</strong> WAL on Kafka</a></li></ol></li><li class="chapter-item "><a href="../design/table_partitioning.html"><strong aria-hidden="true">18.</strong> 分区表</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">HoraeDB 文档</h1>
+
+                    <div class="right-buttons">
+
+                        <button id="lang-toggle" class="icon-button" type="button" title="Change language" aria-label="Change language" aria-haspopup="true" aria-expanded="false" aria-controls="lang-list" >
+<!--                             <i class="fa fa-globe"></i> -->
+                    <i>
+                        <svg t="1675840511805" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2677" width="16" height="16"><path d="M511.573333 85.333333C276.053333 85.333333 85.333333 276.48 85.333333 512s190.72 426.666667 426.24 426.666667C747.52 938.666667 938.666667 747.52 938.666667 512S747.52 85.333333 511.573333 85.333333z m295.68 256h-125.866666a667.733333 667.733333 0 0 0-58.88-151.893333A342.613333 342.613333 0 0 1 807.253333 341.333333zM512 172.373333c35.413333 51.2 63.146667 107.946667 81.493333 168.96h-162.986666c18.346667-61.013333 46.08-117.76 81.493333-168.96zM181.76 597.333333C174.933333 570.026667 170.666667 541.44 170.666667 512s4.266667-58.026667 11.093333-85.333333h144.213333c-3.413333 28.16-5.973333 56.32-5.973333 85.333333 0 29.013333 2.56 57.173333 5.973333 85.333333H181.76z m34.986667 85.333334h125.866666c13.653333 53.333333 33.28 104.533333 58.88 151.893333A340.778667 340.778667 0 0 1 216.746667 682.666667z m125.866666-341.333334H216.746667a340.778667 340.778667 0 0 1 184.746666-151.893333A667.733333 667.733333 0 0 0 342.613333 341.333333zM512 851.626667c-35.413333-51.2-63.146667-107.946667-81.493333-168.96h162.986666c-18.346667 61.013333-46.08 117.76-81.493333 168.96zM611.84 597.333333H412.16c-3.84-28.16-6.826667-56.32-6.826667-85.333333 0-29.013333 2.986667-57.6 6.826667-85.333333h199.68c3.84 27.733333 6.826667 56.32 6.826667 85.333333 0 29.013333-2.986667 57.173333-6.826667 85.333333z m10.666667 237.226667c25.6-47.36 45.226667-98.56 58.88-151.893333h125.866666a342.613333 342.613333 0 0 1-184.746666 151.893333zM698.026667 597.333333c3.413333-28.16 5.973333-56.32 5.973333-85.333333 0-29.013333-2.56-57.173333-5.973333-85.333333h144.213333c6.826667 27.306667 11.093333 55.893333 11.093333 85.333333s-4.266667 58.026667-11.093333 85.333333h-144.213333z" fill="#000000" fill-opacity=".87" p-id="2678"></path></svg>
+                        <a id="lang_comment"></a>
+                    </i>
+
+                        </button>
+                        <ul id="lang-list" class="theme-popup" style="left: auto;" aria-label="Languages" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="en">English</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="cn">中文</button></li>
+                        </ul>
+
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/apache/incubator-horaedb" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/apache/incubator-horaedb-docs/edit/main/docs/src/cn/design/architecture.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <script>
+                window.onload = function(){
+                    var path_lang = window.location.pathname.split('/')[1];
+                    document.getElementById('lang_comment').innerHTML = path_lang=='cn'?"Language":"语言";
+                };
+                </script>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!-- Page table of contents -->
+                        <div class="sidetoc"><nav class="pagetoc"></nav></div>
+
+                        <h1 id="horaedb-架构介绍"><a class="header" href="#horaedb-架构介绍">HoraeDB 架构介绍</a></h1>
+<h2 id="本文目标"><a class="header" href="#本文目标">本文目标</a></h2>
+<ul>
+<li>为想了解更多关于 HoraeDB 但不知道从何入手的开发者提供 HoraeDB 的概览</li>
+<li>简要介绍 HoraeDB 的主要模块以及这些模块之间的联系，但不涉及它们实现的细节</li>
+</ul>
+<h2 id="动机"><a class="header" href="#动机">动机</a></h2>
+<p>HoraeDB 是一个时序数据库，与经典时序数据库相比，HoraeDB 的目标是能够同时处理时序型和分析型两种模式的数据，并提供高效的读写。</p>
+<p>在经典的时序数据库中，<code>Tag</code> 列（ <code>InfluxDB</code> 称之为 <code>Tag</code>，<code>Prometheus</code> 称之为 <code>Label</code>）通常会对其生成倒排索引，但在实际使用中，<code>Tag</code> 的基数在不同的场景中是不一样的 ———— 在某些场景下，<code>Tag</code> 的基数非常高（这种场景下的数据，我们称之为分析型数据），而基于倒排索引的读写要为此付出很高的代价。而另一方面，分析型数据库常用的扫描 + 剪枝方法，可以比较高效地处理这样的分析型数据。</p>
+<p>因此 HoraeDB 的基本设计理念是采用混合存储格式和相应的查询方法，从而达到能够同时高效处理时序型数据和分析型数据。</p>
+<h2 id="架构"><a class="header" href="#架构">架构</a></h2>
+<pre><code class="language-plaintext">┌──────────────────────────────────────────┐
+│       RPC Layer (HTTP/gRPC/MySQL)        │
+└──────────────────────────────────────────┘
+┌──────────────────────────────────────────┐
+│                 SQL Layer                │
+│ ┌─────────────────┐  ┌─────────────────┐ │
+│ │     Parser      │  │     Planner     │ │
+│ └─────────────────┘  └─────────────────┘ │
+└──────────────────────────────────────────┘
+┌───────────────────┐  ┌───────────────────┐
+│    Interpreter    │  │      Catalog      │
+└───────────────────┘  └───────────────────┘
+┌──────────────────────────────────────────┐
+│               Query Engine               │
+│ ┌─────────────────┐  ┌─────────────────┐ │
+│ │    Optimizer    │  │    Executor     │ │
+│ └─────────────────┘  └─────────────────┘ │
+└──────────────────────────────────────────┘
+┌──────────────────────────────────────────┐
+│         Pluggable Table Engine           │
+│  ┌────────────────────────────────────┐  │
+│  │              Analytic              │  │
+│  │┌────────────────┐┌────────────────┐│  │
+│  ││      Wal       ││    Memtable    ││  │
+│  │└────────────────┘└────────────────┘│  │
+│  │┌────────────────┐┌────────────────┐│  │
+│  ││     Flush      ││   Compaction   ││  │
+│  │└────────────────┘└────────────────┘│  │
+│  │┌────────────────┐┌────────────────┐│  │
+│  ││    Manifest    ││  Object Store  ││  │
+│  │└────────────────┘└────────────────┘│  │
+│  └────────────────────────────────────┘  │
+│  ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │
+│           Another Table Engine        │  │
+│  └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │
+└──────────────────────────────────────────┘
+</code></pre>
+<p>上图展示了 HoraeDB 单机版本的架构，下面将会介绍重要模块的细节。</p>
+<h3 id="rpc-层"><a class="header" href="#rpc-层">RPC 层</a></h3>
+<p>模块路径：https://github.com/apache/incubator-horaedb/tree/main/server</p>
+<p>当前的 RPC 支持多种协议，包括 HTTP、gRPC、MySQL。</p>
+<p>通常 HTTP 和 MySQL 用于调试 HoraeDB，手动查询和执行 DDL 操作（如创建、删除表等）。而 gRPC 协议可以被看作是一种用于高性能的定制协议，更适用于大量的读写操作。</p>
+<h3 id="sql-层"><a class="header" href="#sql-层">SQL 层</a></h3>
+<p>模块路径：https://github.com/apache/incubator-horaedb/tree/main/query_frontend</p>
+<p>SQL 层负责解析 SQL 并生成查询计划。</p>
+<p>HoraeDB 基于 <a href="https://github.com/sqlparser-rs/sqlparser-rs">sqlparser</a> 提供了一种 SQL 方言，为了更好的适配时序数据，引入一些概念，包括 Tag 和 Timestamp。此外，利用 <a href="https://github.com/apache/arrow-datafusion">DataFusion</a>，HoraeDB 不仅可以生成常规的逻辑计划，还可以生成自定义的计划来实现时序场景要求的特殊算子，例如为了适配 PromQL 协议而做的工作就是利用了这个特性。</p>
+<h3 id="interpreter"><a class="header" href="#interpreter">Interpreter</a></h3>
+<p>模块路径：https://github.com/apache/incubator-horaedb/tree/main/interpreters</p>
+<p><code>Interpreter</code> 模块封装了 SQL 的 <code>CRUD</code> 操作。在查询流程中，一个 SQL 语句会经过解析，生成出对应的查询计划，然后便会在特定的解释器中执行，例如 <code>SelectInterpreter</code>、<code>InsertInterpreter</code> 等。</p>
+<h3 id="catalog"><a class="header" href="#catalog">Catalog</a></h3>
+<p>模块路径：https://github.com/apache/incubator-horaedb/tree/main/catalog_impls</p>
+<p><code>Catalog</code> 实际上是管理元数据的模块，HoraeDB 采用的元数据分级与 PostgreSQL 类似：<code>Catalog &gt; Schema &gt; Table</code>，但目前它们只用作命名空间。</p>
+<p>目前，<code>Catalog</code> 和 <code>Schema</code> 在单机模式和分布式模式存在两种不同实现，因为一些生成 id 和持久化元数据的策略在这两种模式下有所不同。</p>
+<h3 id="查询引擎"><a class="header" href="#查询引擎">查询引擎</a></h3>
+<p>模块路径：https://github.com/apache/incubator-horaedb/tree/main/query_engine</p>
+<p>查询引擎负责优化和执行由 SQL 层解析出来的 SQL 计划，目前查询引擎实际上基于 <a href="https://github.com/apache/arrow-datafusion">DataFusion</a> 来实现的。</p>
+<p>除了 SQL 的基本功能外，HoraeDB 还通过利用 <a href="https://github.com/apache/arrow-datafusion">DataFusion</a> 提供的扩展接口，为某些特定的查询（比如 <code>PromQL</code>）构建了一些定制的查询协议和优化规则。</p>
+<h3 id="pluggable-table-engine"><a class="header" href="#pluggable-table-engine">Pluggable Table Engine</a></h3>
+<p>模块路径：https://github.com/apache/incubator-horaedb/tree/main/table_engine</p>
+<p><code>Table Engine</code> 是 HoraeDB 中用于管理表的存储引擎，其可插拔性是 HoraeDB 的一个核心设计，对于实现我们的一些长远目标（比如增加 Log 或 Tracing 类型数据的存储引擎）至关重要。HoraeDB 将会有多种 <code>Table Engine</code> 用于不同的工作负载，根据工作负载模式，应该选择最合适的存储引擎。</p>
+<p>现在对 Table Engine 的要求是：</p>
+<ul>
+<li>管理引擎下的所有共享资源：
+<ul>
+<li>内存</li>
+<li>存储</li>
+<li>CPU</li>
+</ul>
+</li>
+<li>管理表的元数据，如表的结构、表的参数选项；</li>
+<li>能够提供 <code>Table</code> 实例，该实例可以提供 <code>read</code> 和 <code>write</code> 的能力；</li>
+<li>负责 <code>Table</code> 实例的创建、打开、删除和关闭；</li>
+<li>....</li>
+</ul>
+<p>实际上，<code>Table Engine</code> 需要处理的事情有点复杂。现在在 HoraeDB 中，只提供了一个名为 <code>Analytic</code> 的 <code>Table Engine</code>，它在处理分析工作负载方面做得很好，但是在时序工作负载上还有很大的进步空间（我们计划通过添加一些帮助处理时序工作负载的索引来提高性能）。</p>
+<p>以下部分描述了 <code>Analytic Table Engine</code> 的详细信息。</p>
+<h4 id="wal"><a class="header" href="#wal">WAL</a></h4>
+<p>模块路径：https://github.com/apache/incubator-horaedb/tree/main/wal</p>
+<p>HoraeDB 处理数据的模型是 <code>WAL</code> + <code>MemTable</code>，最近写入的数据首先被写入 <code>WAL</code>，然后写入 <code>MemTable</code>，在 <code>MemTable</code> 中累积了一定数量的数据后，该数据将以便于查询的形式被重新构建，并存储到持久化设备上。</p>
+<p>目前，为 <code>standalone</code> 模式和分布式模式提供了三种 <code>WAL</code> 实现：</p>
+<ul>
+<li>对于 <code>standalone</code> 模式，<code>WAL</code> 基于 <code>RocksDB</code>，数据存储在本地磁盘上。</li>
+<li>对于分布式模式，需要 <code>WAL</code> 作为一个分布式组件，负责新写入数据的可靠性，因此，我们现在提供了基于 <a href="https://github.com/oceanbase/oceanbase"><code>OceanBase</code></a> 的实现。</li>
+<li>对于分布式模式，除了 <a href="https://github.com/oceanbase/oceanbase"><code>OceanBase</code></a>，我们还提供了一个更轻量级的基于 <a href="https://github.com/apache/kafka"><code>Apache Kafka</code></a> 实现。</li>
+</ul>
+<h4 id="memtable"><a class="header" href="#memtable">MemTable</a></h4>
+<p>模块路径：https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/memtable</p>
+<p>由于 <code>WAL</code> 无法提供高效的查询，因此新写入的数据会存储一份到 <code>Memtable</code> 用于查询，并且在积累了一定数量后，HoraeDB 将 <code>MemTable</code> 中的数据组织成便于查询的存储格式（<code>SST</code>）并存储到持久化设备中。</p>
+<p>MemTable 的当前实现基于 <a href="https://github.com/tikv/agatedb/blob/8510bff2bfde5b766c3f83cf81c00141967d48a4/skiplist">agatedb 的 skiplist</a>。它允许并发读取和写入，并且可以根据 <a href="https://github.com/apache/incubator-horaedb/tree/main/components/skiplist">Arena</a> 控制内存使用。</p>
+<h4 id="flush"><a class="header" href="#flush">Flush</a></h4>
+<p>模块路径：https://github.com/apache/incubator-horaedb/blob/main/analytic_engine/src/instance/flush_compaction.rs</p>
+<p>当 <code>MemTable</code> 的内存使用量达到阈值时，<code>Flush</code> 操作会选择一些老的 <code>MemTable</code>，将其中的数据组织成便于查询的 <code>SST</code> 存储到持久化设备上。</p>
+<p>在刷新过程中，数据将按照一定的时间段（由表选项 <code>Segment Duration</code> 配置）进行划分，保证任何一个 <code>SST</code> 的所有数据的时间戳都属于同一个 <code>Segment</code>。实际上，这也是大多数时序数据库中常见的操作，按照时间维度组织数据，以加速后续的时间相关操作，如查询一段时间内的数据，清除超出 <code>TTL</code> 的数据等。</p>
+<h4 id="compaction"><a class="header" href="#compaction">Compaction</a></h4>
+<p>模块路径：https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/compaction</p>
+<p><code>MemTable</code> 的数据被刷新为 <code>SST</code> 文件，但最近刷新的 <code>SST</code> 文件可能非常小，而过小或过多的 <code>SST</code> 文件会导致查询性能不佳，因此，引入 <code>Compaction</code> 来重新整理 SST 文件，使多个较小的 <code>SST</code> 文件可以合并成较大的 <code>SST</code> 文件。</p>
+<h4 id="manifest"><a class="header" href="#manifest">Manifest</a></h4>
+<p>模块路径：https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/meta</p>
+<p><code>Manifest</code> 负责管理每个表的元数据，包括：</p>
+<ul>
+<li>表的结构和表的参数选项；</li>
+<li>最新 <code>Flush</code> 过的 sequence number；</li>
+<li>表的所有 <code>SST</code> 文件的信息。</li>
+</ul>
+<p>现在 <code>Manifest</code> 是基于 <code>WAL</code> 和 <code>Object Store</code> 来实现的，新的改动会直接写入到 <code>WAL</code>，而为了避免元数据无限增长（实际上每次 <code>Flush</code> 操作都会触发更新），会对其写入的记录做快照，生成的快照会被持久化道 <code>Object Store</code>。</p>
+<h4 id="object-storage"><a class="header" href="#object-storage">Object Storage</a></h4>
+<p>模块路径：https://github.com/apache/incubator-horaedb/tree/main/components/object_store</p>
+<p><code>Flush</code> 操作产生的 <code>SST</code> 文件需要持久化存储，而用于抽象持久化存储设备的就是 <code>Object Storage</code>，其中包括多种实现：</p>
+<ul>
+<li>基于本地文件系统；</li>
+<li>基于<a href="https://www.alibabacloud.com/product/object-storage-service">阿里云 OSS</a>。</li>
+</ul>
+<p>HoraeDB 的分布式架构的一个核心特性就是存储和计算分离，因此要求 <code>Object Storage</code> 是一个高可用的服务，并独立于 HoraeDB。因此，像<a href="https://aws.amazon.com/s3/">Amazon S3</a>、<a href="https://www.alibabacloud.com/product/object-storage-service">阿里云 OSS</a>等存储系统是不错的选择，未来还将计划实现在其他云服务提供商的存储系统上。</p>
+<h4 id="sst"><a class="header" href="#sst">SST</a></h4>
+<p>模块路径：https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/sst</p>
+<p><code>SST</code> 本身实际上是一种抽象，可以有多种具体实现。目前的实现是基于 <a href="https://parquet.apache.org/">Parquet</a>，它是一种面向列的数据文件格式，旨在实现高效的数据存储和检索。</p>
+<p><code>SST</code> 的格式对于数据检索非常关键，也是决定查询性能的关键所在。目前，我们基于 <a href="https://parquet.apache.org/">Parquet</a> 的 <code>SST</code> 实现在处理分析型数据时表现良好，但目前在处理时序型数据上还有较高的提升空间。在我们的路线图中，我们将探索更多的存储格式，以便在两种类型的数据处理上都取得良好的性能。</p>
+<h4 id="space"><a class="header" href="#space">Space</a></h4>
+<p>模块路径：https://github.com/apache/incubator-horaedb/blob/main/analytic_engine/src/space.rs</p>
+<p>在 <code>Analytic Engine</code> 中，有一个叫做 <code>space</code> 的概念，这里着重解释一下，以解决阅读源代码时出现的一些歧义。
+实际上，<code>Analytic Engine</code> 没有 <code>catalog</code> 和 <code>schema</code> 的概念，只提供两个层级的关系：<code>space</code> 和 <code>table</code>。在实现中，上层的 <code>schema id</code>（要求在所有的 <code>catalogs</code> 中都应该是唯一的）实际上会直接映射成 <code>space id</code>。</p>
+<p><code>Analytic Engine</code> 中的 <code>space</code> 主要用于隔离不同租户的资源，如内存的使用。</p>
+<h2 id="critical-path"><a class="header" href="#critical-path">Critical Path</a></h2>
+<p>简要介绍了 HoraeDB 的一些重要模块后，我们将对代码中的一些关键路径进行描述，希望为有兴趣的开发人员在阅读代码时提供一些帮助。</p>
+<h3 id="query"><a class="header" href="#query">Query</a></h3>
+<pre><code class="language-plaintext">┌───────┐      ┌───────┐      ┌───────┐
+│       │──1──▶│       │──2──▶│       │
+│Server │      │  SQL  │      │Catalog│
+│       │◀─10──│       │◀─3───│       │
+└───────┘      └───────┘      └───────┘
+                │    ▲
+               4│   9│
+                │    │
+                ▼    │
+┌─────────────────────────────────────┐
+│                                     │
+│             Interpreter             │
+│                                     │
+└─────────────────────────────────────┘
+                           │    ▲
+                          5│   8│
+                           │    │
+                           ▼    │
+                   ┌──────────────────┐
+                   │                  │
+                   │   Query Engine   │
+                   │                  │
+                   └──────────────────┘
+                           │    ▲
+                          6│   7│
+                           │    │
+                           ▼    │
+ ┌─────────────────────────────────────┐
+ │                                     │
+ │            Table Engine             │
+ │                                     │
+ └─────────────────────────────────────┘
+</code></pre>
+<p>以 <code>SELECT</code> SQL 为例，上图展示了查询过程，其中的数字表示模块之间调用的顺序。</p>
+<p>以下是详细流程：</p>
+<ul>
+<li>Server 模块根据请求使用的协议选择合适的 rpc 模块（可能是 HTTP、gRPC 或 mysql）来处理请求；</li>
+<li>使用 parser 解析请求中的 sql ；</li>
+<li>根据解析好的 sql 以及 catalog/schema 提供的元信息，通过 <a href="https://github.com/apache/arrow-datafusion">DataFusion</a> 可以生成逻辑计划；</li>
+<li>根据逻辑计划创建相应的 <code>Interpreter</code>，并由其执行逻辑计划；</li>
+<li>对于正常 <code>SELECT</code> SQL 的逻辑计划，它将通过 <code>SelectInterpreter</code> 执行；</li>
+<li>在 <code>SelectInterpreter</code> 中，特定的查询逻辑由 <code>Query Engine</code> 执行：
+<ul>
+<li>优化逻辑计划；</li>
+<li>生成物理计划；</li>
+<li>优化物理计划；</li>
+<li>执行物理计划；</li>
+</ul>
+</li>
+<li>执行物理计划涉及到 <code>Analytic Engine</code>：
+<ul>
+<li>通过 <code>Analytic Engine</code> 提供的 <code>Table</code> 实例的 <code>read</code> 方法获取数据；</li>
+<li>表数据的来源是 <code>SST</code> 和 <code>Memtable</code>，可以通过谓词下推进行提前过滤；</li>
+<li>在检索到表数据后，<code>Query Engine</code> 将完成具体计算并生成最终结果；</li>
+</ul>
+</li>
+<li><code>SelectInterpreter</code> 获取结果并将其传输给 Protocol 模块；</li>
+<li>协议模块完成转换结果后，Server 模块将其响应给客户端。</li>
+</ul>
+<p>以下是<a href="https://github.com/apache/incubator-horaedb/releases/tag/v1.2.2">v1.2.2</a>的函数调用流程:</p>
+<pre><code>                                                       ┌───────────────────────◀─────────────┐    ┌───────────────────────┐
+                                                       │      handle_sql       │────────┐    │    │       parse_sql       │
+                                                       └───────────────────────┘        │    │    └────────────────┬──────┘
+                                                           │             ▲              │    │           ▲         │
+                                                           │             │              │    │           │         │
+                                                           │             │              │    └36───┐     │        11
+                                                          1│             │              │          │     │         │
+                                                           │            8│              │          │     │         │
+                                                           │             │              │          │    10         │
+                                                           │             │              │          │     │         │
+                                                           ▼             │              │          │     │         ▼
+                                                       ┌─────────────────┴─────┐       9│         ┌┴─────┴────────────────┐───────12─────────▶┌───────────────────────┐
+                                                       │maybe_forward_sql_query│        └────────▶│fetch_sql_query_output │                   │   statement_to_plan   │
+                                                       └───┬───────────────────┘                  └────┬──────────────────┘◀───────19─────────└───────────────────────┘
+                                                           │             ▲                             │              ▲                           │               ▲
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │             35                          13              18
+                                                          2│            7│                            20              │                           │               │
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │              │                           ▼               │
+                                                           ▼             │                             ▼              │                       ┌───────────────────────┐
+          ┌───────────────────────┐───────────6───────▶┌─────────────────┴─────┐                    ┌─────────────────┴─────┐                 │Planner::statement_to_p│
+          │ forward_with_endpoint │                    │        forward        │                    │execute_plan_involving_│                 │          lan          │
+          └───────────────────────┘◀────────5──────────└───┬───────────────────┘                 ┌──│    partition_table    │◀────────┐       └───┬───────────────────┘
+                                                           │             ▲                       │  └───────────────────────┘         │           │              ▲
+                                                           │             │                       │     │              ▲               │           │              │
+                                                           │             │                       │     │              │               │          14             17
+           ┌───────────────────────┐                       │            4│                       │     │              │               │           │              │
+     ┌─────│ PhysicalPlan::execute │                      3│             │                       │    21              │               │           │              │
+     │     └───────────────────────┘◀──┐                   │             │                       │     │             22               │           │              │
+     │                                 │                   │             │                       │     │              │               │           ▼              │
+     │                                 │                   │             │                       │     │              │               │       ┌────────────────────────┐
+     │                                 │                   ▼             │                       │     ▼              │              34       │sql_statement_to_datafus│
+     │     ┌───────────────────────┐  30               ┌─────────────────┴─────┐                 │  ┌─────────────────┴─────┐         │       │        ion_plan        │
+    31     │ build_df_session_ctx  │   │               │         route         │                 │  │   build_interpreter   │         │       └────────────────────────┘
+     │     └────┬──────────────────┘   │               └───────────────────────┘                 │  └───────────────────────┘         │           │              ▲
+     │          │           ▲          │                                                         │                                    │           │              │
+     │         27          26          │                                                        23                                    │          15             16
+     │          ▼           │          │                                                         │                                    │           │              │
+     └────▶┌────────────────┴──────┐   │               ┌───────────────────────┐                 │                                    │           │              │
+           │ execute_logical_plan  ├───┴────32────────▶│       execute         │──────────┐      │   ┌───────────────────────┐        │           ▼              │
+           └────┬──────────────────┘◀────────────25────┴───────────────────────┘         33      │   │interpreter_execute_pla│        │       ┌────────────────────────┐
+                │           ▲                                           ▲                 └──────┴──▶│           n           │────────┘       │SqlToRel::sql_statement_│
+               28           │                                           └──────────24────────────────┴───────────────────────┘                │   to_datafusion_plan   │
+                │          29                                                                                                                 └────────────────────────┘
+                ▼           │
+           ┌────────────────┴──────┐
+           │     optimize_plan     │
+           └───────────────────────┘
+
+</code></pre>
+<ol>
+<li>收到请求经过各种协议转换会转到<code>handle_sql</code>中执行,由于该请求可能是非本节点处理的，可能需要转发，进入<code>maybe_forward_sql_query</code>处理转发逻辑。</li>
+<li>在<code>maybe_forward_sql_query</code>中构造好<code>ForwardRequest</code>后，调用<code>forward</code></li>
+<li>在<code>forward</code>中构造好<code>RouteRequest</code>,后调用<code>route</code></li>
+<li>使用<code>route</code>获取目的节点<code>endpoint</code>后回到<code>forward</code></li>
+<li>调用<code>forward_with_endpoint</code>将请求进行转发</li>
+<li>回到<code>forward</code></li>
+<li>回到<code>maybe_forward_sql_query</code></li>
+<li>回到<code>handle_sql</code></li>
+<li>此时若是<code>Local</code>请求，调用<code>fetch_sql_query_output</code>进行处理</li>
+<li>调用<code>parse_sql</code>将<code>sql</code>解析成<code>Statment</code></li>
+<li>回到<code>fetch_sql_query_output</code></li>
+<li>使用<code>Statment</code>调用<code>statement_to_plan</code></li>
+<li>在其中使用<code>ctx</code>和<code>Statment</code>构造<code>Planner</code>,调用<code>Planner</code>的<code>statement_to_plan</code>方法</li>
+<li><code>planner</code>中会对于请求的类别调用对应的<code>planner</code>方法，此时我们的<code>sql</code>是查询，会调用<code>sql_statement_to_plan</code></li>
+<li>调用<code>sql_statement_to_datafusion_plan</code>,其中会生成<code>datafusion</code>的对象，然后调用<code>SqlToRel::sql_statement_to_plan</code></li>
+<li><code>SqlToRel::sql_statement_to_plan</code>中会返回生成的逻辑计划</li>
+<li>返回</li>
+<li>返回</li>
+<li>返回</li>
+<li>调用<code>execute_plan_involving_partition_table</code>（使用默认配置情况下）进行该逻辑计划的后续优化和执行</li>
+<li>调用<code>build_interpreter</code>生成<code>Interpreter</code></li>
+<li>返回</li>
+<li>调用<code>Interpreter</code>的<code>interpreter_execute_plan</code>方法进行逻辑计划的执行。</li>
+<li>调用对应执行函数，此时<code>sql</code>是查询，所以会调用<code>SelectInterpreter</code>的<code>execute</code></li>
+<li>调用<code>execute_logical_plan</code>，其中会调用<code>build_df_session_ctx</code>生成优化器</li>
+<li><code>build_df_session_ctx</code>中会使用<code>config</code>信息生成对应上下文,首先使用<code>datafusion</code>和自定义的一些优化规则(在<code>logical_optimize_rules()</code>中)生成逻辑计划优化器, 使用 <code>apply_adapters_for_physical_optimize_rules</code>生成物理计划优化器</li>
+<li>将优化器返回</li>
+<li>调用<code>optimize_plan</code>，使用刚刚生成的优化器首先进行逻辑计划的优化随后进行物理计划的优化</li>
+<li>返回优化后的物理计划</li>
+<li>执行物理计划</li>
+<li>执行后返回</li>
+<li>收集所有分片的结果后，返回</li>
+<li>返回</li>
+<li>返回</li>
+<li>返回</li>
+<li>返回给上层进行网络协议转化，最后返回给请求发送方</li>
+</ol>
+<h3 id="write"><a class="header" href="#write">Write</a></h3>
+<pre><code class="language-plaintext">┌───────┐      ┌───────┐      ┌───────┐
+│       │──1──▶│       │──2──▶│       │
+│Server │      │  SQL  │      │Catalog│
+│       │◀─8───│       │◀─3───│       │
+└───────┘      └───────┘      └───────┘
+                │    ▲
+               4│   7│
+                │    │
+                ▼    │
+┌─────────────────────────────────────┐
+│                                     │
+│             Interpreter             │
+│                                     │
+└─────────────────────────────────────┘
+      │    ▲
+      │    │
+      │    │
+      │    │
+      │    │       ┌──────────────────┐
+      │    │       │                  │
+     5│   6│       │   Query Engine   │
+      │    │       │                  │
+      │    │       └──────────────────┘
+      │    │
+      │    │
+      │    │
+      ▼    │
+ ┌─────────────────────────────────────┐
+ │                                     │
+ │            Table Engine             │
+ │                                     │
+ └─────────────────────────────────────┘
+</code></pre>
+<p>以 <code>INSERT</code> SQL 为例，上图展示了查询过程，其中的数字表示模块之间调用的顺序。</p>
+<p>以下是详细流程：</p>
+<ul>
+<li>Server 模块根据请求使用的协议选择合适的 rpc 模块（可能是 HTTP、gRPC 或 mysql）来处理请求；</li>
+<li>使用 parser 解析请求中的 sql；</li>
+<li>根据解析好的 sql 以及 catalog/schema 提供的元信息，通过 <a href="https://github.com/apache/arrow-datafusion">DataFusion</a> 可以生成逻辑计划；</li>
+<li>根据逻辑计划创建相应的 <code>Interpreter</code> ，并由其执行逻辑计划；</li>
+<li>对于正常 <code>INSERT</code> SQL 的逻辑计划，它将通过 <code>InsertInterpreter</code> 执行；</li>
+<li>在 <code>InsertInterpreter</code> 中，调用 <code>Analytic Engine</code> 提供的 <code>Table</code> 的 <code>write</code> 方法：
+<ul>
+<li>首先将数据写入 <code>WAL</code>；</li>
+<li>然后写入 <code>MemTable</code>；</li>
+</ul>
+</li>
+<li>在写入 <code>MemTable</code> 之前，会检查内存使用情况。如果内存使用量过高，则会触发 <code>Flush</code>：
+<ul>
+<li>将一些旧的 <code>MemTable</code> 持久化为 <code>SST</code>；</li>
+<li>将新的 SST 信息记录到 <code>Manifest</code>；</li>
+<li>记录最新 Flush 的 <code>WAL</code> 序列号；</li>
+<li>删除相应的 <code>WAL</code> 日志；</li>
+</ul>
+</li>
+<li>Server 模块将执行结果响应给客户端。</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../dev/roadmap.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../design/clustering.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../dev/roadmap.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../design/clustering.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" charset="utf-8"></script>
+        <script src="../mark.min.js" charset="utf-8"></script>
+        <script src="../searcher.js" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" charset="utf-8"></script>
+        <script src="../highlight.js" charset="utf-8"></script>
+        <script src="../book.js" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../sidebar.js"></script>
+
+
+        <script type="text/javascript">
+         let langs = [
+                                'cn',
+                                'en'
+                            ];
+
+        (function langs() {
+            var html = document.querySelector('html');
+            var langToggleButton = document.getElementById('lang-toggle');
+            var langPopup = document.getElementById('lang-list');
+
+            function showLangs() {
+                langPopup.style.display = 'block';
+                langToggleButton.setAttribute('aria-expanded', true);
+            }
+
+            function hideLangs() {
+                langPopup.style.display = 'none';
+                langToggleButton.setAttribute('aria-expanded', false);
+                langToggleButton.focus();
+            }
+
+            langToggleButton.addEventListener('click', function () {
+                if (langPopup.style.display === 'block') {
+                    hideLangs();
+                } else {
+                    showLangs();
+                }
+            });
+
+            langPopup.addEventListener('click', function (e) {
+               let langs = [
+                        'cn',
+                        'en'
+                    ];
+                var lang = e.target.id || e.target.parentElement.id;
+                var path_list=[];
+                window.location.pathname.split('/').map((s, idx) => {
+                    if (idx == 1){
+                        if(!langs.includes(s)){
+                            path_list.push(lang);
+                            path_list.push(s);
+                        }else{
+                            path_list.push(lang);
+                        }
+                    }else{
+                        path_list.push(s);
+                    }
+                });
+                console.log("path:");
+                window.location.pathname = path_list.join('/');
+            });
+
+            langPopup.addEventListener('focusout', function(e) {
+                // e.relatedTarget is null in Safari and Firefox on macOS (see workaround below)
+                if (!!e.relatedTarget && !langToggleButton.contains(e.relatedTarget) && !langPopup.contains(e.relatedTarget)) {
+                    hideLangs();
+                }
+            });
+
+            // Should not be needed, but it works around an issue on macOS & iOS: https://github.com/rust-lang-nursery/mdBook/issues/628
+            document.addEventListener('click', function(e) {
+                if (langPopup.style.display === 'block' && !langToggleButton.contains(e.target) && !langPopup.contains(e.target)) {
+                    hideLangs();
+                }
+            });
+
+        })();
+        </script>
+
+
+    </body>
+</html>
