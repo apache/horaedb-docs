@@ -1,4 +1,4 @@
-![HoraeDB](https://github.com/CeresDB/horaedb/raw/main/docs/logo/CeresDB.png)
+![HoraeDB](https://github.com/apache/incubator-horaedb/raw/main/docs/logo/horaedb-banner-white-small.png)
 
 ![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)
 [![CI](https://github.com/apache/incubator-horaedb/actions/workflows/ci.yml/badge.svg)](https://github.com/apache/incubator-horaedb/actions/workflows/ci.yml)
