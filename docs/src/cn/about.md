@@ -1,10 +1,10 @@
-![HoraeDB](https://github.com/apache/incubator-horaedb/raw/main/docs/logo/horaedb-banner-white-small.png)
+![HoraeDB](https://github.com/apache/incubator-horaedb/raw/main/docs/logo/horaedb-banner-white-small.jpg)
 
 ![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)
 [![CI](https://github.com/apache/incubator-horaedb/actions/workflows/ci.yml/badge.svg)](https://github.com/apache/incubator-horaedb/actions/workflows/ci.yml)
 [![OpenIssue](https://img.shields.io/github/issues/apachge/incubator-horaedb)](https://github.com/apache/incubator-horaedb/issues)
 
-HoraeDB 是一款高性能、分布式的云原生时序数据库。
+Apache HoraeDB™ (incubating) 是一款高性能、分布式的云原生时序数据库。
 
 # 愿景
 
