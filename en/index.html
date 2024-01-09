@@ -173,11 +173,11 @@
                         <!-- Page table of contents -->
                         <div class="sidetoc"><nav class="pagetoc"></nav></div>
 
-                        <p><img src="https://github.com/apache/incubator-horaedb/raw/main/docs/logo/horaedb-banner-white-small.png" alt="HoraeDB" /></p>
+                        <p><img src="https://github.com/apache/incubator-horaedb/raw/main/docs/logo/horaedb-banner-white-small.jpg" alt="HoraeDB" /></p>
 <p><img src="https://img.shields.io/badge/license-Apache--2.0-green.svg" alt="License" />
 <a href="https://github.com/apache/incubator-horaedb/actions/workflows/ci.yml"><img src="https://github.com/apache/incubator-horaedb/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
 <a href="https://github.com/apache/incubator-horaedb/issues"><img src="https://img.shields.io/github/issues/apache/incubator-horaedb" alt="OpenIssue" /></a></p>
-<p>HoraeDB is a high-performance, distributed, cloud native time-series database.</p>
+<p>Apache HoraeDB™ (incubating) is a high-performance, distributed, cloud native time-series database.</p>
 <h1 id="motivation"><a class="header" href="#motivation">Motivation</a></h1>
 <p>In the classic timeseries database, the <code>Tag</code> columns (InfluxDB calls them <code>Tag</code> and Prometheus calls them <code>Label</code>) are normally indexed by generating an inverted index. However, it is found that the cardinality of <code>Tag</code> varies in different scenarios. And in some scenarios the cardinality of <code>Tag</code> is very high, and it takes a very high cost to store and retrieve the inverted index. On the other hand, it is observed that scanning+pruning often used by the analytical databases can do a good job to handle such these scenarios.</p>
 <p>The basic design idea of HoraeDB is to adopt a hybrid storage format and the corresponding query method for a better performance in processing both timeseries and analytic workloads.</p>
