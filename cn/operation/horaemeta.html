@@ -273,7 +273,7 @@ curl --location 'http://127.0.0.1:8080/api/v1/table/query' \
     &quot;name&quot;:&quot;testCluster&quot;,
     &quot;nodeCount&quot;:3,
     &quot;ShardTotal&quot;:9,
-    &quot;enableScheduler&quot;:true,
+    &quot;enableSchedule&quot;:true,
     &quot;topologyType&quot;:&quot;static&quot;
 }'
 </code></pre>
@@ -295,18 +295,18 @@ curl --location 'http://127.0.0.1:8080/api/v1/table/query' \
 <pre><code>curl --location 'http://127.0.0.1:8080/api/v1/clusters'
 </code></pre>
 <ul>
-<li>修改 DeployMode</li>
+<li>修改 <code>enableSchedule</code></li>
 </ul>
-<pre><code>curl --location --request PUT 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName}/deployMode' \
+<pre><code>curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule' \
 --header 'Content-Type: application/json' \
 --data '{
     &quot;enable&quot;:true
 }'
 </code></pre>
 <ul>
-<li>查询 DeployMode</li>
+<li>查询 <code>enableSchedule</code></li>
 </ul>
-<pre><code>curl --location 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName}/deployMode'
+<pre><code>curl --location 'http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule'
 </code></pre>
 <ul>
 <li>更新限流器</li>

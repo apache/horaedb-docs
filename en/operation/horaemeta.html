@@ -273,7 +273,6 @@ If ShardIDs in the request is empty, query with all shardIDs in the cluster.</li
     &quot;name&quot;:&quot;testCluster&quot;,
     &quot;nodeCount&quot;:3,
     &quot;shardTotal&quot;:9,
-    &quot;enableScheduler&quot;:true,
     &quot;topologyType&quot;:&quot;static&quot;
 }'
 </code></pre>
@@ -285,7 +284,6 @@ If ShardIDs in the request is empty, query with all shardIDs in the cluster.</li
 --data '{
     &quot;nodeCount&quot;:28,
     &quot;shardTotal&quot;:128,
-    &quot;enableSchedule&quot;:true,
     &quot;topologyType&quot;:&quot;dynamic&quot;
 }'
 </code></pre>
@@ -295,18 +293,18 @@ If ShardIDs in the request is empty, query with all shardIDs in the cluster.</li
 <pre><code>curl --location 'http://127.0.0.1:8080/api/v1/clusters'
 </code></pre>
 <ul>
-<li>Update DeployMode</li>
+<li>Update <code>enableSchedule</code></li>
 </ul>
-<pre><code>curl --location --request PUT 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName}/deployMode' \
+<pre><code>curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule' \
 --header 'Content-Type: application/json' \
 --data '{
     &quot;enable&quot;:true
 }'
 </code></pre>
 <ul>
-<li>Query DeployMode</li>
+<li>Query <code>enableSchedule</code></li>
 </ul>
-<pre><code>curl --location 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName}/deployMode'
+<pre><code>curl --location 'http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule'
 </code></pre>
 <ul>
 <li>Update flow limiter</li>
