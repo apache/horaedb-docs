@@ -109,7 +109,7 @@ curl --location 'http://127.0.0.1:8080/api/v1/clusters' \
     "name":"testCluster",
     "nodeCount":3,
     "ShardTotal":9,
-    "enableScheduler":true,
+    "enableSchedule":true,
     "topologyType":"static"
 }'
 ```
@@ -133,20 +133,20 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewCluster
 curl --location 'http://127.0.0.1:8080/api/v1/clusters'
 ```
 
-- 修改 DeployMode
+- 修改 `enableSchedule`
 
 ```
-curl --location --request PUT 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName}/deployMode' \
+curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule' \
 --header 'Content-Type: application/json' \
 --data '{
     "enable":true
 }'
 ```
 
-- 查询 DeployMode
+- 查询 `enableSchedule`
 
 ```
-curl --location 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName}/deployMode'
+curl --location 'http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule'
 ```
 
 - 更新限流器

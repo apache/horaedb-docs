@@ -109,7 +109,6 @@ curl --location 'http://127.0.0.1:8080/api/v1/clusters' \
     "name":"testCluster",
     "nodeCount":3,
     "shardTotal":9,
-    "enableScheduler":true,
     "topologyType":"static"
 }'
 ```
@@ -122,7 +121,6 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewCluster
 --data '{
     "nodeCount":28,
     "shardTotal":128,
-    "enableSchedule":true,
     "topologyType":"dynamic"
 }'
 ```
@@ -133,20 +131,20 @@ curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{NewCluster
 curl --location 'http://127.0.0.1:8080/api/v1/clusters'
 ```
 
-- Update DeployMode
+- Update `enableSchedule`
 
 ```
-curl --location --request PUT 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName}/deployMode' \
+curl --location --request PUT 'http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule' \
 --header 'Content-Type: application/json' \
 --data '{
     "enable":true
 }'
 ```
 
-- Query DeployMode
+- Query `enableSchedule`
 
 ```
-curl --location 'http://127.0.0.1:8080/api/v1/cluster/{ClusterName}/deployMode'
+curl --location 'http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule'
 ```
 
 - Update flow limiter
