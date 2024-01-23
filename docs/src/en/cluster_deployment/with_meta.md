@@ -163,7 +163,7 @@ If you have deployed a Kafka cluster, HoraeDB can also use it as the WAL storage
 type = "Kafka"
 
 [analytic.wal.kafka.client]
-boost_broker = "{boost_broker}"
+boost_brokers = [ "{boost_broker1}", "{boost_broker2}" ]
 ```
 
 ### Meta Client Config
