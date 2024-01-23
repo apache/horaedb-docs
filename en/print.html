@@ -1175,7 +1175,7 @@ sys_password = &quot;{sys_password}&quot;
 type = &quot;Kafka&quot;
 
 [analytic.wal.kafka.client]
-boost_broker = &quot;{boost_broker}&quot;
+boost_brokers = [ &quot;{boost_broker1}&quot;, &quot;{boost_broker2}&quot; ]
 </code></pre>
 <h3 id="meta-client-config"><a class="header" href="#meta-client-config">Meta Client Config</a></h3>
 <p>Besides the storage configurations, HoraeDB must be configured to start in <code>WithMeta</code> mode and connect to the deployed HoraeMeta:</p>
