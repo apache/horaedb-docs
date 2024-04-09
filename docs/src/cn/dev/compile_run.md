@@ -47,6 +47,8 @@ source $HOME/.cargo/env
 
 # 编译运行
 
+注意：gcc 版本要求是 8, 更高的版本可能出现编译报错。该问题在 [issue-1506](https://github.com/apache/incubator-horaedb/issues/1506) 中跟进。
+
 编译 HoraeDB 命令如下:
 
 ```

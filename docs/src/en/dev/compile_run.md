@@ -44,6 +44,8 @@ source $HOME/.cargo/env
 
 # Compile and Run
 
+Note: The gcc version required is 8; using higher versions may result in compilation errors. This issue is being tracked in [issue-1506](https://github.com/apache/incubator-horaedb/issues/1506).
+
 Compile HoraeDB by the following command:
 
 ```
