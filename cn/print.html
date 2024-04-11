@@ -2361,6 +2361,7 @@ demo,tag1=t11,tag2=t22 field1=91,field2=101 1679994648000
 <pre><code class="language-shell">source $HOME/.cargo/env
 </code></pre>
 <h1 id="编译运行"><a class="header" href="#编译运行">编译运行</a></h1>
+<p>注意：gcc 版本要求是 8, 更高的版本可能出现编译报错。该问题在 <a href="https://github.com/apache/incubator-horaedb/issues/1506">issue-1506</a> 中跟进。</p>
 <p>编译 HoraeDB 命令如下:</p>
 <pre><code>cargo build --release
 </code></pre>
