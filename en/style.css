@@ -46,3 +46,9 @@
         display: none;
     }
 }
+
+footer {
+  text-align: center;
+  padding: 3px;
+  font-size: 0.7em;
+}
