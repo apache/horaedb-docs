@@ -55,7 +55,7 @@ docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
 
 运行上面命令后，grafana 可以用浏览器打开 http://127.0.0.1:3000。
 
-更多 Prometheus 安装方法，参考[这里](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)。
+更多 Grafana 安装方法，参考[这里](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)。
 
 ### 配置数据源
 
