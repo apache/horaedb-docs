@@ -1,6 +1,4 @@
-## HoraeDB Documentation
-
-Welcome to HoraeDB documentation!
+## Apache HoraeDB (incubating) Website
 
 This repository stores all the source files of [HoraeDB docs website](https://apache.github.io/incubator-horaedb-docs/), the website is generated with [mdbook](https://rust-lang.github.io/mdBook/).
 
@@ -8,9 +6,7 @@ This repository stores all the source files of [HoraeDB docs website](https://ap
 
 ## Contributing
 
-We very much welcome any contributions from the community to make HoraeDB documentation better.
-
-You can
+Welcome any contributions from the community. You can
 
 - Open an [issue](https://github.com/apache/incubator-horaedb-docs/issues) with any suggestions, or
-- Submit a [pull request](https://github.com/apache/incubator-horaedb-docs/pulls) to fix errors.
+- Submit a [pull request](https://github.com/apache/incubator-horaedb-docs/pulls) to improve the website (trivial fixes are welcome).
