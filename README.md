@@ -9,4 +9,4 @@ This repository stores all the source files of [HoraeDB docs website](https://ap
 Welcome any contributions from the community. You can
 
 - Open an [issue](https://github.com/apache/incubator-horaedb-docs/issues) with any suggestions, or
-- Submit a [pull request](https://github.com/apache/incubator-horaedb-docs/pulls) to fix errors/typos.
+- Submit a [pull request](https://github.com/apache/incubator-horaedb-docs/pulls) to improve the website (trivial fixes are welcome).
