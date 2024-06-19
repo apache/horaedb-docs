@@ -48,6 +48,7 @@
 - [Supported Platform](dev/platform.md)
 - [Compile and Running](dev/compile_run.md)
   - [Profile](dev/profiling.md)
+- [SDK Development](dev/sdk_develop.md)
 - [Conventional Commit](dev/conventional_commit.md)
 - [Style guide](dev/style_guide.md)
 - [Roadmap](dev/roadmap.md)
