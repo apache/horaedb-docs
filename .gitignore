@@ -6,3 +6,10 @@
 
 # vscode files
 .vscode
+
+/resources
+*lock
+/public
+/node_modules
+package.json
+package-lock.json

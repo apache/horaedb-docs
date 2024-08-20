@@ -1,0 +1,87 @@
+baseURL = 'https://horaedb.apache.org/'
+languageCode = 'en-us'
+title = 'Apache HoraeDB'
+contentDir = "content/en"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+enableMissingTranslationPlaceholders = true
+
+enableRobotsTXT = true
+
+# Will give values to .Lastmod etc.
+enableGitInfo = true
+
+[languages]
+[languages.en]
+languageName ="English"
+# Weight used for sorting.
+weight = 1
+[languages.en.params]
+description = "A high-performance, distributed, cloud native time-series database."
+
+[languages.cn]
+languageName ="中文"
+contentDir = "content/cn"
+[languages.cn.params]
+description = "一款高性能、分布式的云原生时序数据库"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.parser.attribute]
+      block = true
+  [markup.highlight]
+    noClasses = false
+    style = "tango"
+
+[module]
+proxy = "https://goproxy.cn,direct"
+[[module.imports]]
+path = "github.com/google/docsy"
+
+[params]
+github_repo = "https://github.com/apache/horaedb-docs"
+github_project_repo = "https://github.com/apache/horaedb"
+offlineSearch = true
+
+[params.links]
+[[params.links.user]]
+	name = "GitHub Discussions"
+	url = "https://github.com/apache/horaedb/discussions"
+	icon = "fa-solid fa-circle-question"
+    desc = "Discussion and help from your fellow users"
+[[params.links.user]]
+	name ="Weixin"
+	url = "https://example.org/"
+	icon = "fa-brands fa-weixin"
+    desc = "Follow us on Weixin Official Accounts（微信公众平台） to get the latest news!"
+# Developer relevant links. These will show up on right side of footer and in the community page if you have one.
+[[params.links.developer]]
+	name = "GitHub"
+	url = "https://github.com/apache/horaedb"
+	icon = "fab fa-github"
+    desc = "Development takes place here!"
+[[params.links.developer]]
+	name = "DingTalk"
+	url = "/images/dingtalk.jpg"
+	icon = "fa-regular fa-comments"
+    desc = "Chat with other project developers on DingTalk"
+[[params.links.developer]]
+	name = "Developer mailing list"
+	url = "mailto:dev-subscribe@horaedb.apache.org"
+	icon = "fa fa-envelope"
+    desc = "Discuss development issues around the project"
+
+[params.copyright]
+  authors = """The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
+
+Apache, the names of Apache projects, and the feather logo are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries."""
+  from_year = 2023
+
+[params.ui]
+navbar_logo = false
+sidebar_menu_compact = true
+ul_show = 1
+sidebar_menu_foldable = true
+showLightDarkModeMenu = true
