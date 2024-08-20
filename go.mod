@@ -1,4 +1,4 @@
-module github.com/me/my-new-site
+module github.com/apache/horaedb-docs
 
 go 1.22
 

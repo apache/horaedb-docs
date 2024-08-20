@@ -10,6 +10,18 @@ This repository stores all the source files of [HoraeDB docs website](https://ap
 
 **All files are written in standard markdown.**
 
+## How to run
+
+```bash
+# Download dependencies
+hugo mod get
+
+# Start a local server for preview
+hugo serve
+```
+
+By default hugo will listen on http://localhost:1313
+
 ## Contributing
 
 Welcome any contributions from the community. You can
