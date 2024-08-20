@@ -1,6 +1,7 @@
 ---
 title: "Block List"
 ---
+
 ## Add block list
 
 If you want to reject query for a table, you can add table name to 'read_block_list'.

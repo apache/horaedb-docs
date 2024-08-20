@@ -1,6 +1,7 @@
 ---
 title: "Special Columns"
 ---
+
 Tables in HoraeDB have the following constraints:
 
 - Primary key is required

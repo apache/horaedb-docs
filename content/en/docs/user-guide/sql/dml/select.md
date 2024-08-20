@@ -1,6 +1,7 @@
 ---
 title: "SELECT"
 ---
+
 ## Basic syntax
 
 Basic syntax (parts between `[]` are optional):

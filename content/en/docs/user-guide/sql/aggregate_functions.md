@@ -2,6 +2,7 @@
 title: "Aggregate Functions"
 weight: 80
 ---
+
 HoraeDB SQL is implemented with [DataFusion](https://github.com/apache/arrow-datafusion), Here is the list of aggregate functions. See more detail, Refer to [Datafusion](https://github.com/apache/arrow-datafusion/blob/master/docs/source/user-guide/sql/aggregate_functions.md)
 
 ## General

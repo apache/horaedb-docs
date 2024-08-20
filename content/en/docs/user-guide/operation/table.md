@@ -1,6 +1,7 @@
 ---
 title: "Table Operation"
 ---
+
 HoraeDB supports standard SQL protocols and allows you to create tables and read/write data via http requests. More [SQL](../sql/README.md)
 
 ## Create Table

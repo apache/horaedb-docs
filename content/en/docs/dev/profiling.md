@@ -1,6 +1,7 @@
 ---
 title: "Profiling"
 ---
+
 ### CPU profiling
 
 HoraeDB provides cpu profiling http api `debug/profile/cpu`.

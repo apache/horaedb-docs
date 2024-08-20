@@ -1,6 +1,7 @@
 ---
 title: "Rationale and Goals"
 ---
+
 As every Rust programmer knows, the language has many powerful features, and there are often
 several patterns which can express the same idea. Also, as every professional programmer comes to
 discover, code is almost always read far more than it is written.

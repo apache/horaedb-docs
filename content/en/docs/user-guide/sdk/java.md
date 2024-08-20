@@ -1,6 +1,7 @@
 ---
 title: "Java"
 ---
+
 ## Introduction
 
 HoraeDB Client is a high-performance Java client for HoraeDB.

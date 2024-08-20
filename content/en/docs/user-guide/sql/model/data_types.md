@@ -1,6 +1,7 @@
 ---
 title: "Data Types"
 ---
+
 HoraeDB implements table model, and the supported data types are similar to MySQL.
 The following table lists the mapping relationship between MySQL and HoraeDB.
 

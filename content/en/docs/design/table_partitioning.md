@@ -1,7 +1,7 @@
 ---
+
 title: "Table Partitioning"
 ---**Note: This feature is still in development, and the API may change in the future.**
-
 
 This chapter discusses `PartitionTable`.
 

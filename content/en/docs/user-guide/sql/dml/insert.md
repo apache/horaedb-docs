@@ -1,6 +1,7 @@
 ---
 title: "INSERT"
 ---
+
 ## Basic syntax
 
 Basic syntax:

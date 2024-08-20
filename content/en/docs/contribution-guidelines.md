@@ -41,18 +41,18 @@ PR title.
 
 For PRs that you consider ready for review, verify the following locally before you submit it:
 
-* you have a coherent set of logical commits, with messages conforming to the [Conventional Commits]({{< ref "conventional_commit.md" >}}) specification;
-* all the tests and/or benchmarks pass, including documentation tests;
-* the code is correctly formatted and all `clippy` checks pass; and
-* you haven't left any "code cruft" (commented out code blocks etc).
+- you have a coherent set of logical commits, with messages conforming to the [Conventional Commits]({{< ref "conventional_commit.md" >}}) specification;
+- all the tests and/or benchmarks pass, including documentation tests;
+- the code is correctly formatted and all `clippy` checks pass; and
+- you haven't left any "code cruft" (commented out code blocks etc).
 
 There are some tips on verifying the above in the [next section](#running-tests).
 
 **After** submitting a PR, you should:
 
-* verify that all CI status checks pass and the PR is 💚;
-* ask for help on the PR if any of the status checks are 🔴, and you don't know why;
-* wait patiently for one of the team to review your PR, which could take a few days.
+- verify that all CI status checks pass and the PR is 💚;
+- ask for help on the PR if any of the status checks are 🔴, and you don't know why;
+- wait patiently for one of the team to review your PR, which could take a few days.
 
 ## Running Tests
 

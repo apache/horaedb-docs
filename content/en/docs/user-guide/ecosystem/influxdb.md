@@ -1,6 +1,7 @@
 ---
 title: "InfluxDB"
 ---
+
 [InfluxDB](https://www.influxdata.com/products/influxdb-overview/) is a time series database designed to handle high write and query loads. It is an integral component of the TICK stack. InfluxDB is meant to be used as a backing store for any use case involving large amounts of timestamped data, including DevOps monitoring, application metrics, IoT sensor data, and real-time analytics.
 
 HoraeDB support [InfluxDB v1.8](https://docs.influxdata.com/influxdb/v1.8/tools/api/#influxdb-1x-http-endpoints) write and query API.

@@ -2,6 +2,7 @@
 title: "Scalar Functions"
 weight: 70
 ---
+
 HoraeDB SQL is implemented with [DataFusion](https://github.com/CeresDB/arrow-datafusion), Here is the list of scalar functions. See more detail, Refer to [Datafusion](https://github.com/CeresDB/arrow-datafusion/blob/master/docs/source/user-guide/sql/scalar_functions.md)
 
 ## Math Functions

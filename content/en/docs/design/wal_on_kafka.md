@@ -1,6 +1,7 @@
 ---
 title: "WAL on Kafka"
 ---
+
 ## Architecture
 
 In this section we present a distributed WAL implementation(based on Kafka). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by region, which can be simply understood as a shared log file of multiple tables.

@@ -5,7 +5,6 @@ weight: 10
 
 **Note: This feature is for testing use only, not recommended for production use, related features may change in the future.**
 
-
 This guide shows how to deploy a HoraeDB cluster without HoraeMeta, but with static, rule-based routing.
 
 The crucial point here is that HoraeDB server provides configurable routing function on table name so what we need is just a valid config containing routing rules which will be shipped to every HoraeDB instance in the cluster.

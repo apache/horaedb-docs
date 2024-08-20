@@ -2,6 +2,7 @@
 title: "Getting Started"
 weight: 1
 ---
+
 This page shows you how to get started with HoraeDB quickly. You'll start a standalone HoraeDB server, and then insert and read some sample data using SQL.
 
 ## Start server

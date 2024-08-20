@@ -1,6 +1,7 @@
 ---
 title: "ALTER TABLE"
 ---
+
 `ALTER TABLE` can change the schema or options of a table.
 
 ## ALTER TABLE SCHEMA

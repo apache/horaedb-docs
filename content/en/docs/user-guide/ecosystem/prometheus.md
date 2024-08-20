@@ -1,6 +1,7 @@
 ---
 title: "Prometheus"
 ---
+
 [Prometheus](https://prometheus.io/) is a popular cloud-native monitoring tool that is widely adopted by organizations due to its scalability, reliability, and scalability. It is used to scrape metrics from cloud-native services, such as Kubernetes and OpenShift, and stores it in a time-series database. Prometheus is also easily extensible, allowing users to extend its features and capabilities with other databases.
 
 HoraeDB can be used as a long-term storage solution for Prometheus. Both remote read and remote write API are supported.

@@ -1,6 +1,7 @@
 ---
 title: "Go"
 ---
+
 ## Installation
 
 ```

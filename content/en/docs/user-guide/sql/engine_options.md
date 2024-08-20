@@ -2,6 +2,7 @@
 title: "Options"
 weight: 60
 ---
+
 Options below can be used when create table for analytic engine
 
 - `enable_ttl`, `bool`. When enable TTL on a table, rows older than `ttl` will be deleted and can't be querid, default `true`

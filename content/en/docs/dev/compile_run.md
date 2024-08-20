@@ -1,12 +1,12 @@
 ---
 title: "Compile"
 weight: 30
-
 ---
 
 In order to compile HoraeDB, some relevant dependencies(including the `Rust` toolchain) should be installed.
 
 # Dependencies(Ubuntu20.04)
+
 Assuming the development environment is Ubuntu20.04, execute the following command to install the required dependencies:
 
 ```shell

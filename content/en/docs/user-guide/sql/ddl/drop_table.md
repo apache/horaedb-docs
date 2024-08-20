@@ -1,6 +1,7 @@
 ---
 title: "DROP TABLE"
 ---
+
 ## Basic syntax
 
 Basic syntax:

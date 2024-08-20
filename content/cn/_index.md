@@ -20,7 +20,6 @@ title: "Horaedb"
 
 {{% /blocks/feature %}}
 
-
 {{% blocks/feature icon="fa fa-code" title="生态" url="docs/user-guide/ecosystem/" %}}
 
 积极拥抱开源生态，同时能够无缝对接各种开源组件。
@@ -30,7 +29,6 @@ title: "Horaedb"
 
 所有代码均在 GitHub 上开源，欢迎新用户的加入！
 {{% /blocks/feature %}}
-
 
 {{% /blocks/section %}}
 

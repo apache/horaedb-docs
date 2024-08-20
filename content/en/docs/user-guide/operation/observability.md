@@ -1,6 +1,7 @@
 ---
 title: "Observability"
 ---
+
 HoraeDB is observable with Prometheus and Grafana.
 
 ## Prometheus

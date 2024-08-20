@@ -1,6 +1,7 @@
 ---
 title: "Rust"
 ---
+
 ## Install
 
 ```bash

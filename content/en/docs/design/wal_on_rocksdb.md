@@ -1,6 +1,7 @@
 ---
 title: "WAL on RocksDB"
 ---
+
 ## Architecture
 
 In this section we present a standalone WAL implementation (based on RocksDB). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by table, and we call the corresponding storage data structure `TableUnit`. All related data (logs or some metadata) is stored in a single column family for simplicity.

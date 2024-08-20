@@ -1,6 +1,7 @@
 ---
 title: "Introduction to HoraeDB's Architecture"
 ---
+
 ## Target
 
 - Provide the overview of HoraeDB to the developers who want to know more about HoraeDB but have no idea where to start.

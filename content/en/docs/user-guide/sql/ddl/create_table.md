@@ -1,6 +1,7 @@
 ---
 title: "CREATE TABLE"
 ---
+
 ## Basic syntax
 
 Basic syntax:

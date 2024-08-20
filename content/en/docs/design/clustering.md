@@ -1,7 +1,7 @@
 ---
+
 title: "Introduction to Architecture of HoraeDB Cluster"
 ---Note: Some of the features mentioned in the article have not yet been implemented.
-
 
 ## Overview
 

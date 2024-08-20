@@ -2,7 +2,6 @@
 title: "Horaedb"
 ---
 
-
 {{% blocks/cover color="primary" title="Apache HoraeDB™ (incubating)" height="full" %}}
 {{% param description %}}
 
@@ -21,7 +20,6 @@ High scalability, Cost-efficiency, Community-driven
 
 {{% /blocks/feature %}}
 
-
 {{% blocks/feature icon="fa fa-code" title="Ecosystem" url="docs/user-guide/ecosystem/" %}}
 
 HoraeDB has an open ecosystem that encourages collaboration and innovation, allowing developers to use what suits them best.
@@ -30,7 +28,6 @@ HoraeDB has an open ecosystem that encourages collaboration and innovation, allo
 {{% blocks/feature icon="fa-brands fa-github" title="Contributions welcome!" url="docs/contribution-guidelines/" %}}
 We do a [Pull Request](https://github.com/apache/horaedb/pulls) contributions workflow on **GitHub**. New users are always welcome!
 {{% /blocks/feature %}}
-
 
 {{% /blocks/section %}}
 
