@@ -31,10 +31,9 @@ jobs:
         run: |
           npm i -D postcss postcss-cli autoprefixer
           hugo mod get
-          hugo \
-            --minify
+          hugo --minify
       - run: make build
-      # copy .asf.yaml to ./public asf site needs
+      # copy .asf.yaml to ./public, asf site needs it.
       - run: cp .asf.yaml ./public
       - uses: peaceiris/actions-gh-pages@v3
         if: github.event_name != 'pull_request'

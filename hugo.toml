@@ -49,11 +49,11 @@ offlineSearch = true
 [[params.links.user]]
 	name = "GitHub Discussions"
 	url = "https://github.com/apache/horaedb/discussions"
-	icon = "fa-solid fa-circle-question"
+	icon = "fab fa-github"
     desc = "Discussion and help from your fellow users"
 [[params.links.user]]
-	name ="Weixin"
-	url = "https://example.org/"
+	name = "Weixin Official Accounts"
+	url = "/images/weixin-mp.jpg"
 	icon = "fa-brands fa-weixin"
     desc = "Follow us on Weixin Official Accounts（微信公众平台） to get the latest news!"
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
