@@ -41,7 +41,9 @@ columnar, 默认值 hybrid, 注意：此功能仍在开发中，将来可能会�
 1 2 3 4 5 6 7 8 9 | Timestamp | Device ID | Status Code | Tag 1 | Tag 2 | | --------- |---------- | ----------- | ----- | ----- | | 12:01 | A | 0 | v1 | v1 | | 12:01 | B | 0 | v2 | v2 | | 12:02 | A | 0 | v1 | v1 | | 12:02 | B | 1 | v2 | v2 | | 12:03 | A | 0 | v1 | v1 | | 12:03 | B | 0 | v2 | v2 | | .</description></item><item><title>预告：第一次线上会议</title><link>https://horaedb.apache.org/cn/blog/2024/first-online-meeting/</link><pubDate>Wed, 21 Aug 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/first-online-meeting/</guid><description>各位开发者们，
 欢迎大家参加我们的第一次线上会议！这次会议标志着我们团队在项目开发过程中的一个重要里程碑，也是我们合作共赢的开始。
 会议目的 这次会议的主要目的是让大家相互认识，了解项目的总体目标，讨论开发的初步计划，并明确各自的角色和责任。我们希望通过此次会议，能够为接下来的工作奠定坚实的基础，并建立起一个高效、透明的沟通机制。
-主要议题 Apache HoraeDB 项目现状介绍 新 Metric Engine 设计方案介绍 参会方式 感兴趣的朋友可以加入我们的社区（钉钉群、微信公众号等），获取会议地址。
+主要议题 Apache HoraeDB 项目现状介绍 新 Metric Engine 设计方案介绍 参会方式 入会链接：https://meeting.dingtalk.com/j/011mRkbIdqL
+可通过浏览器直接入会，无需下载钉钉。
+也欢迎感兴趣的朋友可以加入我们的社区（钉钉群、微信公众号等），获取社区最新动态。
 会议时间 2024 年 08 月 27 日 周二，21:00-22:00 (GMT+8)</description></item><item><title>ALTER TABLE</title><link>https://horaedb.apache.org/cn/docs/user-guide/sql/ddl/alter_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sql/ddl/alter_table/</guid><description>使用 ALTER TABLE 可以改变表的结构和参数 .
 变更表结构 例如可以使用 ADD COLUMN 增加表的列 :
 1 2 3 -- create a table and add a column to it CREATE TABLE `t`(a int, t timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE = Analytic; ALTER TABLE `t` ADD COLUMN (b string); 变更后的表结构如下：
