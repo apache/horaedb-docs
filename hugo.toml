@@ -1,5 +1,4 @@
 baseURL = 'https://horaedb.apache.org/'
-languageCode = 'en-us'
 title = 'Apache HoraeDB'
 contentDir = "content/en"
 defaultContentLanguage = "en"
@@ -18,12 +17,14 @@ languageName ="English"
 weight = 1
 [languages.en.params]
 description = "A high-performance, distributed, cloud native time-series database."
+time_format_blog = "02 Jan 2006"
 
 [languages.cn]
 languageName ="中文"
 contentDir = "content/cn"
 [languages.cn.params]
 description = "一款高性能、分布式的云原生时序数据库"
+time_format_blog = "2006-01-02"
 
 [markup]
   [markup.goldmark]
@@ -32,8 +33,8 @@ description = "一款高性能、分布式的云原生时序数据库"
     [markup.goldmark.parser.attribute]
       block = true
   [markup.highlight]
-    noClasses = false
-    style = "tango"
+    style = "pygments"
+    linenos = true
 
 [module]
 proxy = "https://goproxy.cn,direct"
