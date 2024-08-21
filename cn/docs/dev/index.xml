@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>开发手册 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/docs/dev/</link><description>Recent content in 开发手册 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/docs/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>支持平台</title><link>https://horaedb.apache.org/cn/docs/dev/platform/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/platform/</guid><description>作为一个开源的数据库，HoraeDB 可以部署在基于英特尔 /ARM 架构的服务器，以及常见的虚拟环境。
 OS status Ubuntu LTS 16.06 or later ✅ CentOS 7.3 or later ✅ Red Hat Enterprise Linux 7.3 or later 7.x releases ✅ macOS 11 or later ✅ Windows ❌ 生产环境下 , Linux 是首选平台。 macOS 主要用在开发环境。</description></item><item><title>编译</title><link>https://horaedb.apache.org/cn/docs/dev/compile_run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/compile_run/</guid><description>为了编译 HoraeDB, 首先需要安装相关的依赖（包括 Rust 的工具链)。
 依赖(Ubuntu20.04) 假设我们的开发环境是 Ubuntu20.04, 可以执行如下命令来安装所需的依赖。
-sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler 需要注意的是，项目的编译对 cmake、gcc、g++等依赖项有版本要求。
+1 sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler 需要注意的是，项目的编译对 cmake、gcc、g++等依赖项有版本要求。
 如果你的开发环境是旧的 Linux 发行版，有必要手动安装这些依赖项的高版本。
 依赖(MacOS) 如果你的开发环境是 MacOS ，可以使用如下命令手动安装这些依赖项的高版本。
-安装命令行工具： xcode-select --install 安装 cmake: brew install cmake 安装 protobuf: brew install protobuf Rust Rust 可以使用 rustup 来安装。 安装 Rust 后，进入 HoraeDB 工程目录，根据工具链文件指定的 Rust 版本会被自动下载。
+安装命令行工具： 1 xcode-select --install 安装 cmake: 1 brew install cmake 安装 protobuf: 1 brew install protobuf Rust Rust 可以使用 rustup 来安装。 安装 Rust 后，进入 HoraeDB 工程目录，根据工具链文件指定的 Rust 版本会被自动下载。
 执行后，你需要添加环境变量来使用 Rust 工具链。只要把下面的命令放到你的~/.bashrc或~/.bash_profile中即可。
-source $HOME/.cargo/env 编译运行 注意：gcc 版本要求是 8, 更高的版本可能出现编译报错。该问题在 issue-1506 中跟进。
-编译 HoraeDB 命令如下:
-cargo build --release 然后可以使用特定的配置文件运行 HoraeDB。</description></item><item><title>性能诊断</title><link>https://horaedb.apache.org/cn/docs/dev/profiling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/profiling/</guid><description>CPU 剖析 HoraeDB 提供 CPU 剖析 http 接口 debug/profile/cpu.
+1 source $HOME/.cargo/env 编译运行 注意：gcc 版本要求是 8, 更高的版本可能出现编译报错。该问题在 issue-1506 中跟进。</description></item><item><title>性能诊断</title><link>https://horaedb.apache.org/cn/docs/dev/profiling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/profiling/</guid><description>CPU 剖析 HoraeDB 提供 CPU 剖析 http 接口 debug/profile/cpu.
 例子:
 // 60s CPU 采样数据 curl 0:5000/debug/profile/cpu/60 // 产出文件 /tmp/flamegraph_cpu.svg 内存剖析 HoraeDB 提供内存剖析 http 接口 debug/profile/heap.
 安装依赖 sudo yum install -y jemalloc-devel ghostscript graphviz 例子:
