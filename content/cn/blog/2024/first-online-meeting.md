@@ -1,5 +1,5 @@
 ---
-title: 第一次线上会议
+title: 预告：第一次线上会议
 date: 2024-08-21
 tags:
   - community
@@ -15,12 +15,12 @@ tags:
 
 # 主要议题
 
-1. Apache HoraeDB 项目介绍
+1. Apache HoraeDB 项目现状介绍
 2. 新 Metric Engine 设计方案介绍
 
 # 参会方式
 
-感兴趣的朋友可以[加入钉钉群](https://horaedb.apache.org/community/)，获取会议地址。
+感兴趣的朋友可以[加入我们的社区](/community)（钉钉群、微信公众号等），获取会议地址。
 
 # 会议时间
 
