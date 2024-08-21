@@ -6,14 +6,14 @@
 >
 > Please read the [DISCLAIMER](DISCLAIMER) and a full explanation of ["incubating"](https://incubator.apache.org/policy/incubation.html).
 
-This repository stores all the source files of [HoraeDB docs website](https://apache.github.io/horaedb-docs/), the website is generated with [hugo](https://gohugo.io/) and [docsy](https://www.docsy.dev/).
+This repository stores all the source files of [HoraeDB website](https://horaedb.apache.org), it's built with [hugo](https://gohugo.io/) and [docsy](https://www.docsy.dev/).
 
 **All files are written in standard markdown.**
 
 ## How to run
 
 ```bash
-# Download dependencies
+# Download dependencies, only need to run at the first time
 hugo mod get
 
 # Start a local server for preview
