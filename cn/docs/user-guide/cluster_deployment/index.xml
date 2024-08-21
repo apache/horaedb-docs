@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>集群部署 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/docs/user-guide/cluster_deployment/</link><description>Recent content in 集群部署 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/docs/user-guide/cluster_deployment/index.xml" rel="self" type="application/rss+xml"/><item><title>NoMeta 模式</title><link>https://horaedb.apache.org/cn/docs/user-guide/cluster_deployment/no_meta/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/cluster_deployment/no_meta/</guid><description>注意：此功能仅供测试使用，不推荐生产使用，相关功能将来可能会发生变化。
+本章介绍如何部署一个静态（无 HoraeMeta）的 HoraeDB 集群。
+在没有 HoraeMeta 的情况下，利用 HoraeDB 服务端针对表名提供了可配置的路由功能即可实现集群化部署，为此我们需要提供一个包含路由规则的正确配置。根据这个配置，请求会被发送到集群中的每个 HoraeDB 实例。
+目标 本文的目标是：在同一台机器上部署一个集群，这个集群包含两个 HoraeDB 实例。
+如果想要部署一个更大规模的集群，参考此方案也可以进行部署。
+准备配置文件 基础配置 HoraeDB 的基础配置如下：
+[server] bind_addr = &amp;#34;0.0.0.0&amp;#34; http_port = 5440 grpc_port = 8831 [logger] level = &amp;#34;info&amp;#34; [tracing] dir = &amp;#34;/tmp/horaedb&amp;#34; [analytic.storage.object_store] type = &amp;#34;Local&amp;#34; data_dir = &amp;#34;/tmp/horaedb&amp;#34; [analytic.wal] type = &amp;#34;RocksDB&amp;#34; data_dir = &amp;#34;/tmp/horaedb&amp;#34; 为了在同一个机器上部署两个实例，我们需要为每个实例配置不同的服务端口和数据目录。
+实例 HoraeDB_0 的配置如下：
+[server] bind_addr = &amp;#34;0.0.0.0&amp;#34; http_port = 5440 grpc_port = 8831 [logger] level = &amp;#34;info&amp;#34; [tracing] dir = &amp;#34;/tmp/horaedb_0&amp;#34; [analytic.</description></item><item><title>WithMeta 模式</title><link>https://horaedb.apache.org/cn/docs/user-guide/cluster_deployment/with_meta/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/cluster_deployment/with_meta/</guid><description>本文展示如何部署一个由 HoraeMeta 控制的 HoraeDB 集群，有了 HoraeMeta 提供的服务，如果 HoraeDB 使用存储不在本地的话，就可以实现很多分布式特性，比如水平扩容、负载均衡、服务高可用等。
+部署 HoraeMeta HoraeMeta 是 HoraeDB 分布式模式的核心服务之一，用于管理 HoraeDB 节点的调度，为 HoraeDB 集群提供高可用、负载均衡、集群管控等能力。 HoraeMeta 本身通过嵌入式的 ETCD 保障高可用。此外，ETCD 的服务也被暴露给 HoraeDB 用于实现分布式锁使用。
+编译打包 安装 Golang，版本号 &amp;gt;= 1.19。 在项目根目录下使用 make build 进行编译打包。 部署方式 启动配置 目前 HoraeMeta 支持以配置文件和环境变量两种方式来指定服务启动配置。我们提供了配置文件方式启动的示例，具体可以参考 config。 环境变量的配置优先级高于配置文件，当同时存在时，以环境变量为准。
+动态拓扑和静态拓扑 即使使用了 HoraeMeta 来部署 HoraeDB 集群，也可以选择静态拓扑或动态拓扑。对于静态拓扑，表的分布在集群初始化后是静态的，而对于动态拓扑，表可以在不同的 HoraeDB 节点之间进行动态迁移以达到负载平衡或者 failover 的目的。但是动态拓扑只有在 HoraeDB 节点使用的存储是非本地的情况下才能启用，否则会因为表的数据是持久化在本地，当表转移到不同的 HoraeDB 节点时会导致数据损坏。
+目前，HoraeMeta 默认关闭集群拓扑的动态调度，并且在本篇指南中，这个选项也不会被开启，因为指南中的例子采用的是本地存储。如果要启用动态调度，可以将 TOPOLOGY_TYPE 设置为 dynamic（默认为 static），之后负载均衡和 failover 将会起作用。但是需要注意的是，如果底层存储是本地磁盘，则不要启用它。
+此外对于静态拓扑，参数 DEFAULT_CLUSTER_NODE_COUNT 表示已部署集群中 HoraeDB 节点的数量，应该被设置为 HoraeDB 服务器的实际机器数，这个参数非常重要，因为集群初始化完毕之后，HoraeDB 集群将无法再增减机器。</description></item></channel></rss>
