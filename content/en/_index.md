@@ -14,6 +14,7 @@ Get started<i class="fas fa-arrow-alt-circle-right ms-2"></i>
 {.p-initial .my-5}
 
 <script src="https://www.apachecon.com/event-images/snippet.js"></script>
+
 <a class="acevent" data-format="square" data-event="na2024" data-mode="light" data-style="border: 3px solid red; padding: 10px; background: yellow;"></a>
 
 {{% blocks/section type="row"  %}}
