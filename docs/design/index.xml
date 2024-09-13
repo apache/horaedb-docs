@@ -1,12 +1,142 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Technical and Design on Apache HoraeDB</title><link>https://horaedb.apache.org/docs/design/</link><description>Recent content in Technical and Design on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/docs/design/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction to Architecture of HoraeDB Cluster</title><link>https://horaedb.apache.org/docs/design/clustering/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/clustering/</guid><description>Note: Some of the features mentioned in the article have not yet been implemented.
-Overview 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 ┌───────────────────────────────────────────────────────────────────────┐ │ │ │ HoraeMeta Cluster │ │ │ └───────────────────────────────────────────────────────────────────────┘ ▲ ▲ ▲ │ │ │ │ │ │ ▼ ▼ ▼ ┌───────┐Route Info ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐ │client │◀────────▶ │ │ │TableN││ │ │ │ │TableN││ │ │ │ │TableN││ │ └───────┘Write/Query└──Shard(L)──┴┴─┘ └──Shard(F)──┴┴─┘ └──Shard(F)──┴┴─┘ ▲ │ ▲ ▲ │ │ │ │ Write─────────┐ ├────Sync───────┘ │ │ │ ┌────────┬▼───┴────┬──────────────────┐ Upload/Download │ │ │ │ SST │ │WAL │Region N │ │ │Service │ │ │ │ └────────┴─────────┴──────────────────┘ ▼ ┌───────────────────────────────────────────────────────────────────────┐ │ │ │ Object Storage │ │ │ └───────────────────────────────────────────────────────────────────────┘ The diagram above describes the architecture of a HoraeDB cluster, where some key concepts need to be explained:</description></item><item><title>Introduction to HoraeDB's Architecture</title><link>https://horaedb.apache.org/docs/design/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/architecture/</guid><description>Target Provide the overview of HoraeDB to the developers who want to know more about HoraeDB but have no idea where to start. Make a brief introduction to the important modules of HoraeDB and the connections between these modules but details about their implementations are not be involved. Motivation HoraeDB is a timeseries database (TSDB). However, HoraeDB&amp;rsquo;s goal is to handle both timeseries and analytic workloads compared with the classic TSDB, which usually have a poor performance in handling analytic workloads.</description></item><item><title>Storage</title><link>https://horaedb.apache.org/docs/design/storage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/storage/</guid><description>The storage engine mainly provides the following two functions：
-Persistence of data Under the premise of ensuring the correctness of the data, organize the data in the most reasonable way to meet the query needs of different scenarios. This document will introduce the internal implementation of the storage engine in HoraeDB. Readers can refer to the content here to explore how to use HoraeDB efficiently.
-Overall Structure HoraeDB is a distributed storage system based on the share-nothing architecture.</description></item><item><title>Table Partitioning</title><link>https://horaedb.apache.org/docs/design/table_partitioning/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/table_partitioning/</guid><description>Note: This feature is still in development, and the API may change in the future.
-This chapter discusses PartitionTable.
-The partition table syntax used by HoraeDB is similar to that of MySQL.
-General partition tables include Range Partitioning, List Partitoning, Hash Partitioning, and Key Partititioning.
-HoraeDB currently only supports Key Partitioning.
-Architecture Similar to MySQL, different portions of a partition table are stored as separate tables in different locations.
-Currently designed, a partition table can be opened on multiple HoraeDB nodes, supports writing and querying at the same time, and can be expanded horizontally.</description></item><item><title>Wal</title><link>https://horaedb.apache.org/docs/design/wal/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal/</guid><description> WAL on RocksDB WAL on Kafka WAL on OceanBase will be introduced in later.</description></item><item><title>WAL on Kafka</title><link>https://horaedb.apache.org/docs/design/wal_on_kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal_on_kafka/</guid><description>Architecture In this section we present a distributed WAL implementation(based on Kafka). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by region, which can be simply understood as a shared log file of multiple tables.
-As shown in the following figure, regions are mapped to topics(with only one partition) in Kafka. And usually two topics are needed by a region, one is used for storing logs and the other is used for storing metadata.</description></item><item><title>WAL on RocksDB</title><link>https://horaedb.apache.org/docs/design/wal_on_rocksdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal_on_rocksdb/</guid><description>Architecture In this section we present a standalone WAL implementation (based on RocksDB). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by table, and we call the corresponding storage data structure TableUnit. All related data (logs or some metadata) is stored in a single column family for simplicity.
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ┌───────────────────────────────┐ │ HoraeDB │ │ │ │ ┌─────────────────────┐ │ │ │ WAL │ │ │ │ │ │ │ │ .</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Technical and Design on Apache HoraeDB</title><link>https://horaedb.apache.org/docs/design/</link><description>Recent content in Technical and Design on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/docs/design/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction to Architecture of HoraeDB Cluster</title><link>https://horaedb.apache.org/docs/design/clustering/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/clustering/</guid><description>&lt;p>Note: Some of the features mentioned in the article have not yet been implemented.&lt;/p>
+&lt;h2 id="overview">Overview&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-plaintext" data-lang="plaintext">&lt;span style="display:flex;">&lt;span>┌───────────────────────────────────────────────────────────────────────┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ HoraeMeta Cluster │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└───────────────────────────────────────────────────────────────────────┘
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ▲ ▲ ▲
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ▼ ▼ ▼
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌───────┐Route Info ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│client │◀────────▶ │ │ │TableN││ │ │ │ │TableN││ │ │ │ │TableN││ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└───────┘Write/Query└──Shard(L)──┴┴─┘ └──Shard(F)──┴┴─┘ └──Shard(F)──┴┴─┘
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ▲ │ ▲ ▲
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ Write─────────┐ ├────Sync───────┘
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ ┌────────┬▼───┴────┬──────────────────┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Upload/Download │ │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> SST │ │WAL │Region N │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │Service │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ └────────┴─────────┴──────────────────┘
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ▼
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌───────────────────────────────────────────────────────────────────────┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Object Storage │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└───────────────────────────────────────────────────────────────────────┘
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The diagram above describes the architecture of a HoraeDB cluster, where some key concepts need to be explained:&lt;/p></description></item><item><title>Introduction to HoraeDB's Architecture</title><link>https://horaedb.apache.org/docs/design/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/architecture/</guid><description>&lt;h2 id="target">Target&lt;/h2>
+&lt;ul>
+&lt;li>Provide the overview of HoraeDB to the developers who want to know more about HoraeDB but have no idea where to start.&lt;/li>
+&lt;li>Make a brief introduction to the important modules of HoraeDB and the connections between these modules but details about their implementations are not be involved.&lt;/li>
+&lt;/ul>
+&lt;h2 id="motivation">Motivation&lt;/h2>
+&lt;p>HoraeDB is a timeseries database (&lt;strong>TSDB&lt;/strong>). However, HoraeDB&amp;rsquo;s goal is to handle both timeseries and analytic workloads compared with the classic TSDB, which usually have a poor performance in handling analytic workloads.&lt;/p></description></item><item><title>Storage</title><link>https://horaedb.apache.org/docs/design/storage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/storage/</guid><description>&lt;p>The storage engine mainly provides the following two functions：&lt;/p>
+&lt;ol>
+&lt;li>Persistence of data&lt;/li>
+&lt;li>Under the premise of ensuring the correctness of the data, organize the data in the most reasonable way to meet the query needs of different scenarios.&lt;/li>
+&lt;/ol>
+&lt;p>This document will introduce the internal implementation of the storage engine in HoraeDB. Readers can refer to the content here to explore how to use HoraeDB efficiently.&lt;/p>
+&lt;h1 id="overall-structure">Overall Structure&lt;/h1>
+&lt;p>HoraeDB is a distributed storage system based on the share-nothing architecture.&lt;/p></description></item><item><title>Table Partitioning</title><link>https://horaedb.apache.org/docs/design/table_partitioning/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/table_partitioning/</guid><description>&lt;p>&lt;strong>Note: This feature is still in development, and the API may change in the future.&lt;/strong>&lt;/p>
+&lt;p>This chapter discusses &lt;code>PartitionTable&lt;/code>.&lt;/p>
+&lt;p>The partition table syntax used by HoraeDB is similar to that of &lt;a href="https://dev.mysql.com/doc/refman/8.0/en/partitioning-types.html">MySQL&lt;/a>.&lt;/p>
+&lt;p>General partition tables include &lt;code>Range Partitioning&lt;/code>, &lt;code>List Partitoning&lt;/code>, &lt;code>Hash Partitioning&lt;/code>, and &lt;code>Key Partititioning&lt;/code>.&lt;/p>
+&lt;p>HoraeDB currently only supports &lt;code>Key Partitioning&lt;/code>.&lt;/p>
+&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>Similar to MySQL, different portions of a partition table are stored as separate tables in different locations.&lt;/p>
+&lt;p>Currently designed, a partition table can be opened on multiple HoraeDB nodes, supports writing and querying at the same time, and can be expanded horizontally.&lt;/p></description></item><item><title>Wal</title><link>https://horaedb.apache.org/docs/design/wal/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal/</guid><description>&lt;ul>
+&lt;li>&lt;a href="https://horaedb.apache.org/docs/design/wal_on_rocksdb/">WAL on RocksDB&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://horaedb.apache.org/docs/design/wal_on_kafka/">WAL on Kafka&lt;/a>&lt;/li>
+&lt;li>WAL on OceanBase will be introduced in later.&lt;/li>
+&lt;/ul></description></item><item><title>WAL on Kafka</title><link>https://horaedb.apache.org/docs/design/wal_on_kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal_on_kafka/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>In this section we present a distributed WAL implementation(based on Kafka). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by region, which can be simply understood as a shared log file of multiple tables.&lt;/p>
+&lt;p>As shown in the following figure, regions are mapped to topics(with only one partition) in Kafka. And usually two topics are needed by a region, one is used for storing logs and the other is used for storing metadata.&lt;/p></description></item><item><title>WAL on RocksDB</title><link>https://horaedb.apache.org/docs/design/wal_on_rocksdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal_on_rocksdb/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>In this section we present a standalone WAL implementation (based on RocksDB). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by table, and we call the corresponding storage data structure &lt;code>TableUnit&lt;/code>. All related data (logs or some metadata) is stored in a single column family for simplicity.&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span> ┌───────────────────────────────┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ HoraeDB │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ ┌─────────────────────┐ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ WAL │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ ...... │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ ┌────────────────┐ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Write ─────┼─┼──► TableUnit │ │Delete │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │ ◄────── │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Read ─────┼─┼──► ┌────────────┐ │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │ RocksDBRef │ │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ └────────────┘ │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ | | |
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ └────────────────┘ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ ...... │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ └─────────────────────┘ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> └───────────────────────────────┘
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="data-model">Data Model&lt;/h2>
+&lt;h3 id="common-log-format">Common Log Format&lt;/h3>
+&lt;p>We use the common key and value format here.
+Here is the defined key format, and the following is introduction for fields in it:&lt;/p></description></item></channel></rss>

@@ -1,7 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>博客 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/blog/</link><description>Recent content in 博客 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>预告：第一次线上会议</title><link>https://horaedb.apache.org/cn/blog/2024/first-online-meeting/</link><pubDate>Wed, 21 Aug 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/first-online-meeting/</guid><description>各位开发者们，
-欢迎大家参加我们的第一次线上会议！这次会议标志着我们团队在项目开发过程中的一个重要里程碑，也是我们合作共赢的开始。
-会议目的 这次会议的主要目的是让大家相互认识，了解项目的总体目标，讨论开发的初步计划，并明确各自的角色和责任。我们希望通过此次会议，能够为接下来的工作奠定坚实的基础，并建立起一个高效、透明的沟通机制。
-主要议题 Apache HoraeDB 项目现状介绍 新 Metric Engine 设计方案介绍 参会方式 入会链接：https://meeting.dingtalk.com/j/011mRkbIdqL
-可通过浏览器直接入会，无需下载钉钉。
-也欢迎感兴趣的朋友可以加入我们的社区（钉钉群、微信公众号等），获取社区最新动态。
-会议时间 2024 年 08 月 27 日 周二，21:00-22:00 (GMT+8)</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>博客 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/blog/</link><description>Recent content in 博客 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>欢迎 Apache HoraeDB 新晋 Committer： 鲍金日</title><link>https://horaedb.apache.org/cn/blog/2024/new-committer-baojinri/</link><pubDate>Fri, 13 Sep 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/new-committer-baojinri/</guid><description>&lt;p>各位开发者们，&lt;/p>
+&lt;p>今天很高兴宣布，HoraeDB 社区新增了一个 committer：&lt;a href="https://github.com/baojinri">鲍金日&lt;/a>，他之前的贡献得到 HoraeDB PPMC 的&lt;a href="https://lists.apache.org/thread/kqp9jl325b5crz9kt9t3o2bkzplhm7oz">一致认可&lt;/a>，并于 2024-09-10 投票成为 committer，感谢他一直以来的贡献。下面是他的贡献记录：&lt;/p>
+&lt;ul>
+&lt;li>33 PRs to &lt;a href="https://github.com/apache/horaedb/pulls?q=is%3Apr+author%3Abaojinri+is%3Aclosed">main repo&lt;/a>&lt;/li>
+&lt;li>4 PRs to &lt;a href="https://github.com/apache/horaedb-docs/pulls?q=is%3Apr+author%3Abaojinri+is%3Aclosed">docs repo&lt;/a>&lt;/li>
+&lt;li>13 PRs to &lt;a href="https://github.com/apache/incubator-horaedb-meta/pulls?q=is%3Apr+author%3Abaojinri+is%3Aclosed">meta repo&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>需要明确一点，成为 committer 并不需要额外做什么，主要是方便开发者后续可以更便利（有仓库写权限）地参与社区贡献。&lt;/p>
+&lt;p>最后，再次感谢鲍金日一直以来对社区的付出，衷心希望他能继续贡献，共同见证社区的成长。&lt;/p>
+&lt;p>欢迎更多感兴趣的朋友加入我们的&lt;a href="https://horaedb.apache.org/community">社区&lt;/a>，与我们近距离交流。&lt;/p></description></item><item><title>预告：第一次线上会议</title><link>https://horaedb.apache.org/cn/blog/2024/first-online-meeting/</link><pubDate>Wed, 21 Aug 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/first-online-meeting/</guid><description>&lt;p>各位开发者们，&lt;/p>
+&lt;p>欢迎大家参加我们的第一次线上会议！这次会议标志着我们团队在项目开发过程中的一个重要里程碑，也是我们合作共赢的开始。&lt;/p>
+&lt;h1 id="会议目的">会议目的&lt;/h1>
+&lt;p>这次会议的主要目的是让大家相互认识，了解项目的总体目标，讨论开发的初步计划，并明确各自的角色和责任。我们希望通过此次会议，能够为接下来的工作奠定坚实的基础，并建立起一个高效、透明的沟通机制。&lt;/p>
+&lt;h1 id="主要议题">主要议题&lt;/h1>
+&lt;ol>
+&lt;li>Apache HoraeDB 项目现状介绍&lt;/li>
+&lt;li>新 Metric Engine 设计方案介绍&lt;/li>
+&lt;/ol>
+&lt;h1 id="参会方式">参会方式&lt;/h1>
+&lt;p>入会链接：&lt;a href="https://meeting.dingtalk.com/j/011mRkbIdqL">https://meeting.dingtalk.com/j/011mRkbIdqL&lt;/a>&lt;/p>
+&lt;p>可通过浏览器直接入会，无需下载钉钉。&lt;/p>
+&lt;p>也欢迎感兴趣的朋友可以&lt;a href="https://horaedb.apache.org/community">加入我们的社区&lt;/a>（钉钉群、微信公众号等），获取社区最新动态。&lt;/p>
+&lt;h1 id="会议时间">会议时间&lt;/h1>
+&lt;p>2024 年 08 月 27 日 周二，21:00-22:00 (GMT+8)&lt;/p></description></item></channel></rss>

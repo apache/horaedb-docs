@@ -1,11 +1,221 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SDK on Apache HoraeDB</title><link>https://horaedb.apache.org/docs/user-guide/sdk/</link><description>Recent content in SDK on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/docs/user-guide/sdk/index.xml" rel="self" type="application/rss+xml"/><item><title>Go</title><link>https://horaedb.apache.org/docs/user-guide/sdk/go/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/go/</guid><description>Installation go get github.com/apache/incubator-horaedb-client-go You can get latest version here.
-How To Use Init HoraeDB Client 1 2 3 client, err := horaedb.NewClient(endpoint, horaedb.Direct, horaedb.WithDefaultDatabase(&amp;#34;public&amp;#34;), ) option name description defaultDatabase using database, database can be overwritten by ReqContext in single Write or SQLRequest RPCMaxRecvMsgSize configration for grpc MaxCallRecvMsgSize, default 1024 _ 1024 _ 1024 RouteMaxCacheSize If the maximum number of router cache size, router client whill evict oldest if exceeded, default is 10000 Notice:</description></item><item><title>Java</title><link>https://horaedb.apache.org/docs/user-guide/sdk/java/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/java/</guid><description>Introduction HoraeDB Client is a high-performance Java client for HoraeDB.
-Requirements Java 8 or later is required for compilation Dependency 1 2 3 4 5 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;io.ceresdb&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;ceresdb-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${CERESDB.VERSION}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; You can get latest version here.
-Init HoraeDB Client 1 2 3 4 5 6 7 8 9 10 11 12 13 final CeresDBOptions opts = CeresDBOptions.newBuilder(&amp;#34;127.0.0.1&amp;#34;, 8831, DIRECT) // CeresDB default grpc port 8831，use DIRECT RouteMode .database(&amp;#34;public&amp;#34;) // use database for client, can be overridden by the RequestContext in request // maximum retry times when write fails // (only some error codes will be retried, such as the routing table failure) .</description></item><item><title>Python</title><link>https://horaedb.apache.org/docs/user-guide/sdk/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/python/</guid><description>Introduction horaedb-client is the python client for HoraeDB.
-Thanks to PyO3, the python client is actually a wrapper on the rust client.
-The guide will give a basic introduction to the python client by example.
-Requirements Python &amp;gt;= 3.7 Installation 1 pip install ceresdb-client You can get latest version here.
-Init HoraeDB Client The client initialization comes first, here is a code snippet:
-1 2 3 4 5 6 7 8 9 10 11 12 13 import asyncio import datetime from ceresdb_client import Builder, RpcContext, PointBuilder, ValueBuilder, WriteRequest, SqlQueryRequest, Mode, RpcConfig rpc_config = RpcConfig() rpc_config = RpcConfig() rpc_config.</description></item><item><title>Rust</title><link>https://horaedb.apache.org/docs/user-guide/sdk/rust/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/rust/</guid><description>Install 1 cargo add ceresdb-client You can get latest version here.
-Init Client At first, we need to init the client.
-New builder for the client, and you must set endpoint and mode: endpoint is a string which is usually like &amp;ldquo;ip/domain_name:port&amp;rdquo;. mode is used to define the way to access horaedb server, detail about mode. 1 let mut builder = Builder::new(&amp;#34;ip/domain_name:port&amp;#34;, Mode::Direct/Mode::Proxy); New and set rpc_config, it can be defined on demand or just use the default value, detail about rpc config: 1 2 3 4 5 6 let rpc_config = RpcConfig { thread_num: Some(1), default_write_timeout: Duration::from_millis(1000), .</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SDK on Apache HoraeDB</title><link>https://horaedb.apache.org/docs/user-guide/sdk/</link><description>Recent content in SDK on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/docs/user-guide/sdk/index.xml" rel="self" type="application/rss+xml"/><item><title>Go</title><link>https://horaedb.apache.org/docs/user-guide/sdk/go/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/go/</guid><description>&lt;h2 id="installation">Installation&lt;/h2>
+&lt;pre tabindex="0">&lt;code>go get github.com/apache/incubator-horaedb-client-go
+&lt;/code>&lt;/pre>&lt;p>You can get latest version &lt;a href="https://github.com/apache/incubator-horaedb-client-go/tags">here&lt;/a>.&lt;/p>
+&lt;h2 id="how-to-use">How To Use&lt;/h2>
+&lt;h3 id="init-horaedb-client">Init HoraeDB Client&lt;/h3>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>	client, err &lt;span style="color:#666">:=&lt;/span> horaedb.&lt;span style="color:#00f">NewClient&lt;/span>(endpoint, horaedb.Direct,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		horaedb.&lt;span style="color:#00f">WithDefaultDatabase&lt;/span>(&lt;span style="color:#ba2121">&amp;#34;public&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">option name&lt;/th>
+ &lt;th style="text-align: left">description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">defaultDatabase&lt;/td>
+ &lt;td style="text-align: left">using database, database can be overwritten by ReqContext in single &lt;code>Write&lt;/code> or &lt;code>SQLRequest&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">RPCMaxRecvMsgSize&lt;/td>
+ &lt;td style="text-align: left">configration for grpc &lt;code>MaxCallRecvMsgSize&lt;/code>, default 1024 _ 1024 _ 1024&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">RouteMaxCacheSize&lt;/td>
+ &lt;td style="text-align: left">If the maximum number of router cache size, router client whill evict oldest if exceeded, default is 10000&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>Notice:&lt;/p></description></item><item><title>Java</title><link>https://horaedb.apache.org/docs/user-guide/sdk/java/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/java/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>HoraeDB Client is a high-performance Java client for HoraeDB.&lt;/p>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;ul>
+&lt;li>Java 8 or later is required for compilation&lt;/li>
+&lt;/ul>
+&lt;h2 id="dependency">Dependency&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;dependency&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;groupId&amp;gt;&lt;/span>io.ceresdb&lt;span style="color:#008000;font-weight:bold">&amp;lt;/groupId&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;artifactId&amp;gt;&lt;/span>ceresdb-all&lt;span style="color:#008000;font-weight:bold">&amp;lt;/artifactId&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;version&amp;gt;&lt;/span>${CERESDB.VERSION}&lt;span style="color:#008000;font-weight:bold">&amp;lt;/version&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;/dependency&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You can get latest version &lt;a href="https://github.com/apache/incubator-horaedb-client-java/blob/main/docs/CHANGELOG.md">here&lt;/a>.&lt;/p>
+&lt;h2 id="init-horaedb-client">Init HoraeDB Client&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">final&lt;/span>&lt;span style="color:#bbb"> &lt;/span>CeresDBOptions&lt;span style="color:#bbb"> &lt;/span>opts&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>CeresDBOptions.&lt;span style="color:#7d9029">newBuilder&lt;/span>(&lt;span style="color:#ba2121">&amp;#34;127.0.0.1&amp;#34;&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>8831,&lt;span style="color:#bbb"> &lt;/span>DIRECT)&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// CeresDB default grpc port 8831，use DIRECT RouteMode&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>.&lt;span style="color:#7d9029">database&lt;/span>(&lt;span style="color:#ba2121">&amp;#34;public&amp;#34;&lt;/span>)&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// use database for client, can be overridden by the RequestContext in request&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// maximum retry times when write fails&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// (only some error codes will be retried, such as the routing table failure)&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>.&lt;span style="color:#7d9029">writeMaxRetries&lt;/span>(1)&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// maximum retry times when read fails&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// (only some error codes will be retried, such as the routing table failure)&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>.&lt;span style="color:#7d9029">readMaxRetries&lt;/span>(1).&lt;span style="color:#7d9029">build&lt;/span>();&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">final&lt;/span>&lt;span style="color:#bbb"> &lt;/span>CeresDBClient&lt;span style="color:#bbb"> &lt;/span>client&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">new&lt;/span>&lt;span style="color:#bbb"> &lt;/span>CeresDBClient();&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">if&lt;/span>&lt;span style="color:#bbb"> &lt;/span>(&lt;span style="color:#666">!&lt;/span>client.&lt;span style="color:#7d9029">init&lt;/span>(opts))&lt;span style="color:#bbb"> &lt;/span>{&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">throw&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">new&lt;/span>&lt;span style="color:#bbb"> &lt;/span>IllegalStateException(&lt;span style="color:#ba2121">&amp;#34;Fail to start CeresDBClient&amp;#34;&lt;/span>);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The initialization requires at least three parameters:&lt;/p></description></item><item><title>Python</title><link>https://horaedb.apache.org/docs/user-guide/sdk/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/python/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>&lt;a href="https://pypi.org/project/ceresdb-client/">horaedb-client&lt;/a> is the python client for &lt;a href="https://github.com/apache/incubator-horaedb">HoraeDB&lt;/a>.&lt;/p>
+&lt;p>Thanks to &lt;a href="https://github.com/PyO3">PyO3&lt;/a>, the python client is actually a wrapper on the &lt;a href="https://github.com/apache/incubator-horaedb-client-rs">rust client&lt;/a>.&lt;/p>
+&lt;p>The guide will give a basic introduction to the python client by &lt;a href="https://github.com/apache/incubator-horaedb-client-py/blob/main/examples/read_write.py">example&lt;/a>.&lt;/p>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;ul>
+&lt;li>Python &amp;gt;= 3.7&lt;/li>
+&lt;/ul>
+&lt;h2 id="installation">Installation&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pip install ceresdb-client
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You can get latest version &lt;a href="https://github.com/apache/incubator-horaedb-client-py/tags">here&lt;/a>.&lt;/p>
+&lt;h2 id="init-horaedb-client">Init HoraeDB Client&lt;/h2>
+&lt;p>The client initialization comes first, here is a code snippet:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">import&lt;/span> &lt;span style="color:#00f;font-weight:bold">asyncio&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">import&lt;/span> &lt;span style="color:#00f;font-weight:bold">datetime&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">from&lt;/span> &lt;span style="color:#00f;font-weight:bold">ceresdb_client&lt;/span> &lt;span style="color:#008000;font-weight:bold">import&lt;/span> Builder, RpcContext, PointBuilder, ValueBuilder, WriteRequest, SqlQueryRequest, Mode, RpcConfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rpc_config &lt;span style="color:#666">=&lt;/span> RpcConfig()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rpc_config &lt;span style="color:#666">=&lt;/span> RpcConfig()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rpc_config&lt;span style="color:#666">.&lt;/span>thread_num &lt;span style="color:#666">=&lt;/span> &lt;span style="color:#666">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rpc_config&lt;span style="color:#666">.&lt;/span>default_write_timeout_ms &lt;span style="color:#666">=&lt;/span> &lt;span style="color:#666">1000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>builder &lt;span style="color:#666">=&lt;/span> Builder(&lt;span style="color:#ba2121">&amp;#39;127.0.0.1:8831&amp;#39;&lt;/span>, Mode&lt;span style="color:#666">.&lt;/span>Direct)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>builder&lt;span style="color:#666">.&lt;/span>set_rpc_config(rpc_config)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>builder&lt;span style="color:#666">.&lt;/span>set_default_database(&lt;span style="color:#ba2121">&amp;#39;public&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>client &lt;span style="color:#666">=&lt;/span> builder&lt;span style="color:#666">.&lt;/span>build()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Firstly, it&amp;rsquo;s worth noting that the imported packages are used across all the code snippets in this guide, and they will not be repeated in the following.&lt;/p></description></item><item><title>Rust</title><link>https://horaedb.apache.org/docs/user-guide/sdk/rust/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/rust/</guid><description>&lt;h2 id="install">Install&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cargo add ceresdb-client
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You can get latest version &lt;a href="https://github.com/apache/incubator-horaedb-client-rs/tags">here&lt;/a>.&lt;/p>
+&lt;h2 id="init-client">Init Client&lt;/h2>
+&lt;p>At first, we need to init the client.&lt;/p>
+&lt;ul>
+&lt;li>New builder for the client, and you must set &lt;code>endpoint&lt;/code> and &lt;code>mode&lt;/code>:
+&lt;ul>
+&lt;li>&lt;code>endpoint&lt;/code> is a string which is usually like &amp;ldquo;ip/domain_name:port&amp;rdquo;.&lt;/li>
+&lt;li>&lt;code>mode&lt;/code> is used to define the way to access horaedb server, &lt;a href="https://github.com/apache/incubator-horaedb-client-rs/blob/main/src/db_client/builder.rs#L20">detail about mode&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rust" data-lang="rust">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">mut&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>Builder::new(&lt;span style="color:#ba2121">&amp;#34;ip/domain_name:port&amp;#34;&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>Mode::Direct&lt;span style="color:#666">/&lt;/span>Mode::Proxy);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>New and set &lt;code>rpc_config&lt;/code>, it can be defined on demand or just use the default value, &lt;a href="https://github.com/apache/incubator-horaedb-client-rs/blob/main/src/options.rs">detail about rpc config&lt;/a>:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rust" data-lang="rust">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>rpc_config&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>RpcConfig&lt;span style="color:#bbb"> &lt;/span>{&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>thread_num: &lt;span style="color:#008000">Some&lt;/span>(&lt;span style="color:#666">1&lt;/span>),&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>default_write_timeout: &lt;span style="color:#00f;font-weight:bold">Duration&lt;/span>::from_millis(&lt;span style="color:#666">1000&lt;/span>),&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">..&lt;/span>&lt;span style="color:#008000">Default&lt;/span>::default()&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>};&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder.rpc_config(rpc_config);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>Set &lt;code>default_database&lt;/code>, it will be used if following rpc calling without setting the database in the &lt;code>RpcContext&lt;/code>(will be introduced in later):&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rust" data-lang="rust">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder.default_database(&lt;span style="color:#ba2121">&amp;#34;public&amp;#34;&lt;/span>);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>Finally, we build client from builder:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rust" data-lang="rust">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>client&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder.build();&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="manage-table">Manage Table&lt;/h2>
+&lt;p>For ease of use, when using gRPC&amp;rsquo;s write interface for writing, if a table does not exist, HoraeDB will automatically create a table based on the first write.&lt;/p></description></item></channel></rss>

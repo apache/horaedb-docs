@@ -1,7 +1,170 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数据模型 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/docs/user-guide/sql/model/</link><description>Recent content in 数据模型 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/docs/user-guide/sql/model/index.xml" rel="self" type="application/rss+xml"/><item><title>数据类型</title><link>https://horaedb.apache.org/cn/docs/user-guide/sql/model/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sql/model/data_types/</guid><description>HoraeDB 实现了 Table 模型，支持的数据类型和 MySQL 比较类似。 下列表格列出了 HoraeDB 的数据类型和 MySQL 的数据类型的对应关系。
-支持的数据类型 (大小写不敏感) SQL HoraeDB null Null timestamp Timestamp double Double float Float string String Varbinary Varbinary uint64 UInt64 uint32 UInt32 uint16 UInt16 uint8 UInt8 int64/bigint Int64 int32/int Int32 int16/smallint Int16 int8/tinyint Int8 boolean Boolean date Date time Time</description></item><item><title>特殊字段</title><link>https://horaedb.apache.org/cn/docs/user-guide/sql/model/special_columns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sql/model/special_columns/</guid><description>HoraeDB 的表的约束如下：
-必须有主键 主键必须包含时间列，并且只能包含一个时间列 主键不可为空，并且主键的组成字段也不可为空 Timestamp 列 HoraeDB 的表必须包含一个时间戳列，对应时序数据中的时间，例如 OpenTSDB/Prometheus 的 timestamp。 时间戳列通过关键字 timestamp key 设置，例如 TIMESTAMP KEY(ts)。
-Tag 列 Tag 关键字定义了一个字段作为标签列，和时序数据中的 tag 类似，例如 OpenTSDB 的 tag 或 Prometheus 的 label。
-主键 主键用于数据去重和排序，由一些列和一个时间列组成。 主键可以通过以下一些方式设置：
-使用 primary key 关键字 使用 tag 来自动生成 TSID，HoraeDB 默认将使用 (TSID,timestamp) 作为主键。 只设置时间戳列，HoraeDB 将使用 (timestamp) 作为主键。 注意：如果同时指定了主键和 Tag 列，那么 Tag 列只是一个额外的信息标识，不会影响主键生成逻辑。
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 CREATE TABLE with_primary_key( ts TIMESTAMP NOT NULL, c1 STRING NOT NULL, c2 STRING NULL, c4 STRING NULL, c5 STRING NULL, TIMESTAMP KEY(ts), PRIMARY KEY(c1, ts) ) ENGINE=Analytic WITH (ttl=&amp;#39;7d&amp;#39;); CREATE TABLE with_tag( ts TIMESTAMP NOT NULL, c1 STRING TAG NOT NULL, c2 STRING TAG NULL, c3 STRING TAG NULL, c4 DOUBLE NULL, c5 STRING NULL, c6 STRING NULL, TIMESTAMP KEY(ts) ) ENGINE=Analytic WITH (ttl=&amp;#39;7d&amp;#39;); CREATE TABLE with_timestamp( ts TIMESTAMP NOT NULL, c1 STRING NOT NULL, c2 STRING NULL, c3 STRING NULL, c4 DOUBLE NULL, c5 STRING NULL, c6 STRING NULL, TIMESTAMP KEY(ts) ) ENGINE=Analytic WITH (ttl=&amp;#39;7d&amp;#39;); TSID 如果建表时没有设置主键，并且提供了 Tag 列，HoraeDB 会自动生成一个 TSID 列和时间戳列作为主键。TSID 由所有 Tag 列的 hash 值生成，本质上这是一种自动生成 ID 的机制。</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数据模型 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/docs/user-guide/sql/model/</link><description>Recent content in 数据模型 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/docs/user-guide/sql/model/index.xml" rel="self" type="application/rss+xml"/><item><title>数据类型</title><link>https://horaedb.apache.org/cn/docs/user-guide/sql/model/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sql/model/data_types/</guid><description>&lt;p>HoraeDB 实现了 &lt;code>Table&lt;/code> 模型，支持的数据类型和 MySQL 比较类似。
+下列表格列出了 HoraeDB 的数据类型和 MySQL 的数据类型的对应关系。&lt;/p>
+&lt;h2 id="支持的数据类型-大小写不敏感">支持的数据类型 (大小写不敏感)&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">SQL&lt;/th>
+ &lt;th style="text-align: left">HoraeDB&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">null&lt;/td>
+ &lt;td style="text-align: left">Null&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">timestamp&lt;/td>
+ &lt;td style="text-align: left">Timestamp&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">Double&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">float&lt;/td>
+ &lt;td style="text-align: left">Float&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">string&lt;/td>
+ &lt;td style="text-align: left">String&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Varbinary&lt;/td>
+ &lt;td style="text-align: left">Varbinary&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">uint64&lt;/td>
+ &lt;td style="text-align: left">UInt64&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">uint32&lt;/td>
+ &lt;td style="text-align: left">UInt32&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">uint16&lt;/td>
+ &lt;td style="text-align: left">UInt16&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">uint8&lt;/td>
+ &lt;td style="text-align: left">UInt8&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">int64/bigint&lt;/td>
+ &lt;td style="text-align: left">Int64&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">int32/int&lt;/td>
+ &lt;td style="text-align: left">Int32&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">int16/smallint&lt;/td>
+ &lt;td style="text-align: left">Int16&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">int8/tinyint&lt;/td>
+ &lt;td style="text-align: left">Int8&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">boolean&lt;/td>
+ &lt;td style="text-align: left">Boolean&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">date&lt;/td>
+ &lt;td style="text-align: left">Date&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">time&lt;/td>
+ &lt;td style="text-align: left">Time&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>特殊字段</title><link>https://horaedb.apache.org/cn/docs/user-guide/sql/model/special_columns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sql/model/special_columns/</guid><description>&lt;p>HoraeDB 的表的约束如下：&lt;/p>
+&lt;ul>
+&lt;li>必须有主键&lt;/li>
+&lt;li>主键必须包含时间列，并且只能包含一个时间列&lt;/li>
+&lt;li>主键不可为空，并且主键的组成字段也不可为空&lt;/li>
+&lt;/ul>
+&lt;h2 id="timestamp-列">Timestamp 列&lt;/h2>
+&lt;p>HoraeDB 的表必须包含一个时间戳列，对应时序数据中的时间，例如 OpenTSDB/Prometheus 的 &lt;code>timestamp&lt;/code>。
+时间戳列通过关键字 &lt;code>timestamp key&lt;/code> 设置，例如 &lt;code>TIMESTAMP KEY(ts)&lt;/code>。&lt;/p>
+&lt;h2 id="tag-列">Tag 列&lt;/h2>
+&lt;p>&lt;code>Tag&lt;/code> 关键字定义了一个字段作为标签列，和时序数据中的 &lt;code>tag&lt;/code> 类似，例如 OpenTSDB 的 &lt;code>tag&lt;/code> 或 Prometheus 的 &lt;code>label&lt;/code>。&lt;/p>
+&lt;h2 id="主键">主键&lt;/h2>
+&lt;p>主键用于数据去重和排序，由一些列和一个时间列组成。
+主键可以通过以下一些方式设置：&lt;/p>
+&lt;ul>
+&lt;li>使用 &lt;code>primary key&lt;/code> 关键字&lt;/li>
+&lt;li>使用 &lt;code>tag&lt;/code> 来自动生成 TSID，HoraeDB 默认将使用 &lt;code>(TSID,timestamp)&lt;/code> 作为主键。&lt;/li>
+&lt;li>只设置时间戳列，HoraeDB 将使用 &lt;code>(timestamp)&lt;/code> 作为主键。&lt;/li>
+&lt;/ul>
+&lt;p>注意：如果同时指定了主键和 &lt;code>Tag&lt;/code> 列，那么 &lt;code>Tag&lt;/code> 列只是一个额外的信息标识，不会影响主键生成逻辑。&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">CREATE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TABLE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>with_primary_key(&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>ts&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TIMESTAMP&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NOT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c1&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NOT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c2&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c4&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c5&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TIMESTAMP&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">KEY&lt;/span>(ts),&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">PRIMARY&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">KEY&lt;/span>(c1,&lt;span style="color:#bbb"> &lt;/span>ts)&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>)&lt;span style="color:#bbb"> &lt;/span>ENGINE&lt;span style="color:#666">=&lt;/span>Analytic&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">WITH&lt;/span>&lt;span style="color:#bbb"> &lt;/span>(ttl&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#ba2121">&amp;#39;7d&amp;#39;&lt;/span>);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">CREATE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TABLE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>with_tag(&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>ts&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TIMESTAMP&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NOT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c1&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>TAG&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NOT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c2&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>TAG&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c3&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>TAG&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c4&lt;span style="color:#bbb"> &lt;/span>DOUBLE&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c5&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c6&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TIMESTAMP&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">KEY&lt;/span>(ts)&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>)&lt;span style="color:#bbb"> &lt;/span>ENGINE&lt;span style="color:#666">=&lt;/span>Analytic&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">WITH&lt;/span>&lt;span style="color:#bbb"> &lt;/span>(ttl&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#ba2121">&amp;#39;7d&amp;#39;&lt;/span>);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">CREATE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TABLE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>with_timestamp(&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>ts&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TIMESTAMP&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NOT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c1&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NOT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c2&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c3&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c4&lt;span style="color:#bbb"> &lt;/span>DOUBLE&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c5&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>c6&lt;span style="color:#bbb"> &lt;/span>STRING&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TIMESTAMP&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">KEY&lt;/span>(ts)&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>)&lt;span style="color:#bbb"> &lt;/span>ENGINE&lt;span style="color:#666">=&lt;/span>Analytic&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">WITH&lt;/span>&lt;span style="color:#bbb"> &lt;/span>(ttl&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#ba2121">&amp;#39;7d&amp;#39;&lt;/span>);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="tsid">TSID&lt;/h2>
+&lt;p>如果建表时没有设置主键，并且提供了 &lt;code>Tag&lt;/code> 列，HoraeDB 会自动生成一个 &lt;code>TSID&lt;/code> 列和时间戳列作为主键。&lt;code>TSID&lt;/code> 由所有 &lt;code>Tag&lt;/code> 列的 hash 值生成，本质上这是一种自动生成 ID 的机制。&lt;/p></description></item></channel></rss>

@@ -1,15 +1,217 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SDK 文档 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/docs/user-guide/sdk/</link><description>Recent content in SDK 文档 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/docs/user-guide/sdk/index.xml" rel="self" type="application/rss+xml"/><item><title>Go</title><link>https://horaedb.apache.org/cn/docs/user-guide/sdk/go/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sdk/go/</guid><description>安装 go get github.com/apache/incubator-horaedb-client-go 你可以在这里找到最新的版本 here.
-如何使用 初始化客户端 1 2 3 client, err := horaedb.NewClient(endpoint, horaedb.Direct, horaedb.WithDefaultDatabase(&amp;#34;public&amp;#34;), // Client所使用的database ) 参数名称 说明 defaultDatabase 所使用的 database，可以被单个 Write 或者 SQLRequest 请求中的 database 覆盖 RPCMaxRecvMsgSize grpc MaxCallRecvMsgSize 配置, 默认是 1024 _ 1024 _ 1024 RouteMaxCacheSize 如果 router 客户端中的 路由缓存超过了这个值，将会淘汰最不活跃的直至降低这个阈值, 默认是 10000 注意： HoraeDB 当前仅支持预创建的 public database , 未来会支持多个 database。
-管理表 HoraeDB 使用 SQL 来管理表格，比如创建表、删除表或者新增列等等，这和你在使用 SQL 管理其他的数据库时没有太大的区别。
-为了方便使用，在使用 gRPC 的 write 接口进行写入时，如果某个表不存在，HoraeDB 会根据第一次的写入自动创建一个表。
-当然你也可以通过 create table 语句来更精细化的管理的表（比如添加索引等）。</description></item><item><title>Java</title><link>https://horaedb.apache.org/cn/docs/user-guide/sdk/java/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sdk/java/</guid><description>介绍 HoraeDBClient 是 HoraeDB 的高性能 Java 版客户端。
-环境要求 Java 8 及以上
-依赖 1 2 3 4 5 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;io.ceresdb&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;ceresdb-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${CERESDB.VERSION}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 最新的版本可以从这里获取。
-初始化客户端 1 2 3 4 5 6 7 8 9 10 11 // CeresDB options final CeresDBOptions opts = CeresDBOptions.newBuilder(&amp;#34;127.0.0.1&amp;#34;, 8831, DIRECT) // 默认 gprc 端口号，DIRECT 模式 .database(&amp;#34;public&amp;#34;) // Client所使用的database，可被RequestContext的database覆盖 .writeMaxRetries(1) // 写入失败重试次数上限（只有部分错误 code 才会重试，比如路由表失效） .readMaxRetries(1) // 查询失败重试次数上限（只有部分错误 code 才会重试，比如路由表失效） .build(); final CeresDBClient client = new CeresDBClient(); if (!</description></item><item><title>Python</title><link>https://horaedb.apache.org/cn/docs/user-guide/sdk/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sdk/python/</guid><description>介绍 horaedb-client 是 HoraeDB python 客户端.
-借助于 PyO3，python 客户端的实现实际上是基于 rust 客户端 的封装。
-本手册将会介绍 python client 的一些基本用法，其中涉及到的完整示例，可以查看该示例代码.
-环境要求 Python &amp;gt;= 3.7 安装 1 pip install ceresdb-client 你可以在这里找到最新的版本 here.
-初始化客户端 首先介绍下如何初始化客户端，代码示例如下：
-1 2 3 4 5 6 7 8 9 10 11 12 13 import asyncio import datetime from ceresdb_client import Builder, RpcContext, PointBuilder, ValueBuilder, WriteRequest, SqlQueryRequest, Mode, RpcConfig rpc_config = RpcConfig() rpc_config = RpcConfig() rpc_config.thread_num = 1 rpc_config.default_write_timeout_ms = 1000 builder = Builder(&amp;#39;127.</description></item><item><title>Rust</title><link>https://horaedb.apache.org/cn/docs/user-guide/sdk/rust/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sdk/rust/</guid><description>安装 1 cargo add ceresdb-client 你可以在这里找到最新的版本 here.
-初始化客户端 首先，我们需要初始化客户端。
-创建客户端的 builder，你必须设置 endpoint 和 mode： endpoint 是类似 &amp;ldquo;ip/domain_name:port&amp;rdquo; 形式的字符串。 mode 用于指定访问 HoraeDB 服务器的方式，关于 mode 的详细信息。 1 let mut builder = Builder::new(&amp;#34;ip/domain_name:port&amp;#34;, Mode::Direct/Mode::Proxy); 创建和设置 rpc_config，可以按需进行定义或者直接使用默认值，更多详细参数请参考这里： 1 2 3 4 5 6 let rpc_config = RpcConfig { thread_num: Some(1), default_write_timeout: Duration::from_millis(1000), ..Default::default() }; let builder = builder.rpc_config(rpc_config); 设置 default_database，这会在执行 RPC 请求时未通过 RpcContext 设置 database 的情况下，将被作为目标 database 使用。 1 let builder = builder.default_database(&amp;#34;public&amp;#34;); 最后，我们从 builder 中创建客户端： 1 let client = builder.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SDK 文档 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/docs/user-guide/sdk/</link><description>Recent content in SDK 文档 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/docs/user-guide/sdk/index.xml" rel="self" type="application/rss+xml"/><item><title>Go</title><link>https://horaedb.apache.org/cn/docs/user-guide/sdk/go/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sdk/go/</guid><description>&lt;h2 id="安装">安装&lt;/h2>
+&lt;pre tabindex="0">&lt;code>go get github.com/apache/incubator-horaedb-client-go
+&lt;/code>&lt;/pre>&lt;p>你可以在这里找到最新的版本 &lt;a href="https://github.com/apache/incubator-horaedb-client-go/tags">here&lt;/a>.&lt;/p>
+&lt;h2 id="如何使用">如何使用&lt;/h2>
+&lt;h3 id="初始化客户端">初始化客户端&lt;/h3>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>	client, err &lt;span style="color:#666">:=&lt;/span> horaedb.&lt;span style="color:#00f">NewClient&lt;/span>(endpoint, horaedb.Direct,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		horaedb.&lt;span style="color:#00f">WithDefaultDatabase&lt;/span>(&lt;span style="color:#ba2121">&amp;#34;public&amp;#34;&lt;/span>), &lt;span style="color:#408080;font-style:italic">// Client所使用的database
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#408080;font-style:italic">&lt;/span>	)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">参数名称&lt;/th>
+ &lt;th style="text-align: left">说明&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">defaultDatabase&lt;/td>
+ &lt;td style="text-align: left">所使用的 database，可以被单个 &lt;code>Write&lt;/code> 或者 &lt;code>SQLRequest&lt;/code> 请求中的 database 覆盖&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">RPCMaxRecvMsgSize&lt;/td>
+ &lt;td style="text-align: left">grpc &lt;code>MaxCallRecvMsgSize&lt;/code> 配置, 默认是 1024 _ 1024 _ 1024&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">RouteMaxCacheSize&lt;/td>
+ &lt;td style="text-align: left">如果 router 客户端中的 路由缓存超过了这个值，将会淘汰最不活跃的直至降低这个阈值, 默认是 10000&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>注意： HoraeDB 当前仅支持预创建的 &lt;code>public&lt;/code> database , 未来会支持多个 database。&lt;/p>
+&lt;h3 id="管理表">管理表&lt;/h3>
+&lt;p>HoraeDB 使用 SQL 来管理表格，比如创建表、删除表或者新增列等等，这和你在使用 SQL 管理其他的数据库时没有太大的区别。&lt;/p></description></item><item><title>Java</title><link>https://horaedb.apache.org/cn/docs/user-guide/sdk/java/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sdk/java/</guid><description>&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>HoraeDBClient 是 HoraeDB 的高性能 Java 版客户端。&lt;/p>
+&lt;h2 id="环境要求">环境要求&lt;/h2>
+&lt;p>Java 8 及以上&lt;/p>
+&lt;h2 id="依赖">依赖&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;dependency&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;groupId&amp;gt;&lt;/span>io.ceresdb&lt;span style="color:#008000;font-weight:bold">&amp;lt;/groupId&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;artifactId&amp;gt;&lt;/span>ceresdb-all&lt;span style="color:#008000;font-weight:bold">&amp;lt;/artifactId&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;version&amp;gt;&lt;/span>${CERESDB.VERSION}&lt;span style="color:#008000;font-weight:bold">&amp;lt;/version&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;/dependency&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>最新的版本可以从&lt;a href="https://github.com/apache/incubator-horaedb-client-java/blob/main/docs/CHANGELOG.md">这里&lt;/a>获取。&lt;/p>
+&lt;h2 id="初始化客户端">初始化客户端&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#408080;font-style:italic">// CeresDB options&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">final&lt;/span>&lt;span style="color:#bbb"> &lt;/span>CeresDBOptions&lt;span style="color:#bbb"> &lt;/span>opts&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>CeresDBOptions.&lt;span style="color:#7d9029">newBuilder&lt;/span>(&lt;span style="color:#ba2121">&amp;#34;127.0.0.1&amp;#34;&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>8831,&lt;span style="color:#bbb"> &lt;/span>DIRECT)&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// 默认 gprc 端口号，DIRECT 模式&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>.&lt;span style="color:#7d9029">database&lt;/span>(&lt;span style="color:#ba2121">&amp;#34;public&amp;#34;&lt;/span>)&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// Client所使用的database，可被RequestContext的database覆盖&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>.&lt;span style="color:#7d9029">writeMaxRetries&lt;/span>(1)&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// 写入失败重试次数上限（只有部分错误 code 才会重试，比如路由表失效）&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>.&lt;span style="color:#7d9029">readMaxRetries&lt;/span>(1)&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// 查询失败重试次数上限（只有部分错误 code 才会重试，比如路由表失效）&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>.&lt;span style="color:#7d9029">build&lt;/span>();&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">final&lt;/span>&lt;span style="color:#bbb"> &lt;/span>CeresDBClient&lt;span style="color:#bbb"> &lt;/span>client&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">new&lt;/span>&lt;span style="color:#bbb"> &lt;/span>CeresDBClient();&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">if&lt;/span>&lt;span style="color:#bbb"> &lt;/span>(&lt;span style="color:#666">!&lt;/span>client.&lt;span style="color:#7d9029">init&lt;/span>(opts))&lt;span style="color:#bbb"> &lt;/span>{&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">throw&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">new&lt;/span>&lt;span style="color:#bbb"> &lt;/span>IllegalStateException(&lt;span style="color:#ba2121">&amp;#34;Fail to start CeresDBClient&amp;#34;&lt;/span>);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>客户端初始化至少需要三个参数：&lt;/p></description></item><item><title>Python</title><link>https://horaedb.apache.org/cn/docs/user-guide/sdk/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sdk/python/</guid><description>&lt;h2 id="介绍">介绍&lt;/h2>
+&lt;p>&lt;a href="https://pypi.org/project/ceresdb-client/">horaedb-client&lt;/a> 是 &lt;a href="https://github.com/apache/incubator-horaedb">HoraeDB&lt;/a> python 客户端.&lt;/p>
+&lt;p>借助于 &lt;a href="https://github.com/PyO3">PyO3&lt;/a>，python 客户端的实现实际上是基于 &lt;a href="https://github.com/apache/incubator-horaedb-client-rs">rust 客户端&lt;/a> 的封装。&lt;/p>
+&lt;p>本手册将会介绍 python client 的一些基本用法，其中涉及到的完整示例，可以查看&lt;a href="https://github.com/apache/incubator-horaedb-client-py/blob/main/examples/read_write.py">该示例代码&lt;/a>.&lt;/p>
+&lt;h2 id="环境要求">环境要求&lt;/h2>
+&lt;ul>
+&lt;li>Python &amp;gt;= 3.7&lt;/li>
+&lt;/ul>
+&lt;h2 id="安装">安装&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pip install ceresdb-client
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>你可以在这里找到最新的版本 &lt;a href="https://github.com/apache/incubator-horaedb-client-py/tags">here&lt;/a>.&lt;/p>
+&lt;h2 id="初始化客户端">初始化客户端&lt;/h2>
+&lt;p>首先介绍下如何初始化客户端，代码示例如下：&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">import&lt;/span> &lt;span style="color:#00f;font-weight:bold">asyncio&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">import&lt;/span> &lt;span style="color:#00f;font-weight:bold">datetime&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">from&lt;/span> &lt;span style="color:#00f;font-weight:bold">ceresdb_client&lt;/span> &lt;span style="color:#008000;font-weight:bold">import&lt;/span> Builder, RpcContext, PointBuilder, ValueBuilder, WriteRequest, SqlQueryRequest, Mode, RpcConfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rpc_config &lt;span style="color:#666">=&lt;/span> RpcConfig()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rpc_config &lt;span style="color:#666">=&lt;/span> RpcConfig()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rpc_config&lt;span style="color:#666">.&lt;/span>thread_num &lt;span style="color:#666">=&lt;/span> &lt;span style="color:#666">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rpc_config&lt;span style="color:#666">.&lt;/span>default_write_timeout_ms &lt;span style="color:#666">=&lt;/span> &lt;span style="color:#666">1000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>builder &lt;span style="color:#666">=&lt;/span> Builder(&lt;span style="color:#ba2121">&amp;#39;127.0.0.1:8831&amp;#39;&lt;/span>, Mode&lt;span style="color:#666">.&lt;/span>Direct)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>builder&lt;span style="color:#666">.&lt;/span>set_rpc_config(rpc_config)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>builder&lt;span style="color:#666">.&lt;/span>set_default_database(&lt;span style="color:#ba2121">&amp;#39;public&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>client &lt;span style="color:#666">=&lt;/span> builder&lt;span style="color:#666">.&lt;/span>build()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>代码的最开始部分是依赖库的导入，在后面的示例中将省略这部分。&lt;/p></description></item><item><title>Rust</title><link>https://horaedb.apache.org/cn/docs/user-guide/sdk/rust/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/user-guide/sdk/rust/</guid><description>&lt;h2 id="安装">安装&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cargo add ceresdb-client
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>你可以在这里找到最新的版本 &lt;a href="https://github.com/apache/incubator-horaedb-client-rs/tags">here&lt;/a>.&lt;/p>
+&lt;h2 id="初始化客户端">初始化客户端&lt;/h2>
+&lt;p>首先，我们需要初始化客户端。&lt;/p>
+&lt;ul>
+&lt;li>创建客户端的 builder，你必须设置 &lt;code>endpoint&lt;/code> 和 &lt;code>mode&lt;/code>：
+&lt;ul>
+&lt;li>&lt;code>endpoint&lt;/code> 是类似 &amp;ldquo;ip/domain_name:port&amp;rdquo; 形式的字符串。&lt;/li>
+&lt;li>&lt;code>mode&lt;/code> 用于指定访问 HoraeDB 服务器的方式，&lt;a href="https://github.com/apache/incubator-horaedb-client-rs/blob/main/src/db_client/builder.rs#L20">关于 mode 的详细信息&lt;/a>。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rust" data-lang="rust">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">mut&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>Builder::new(&lt;span style="color:#ba2121">&amp;#34;ip/domain_name:port&amp;#34;&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>Mode::Direct&lt;span style="color:#666">/&lt;/span>Mode::Proxy);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>创建和设置 &lt;code>rpc_config&lt;/code>，可以按需进行定义或者直接使用默认值，更多详细参数请参考&lt;a href="https://github.com/apache/incubator-horaedb-client-rs/blob/main/src/options.rs">这里&lt;/a>：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rust" data-lang="rust">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>rpc_config&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>RpcConfig&lt;span style="color:#bbb"> &lt;/span>{&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>thread_num: &lt;span style="color:#008000">Some&lt;/span>(&lt;span style="color:#666">1&lt;/span>),&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>default_write_timeout: &lt;span style="color:#00f;font-weight:bold">Duration&lt;/span>::from_millis(&lt;span style="color:#666">1000&lt;/span>),&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">..&lt;/span>&lt;span style="color:#008000">Default&lt;/span>::default()&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>};&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder.rpc_config(rpc_config);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>设置 &lt;code>default_database&lt;/code>，这会在执行 RPC 请求时未通过 RpcContext 设置 database 的情况下，将被作为目标 database 使用。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rust" data-lang="rust">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder.default_database(&lt;span style="color:#ba2121">&amp;#34;public&amp;#34;&lt;/span>);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>最后，我们从 builder 中创建客户端：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rust" data-lang="rust">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>client&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder.build();&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="管理表">管理表&lt;/h2>
+&lt;p>为了方便使用，在使用 gRPC 的 write 接口进行写入时，如果某个表不存在，HoraeDB 会根据第一次的写入自动创建一个表。&lt;/p></description></item></channel></rss>

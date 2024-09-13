@@ -1,14 +1,207 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Development on Apache HoraeDB</title><link>https://horaedb.apache.org/docs/dev/</link><description>Recent content in Development on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/docs/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>Supported Platform</title><link>https://horaedb.apache.org/docs/dev/platform/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/platform/</guid><description>作为一个开源的数据库，HoraeDB 可以部署在基于英特尔 /ARM 架构的服务器，以及常见的虚拟环境。
-OS status Ubuntu LTS 16.06 or later ✅ CentOS 7.3 or later ✅ Red Hat Enterprise Linux 7.3 or later 7.x releases ✅ macOS 11 or later ✅ Windows ❌ 生产环境下 , Linux 是首选平台。 macOS 主要用在开发环境。</description></item><item><title>Conventional Commit Guide</title><link>https://horaedb.apache.org/docs/dev/conventional_commit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/conventional_commit/</guid><description>This document describes how we use conventional commit in our development.
-Structure We would like to structure our commit message like this:
-&amp;lt;type&amp;gt;[optional scope]: &amp;lt;description&amp;gt; There are three parts. type is used to classify which kind of work this commit does. scope is an optional field that provides additional contextual information. And the last field is your description of this commit.
-Type Here we list some common types and their meanings.</description></item><item><title>Compile</title><link>https://horaedb.apache.org/docs/dev/compile_run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/compile_run/</guid><description>In order to compile HoraeDB, some relevant dependencies(including the Rust toolchain) should be installed.
-Dependencies(Ubuntu20.04) Assuming the development environment is Ubuntu20.04, execute the following command to install the required dependencies:
-1 sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler It should be noted that the compilation of the project has version requirements for dependencies such as cmake, gcc, g++, etc. If your development environment is an old Linux distribution, it is necessary to manually install these dependencies of a higher version.</description></item><item><title>Profiling</title><link>https://horaedb.apache.org/docs/dev/profiling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/profiling/</guid><description>CPU profiling HoraeDB provides cpu profiling http api debug/profile/cpu.
-Example:
-// 60s cpu sampling data curl 0:5000/debug/profile/cpu/60 // Output file path. /tmp/flamegraph_cpu.svg Heap profiling HoraeDB provides heap profiling http api debug/profile/heap.
-Install dependencies sudo yum install -y jemalloc-devel ghostscript graphviz Example:
-// enable malloc prof export MALLOC_CONF=prof:true // run horaedb-server ./horaedb-server .... // 60s cpu sampling data curl -L &amp;#39;0:5000/debug/profile/heap/60&amp;#39; &amp;gt; /tmp/heap_profile jeprof --show_bytes --pdf /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; profile_heap.pdf jeprof --show_bytes --svg /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; profile_heap.</description></item><item><title>Rationale and Goals</title><link>https://horaedb.apache.org/docs/dev/style_guide/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/style_guide/</guid><description>As every Rust programmer knows, the language has many powerful features, and there are often several patterns which can express the same idea. Also, as every professional programmer comes to discover, code is almost always read far more than it is written.
-Thus, we choose to use a consistent set of idioms throughout our code so that it is easier to read and understand for both existing and new contributors.</description></item><item><title>RoadMap</title><link>https://horaedb.apache.org/docs/dev/roadmap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/roadmap/</guid><description>v0.1.0 Standalone version, local storage Analytical storage format Support SQL v0.2.0 Distributed version supports static topology defined in config file. The underlying storage supports Aliyun OSS. WAL implementation based on OBKV. v0.3.0 Release multi-language clients, including Java, Rust and Python. Static cluster mode with HoraeMeta. Basic implementation of hybrid storage format. v0.4.0 Implement more sophisticated cluster solution that enhances reliability and scalability of HoraeDB. Set up nightly benchmark with TSBS. v1.</description></item><item><title>SDK Development</title><link>https://horaedb.apache.org/docs/dev/sdk_develop/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/sdk_develop/</guid><description>Rust 1 2 3 git clone https://github.com/apache/horaedb-client-rs cargo build Python Requirements python 3.7+ The Python SDK rely on Rust SDK, so cargo is also required, then install build tool maturin:
-1 pip install maturin Then we can build Python SDK:
-1 2 3 git clone https://github.com/apache/horaedb-client-py maturin build Go 1 2 3 git clone https://github.com/apache/horaedb-client-go go build ./... Java Requirements java 1.8 maven 3.6.3+ 1 2 3 git clone https://github.com/apache/horaedb-client-java mvn clean install -DskipTests=true -Dmaven.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Development on Apache HoraeDB</title><link>https://horaedb.apache.org/docs/dev/</link><description>Recent content in Development on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/docs/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>Supported Platform</title><link>https://horaedb.apache.org/docs/dev/platform/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/platform/</guid><description>&lt;p>作为一个开源的数据库，HoraeDB 可以部署在基于英特尔 /ARM 架构的服务器，以及常见的虚拟环境。&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: center">OS&lt;/th>
+ &lt;th style="text-align: center">status&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: center">Ubuntu LTS 16.06 or later&lt;/td>
+ &lt;td style="text-align: center">✅&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">CentOS 7.3 or later&lt;/td>
+ &lt;td style="text-align: center">✅&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">Red Hat Enterprise Linux 7.3 or later 7.x releases&lt;/td>
+ &lt;td style="text-align: center">✅&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">macOS 11 or later&lt;/td>
+ &lt;td style="text-align: center">✅&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">Windows&lt;/td>
+ &lt;td style="text-align: center">❌&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;ul>
+&lt;li>生产环境下 , Linux 是首选平台。&lt;/li>
+&lt;li>macOS 主要用在开发环境。&lt;/li>
+&lt;/ul></description></item><item><title>Conventional Commit Guide</title><link>https://horaedb.apache.org/docs/dev/conventional_commit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/conventional_commit/</guid><description>&lt;p>This document describes how we use &lt;a href="https://www.conventionalcommits.org/en/v1.0.0/">conventional commit&lt;/a> in our development.&lt;/p>
+&lt;h1 id="structure">Structure&lt;/h1>
+&lt;p>We would like to structure our commit message like this:&lt;/p>
+&lt;pre tabindex="0">&lt;code>&amp;lt;type&amp;gt;[optional scope]: &amp;lt;description&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>There are three parts. &lt;code>type&lt;/code> is used to classify which kind of work this commit does. &lt;code>scope&lt;/code> is an optional field that provides additional contextual information. And the last field is your &lt;code>description&lt;/code> of this commit.&lt;/p>
+&lt;h1 id="type">Type&lt;/h1>
+&lt;p>Here we list some common &lt;code>type&lt;/code>s and their meanings.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>feat&lt;/code>: Implement a new feature.&lt;/li>
+&lt;li>&lt;code>fix&lt;/code>: Patch a bug.&lt;/li>
+&lt;li>&lt;code>docs&lt;/code>: Add document or comment.&lt;/li>
+&lt;li>&lt;code>build&lt;/code>: Change the build script or configuration.&lt;/li>
+&lt;li>&lt;code>style&lt;/code>: Style change (only). No logic involved.&lt;/li>
+&lt;li>&lt;code>refactor&lt;/code>: Refactor an existing module for performance, structure, or other reasons.&lt;/li>
+&lt;li>&lt;code>test&lt;/code>: Enhance test coverage or sqlness.&lt;/li>
+&lt;li>&lt;code>chore&lt;/code>: None of the above.&lt;/li>
+&lt;/ul>
+&lt;h1 id="scope">Scope&lt;/h1>
+&lt;p>The &lt;code>scope&lt;/code> is more flexible than &lt;code>type&lt;/code>. And it may have different values under different &lt;code>type&lt;/code>s.&lt;/p></description></item><item><title>Compile</title><link>https://horaedb.apache.org/docs/dev/compile_run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/compile_run/</guid><description>&lt;p>In order to compile HoraeDB, some relevant dependencies(including the &lt;code>Rust&lt;/code> toolchain) should be installed.&lt;/p>
+&lt;h1 id="dependenciesubuntu2004">Dependencies(Ubuntu20.04)&lt;/h1>
+&lt;p>Assuming the development environment is Ubuntu20.04, execute the following command to install the required dependencies:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>It should be noted that the compilation of the project has version requirements for dependencies such as cmake, gcc, g++, etc. If your development environment is an old Linux distribution, it is necessary to manually install these dependencies of a higher version.&lt;/p></description></item><item><title>Profiling</title><link>https://horaedb.apache.org/docs/dev/profiling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/profiling/</guid><description>&lt;h3 id="cpu-profiling">CPU profiling&lt;/h3>
+&lt;p>HoraeDB provides cpu profiling http api &lt;code>debug/profile/cpu&lt;/code>.&lt;/p>
+&lt;p>Example:&lt;/p>
+&lt;pre tabindex="0">&lt;code>// 60s cpu sampling data
+curl 0:5000/debug/profile/cpu/60
+
+// Output file path.
+/tmp/flamegraph_cpu.svg
+&lt;/code>&lt;/pre>&lt;h3 id="heap-profiling">Heap profiling&lt;/h3>
+&lt;p>HoraeDB provides heap profiling http api &lt;code>debug/profile/heap&lt;/code>.&lt;/p>
+&lt;h3 id="install-dependencies">Install dependencies&lt;/h3>
+&lt;pre tabindex="0">&lt;code>sudo yum install -y jemalloc-devel ghostscript graphviz
+&lt;/code>&lt;/pre>&lt;p>Example:&lt;/p>
+&lt;pre tabindex="0">&lt;code>// enable malloc prof
+export MALLOC_CONF=prof:true
+
+// run horaedb-server
+./horaedb-server ....
+
+// 60s cpu sampling data
+curl -L &amp;#39;0:5000/debug/profile/heap/60&amp;#39; &amp;gt; /tmp/heap_profile
+jeprof --show_bytes --pdf /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; profile_heap.pdf
+
+jeprof --show_bytes --svg /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; profile_heap.svg
+&lt;/code>&lt;/pre></description></item><item><title>Rationale and Goals</title><link>https://horaedb.apache.org/docs/dev/style_guide/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/style_guide/</guid><description>&lt;p>As every Rust programmer knows, the language has many powerful features, and there are often
+several patterns which can express the same idea. Also, as every professional programmer comes to
+discover, code is almost always read far more than it is written.&lt;/p>
+&lt;p>Thus, we choose to use a consistent set of idioms throughout our code so that it is easier to read
+and understand for both existing and new contributors.&lt;/p></description></item><item><title>RoadMap</title><link>https://horaedb.apache.org/docs/dev/roadmap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/roadmap/</guid><description>&lt;h3 id="v010">v0.1.0&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Standalone version, local storage&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Analytical storage format&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Support SQL&lt;/li>
+&lt;/ul>
+&lt;h3 id="v020">v0.2.0&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Distributed version supports static topology defined in config file.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> The underlying storage supports Aliyun OSS.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> WAL implementation based on &lt;a href="https://github.com/oceanbase/oceanbase">OBKV&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h3 id="v030">v0.3.0&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Release multi-language clients, including Java, Rust and Python.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Static cluster mode with &lt;code>HoraeMeta&lt;/code>.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Basic implementation of hybrid storage format.&lt;/li>
+&lt;/ul>
+&lt;h3 id="v040">v0.4.0&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Implement more sophisticated cluster solution that enhances reliability and scalability of HoraeDB.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Set up nightly benchmark with TSBS.&lt;/li>
+&lt;/ul>
+&lt;h3 id="v100-alpha-released">v1.0.0-alpha (Released)&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Implement Distributed WAL based on &lt;code>Apache Kafka&lt;/code>.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Release Golang client.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Improve the query performance for classic time series workloads.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Support dynamic migration of tables in cluster mode.&lt;/li>
+&lt;/ul>
+&lt;h3 id="v100">v1.0.0&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Formally release HoraeDB and its SDKs with all breaking changes finished.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Finish the majority of work related to &lt;code>Table Partitioning&lt;/code>.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Various efforts to improve query performance, especially for cloud-native cluster mode. These works include:
+&lt;ul>
+&lt;li>Multi-tier cache.&lt;/li>
+&lt;li>Introduce various methods to reduce the data fetched from remote storage (improve the accuracy of SST data filtering).&lt;/li>
+&lt;li>Increase the parallelism while fetching data from remote object-store.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Improve data ingestion performance by introducing resource control over compaction.&lt;/li>
+&lt;/ul>
+&lt;h3 id="afterwards">Afterwards&lt;/h3>
+&lt;p>With an in-depth understanding of the time-series database and its various use cases, the majority of our work will focus on performance, reliability, scalability, ease of use, and collaborations with open-source communities.&lt;/p></description></item><item><title>SDK Development</title><link>https://horaedb.apache.org/docs/dev/sdk_develop/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/sdk_develop/</guid><description>&lt;h1 id="rust">Rust&lt;/h1>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone https://github.com/apache/horaedb-client-rs
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cargo build
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="python">Python&lt;/h1>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;ul>
+&lt;li>python 3.7+&lt;/li>
+&lt;/ul>
+&lt;p>The Python SDK rely on Rust SDK, so &lt;a href="https://doc.rust-lang.org/stable/cargo/getting-started/installation.html">cargo&lt;/a> is also required, then install build tool &lt;a href="https://github.com/PyO3/maturin">maturin&lt;/a>:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pip install maturin
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then we can build Python SDK:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone https://github.com/apache/horaedb-client-py
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>maturin build
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="go">Go&lt;/h1>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone https://github.com/apache/horaedb-client-go
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>go build ./...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="java">Java&lt;/h1>
+&lt;h2 id="requirements-1">Requirements&lt;/h2>
+&lt;ul>
+&lt;li>java 1.8&lt;/li>
+&lt;li>maven 3.6.3+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone https://github.com/apache/horaedb-client-java
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mvn clean install -DskipTests&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#008000">true&lt;/span> -Dmaven.javadoc.skip&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#008000">true&lt;/span> -B -V
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

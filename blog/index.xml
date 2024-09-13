@@ -1,5 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on Apache HoraeDB</title><link>https://horaedb.apache.org/blog/</link><description>Recent content in Blog on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Release 2.0.0</title><link>https://horaedb.apache.org/blog/2024/release-2.0.0/</link><pubDate>Tue, 23 Apr 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/blog/2024/release-2.0.0/</guid><description>Upgrade from 1.x.x to 2.0.0 The transition from CeresDB to Apache HoraeDB introduces several breaking changes. To facilitate upgrading from older versions to v2.0.0, specific alterations are necessary.
-Upgrade Steps Setup required envs export HORAEDB_DEFAULT_CATALOG=ceresdb Update config Etcd&amp;rsquo;s root should be configured both in horaedb and horaemeta
-For horaedb
-[cluster_deployment.etcd_client] server_addrs = [&amp;#39;127.0.0.1:2379&amp;#39;] root_path = &amp;#34;/rootPath&amp;#34; For horaemeta
-storage-root-path = &amp;#34;/rootPath&amp;#34; Upgrade horaemeta Horaedb will throw following errors, which is expected</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on Apache HoraeDB</title><link>https://horaedb.apache.org/blog/</link><description>Recent content in Blog on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Release 2.0.0</title><link>https://horaedb.apache.org/blog/2024/release-2.0.0/</link><pubDate>Tue, 23 Apr 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/blog/2024/release-2.0.0/</guid><description>&lt;h2 id="upgrade-from-1xx-to-200">Upgrade from 1.x.x to 2.0.0&lt;/h2>
+&lt;p>The transition from CeresDB to Apache HoraeDB introduces several breaking changes. To facilitate upgrading from older versions to v2.0.0, specific alterations are necessary.&lt;/p>
+&lt;h4 id="upgrade-steps">Upgrade Steps&lt;/h4>
+&lt;ol>
+&lt;li>Setup required envs&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>export HORAEDB_DEFAULT_CATALOG=ceresdb
+&lt;/code>&lt;/pre>&lt;ol start="2">
+&lt;li>Update config&lt;/li>
+&lt;/ol>
+&lt;p>Etcd&amp;rsquo;s root should be configured both in horaedb and horaemeta&lt;/p>
+&lt;p>For horaedb&lt;/p>
+&lt;pre tabindex="0">&lt;code>[cluster_deployment.etcd_client]
+server_addrs = [&amp;#39;127.0.0.1:2379&amp;#39;]
+root_path = &amp;#34;/rootPath&amp;#34;
+&lt;/code>&lt;/pre>&lt;p>For horaemeta&lt;/p>
+&lt;pre tabindex="0">&lt;code>storage-root-path = &amp;#34;/rootPath&amp;#34;
+&lt;/code>&lt;/pre>&lt;ol start="3">
+&lt;li>Upgrade horaemeta&lt;/li>
+&lt;/ol>
+&lt;p>Horaedb will throw following errors, which is expected&lt;/p></description></item></channel></rss>

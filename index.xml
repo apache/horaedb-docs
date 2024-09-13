@@ -1,84 +1,1696 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Horaedb on Apache HoraeDB</title><link>https://horaedb.apache.org/</link><description>Recent content in Horaedb on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting Started</title><link>https://horaedb.apache.org/docs/getting-started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/getting-started/</guid><description>This page shows you how to get started with HoraeDB quickly. You&amp;rsquo;ll start a standalone HoraeDB server, and then insert and read some sample data using SQL.
-Start server HoraeDB docker image is the easiest way to get started, if you haven&amp;rsquo;t installed Docker, go there to install it first.
-Note: please choose tag version &amp;gt;= v1.0.0, others are mainly for testing.
-You can use command below to start a standalone server</description></item><item><title>NoMeta</title><link>https://horaedb.apache.org/docs/user-guide/cluster_deployment/no_meta/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/cluster_deployment/no_meta/</guid><description>Note: This feature is for testing use only, not recommended for production use, related features may change in the future.
-This guide shows how to deploy a HoraeDB cluster without HoraeMeta, but with static, rule-based routing.
-The crucial point here is that HoraeDB server provides configurable routing function on table name so what we need is just a valid config containing routing rules which will be shipped to every HoraeDB instance in the cluster.</description></item><item><title>Supported Platform</title><link>https://horaedb.apache.org/docs/dev/platform/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/platform/</guid><description>作为一个开源的数据库，HoraeDB 可以部署在基于英特尔 /ARM 架构的服务器，以及常见的虚拟环境。
-OS status Ubuntu LTS 16.06 or later ✅ CentOS 7.3 or later ✅ Red Hat Enterprise Linux 7.3 or later 7.x releases ✅ macOS 11 or later ✅ Windows ❌ 生产环境下 , Linux 是首选平台。 macOS 主要用在开发环境。</description></item><item><title>Conventional Commit Guide</title><link>https://horaedb.apache.org/docs/dev/conventional_commit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/conventional_commit/</guid><description>This document describes how we use conventional commit in our development.
-Structure We would like to structure our commit message like this:
-&amp;lt;type&amp;gt;[optional scope]: &amp;lt;description&amp;gt; There are three parts. type is used to classify which kind of work this commit does. scope is an optional field that provides additional contextual information. And the last field is your description of this commit.
-Type Here we list some common types and their meanings.</description></item><item><title>Identifier</title><link>https://horaedb.apache.org/docs/user-guide/sql/identifier/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/identifier/</guid><description>Identifier in HoraeDB can be used as table name, column name etc. It cannot be preserved keywords or start with number and punctuation symbols. HoraeDB allows to quote identifiers with back quotes (`). In this case it can be any string like 00_table or select.</description></item><item><title>WithMeta</title><link>https://horaedb.apache.org/docs/user-guide/cluster_deployment/with_meta/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/cluster_deployment/with_meta/</guid><description>This guide shows how to deploy a HoraeDB cluster with HoraeMeta. And with the HoraeMeta, the whole HoraeDB cluster will feature: high availability, load balancing and horizontal scalability if the underlying storage used by HoraeDB is separated service.
-Deploy HoraeMeta Introduce HoraeMeta is one of the core services of HoraeDB distributed mode, it is used to manage and schedule the HoraeDB cluster. By the way, the high availability of HoraeMeta is ensured by embedding ETCD.</description></item><item><title>Compile</title><link>https://horaedb.apache.org/docs/dev/compile_run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/compile_run/</guid><description>In order to compile HoraeDB, some relevant dependencies(including the Rust toolchain) should be installed.
-Dependencies(Ubuntu20.04) Assuming the development environment is Ubuntu20.04, execute the following command to install the required dependencies:
-1 sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler It should be noted that the compilation of the project has version requirements for dependencies such as cmake, gcc, g++, etc. If your development environment is an old Linux distribution, it is necessary to manually install these dependencies of a higher version.</description></item><item><title>Contribution Guidelines</title><link>https://horaedb.apache.org/docs/contribution-guidelines/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/contribution-guidelines/</guid><description>Thank you for thinking of contributing! We very much welcome contributions from the community. To make the process easier and more valuable for everyone involved we have a few rules and guidelines to follow.
-Submitting Issues and Feature Requests Before you file an issue, please search existing issues in case the same or similar issues have already been filed. If you find an existing open ticket covering your issue then please avoid adding &amp;ldquo;👍&amp;rdquo; or &amp;ldquo;me too&amp;rdquo; comments; GitHub notifications can cause a lot of noise for the project maintainers who triage the back-log.</description></item><item><title>Utility Statements</title><link>https://horaedb.apache.org/docs/user-guide/sql/utility/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/utility/</guid><description>There are serval utilities SQL in HoraeDB that can help in table manipulation or query inspection.
-SHOW CREATE TABLE 1 SHOW CREATE TABLE table_name; SHOW CREATE TABLE returns a CREATE TABLE DDL that will create a same table with the given one. Including columns, table engine and options. The schema and options shows in CREATE TABLE will based on the current version of the table. An example:
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 -- create one table CREATE TABLE `t` (a bigint, b int default 3, c string default &amp;#39;x&amp;#39;, d smallint null, t timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE = Analytic; -- Result: affected_rows: 0 -- show how one table should be created.</description></item><item><title>Options</title><link>https://horaedb.apache.org/docs/user-guide/sql/engine_options/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/engine_options/</guid><description>Options below can be used when create table for analytic engine
-enable_ttl, bool. When enable TTL on a table, rows older than ttl will be deleted and can&amp;rsquo;t be querid, default true
-ttl, duration, lifetime of a row, only used when enable_ttl is true. default 7d.
-storage_format, string. The underlying column&amp;rsquo;s format. Availiable values:
-columnar, default hybrid, Note: This feature is still in development, and it may change in the future.</description></item><item><title>Scalar Functions</title><link>https://horaedb.apache.org/docs/user-guide/sql/scalar_functions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/scalar_functions/</guid><description>HoraeDB SQL is implemented with DataFusion, Here is the list of scalar functions. See more detail, Refer to Datafusion
-Math Functions Function Description abs(x) absolute value acos(x) inverse cosine asin(x) inverse sine atan(x) inverse tangent atan2(y, x) inverse tangent of y / x ceil(x) nearest integer greater than or equal to argument cos(x) cosine exp(x) exponential floor(x) nearest integer less than or equal to argument ln(x) natural logarithm log10(x) base 10 logarithm log2(x) base 2 logarithm power(base, exponent) base raised to the power of exponent round(x) round to nearest integer signum(x) sign of the argument (-1, 0, +1) sin(x) sine sqrt(x) square root tan(x) tangent trunc(x) truncate toward zero Conditional Functions Function Description coalesce Returns the first of its arguments that is not null.</description></item><item><title>Aggregate Functions</title><link>https://horaedb.apache.org/docs/user-guide/sql/aggregate_functions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/aggregate_functions/</guid><description>HoraeDB SQL is implemented with DataFusion, Here is the list of aggregate functions. See more detail, Refer to Datafusion
-General Function Description min Returns the minimum value in a numerical column max Returns the maximum value in a numerical column count Returns the number of rows avg Returns the average of a numerical column sum Sums a numerical column array_agg Puts values into an array Statistical Function Description var / var_samp Returns the variance of a given column var_pop Returns the population variance of a given column stddev / stddev_samp Returns the standard deviation of a given column stddev_pop Returns the population standard deviation of a given column covar / covar_samp Returns the covariance of a given column covar_pop Returns the population covariance of a given column corr Returns the correlation coefficient of a given column Approximate Function Description approx_distinct Returns the approximate number (HyperLogLog) of distinct input values approx_median Returns the approximate median of input values.</description></item><item><title>Release 2.0.0</title><link>https://horaedb.apache.org/blog/2024/release-2.0.0/</link><pubDate>Tue, 23 Apr 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/blog/2024/release-2.0.0/</guid><description>Upgrade from 1.x.x to 2.0.0 The transition from CeresDB to Apache HoraeDB introduces several breaking changes. To facilitate upgrading from older versions to v2.0.0, specific alterations are necessary.
-Upgrade Steps Setup required envs export HORAEDB_DEFAULT_CATALOG=ceresdb Update config Etcd&amp;rsquo;s root should be configured both in horaedb and horaemeta
-For horaedb
-[cluster_deployment.etcd_client] server_addrs = [&amp;#39;127.0.0.1:2379&amp;#39;] root_path = &amp;#34;/rootPath&amp;#34; For horaemeta
-storage-root-path = &amp;#34;/rootPath&amp;#34; Upgrade horaemeta Horaedb will throw following errors, which is expected</description></item><item><title>ALTER TABLE</title><link>https://horaedb.apache.org/docs/user-guide/sql/ddl/alter_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/ddl/alter_table/</guid><description>ALTER TABLE can change the schema or options of a table.
-ALTER TABLE SCHEMA HoraeDB current supports ADD COLUMN to alter table schema.
-1 2 3 -- create a table and add a column to it CREATE TABLE `t`(a int, t timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE = Analytic; ALTER TABLE `t` ADD COLUMN (b string); It now becomes:
--- DESCRIBE TABLE `t`; name type is_primary is_nullable is_tag t timestamp true false false tsid uint64 true false false a int false true false b string false true false ALTER TABLE OPTIONS HoraeDB current supports MODIFY SETTING to alter table schema.</description></item><item><title>Block List</title><link>https://horaedb.apache.org/docs/user-guide/operation/block_list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/operation/block_list/</guid><description>Add block list If you want to reject query for a table, you can add table name to &amp;lsquo;read_block_list&amp;rsquo;.
-Example 1 2 3 4 5 6 7 curl --location --request POST &amp;#39;http://localhost:5000/admin/block&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; \ -d &amp;#39;{ &amp;#34;operation&amp;#34;:&amp;#34;Add&amp;#34;, &amp;#34;write_block_list&amp;#34;:[], &amp;#34;read_block_list&amp;#34;:[&amp;#34;my_table&amp;#34;] }&amp;#39; Response 1 2 3 4 { &amp;#34;write_block_list&amp;#34;: [], &amp;#34;read_block_list&amp;#34;: [&amp;#34;my_table&amp;#34;] } Set block list You can use set operation to clear exist tables and set new tables to &amp;lsquo;read_block_list&amp;rsquo; like following example.</description></item><item><title>Cluster Operation</title><link>https://horaedb.apache.org/docs/user-guide/operation/horaemeta/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/operation/horaemeta/</guid><description>The Operations for HoraeDB cluster mode, it can only be used when HoraeMeta is deployed.
-Operation Interface You need to replace 127.0.0.1 with the actual project path.
-Query table When tableNames is not empty, use tableNames for query. When tableNames is empty, ids are used for query. When querying with ids, schemaName is useless. curl --location &amp;#39;http://127.0.0.1:8080/api/v1/table/query&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; \ -d &amp;#39;{ &amp;#34;clusterName&amp;#34;:&amp;#34;defaultCluster&amp;#34;, &amp;#34;schemaName&amp;#34;:&amp;#34;public&amp;#34;, &amp;#34;names&amp;#34;:[&amp;#34;demo1&amp;#34;, &amp;#34;__demo1_0&amp;#34;], }&amp;#39; curl --location &amp;#39;http://127.</description></item><item><title>CREATE TABLE</title><link>https://horaedb.apache.org/docs/user-guide/sql/ddl/create_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/ddl/create_table/</guid><description>Basic syntax Basic syntax:
-1 2 3 4 5 CREATE TABLE [IF NOT EXISTS] table_name ( column_definitions ) [partition_options] ENGINE = engine_type [WITH ( table_options )]; Column definition syntax:
-1 column_name column_type [[NOT] NULL] [TAG | TIMESTAMP KEY | PRIMARY KEY] [DICTIONARY] [COMMENT &amp;#39;&amp;#39;] Partition options syntax:
-1 PARTITION BY KEY (column_list) [PARTITIONS num] Table options syntax are key-value pairs. Value should be quoted with quotation marks ('). E.g.:
-1 .</description></item><item><title>Data Types</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/data_types/</guid><description>HoraeDB implements table model, and the supported data types are similar to MySQL. The following table lists the mapping relationship between MySQL and HoraeDB.
-Support Data Type(case-insensitive) SQL HoraeDB null Null timestamp Timestamp double Double float Float string String Varbinary Varbinary uint64 UInt64 uint32 UInt32 uint16 UInt16 uint8 UInt8 int64/bigint Int64 int32/int Int32 int16/smallint Int16 int8/tinyint Int8 boolean Boolean date Date time Time</description></item><item><title>DROP TABLE</title><link>https://horaedb.apache.org/docs/user-guide/sql/ddl/drop_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/ddl/drop_table/</guid><description>Basic syntax Basic syntax:
-1 DROP TABLE [IF EXISTS] table_name Drop Table removes a specific table. This statement should be used with caution, because it removes both the table definition and table data, and this removal is not recoverable.</description></item><item><title>Go</title><link>https://horaedb.apache.org/docs/user-guide/sdk/go/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/go/</guid><description>Installation go get github.com/apache/incubator-horaedb-client-go You can get latest version here.
-How To Use Init HoraeDB Client 1 2 3 client, err := horaedb.NewClient(endpoint, horaedb.Direct, horaedb.WithDefaultDatabase(&amp;#34;public&amp;#34;), ) option name description defaultDatabase using database, database can be overwritten by ReqContext in single Write or SQLRequest RPCMaxRecvMsgSize configration for grpc MaxCallRecvMsgSize, default 1024 _ 1024 _ 1024 RouteMaxCacheSize If the maximum number of router cache size, router client whill evict oldest if exceeded, default is 10000 Notice:</description></item><item><title>InfluxDB</title><link>https://horaedb.apache.org/docs/user-guide/ecosystem/influxdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/ecosystem/influxdb/</guid><description>InfluxDB is a time series database designed to handle high write and query loads. It is an integral component of the TICK stack. InfluxDB is meant to be used as a backing store for any use case involving large amounts of timestamped data, including DevOps monitoring, application metrics, IoT sensor data, and real-time analytics.
-HoraeDB support InfluxDB v1.8 write and query API.
-Warn: users need to add following config to server&amp;rsquo;s config in order to try InfluxDB write/query.</description></item><item><title>INSERT</title><link>https://horaedb.apache.org/docs/user-guide/sql/dml/insert/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/dml/insert/</guid><description>Basic syntax Basic syntax:
-1 2 3 INSERT [INTO] tbl_name [(col_name [, col_name] ...)] { {VALUES | VALUE} (value_list) [, (value_list)] ... } INSERT inserts new rows into a HoraeDB table. Here is an example:
-1 INSERT INTO demo(`time_stammp`, tag1) VALUES(1667374200022, &amp;#39;horaedb&amp;#39;)</description></item><item><title>Introduction to Architecture of HoraeDB Cluster</title><link>https://horaedb.apache.org/docs/design/clustering/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/clustering/</guid><description>Note: Some of the features mentioned in the article have not yet been implemented.
-Overview 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 ┌───────────────────────────────────────────────────────────────────────┐ │ │ │ HoraeMeta Cluster │ │ │ └───────────────────────────────────────────────────────────────────────┘ ▲ ▲ ▲ │ │ │ │ │ │ ▼ ▼ ▼ ┌───────┐Route Info ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐ │client │◀────────▶ │ │ │TableN││ │ │ │ │TableN││ │ │ │ │TableN││ │ └───────┘Write/Query└──Shard(L)──┴┴─┘ └──Shard(F)──┴┴─┘ └──Shard(F)──┴┴─┘ ▲ │ ▲ ▲ │ │ │ │ Write─────────┐ ├────Sync───────┘ │ │ │ ┌────────┬▼───┴────┬──────────────────┐ Upload/Download │ │ │ │ SST │ │WAL │Region N │ │ │Service │ │ │ │ └────────┴─────────┴──────────────────┘ ▼ ┌───────────────────────────────────────────────────────────────────────┐ │ │ │ Object Storage │ │ │ └───────────────────────────────────────────────────────────────────────┘ The diagram above describes the architecture of a HoraeDB cluster, where some key concepts need to be explained:</description></item><item><title>Introduction to HoraeDB's Architecture</title><link>https://horaedb.apache.org/docs/design/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/architecture/</guid><description>Target Provide the overview of HoraeDB to the developers who want to know more about HoraeDB but have no idea where to start. Make a brief introduction to the important modules of HoraeDB and the connections between these modules but details about their implementations are not be involved. Motivation HoraeDB is a timeseries database (TSDB). However, HoraeDB&amp;rsquo;s goal is to handle both timeseries and analytic workloads compared with the classic TSDB, which usually have a poor performance in handling analytic workloads.</description></item><item><title>Java</title><link>https://horaedb.apache.org/docs/user-guide/sdk/java/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/java/</guid><description>Introduction HoraeDB Client is a high-performance Java client for HoraeDB.
-Requirements Java 8 or later is required for compilation Dependency 1 2 3 4 5 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;io.ceresdb&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;ceresdb-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${CERESDB.VERSION}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; You can get latest version here.
-Init HoraeDB Client 1 2 3 4 5 6 7 8 9 10 11 12 13 final CeresDBOptions opts = CeresDBOptions.newBuilder(&amp;#34;127.0.0.1&amp;#34;, 8831, DIRECT) // CeresDB default grpc port 8831，use DIRECT RouteMode .database(&amp;#34;public&amp;#34;) // use database for client, can be overridden by the RequestContext in request // maximum retry times when write fails // (only some error codes will be retried, such as the routing table failure) .</description></item><item><title>Observability</title><link>https://horaedb.apache.org/docs/user-guide/operation/observability/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/operation/observability/</guid><description>HoraeDB is observable with Prometheus and Grafana.
-Prometheus Prometheus is a systems and service monitoring system.
-Configuration Save the following configuration into the prometheus.yml file. For example, in the tmp directory, /tmp/prometheus.yml.
-Two HoraeDB http service are started on localhost:5440 and localhost:5441.
-1 2 3 4 5 6 7 8 global: scrape_interval: 30s scrape_configs: - job_name: horaedb-server static_configs: - targets: [your_ip:5440, your_ip:5441] labels: env: horaedbcluster See details about configuration here.</description></item><item><title>OpenTSDB</title><link>https://horaedb.apache.org/docs/user-guide/ecosystem/opentsdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/ecosystem/opentsdb/</guid><description>OpenTSDB is a distributed and scalable time series database based on HBase.
-Write HoraeDB follows the OpenTSDB put write protocol.
-summary and detailed are not yet supported.
-curl --location &amp;#39;http://localhost:5440/opentsdb/api/put&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; \ -d &amp;#39;[{ &amp;#34;metric&amp;#34;: &amp;#34;sys.cpu.nice&amp;#34;, &amp;#34;timestamp&amp;#34;: 1692588459000, &amp;#34;value&amp;#34;: 18, &amp;#34;tags&amp;#34;: { &amp;#34;host&amp;#34;: &amp;#34;web01&amp;#34;, &amp;#34;dc&amp;#34;: &amp;#34;lga&amp;#34; } }, { &amp;#34;metric&amp;#34;: &amp;#34;sys.cpu.nice&amp;#34;, &amp;#34;timestamp&amp;#34;: 1692588459000, &amp;#34;value&amp;#34;: 18, &amp;#34;tags&amp;#34;: { &amp;#34;host&amp;#34;: &amp;#34;web01&amp;#34; } }]&amp;#39; &amp;#39; Metric will be mapped to table in HoraeDB, and it will be created automatically in first write(Note: The default TTL is 7d, and points written exceed TTL will be discarded directly).</description></item><item><title>Profiling</title><link>https://horaedb.apache.org/docs/dev/profiling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/profiling/</guid><description>CPU profiling HoraeDB provides cpu profiling http api debug/profile/cpu.
-Example:
-// 60s cpu sampling data curl 0:5000/debug/profile/cpu/60 // Output file path. /tmp/flamegraph_cpu.svg Heap profiling HoraeDB provides heap profiling http api debug/profile/heap.
-Install dependencies sudo yum install -y jemalloc-devel ghostscript graphviz Example:
-// enable malloc prof export MALLOC_CONF=prof:true // run horaedb-server ./horaedb-server .... // 60s cpu sampling data curl -L &amp;#39;0:5000/debug/profile/heap/60&amp;#39; &amp;gt; /tmp/heap_profile jeprof --show_bytes --pdf /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; profile_heap.pdf jeprof --show_bytes --svg /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; profile_heap.</description></item><item><title>Prometheus</title><link>https://horaedb.apache.org/docs/user-guide/ecosystem/prometheus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/ecosystem/prometheus/</guid><description>Prometheus is a popular cloud-native monitoring tool that is widely adopted by organizations due to its scalability, reliability, and scalability. It is used to scrape metrics from cloud-native services, such as Kubernetes and OpenShift, and stores it in a time-series database. Prometheus is also easily extensible, allowing users to extend its features and capabilities with other databases.
-HoraeDB can be used as a long-term storage solution for Prometheus. Both remote read and remote write API are supported.</description></item><item><title>Python</title><link>https://horaedb.apache.org/docs/user-guide/sdk/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/python/</guid><description>Introduction horaedb-client is the python client for HoraeDB.
-Thanks to PyO3, the python client is actually a wrapper on the rust client.
-The guide will give a basic introduction to the python client by example.
-Requirements Python &amp;gt;= 3.7 Installation 1 pip install ceresdb-client You can get latest version here.
-Init HoraeDB Client The client initialization comes first, here is a code snippet:
-1 2 3 4 5 6 7 8 9 10 11 12 13 import asyncio import datetime from ceresdb_client import Builder, RpcContext, PointBuilder, ValueBuilder, WriteRequest, SqlQueryRequest, Mode, RpcConfig rpc_config = RpcConfig() rpc_config = RpcConfig() rpc_config.</description></item><item><title>Rationale and Goals</title><link>https://horaedb.apache.org/docs/dev/style_guide/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/style_guide/</guid><description>As every Rust programmer knows, the language has many powerful features, and there are often several patterns which can express the same idea. Also, as every professional programmer comes to discover, code is almost always read far more than it is written.
-Thus, we choose to use a consistent set of idioms throughout our code so that it is easier to read and understand for both existing and new contributors.</description></item><item><title>RoadMap</title><link>https://horaedb.apache.org/docs/dev/roadmap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/roadmap/</guid><description>v0.1.0 Standalone version, local storage Analytical storage format Support SQL v0.2.0 Distributed version supports static topology defined in config file. The underlying storage supports Aliyun OSS. WAL implementation based on OBKV. v0.3.0 Release multi-language clients, including Java, Rust and Python. Static cluster mode with HoraeMeta. Basic implementation of hybrid storage format. v0.4.0 Implement more sophisticated cluster solution that enhances reliability and scalability of HoraeDB. Set up nightly benchmark with TSBS. v1.</description></item><item><title>Rust</title><link>https://horaedb.apache.org/docs/user-guide/sdk/rust/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/rust/</guid><description>Install 1 cargo add ceresdb-client You can get latest version here.
-Init Client At first, we need to init the client.
-New builder for the client, and you must set endpoint and mode: endpoint is a string which is usually like &amp;ldquo;ip/domain_name:port&amp;rdquo;. mode is used to define the way to access horaedb server, detail about mode. 1 let mut builder = Builder::new(&amp;#34;ip/domain_name:port&amp;#34;, Mode::Direct/Mode::Proxy); New and set rpc_config, it can be defined on demand or just use the default value, detail about rpc config: 1 2 3 4 5 6 let rpc_config = RpcConfig { thread_num: Some(1), default_write_timeout: Duration::from_millis(1000), .</description></item><item><title>SDK Development</title><link>https://horaedb.apache.org/docs/dev/sdk_develop/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/sdk_develop/</guid><description>Rust 1 2 3 git clone https://github.com/apache/horaedb-client-rs cargo build Python Requirements python 3.7+ The Python SDK rely on Rust SDK, so cargo is also required, then install build tool maturin:
-1 pip install maturin Then we can build Python SDK:
-1 2 3 git clone https://github.com/apache/horaedb-client-py maturin build Go 1 2 3 git clone https://github.com/apache/horaedb-client-go go build ./... Java Requirements java 1.8 maven 3.6.3+ 1 2 3 git clone https://github.com/apache/horaedb-client-java mvn clean install -DskipTests=true -Dmaven.</description></item><item><title>SELECT</title><link>https://horaedb.apache.org/docs/user-guide/sql/dml/select/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/dml/select/</guid><description>Basic syntax Basic syntax (parts between [] are optional):
-1 2 3 4 5 6 7 SELECT select_expr [, select_expr] ... FROM table_name [WHERE where_condition] [GROUP BY {col_name | expr} ... ] [ORDER BY {col_name | expr} [ASC | DESC] [LIMIT [offset,] row_count ] Select syntax in HoraeDB is similar to mysql, here is an example:
-1 SELECT * FROM `demo` WHERE time_stamp &amp;gt; &amp;#39;2022-10-11 00:00:00&amp;#39; AND time_stamp &amp;lt; &amp;#39;2022-10-12 00:00:00&amp;#39; LIMIT 10</description></item><item><title>Special Columns</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</guid><description>Tables in HoraeDB have the following constraints:
-Primary key is required The primary key must contain a time column, and can only contain one time column The primary key must be non-null, so all columns in primary key must be non-null. Timestamp Column Tables in HoraeDB must have one timestamp column maps to timestamp in timeseries data, such as timestamp in OpenTSDB/Prometheus. The timestamp column can be set with timestamp key keyword, like TIMESTAMP KEY(ts).</description></item><item><title>Storage</title><link>https://horaedb.apache.org/docs/design/storage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/storage/</guid><description>The storage engine mainly provides the following two functions：
-Persistence of data Under the premise of ensuring the correctness of the data, organize the data in the most reasonable way to meet the query needs of different scenarios. This document will introduce the internal implementation of the storage engine in HoraeDB. Readers can refer to the content here to explore how to use HoraeDB efficiently.
-Overall Structure HoraeDB is a distributed storage system based on the share-nothing architecture.</description></item><item><title>Table Operation</title><link>https://horaedb.apache.org/docs/user-guide/operation/system_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/operation/system_table/</guid><description>Query Table Information Like Mysql&amp;rsquo;s information_schema.tables, HoraeDB provides system.public.tables to save tables information. Columns:
-timestamp([TimeStamp]) catalog([String]) schema([String]) table_name([String]) table_id([Uint64]) engine([String]) Example Query table information via table_name like this:
-1 2 3 4 5 curl --location --request POST &amp;#39;http://localhost:5000/sql&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; \ -d &amp;#39;{ &amp;#34;query&amp;#34;: &amp;#34;select * from system.public.tables where `table_name`=\&amp;#34;my_table\&amp;#34;&amp;#34; }&amp;#39; Response 1 2 3 4 5 6 7 8 9 10 11 { &amp;#34;rows&amp;#34;:[ { &amp;#34;timestamp&amp;#34;:0, &amp;#34;catalog&amp;#34;:&amp;#34;horaedb&amp;#34;, &amp;#34;schema&amp;#34;:&amp;#34;public&amp;#34;, &amp;#34;table_name&amp;#34;:&amp;#34;my_table&amp;#34;, &amp;#34;table_id&amp;#34;:3298534886446, &amp;#34;engine&amp;#34;:&amp;#34;Analytic&amp;#34; } }</description></item><item><title>Table Operation</title><link>https://horaedb.apache.org/docs/user-guide/operation/table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/operation/table/</guid><description>HoraeDB supports standard SQL protocols and allows you to create tables and read/write data via http requests. More SQL
-Create Table Example 1 2 3 4 5 curl --location --request POST &amp;#39;http://127.0.0.1:5000/sql&amp;#39; \ --header &amp;#39;Content-Type: application/json&amp;#39; \ -d &amp;#39;{ &amp;#34;query&amp;#34;: &amp;#34;CREATE TABLE `demo` (`name` string TAG, `value` double NOT NULL, `t` timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE=Analytic with (enable_ttl=&amp;#39;\&amp;#39;&amp;#39;false&amp;#39;\&amp;#39;&amp;#39;)&amp;#34; }&amp;#39; Write Data Example 1 2 3 4 5 curl --location --request POST &amp;#39;http://127.</description></item><item><title>Table Partitioning</title><link>https://horaedb.apache.org/docs/design/table_partitioning/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/table_partitioning/</guid><description>Note: This feature is still in development, and the API may change in the future.
-This chapter discusses PartitionTable.
-The partition table syntax used by HoraeDB is similar to that of MySQL.
-General partition tables include Range Partitioning, List Partitoning, Hash Partitioning, and Key Partititioning.
-HoraeDB currently only supports Key Partitioning.
-Architecture Similar to MySQL, different portions of a partition table are stored as separate tables in different locations.
-Currently designed, a partition table can be opened on multiple HoraeDB nodes, supports writing and querying at the same time, and can be expanded horizontally.</description></item><item><title>Wal</title><link>https://horaedb.apache.org/docs/design/wal/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal/</guid><description> WAL on RocksDB WAL on Kafka WAL on OceanBase will be introduced in later.</description></item><item><title>WAL on Kafka</title><link>https://horaedb.apache.org/docs/design/wal_on_kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal_on_kafka/</guid><description>Architecture In this section we present a distributed WAL implementation(based on Kafka). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by region, which can be simply understood as a shared log file of multiple tables.
-As shown in the following figure, regions are mapped to topics(with only one partition) in Kafka. And usually two topics are needed by a region, one is used for storing logs and the other is used for storing metadata.</description></item><item><title>WAL on RocksDB</title><link>https://horaedb.apache.org/docs/design/wal_on_rocksdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal_on_rocksdb/</guid><description>Architecture In this section we present a standalone WAL implementation (based on RocksDB). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by table, and we call the corresponding storage data structure TableUnit. All related data (logs or some metadata) is stored in a single column family for simplicity.
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 ┌───────────────────────────────┐ │ HoraeDB │ │ │ │ ┌─────────────────────┐ │ │ │ WAL │ │ │ │ │ │ │ │ .</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Horaedb on Apache HoraeDB</title><link>https://horaedb.apache.org/</link><description>Recent content in Horaedb on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting Started</title><link>https://horaedb.apache.org/docs/getting-started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/getting-started/</guid><description>&lt;p>This page shows you how to get started with HoraeDB quickly. You&amp;rsquo;ll start a standalone HoraeDB server, and then insert and read some sample data using SQL.&lt;/p>
+&lt;h2 id="start-server">Start server&lt;/h2>
+&lt;p>&lt;a href="https://github.com/apache/incubator-horaedb/pkgs/container/horaedb-server">HoraeDB docker image&lt;/a> is the easiest way to get started, if you haven&amp;rsquo;t installed Docker, go &lt;a href="https://www.docker.com/products/docker-desktop/">there&lt;/a> to install it first.&lt;/p>
+&lt;blockquote>
+&lt;p>Note: please choose tag version &amp;gt;= v1.0.0, others are mainly for testing.&lt;/p>
+&lt;/blockquote>
+&lt;p>You can use command below to start a standalone server&lt;/p></description></item><item><title>NoMeta</title><link>https://horaedb.apache.org/docs/user-guide/cluster_deployment/no_meta/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/cluster_deployment/no_meta/</guid><description>&lt;p>&lt;strong>Note: This feature is for testing use only, not recommended for production use, related features may change in the future.&lt;/strong>&lt;/p>
+&lt;p>This guide shows how to deploy a HoraeDB cluster without HoraeMeta, but with static, rule-based routing.&lt;/p>
+&lt;p>The crucial point here is that HoraeDB server provides configurable routing function on table name so what we need is just a valid config containing routing rules which will be shipped to every HoraeDB instance in the cluster.&lt;/p></description></item><item><title>Supported Platform</title><link>https://horaedb.apache.org/docs/dev/platform/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/platform/</guid><description>&lt;p>作为一个开源的数据库，HoraeDB 可以部署在基于英特尔 /ARM 架构的服务器，以及常见的虚拟环境。&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: center">OS&lt;/th>
+ &lt;th style="text-align: center">status&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: center">Ubuntu LTS 16.06 or later&lt;/td>
+ &lt;td style="text-align: center">✅&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">CentOS 7.3 or later&lt;/td>
+ &lt;td style="text-align: center">✅&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">Red Hat Enterprise Linux 7.3 or later 7.x releases&lt;/td>
+ &lt;td style="text-align: center">✅&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">macOS 11 or later&lt;/td>
+ &lt;td style="text-align: center">✅&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: center">Windows&lt;/td>
+ &lt;td style="text-align: center">❌&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;ul>
+&lt;li>生产环境下 , Linux 是首选平台。&lt;/li>
+&lt;li>macOS 主要用在开发环境。&lt;/li>
+&lt;/ul></description></item><item><title>Conventional Commit Guide</title><link>https://horaedb.apache.org/docs/dev/conventional_commit/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/conventional_commit/</guid><description>&lt;p>This document describes how we use &lt;a href="https://www.conventionalcommits.org/en/v1.0.0/">conventional commit&lt;/a> in our development.&lt;/p>
+&lt;h1 id="structure">Structure&lt;/h1>
+&lt;p>We would like to structure our commit message like this:&lt;/p>
+&lt;pre tabindex="0">&lt;code>&amp;lt;type&amp;gt;[optional scope]: &amp;lt;description&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>There are three parts. &lt;code>type&lt;/code> is used to classify which kind of work this commit does. &lt;code>scope&lt;/code> is an optional field that provides additional contextual information. And the last field is your &lt;code>description&lt;/code> of this commit.&lt;/p>
+&lt;h1 id="type">Type&lt;/h1>
+&lt;p>Here we list some common &lt;code>type&lt;/code>s and their meanings.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>feat&lt;/code>: Implement a new feature.&lt;/li>
+&lt;li>&lt;code>fix&lt;/code>: Patch a bug.&lt;/li>
+&lt;li>&lt;code>docs&lt;/code>: Add document or comment.&lt;/li>
+&lt;li>&lt;code>build&lt;/code>: Change the build script or configuration.&lt;/li>
+&lt;li>&lt;code>style&lt;/code>: Style change (only). No logic involved.&lt;/li>
+&lt;li>&lt;code>refactor&lt;/code>: Refactor an existing module for performance, structure, or other reasons.&lt;/li>
+&lt;li>&lt;code>test&lt;/code>: Enhance test coverage or sqlness.&lt;/li>
+&lt;li>&lt;code>chore&lt;/code>: None of the above.&lt;/li>
+&lt;/ul>
+&lt;h1 id="scope">Scope&lt;/h1>
+&lt;p>The &lt;code>scope&lt;/code> is more flexible than &lt;code>type&lt;/code>. And it may have different values under different &lt;code>type&lt;/code>s.&lt;/p></description></item><item><title>Identifier</title><link>https://horaedb.apache.org/docs/user-guide/sql/identifier/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/identifier/</guid><description>&lt;p>Identifier in HoraeDB can be used as table name, column name etc. It cannot be preserved keywords or start with number and punctuation symbols. HoraeDB allows to quote identifiers with back quotes (`). In this case it can be any string like &lt;code>00_table&lt;/code> or &lt;code>select&lt;/code>.&lt;/p></description></item><item><title>WithMeta</title><link>https://horaedb.apache.org/docs/user-guide/cluster_deployment/with_meta/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/cluster_deployment/with_meta/</guid><description>&lt;p>This guide shows how to deploy a HoraeDB cluster with HoraeMeta. And with the HoraeMeta, the whole HoraeDB cluster will feature: high availability, load balancing and horizontal scalability if the underlying storage used by HoraeDB is separated service.&lt;/p>
+&lt;h2 id="deploy-horaemeta">Deploy HoraeMeta&lt;/h2>
+&lt;h3 id="introduce">Introduce&lt;/h3>
+&lt;p>HoraeMeta is one of the core services of HoraeDB distributed mode, it is used to manage and schedule the HoraeDB cluster. By the way, the high availability of HoraeMeta is ensured by embedding &lt;a href="https://github.com/etcd-io/etcd">ETCD&lt;/a>. Also, the ETCD service is provided for HoraeDB servers to manage the distributed shard locks.&lt;/p></description></item><item><title>Compile</title><link>https://horaedb.apache.org/docs/dev/compile_run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/compile_run/</guid><description>&lt;p>In order to compile HoraeDB, some relevant dependencies(including the &lt;code>Rust&lt;/code> toolchain) should be installed.&lt;/p>
+&lt;h1 id="dependenciesubuntu2004">Dependencies(Ubuntu20.04)&lt;/h1>
+&lt;p>Assuming the development environment is Ubuntu20.04, execute the following command to install the required dependencies:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>It should be noted that the compilation of the project has version requirements for dependencies such as cmake, gcc, g++, etc. If your development environment is an old Linux distribution, it is necessary to manually install these dependencies of a higher version.&lt;/p></description></item><item><title>Contribution Guidelines</title><link>https://horaedb.apache.org/docs/contribution-guidelines/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/contribution-guidelines/</guid><description>&lt;p>Thank you for thinking of contributing! We very much welcome contributions from the community.
+To make the process easier and more valuable for everyone involved we have a few rules and guidelines to follow.&lt;/p>
+&lt;h2 id="submitting-issues-and-feature-requests">Submitting Issues and Feature Requests&lt;/h2>
+&lt;p>Before you file an &lt;a href="https://github.com/apache/horaedb/issues/new">issue&lt;/a>, please search existing issues in case the same or similar issues have already been filed.
+If you find an existing open ticket covering your issue then please avoid adding &amp;ldquo;👍&amp;rdquo; or &amp;ldquo;me too&amp;rdquo; comments; GitHub notifications can cause a lot of noise for the project maintainers who triage the back-log.
+However, if you have a new piece of information for an existing ticket, and you think it may help the investigation or resolution, then please do add it as a comment!
+You can signal to the team that you&amp;rsquo;re experiencing an existing issue with one of GitHub&amp;rsquo;s emoji reactions (these are a good way to add &amp;ldquo;weight&amp;rdquo; to an issue from a prioritisation perspective).&lt;/p></description></item><item><title>Utility Statements</title><link>https://horaedb.apache.org/docs/user-guide/sql/utility/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/utility/</guid><description>&lt;p>There are serval utilities SQL in HoraeDB that can help in table manipulation or query inspection.&lt;/p>
+&lt;h2 id="show-create-table">SHOW CREATE TABLE&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">SHOW&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">CREATE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TABLE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">table_name&lt;/span>;&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>SHOW CREATE TABLE&lt;/code> returns a &lt;code>CREATE TABLE&lt;/code> DDL that will create a same table with the given one. Including columns, table engine and options. The schema and options shows in &lt;code>CREATE TABLE&lt;/code> will based on the current version of the table. An example:&lt;/p></description></item><item><title>Options</title><link>https://horaedb.apache.org/docs/user-guide/sql/engine_options/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/engine_options/</guid><description>&lt;p>Options below can be used when create table for analytic engine&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>enable_ttl&lt;/code>, &lt;code>bool&lt;/code>. When enable TTL on a table, rows older than &lt;code>ttl&lt;/code> will be deleted and can&amp;rsquo;t be querid, default &lt;code>true&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>ttl&lt;/code>, &lt;code>duration&lt;/code>, lifetime of a row, only used when &lt;code>enable_ttl&lt;/code> is &lt;code>true&lt;/code>. default &lt;code>7d&lt;/code>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>storage_format&lt;/code>, &lt;code>string&lt;/code>. The underlying column&amp;rsquo;s format. Availiable values:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>columnar&lt;/code>, default&lt;/li>
+&lt;li>&lt;code>hybrid&lt;/code>, Note: This feature is still in development, and it may change in the future.&lt;/li>
+&lt;/ul>
+&lt;p>The meaning of those two values are in &lt;a href="https://horaedb.apache.org/docs/user-guide/sql/engine_options/#storage-format">Storage format&lt;/a> section.&lt;/p></description></item><item><title>Scalar Functions</title><link>https://horaedb.apache.org/docs/user-guide/sql/scalar_functions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/scalar_functions/</guid><description>&lt;p>HoraeDB SQL is implemented with &lt;a href="https://github.com/CeresDB/arrow-datafusion">DataFusion&lt;/a>, Here is the list of scalar functions. See more detail, Refer to &lt;a href="https://github.com/CeresDB/arrow-datafusion/blob/master/docs/source/user-guide/sql/scalar_functions.md">Datafusion&lt;/a>&lt;/p>
+&lt;h2 id="math-functions">Math Functions&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Function&lt;/th>
+ &lt;th style="text-align: left">Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">abs(x)&lt;/td>
+ &lt;td style="text-align: left">absolute value&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">acos(x)&lt;/td>
+ &lt;td style="text-align: left">inverse cosine&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">asin(x)&lt;/td>
+ &lt;td style="text-align: left">inverse sine&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">atan(x)&lt;/td>
+ &lt;td style="text-align: left">inverse tangent&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">atan2(y, x)&lt;/td>
+ &lt;td style="text-align: left">inverse tangent of y / x&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">ceil(x)&lt;/td>
+ &lt;td style="text-align: left">nearest integer greater than or equal to argument&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">cos(x)&lt;/td>
+ &lt;td style="text-align: left">cosine&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">exp(x)&lt;/td>
+ &lt;td style="text-align: left">exponential&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">floor(x)&lt;/td>
+ &lt;td style="text-align: left">nearest integer less than or equal to argument&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">ln(x)&lt;/td>
+ &lt;td style="text-align: left">natural logarithm&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">log10(x)&lt;/td>
+ &lt;td style="text-align: left">base 10 logarithm&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">log2(x)&lt;/td>
+ &lt;td style="text-align: left">base 2 logarithm&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">power(base, exponent)&lt;/td>
+ &lt;td style="text-align: left">base raised to the power of exponent&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">round(x)&lt;/td>
+ &lt;td style="text-align: left">round to nearest integer&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">signum(x)&lt;/td>
+ &lt;td style="text-align: left">sign of the argument (-1, 0, +1)&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">sin(x)&lt;/td>
+ &lt;td style="text-align: left">sine&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">sqrt(x)&lt;/td>
+ &lt;td style="text-align: left">square root&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">tan(x)&lt;/td>
+ &lt;td style="text-align: left">tangent&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">trunc(x)&lt;/td>
+ &lt;td style="text-align: left">truncate toward zero&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="conditional-functions">Conditional Functions&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Function&lt;/th>
+ &lt;th style="text-align: left">Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">coalesce&lt;/td>
+ &lt;td style="text-align: left">Returns the first of its arguments that is not null. Null is returned only if all arguments are null. It is often used to substitute a default value for null values when data is retrieved for display.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">nullif&lt;/td>
+ &lt;td style="text-align: left">Returns a null value if value1 equals value2; otherwise it returns value1. This can be used to perform the inverse operation of the coalesce expression.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="string-functions">String Functions&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Function&lt;/th>
+ &lt;th style="text-align: left">Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">ascii&lt;/td>
+ &lt;td style="text-align: left">Returns the numeric code of the first character of the argument. In UTF8 encoding, returns the Unicode code point of the character. In other multibyte encodings, the argument must be an ASCII character.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">bit_length&lt;/td>
+ &lt;td style="text-align: left">Returns the number of bits in a character string expression.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">btrim&lt;/td>
+ &lt;td style="text-align: left">Removes the longest string containing any of the specified characters from the start and end of string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">char_length&lt;/td>
+ &lt;td style="text-align: left">Equivalent to length.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">character_length&lt;/td>
+ &lt;td style="text-align: left">Equivalent to length.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">concat&lt;/td>
+ &lt;td style="text-align: left">Concatenates two or more strings into one string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">concat_ws&lt;/td>
+ &lt;td style="text-align: left">Combines two values with a given separator.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">chr&lt;/td>
+ &lt;td style="text-align: left">Returns the character based on the number code.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">initcap&lt;/td>
+ &lt;td style="text-align: left">Capitalizes the first letter of each word in a string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">left&lt;/td>
+ &lt;td style="text-align: left">Returns the specified leftmost characters of a string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">length&lt;/td>
+ &lt;td style="text-align: left">Returns the number of characters in a string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">lower&lt;/td>
+ &lt;td style="text-align: left">Converts all characters in a string to their lower case equivalent.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">lpad&lt;/td>
+ &lt;td style="text-align: left">Left-pads a string to a given length with a specific set of characters.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">ltrim&lt;/td>
+ &lt;td style="text-align: left">Removes the longest string containing any of the characters in characters from the start of string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">md5&lt;/td>
+ &lt;td style="text-align: left">Calculates the MD5 hash of a given string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">octet_length&lt;/td>
+ &lt;td style="text-align: left">Equivalent to length.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">repeat&lt;/td>
+ &lt;td style="text-align: left">Returns a string consisting of the input string repeated a specified number of times.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">replace&lt;/td>
+ &lt;td style="text-align: left">Replaces all occurrences in a string of a substring with a new substring.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">reverse&lt;/td>
+ &lt;td style="text-align: left">Reverses a string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">right&lt;/td>
+ &lt;td style="text-align: left">Returns the specified rightmost characters of a string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">rpad&lt;/td>
+ &lt;td style="text-align: left">Right-pads a string to a given length with a specific set of characters.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">rtrim&lt;/td>
+ &lt;td style="text-align: left">Removes the longest string containing any of the characters in characters from the end of string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">digest&lt;/td>
+ &lt;td style="text-align: left">Calculates the hash of a given string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">split_part&lt;/td>
+ &lt;td style="text-align: left">Splits a string on a specified delimiter and returns the specified field from the resulting array.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">starts_with&lt;/td>
+ &lt;td style="text-align: left">Checks whether a string starts with a particular substring.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">strpos&lt;/td>
+ &lt;td style="text-align: left">Searches a string for a specific substring and returns its position.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">substr&lt;/td>
+ &lt;td style="text-align: left">Extracts a substring of a string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">translate&lt;/td>
+ &lt;td style="text-align: left">Translates one set of characters into another.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">trim&lt;/td>
+ &lt;td style="text-align: left">Removes the longest string containing any of the characters in characters from either the start or end of string.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">upper&lt;/td>
+ &lt;td style="text-align: left">Converts all characters in a string to their upper case equivalent.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="regular-expression-functions">Regular Expression Functions&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Function&lt;/th>
+ &lt;th style="text-align: left">Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">regexp_match&lt;/td>
+ &lt;td style="text-align: left">Determines whether a string matches a regular expression pattern.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">regexp_replace&lt;/td>
+ &lt;td style="text-align: left">Replaces all occurrences in a string of a substring that matches a regular expression pattern with a new substring.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="temporal-functions">Temporal Functions&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Function&lt;/th>
+ &lt;th style="text-align: left">Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">to_timestamp&lt;/td>
+ &lt;td style="text-align: left">Converts a string to type Timestamp(Nanoseconds, None).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">to_timestamp_millis&lt;/td>
+ &lt;td style="text-align: left">Converts a string to type Timestamp(Milliseconds, None).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">to_timestamp_micros&lt;/td>
+ &lt;td style="text-align: left">Converts a string to type Timestamp(Microseconds, None).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">to_timestamp_seconds&lt;/td>
+ &lt;td style="text-align: left">Converts a string to type Timestamp(Seconds, None).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">extract&lt;/td>
+ &lt;td style="text-align: left">Retrieves subfields such as year or hour from date/time values.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">date_part&lt;/td>
+ &lt;td style="text-align: left">Retrieves subfield from date/time values.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">date_trunc&lt;/td>
+ &lt;td style="text-align: left">Truncates date/time values to specified precision.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">date_bin&lt;/td>
+ &lt;td style="text-align: left">Bin date/time values to specified precision.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">from_unixtime&lt;/td>
+ &lt;td style="text-align: left">Converts Unix epoch to type Timestamp(Nanoseconds, None).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">now&lt;/td>
+ &lt;td style="text-align: left">Returns current time as Timestamp(Nanoseconds, UTC).&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="other-functions">Other Functions&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Function&lt;/th>
+ &lt;th style="text-align: left">Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">array&lt;/td>
+ &lt;td style="text-align: left">Create an array.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">arrow_typeof&lt;/td>
+ &lt;td style="text-align: left">Returns underlying type.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">in_list&lt;/td>
+ &lt;td style="text-align: left">Check if value in list.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">random&lt;/td>
+ &lt;td style="text-align: left">Generate random value.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">sha224&lt;/td>
+ &lt;td style="text-align: left">sha224&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">sha256&lt;/td>
+ &lt;td style="text-align: left">sha256&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">sha384&lt;/td>
+ &lt;td style="text-align: left">sha384&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">sha512&lt;/td>
+ &lt;td style="text-align: left">sha512&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">to_hex&lt;/td>
+ &lt;td style="text-align: left">Convert to hex.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>Aggregate Functions</title><link>https://horaedb.apache.org/docs/user-guide/sql/aggregate_functions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/aggregate_functions/</guid><description>&lt;p>HoraeDB SQL is implemented with &lt;a href="https://github.com/apache/arrow-datafusion">DataFusion&lt;/a>, Here is the list of aggregate functions. See more detail, Refer to &lt;a href="https://github.com/apache/arrow-datafusion/blob/master/docs/source/user-guide/sql/aggregate_functions.md">Datafusion&lt;/a>&lt;/p>
+&lt;h2 id="general">General&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Function&lt;/th>
+ &lt;th style="text-align: left">Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">min&lt;/td>
+ &lt;td style="text-align: left">Returns the minimum value in a numerical column&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">max&lt;/td>
+ &lt;td style="text-align: left">Returns the maximum value in a numerical column&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">count&lt;/td>
+ &lt;td style="text-align: left">Returns the number of rows&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">avg&lt;/td>
+ &lt;td style="text-align: left">Returns the average of a numerical column&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">sum&lt;/td>
+ &lt;td style="text-align: left">Sums a numerical column&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">array_agg&lt;/td>
+ &lt;td style="text-align: left">Puts values into an array&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="statistical">Statistical&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Function&lt;/th>
+ &lt;th style="text-align: left">Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">var / var_samp&lt;/td>
+ &lt;td style="text-align: left">Returns the variance of a given column&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">var_pop&lt;/td>
+ &lt;td style="text-align: left">Returns the population variance of a given column&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">stddev / stddev_samp&lt;/td>
+ &lt;td style="text-align: left">Returns the standard deviation of a given column&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">stddev_pop&lt;/td>
+ &lt;td style="text-align: left">Returns the population standard deviation of a given column&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">covar / covar_samp&lt;/td>
+ &lt;td style="text-align: left">Returns the covariance of a given column&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">covar_pop&lt;/td>
+ &lt;td style="text-align: left">Returns the population covariance of a given column&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">corr&lt;/td>
+ &lt;td style="text-align: left">Returns the correlation coefficient of a given column&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h2 id="approximate">Approximate&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">Function&lt;/th>
+ &lt;th style="text-align: left">Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">approx_distinct&lt;/td>
+ &lt;td style="text-align: left">Returns the approximate number (HyperLogLog) of distinct input values&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">approx_median&lt;/td>
+ &lt;td style="text-align: left">Returns the approximate median of input values. It is an alias of approx_percentile_cont(x, 0.5).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">approx_percentile_cont&lt;/td>
+ &lt;td style="text-align: left">Returns the approximate percentile (TDigest) of input values, where p is a float64 between 0 and 1 (inclusive). It supports raw data as input and build Tdigest sketches during query time, and is approximately equal to approx_percentile_cont_with_weight(x, 1, p).&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">approx_percentile_cont_with_weight&lt;/td>
+ &lt;td style="text-align: left">Returns the approximate percentile (TDigest) of input values with weight, where w is weight column expression and p is a float64 between 0 and 1 (inclusive). It supports raw data as input or pre-aggregated TDigest sketches, then builds or merges Tdigest sketches during query time. TDigest sketches are a list of centroid (x, w), where x stands for mean and w stands for weight.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>Release 2.0.0</title><link>https://horaedb.apache.org/blog/2024/release-2.0.0/</link><pubDate>Tue, 23 Apr 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/blog/2024/release-2.0.0/</guid><description>&lt;h2 id="upgrade-from-1xx-to-200">Upgrade from 1.x.x to 2.0.0&lt;/h2>
+&lt;p>The transition from CeresDB to Apache HoraeDB introduces several breaking changes. To facilitate upgrading from older versions to v2.0.0, specific alterations are necessary.&lt;/p>
+&lt;h4 id="upgrade-steps">Upgrade Steps&lt;/h4>
+&lt;ol>
+&lt;li>Setup required envs&lt;/li>
+&lt;/ol>
+&lt;pre tabindex="0">&lt;code>export HORAEDB_DEFAULT_CATALOG=ceresdb
+&lt;/code>&lt;/pre>&lt;ol start="2">
+&lt;li>Update config&lt;/li>
+&lt;/ol>
+&lt;p>Etcd&amp;rsquo;s root should be configured both in horaedb and horaemeta&lt;/p>
+&lt;p>For horaedb&lt;/p>
+&lt;pre tabindex="0">&lt;code>[cluster_deployment.etcd_client]
+server_addrs = [&amp;#39;127.0.0.1:2379&amp;#39;]
+root_path = &amp;#34;/rootPath&amp;#34;
+&lt;/code>&lt;/pre>&lt;p>For horaemeta&lt;/p>
+&lt;pre tabindex="0">&lt;code>storage-root-path = &amp;#34;/rootPath&amp;#34;
+&lt;/code>&lt;/pre>&lt;ol start="3">
+&lt;li>Upgrade horaemeta&lt;/li>
+&lt;/ol>
+&lt;p>Horaedb will throw following errors, which is expected&lt;/p></description></item><item><title>ALTER TABLE</title><link>https://horaedb.apache.org/docs/user-guide/sql/ddl/alter_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/ddl/alter_table/</guid><description>&lt;p>&lt;code>ALTER TABLE&lt;/code> can change the schema or options of a table.&lt;/p>
+&lt;h2 id="alter-table-schema">ALTER TABLE SCHEMA&lt;/h2>
+&lt;p>HoraeDB current supports &lt;code>ADD COLUMN&lt;/code> to alter table schema.&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#408080;font-style:italic">-- create a table and add a column to it
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#408080;font-style:italic">&lt;/span>&lt;span style="color:#008000;font-weight:bold">CREATE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TABLE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">`&lt;/span>t&lt;span style="color:#666">`&lt;/span>(a&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000">int&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>t&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">timestamp&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NOT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TIMESTAMP&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">KEY&lt;/span>(t))&lt;span style="color:#bbb"> &lt;/span>ENGINE&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>Analytic;&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">ALTER&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TABLE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">`&lt;/span>t&lt;span style="color:#666">`&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">ADD&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">COLUMN&lt;/span>&lt;span style="color:#bbb"> &lt;/span>(b&lt;span style="color:#bbb"> &lt;/span>string);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>It now becomes:&lt;/p>
+&lt;pre tabindex="0">&lt;code>-- DESCRIBE TABLE `t`;
+
+name type is_primary is_nullable is_tag
+
+t timestamp true false false
+tsid uint64 true false false
+a int false true false
+b string false true false
+&lt;/code>&lt;/pre>&lt;h2 id="alter-table-options">ALTER TABLE OPTIONS&lt;/h2>
+&lt;p>HoraeDB current supports &lt;code>MODIFY SETTING&lt;/code> to alter table schema.&lt;/p></description></item><item><title>Block List</title><link>https://horaedb.apache.org/docs/user-guide/operation/block_list/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/operation/block_list/</guid><description>&lt;h2 id="add-block-list">Add block list&lt;/h2>
+&lt;p>If you want to reject query for a table, you can add table name to &amp;lsquo;read_block_list&amp;rsquo;.&lt;/p>
+&lt;h3 id="example">Example&lt;/h3>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>curl --location --request POST &lt;span style="color:#ba2121">&amp;#39;http://localhost:5000/admin/block&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>--header &lt;span style="color:#ba2121">&amp;#39;Content-Type: application/json&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>-d &lt;span style="color:#ba2121">&amp;#39;{
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121"> &amp;#34;operation&amp;#34;:&amp;#34;Add&amp;#34;,
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121"> &amp;#34;write_block_list&amp;#34;:[],
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121"> &amp;#34;read_block_list&amp;#34;:[&amp;#34;my_table&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121">}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="response">Response&lt;/h3>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;write_block_list&amp;#34;&lt;/span>: [],
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;read_block_list&amp;#34;&lt;/span>: [&lt;span style="color:#ba2121">&amp;#34;my_table&amp;#34;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="set-block-list">Set block list&lt;/h2>
+&lt;p>You can use set operation to clear exist tables and set new tables to &amp;lsquo;read_block_list&amp;rsquo; like following example.&lt;/p></description></item><item><title>Cluster Operation</title><link>https://horaedb.apache.org/docs/user-guide/operation/horaemeta/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/operation/horaemeta/</guid><description>&lt;p>The Operations for HoraeDB cluster mode, it can only be used when HoraeMeta is deployed.&lt;/p>
+&lt;h2 id="operation-interface">Operation Interface&lt;/h2>
+&lt;p>You need to replace 127.0.0.1 with the actual project path.&lt;/p>
+&lt;ul>
+&lt;li>Query table
+When tableNames is not empty, use tableNames for query.
+When tableNames is empty, ids are used for query. When querying with ids, schemaName is useless.&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location &amp;#39;http://127.0.0.1:8080/api/v1/table/query&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+-d &amp;#39;{
+ &amp;#34;clusterName&amp;#34;:&amp;#34;defaultCluster&amp;#34;,
+ &amp;#34;schemaName&amp;#34;:&amp;#34;public&amp;#34;,
+ &amp;#34;names&amp;#34;:[&amp;#34;demo1&amp;#34;, &amp;#34;__demo1_0&amp;#34;],
+}&amp;#39;
+
+curl --location &amp;#39;http://127.0.0.1:8080/api/v1/table/query&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+-d &amp;#39;{
+ &amp;#34;clusterName&amp;#34;:&amp;#34;defaultCluster&amp;#34;,
+ &amp;#34;ids&amp;#34;:[0, 1]
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Query the route of table&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location --request POST &amp;#39;http://127.0.0.1:8080/api/v1/route&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+-d &amp;#39;{
+ &amp;#34;clusterName&amp;#34;:&amp;#34;defaultCluster&amp;#34;,
+ &amp;#34;schemaName&amp;#34;:&amp;#34;public&amp;#34;,
+ &amp;#34;table&amp;#34;:[&amp;#34;demo&amp;#34;]
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Query the mapping of shard and node&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location --request POST &amp;#39;http://127.0.0.1:8080/api/v1/getNodeShards&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+-d &amp;#39;{
+ &amp;#34;ClusterName&amp;#34;:&amp;#34;defaultCluster&amp;#34;
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Query the mapping of table and shard
+If ShardIDs in the request is empty, query with all shardIDs in the cluster.&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location --request POST &amp;#39;http://127.0.0.1:8080/api/v1/getShardTables&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+-d &amp;#39;{
+ &amp;#34;clusterName&amp;#34;:&amp;#34;defaultCluster&amp;#34;,
+ &amp;#34;shardIDs&amp;#34;: [1,2]
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Drop table&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location --request POST &amp;#39;http://127.0.0.1:8080/api/v1/dropTable&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+-d &amp;#39;{
+ &amp;#34;clusterName&amp;#34;: &amp;#34;defaultCluster&amp;#34;,
+ &amp;#34;schemaName&amp;#34;: &amp;#34;public&amp;#34;,
+ &amp;#34;table&amp;#34;: &amp;#34;demo&amp;#34;
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Transfer leader shard&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location --request POST &amp;#39;http://127.0.0.1:8080/api/v1/transferLeader&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+-d &amp;#39;{
+ &amp;#34;clusterName&amp;#34;:&amp;#34;defaultCluster&amp;#34;,
+ &amp;#34;shardID&amp;#34;: 1,
+ &amp;#34;oldLeaderNodeName&amp;#34;: &amp;#34;127.0.0.1:8831&amp;#34;,
+ &amp;#34;newLeaderNodeName&amp;#34;: &amp;#34;127.0.0.1:18831&amp;#34;
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Split shard&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location --request POST &amp;#39;http://127.0.0.1:8080/api/v1/split&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+-d &amp;#39;{
+ &amp;#34;clusterName&amp;#34; : &amp;#34;defaultCluster&amp;#34;,
+ &amp;#34;schemaName&amp;#34; :&amp;#34;public&amp;#34;,
+ &amp;#34;nodeName&amp;#34; :&amp;#34;127.0.0.1:8831&amp;#34;,
+ &amp;#34;shardID&amp;#34; : 0,
+ &amp;#34;splitTables&amp;#34;:[&amp;#34;demo&amp;#34;]
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Create cluster&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location &amp;#39;http://127.0.0.1:8080/api/v1/clusters&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+--data &amp;#39;{
+ &amp;#34;name&amp;#34;:&amp;#34;testCluster&amp;#34;,
+ &amp;#34;nodeCount&amp;#34;:3,
+ &amp;#34;shardTotal&amp;#34;:9,
+ &amp;#34;topologyType&amp;#34;:&amp;#34;static&amp;#34;
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Update cluster&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location --request PUT &amp;#39;http://127.0.0.1:8080/api/v1/clusters/{NewClusterName}&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+--data &amp;#39;{
+ &amp;#34;nodeCount&amp;#34;:28,
+ &amp;#34;shardTotal&amp;#34;:128,
+ &amp;#34;topologyType&amp;#34;:&amp;#34;dynamic&amp;#34;
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>List clusters&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location &amp;#39;http://127.0.0.1:8080/api/v1/clusters&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Update &lt;code>enableSchedule&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location --request PUT &amp;#39;http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+--data &amp;#39;{
+ &amp;#34;enable&amp;#34;:true
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Query &lt;code>enableSchedule&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location &amp;#39;http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Update flow limiter&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location --request PUT &amp;#39;http://127.0.0.1:8080/api/v1/flowLimiter&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+--data &amp;#39;{
+ &amp;#34;limit&amp;#34;:1000,
+ &amp;#34;burst&amp;#34;:10000,
+ &amp;#34;enable&amp;#34;:true
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Query information of flow limiter&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location &amp;#39;http://127.0.0.1:8080/api/v1/flowLimiter&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>List nodes of HoraeMeta cluster&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location &amp;#39;http://127.0.0.1:8080/api/v1/etcd/member&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Move leader of HoraeMeta cluster&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location &amp;#39;http://127.0.0.1:8080/api/v1/etcd/moveLeader&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+--data &amp;#39;{
+ &amp;#34;memberName&amp;#34;:&amp;#34;meta1&amp;#34;
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Add node of HoraeMeta cluster&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location --request PUT &amp;#39;http://127.0.0.1:8080/api/v1/etcd/member&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+--data &amp;#39;{
+ &amp;#34;memberAddrs&amp;#34;:[&amp;#34;http://127.0.0.1:42380&amp;#34;]
+}&amp;#39;
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>Replace node of HoraeMeta cluster&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>curl --location &amp;#39;http://127.0.0.1:8080/api/v1/etcd/member&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+--data &amp;#39;{
+ &amp;#34;oldMemberName&amp;#34;:&amp;#34;meta0&amp;#34;,
+ &amp;#34;newMemberAddr&amp;#34;:[&amp;#34;http://127.0.0.1:42380&amp;#34;]
+}&amp;#39;
+&lt;/code>&lt;/pre></description></item><item><title>CREATE TABLE</title><link>https://horaedb.apache.org/docs/user-guide/sql/ddl/create_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/ddl/create_table/</guid><description>&lt;h2 id="basic-syntax">Basic syntax&lt;/h2>
+&lt;p>Basic syntax:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">CREATE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TABLE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#008000;font-weight:bold">IF&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NOT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">EXISTS&lt;/span>]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">table_name&lt;/span>&lt;span style="color:#bbb"> &lt;/span>(&lt;span style="color:#bbb"> &lt;/span>column_definitions&lt;span style="color:#bbb"> &lt;/span>)&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>[partition_options]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>ENGINE&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>engine_type&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#008000;font-weight:bold">WITH&lt;/span>&lt;span style="color:#bbb"> &lt;/span>(&lt;span style="color:#bbb"> &lt;/span>table_options&lt;span style="color:#bbb"> &lt;/span>)];&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Column definition syntax:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">column_name&lt;/span>&lt;span style="color:#bbb"> &lt;/span>column_type&lt;span style="color:#bbb"> &lt;/span>[[&lt;span style="color:#008000;font-weight:bold">NOT&lt;/span>]&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">NULL&lt;/span>]&lt;span style="color:#bbb"> &lt;/span>[TAG&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">|&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TIMESTAMP&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">KEY&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">|&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">PRIMARY&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">KEY&lt;/span>]&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#008000;font-weight:bold">DICTIONARY&lt;/span>]&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#008000;font-weight:bold">COMMENT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#ba2121">&amp;#39;&amp;#39;&lt;/span>]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Partition options syntax:&lt;/p></description></item><item><title>Data Types</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/data_types/</guid><description>&lt;p>HoraeDB implements table model, and the supported data types are similar to MySQL.
+The following table lists the mapping relationship between MySQL and HoraeDB.&lt;/p>
+&lt;h2 id="support-data-typecase-insensitive">Support Data Type(case-insensitive)&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">SQL&lt;/th>
+ &lt;th style="text-align: left">HoraeDB&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">null&lt;/td>
+ &lt;td style="text-align: left">Null&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">timestamp&lt;/td>
+ &lt;td style="text-align: left">Timestamp&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">Double&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">float&lt;/td>
+ &lt;td style="text-align: left">Float&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">string&lt;/td>
+ &lt;td style="text-align: left">String&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Varbinary&lt;/td>
+ &lt;td style="text-align: left">Varbinary&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">uint64&lt;/td>
+ &lt;td style="text-align: left">UInt64&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">uint32&lt;/td>
+ &lt;td style="text-align: left">UInt32&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">uint16&lt;/td>
+ &lt;td style="text-align: left">UInt16&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">uint8&lt;/td>
+ &lt;td style="text-align: left">UInt8&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">int64/bigint&lt;/td>
+ &lt;td style="text-align: left">Int64&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">int32/int&lt;/td>
+ &lt;td style="text-align: left">Int32&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">int16/smallint&lt;/td>
+ &lt;td style="text-align: left">Int16&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">int8/tinyint&lt;/td>
+ &lt;td style="text-align: left">Int8&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">boolean&lt;/td>
+ &lt;td style="text-align: left">Boolean&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">date&lt;/td>
+ &lt;td style="text-align: left">Date&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">time&lt;/td>
+ &lt;td style="text-align: left">Time&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>DROP TABLE</title><link>https://horaedb.apache.org/docs/user-guide/sql/ddl/drop_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/ddl/drop_table/</guid><description>&lt;h2 id="basic-syntax">Basic syntax&lt;/h2>
+&lt;p>Basic syntax:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">DROP&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">TABLE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#008000;font-weight:bold">IF&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">EXISTS&lt;/span>]&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">table_name&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>Drop Table&lt;/code> removes a specific table. This statement should be used with caution, because it removes both the table definition and table data, and this removal is not recoverable.&lt;/p></description></item><item><title>Go</title><link>https://horaedb.apache.org/docs/user-guide/sdk/go/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/go/</guid><description>&lt;h2 id="installation">Installation&lt;/h2>
+&lt;pre tabindex="0">&lt;code>go get github.com/apache/incubator-horaedb-client-go
+&lt;/code>&lt;/pre>&lt;p>You can get latest version &lt;a href="https://github.com/apache/incubator-horaedb-client-go/tags">here&lt;/a>.&lt;/p>
+&lt;h2 id="how-to-use">How To Use&lt;/h2>
+&lt;h3 id="init-horaedb-client">Init HoraeDB Client&lt;/h3>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>	client, err &lt;span style="color:#666">:=&lt;/span> horaedb.&lt;span style="color:#00f">NewClient&lt;/span>(endpoint, horaedb.Direct,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>		horaedb.&lt;span style="color:#00f">WithDefaultDatabase&lt;/span>(&lt;span style="color:#ba2121">&amp;#34;public&amp;#34;&lt;/span>),
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>	)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">option name&lt;/th>
+ &lt;th style="text-align: left">description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">defaultDatabase&lt;/td>
+ &lt;td style="text-align: left">using database, database can be overwritten by ReqContext in single &lt;code>Write&lt;/code> or &lt;code>SQLRequest&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">RPCMaxRecvMsgSize&lt;/td>
+ &lt;td style="text-align: left">configration for grpc &lt;code>MaxCallRecvMsgSize&lt;/code>, default 1024 _ 1024 _ 1024&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">RouteMaxCacheSize&lt;/td>
+ &lt;td style="text-align: left">If the maximum number of router cache size, router client whill evict oldest if exceeded, default is 10000&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;p>Notice:&lt;/p></description></item><item><title>InfluxDB</title><link>https://horaedb.apache.org/docs/user-guide/ecosystem/influxdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/ecosystem/influxdb/</guid><description>&lt;p>&lt;a href="https://www.influxdata.com/products/influxdb-overview/">InfluxDB&lt;/a> is a time series database designed to handle high write and query loads. It is an integral component of the TICK stack. InfluxDB is meant to be used as a backing store for any use case involving large amounts of timestamped data, including DevOps monitoring, application metrics, IoT sensor data, and real-time analytics.&lt;/p>
+&lt;p>HoraeDB support &lt;a href="https://docs.influxdata.com/influxdb/v1.8/tools/api/#influxdb-1x-http-endpoints">InfluxDB v1.8&lt;/a> write and query API.&lt;/p>
+&lt;blockquote>
+&lt;p>Warn: users need to add following config to server&amp;rsquo;s config in order to try InfluxDB write/query.&lt;/p></description></item><item><title>INSERT</title><link>https://horaedb.apache.org/docs/user-guide/sql/dml/insert/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/dml/insert/</guid><description>&lt;h2 id="basic-syntax">Basic syntax&lt;/h2>
+&lt;p>Basic syntax:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">INSERT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#008000;font-weight:bold">INTO&lt;/span>]&lt;span style="color:#bbb"> &lt;/span>tbl_name&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>[(col_name&lt;span style="color:#bbb"> &lt;/span>[,&lt;span style="color:#bbb"> &lt;/span>col_name]&lt;span style="color:#bbb"> &lt;/span>...)]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="">{&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="">{&lt;/span>&lt;span style="color:#008000;font-weight:bold">VALUES&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">|&lt;/span>&lt;span style="color:#bbb"> &lt;/span>VALUE&lt;span style="">}&lt;/span>&lt;span style="color:#bbb"> &lt;/span>(value_list)&lt;span style="color:#bbb"> &lt;/span>[,&lt;span style="color:#bbb"> &lt;/span>(value_list)]&lt;span style="color:#bbb"> &lt;/span>...&lt;span style="color:#bbb"> &lt;/span>&lt;span style="">}&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>INSERT&lt;/code> inserts new rows into a HoraeDB table. Here is an example:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">INSERT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">INTO&lt;/span>&lt;span style="color:#bbb"> &lt;/span>demo(&lt;span style="color:#666">`&lt;/span>time_stammp&lt;span style="color:#666">`&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>tag1)&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">VALUES&lt;/span>(&lt;span style="color:#666">1667374200022&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#ba2121">&amp;#39;horaedb&amp;#39;&lt;/span>)&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Introduction to Architecture of HoraeDB Cluster</title><link>https://horaedb.apache.org/docs/design/clustering/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/clustering/</guid><description>&lt;p>Note: Some of the features mentioned in the article have not yet been implemented.&lt;/p>
+&lt;h2 id="overview">Overview&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-plaintext" data-lang="plaintext">&lt;span style="display:flex;">&lt;span>┌───────────────────────────────────────────────────────────────────────┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ HoraeMeta Cluster │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└───────────────────────────────────────────────────────────────────────┘
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ▲ ▲ ▲
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ▼ ▼ ▼
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌───────┐Route Info ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│client │◀────────▶ │ │ │TableN││ │ │ │ │TableN││ │ │ │ │TableN││ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└───────┘Write/Query└──Shard(L)──┴┴─┘ └──Shard(F)──┴┴─┘ └──Shard(F)──┴┴─┘
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ▲ │ ▲ ▲
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ Write─────────┐ ├────Sync───────┘
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ ┌────────┬▼───┴────┬──────────────────┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Upload/Download │ │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> SST │ │WAL │Region N │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │Service │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ └────────┴─────────┴──────────────────┘
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ▼
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌───────────────────────────────────────────────────────────────────────┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Object Storage │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└───────────────────────────────────────────────────────────────────────┘
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The diagram above describes the architecture of a HoraeDB cluster, where some key concepts need to be explained:&lt;/p></description></item><item><title>Introduction to HoraeDB's Architecture</title><link>https://horaedb.apache.org/docs/design/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/architecture/</guid><description>&lt;h2 id="target">Target&lt;/h2>
+&lt;ul>
+&lt;li>Provide the overview of HoraeDB to the developers who want to know more about HoraeDB but have no idea where to start.&lt;/li>
+&lt;li>Make a brief introduction to the important modules of HoraeDB and the connections between these modules but details about their implementations are not be involved.&lt;/li>
+&lt;/ul>
+&lt;h2 id="motivation">Motivation&lt;/h2>
+&lt;p>HoraeDB is a timeseries database (&lt;strong>TSDB&lt;/strong>). However, HoraeDB&amp;rsquo;s goal is to handle both timeseries and analytic workloads compared with the classic TSDB, which usually have a poor performance in handling analytic workloads.&lt;/p></description></item><item><title>Java</title><link>https://horaedb.apache.org/docs/user-guide/sdk/java/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/java/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>HoraeDB Client is a high-performance Java client for HoraeDB.&lt;/p>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;ul>
+&lt;li>Java 8 or later is required for compilation&lt;/li>
+&lt;/ul>
+&lt;h2 id="dependency">Dependency&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;dependency&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;groupId&amp;gt;&lt;/span>io.ceresdb&lt;span style="color:#008000;font-weight:bold">&amp;lt;/groupId&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;artifactId&amp;gt;&lt;/span>ceresdb-all&lt;span style="color:#008000;font-weight:bold">&amp;lt;/artifactId&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;lt;version&amp;gt;&lt;/span>${CERESDB.VERSION}&lt;span style="color:#008000;font-weight:bold">&amp;lt;/version&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">&amp;lt;/dependency&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You can get latest version &lt;a href="https://github.com/apache/incubator-horaedb-client-java/blob/main/docs/CHANGELOG.md">here&lt;/a>.&lt;/p>
+&lt;h2 id="init-horaedb-client">Init HoraeDB Client&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">final&lt;/span>&lt;span style="color:#bbb"> &lt;/span>CeresDBOptions&lt;span style="color:#bbb"> &lt;/span>opts&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>CeresDBOptions.&lt;span style="color:#7d9029">newBuilder&lt;/span>(&lt;span style="color:#ba2121">&amp;#34;127.0.0.1&amp;#34;&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>8831,&lt;span style="color:#bbb"> &lt;/span>DIRECT)&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// CeresDB default grpc port 8831，use DIRECT RouteMode&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>.&lt;span style="color:#7d9029">database&lt;/span>(&lt;span style="color:#ba2121">&amp;#34;public&amp;#34;&lt;/span>)&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// use database for client, can be overridden by the RequestContext in request&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// maximum retry times when write fails&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// (only some error codes will be retried, such as the routing table failure)&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>.&lt;span style="color:#7d9029">writeMaxRetries&lt;/span>(1)&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// maximum retry times when read fails&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#408080;font-style:italic">// (only some error codes will be retried, such as the routing table failure)&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>.&lt;span style="color:#7d9029">readMaxRetries&lt;/span>(1).&lt;span style="color:#7d9029">build&lt;/span>();&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">final&lt;/span>&lt;span style="color:#bbb"> &lt;/span>CeresDBClient&lt;span style="color:#bbb"> &lt;/span>client&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">new&lt;/span>&lt;span style="color:#bbb"> &lt;/span>CeresDBClient();&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">if&lt;/span>&lt;span style="color:#bbb"> &lt;/span>(&lt;span style="color:#666">!&lt;/span>client.&lt;span style="color:#7d9029">init&lt;/span>(opts))&lt;span style="color:#bbb"> &lt;/span>{&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">throw&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">new&lt;/span>&lt;span style="color:#bbb"> &lt;/span>IllegalStateException(&lt;span style="color:#ba2121">&amp;#34;Fail to start CeresDBClient&amp;#34;&lt;/span>);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>}&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The initialization requires at least three parameters:&lt;/p></description></item><item><title>Observability</title><link>https://horaedb.apache.org/docs/user-guide/operation/observability/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/operation/observability/</guid><description>&lt;p>HoraeDB is observable with Prometheus and Grafana.&lt;/p>
+&lt;h2 id="prometheus">Prometheus&lt;/h2>
+&lt;p>&lt;a href="https://github.com/prometheus/prometheus">Prometheus&lt;/a> is a systems and service monitoring system.&lt;/p>
+&lt;h3 id="configuration">Configuration&lt;/h3>
+&lt;p>Save the following configuration into the &lt;code>prometheus.yml&lt;/code> file. For example, in the &lt;code>tmp&lt;/code> directory, &lt;code>/tmp/prometheus.yml&lt;/code>.&lt;/p>
+&lt;p>Two HoraeDB http service are started on localhost:5440 and localhost:5441.&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">global&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">scrape_interval&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>30s&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">scrape_configs&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#008000;font-weight:bold">job_name&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>horaedb-server&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">static_configs&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>- &lt;span style="color:#008000;font-weight:bold">targets&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>[your_ip:5440, your_ip:5441]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">labels&lt;/span>:&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">env&lt;/span>:&lt;span style="color:#bbb"> &lt;/span>horaedbcluster&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>See details about configuration &lt;a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/">here&lt;/a>.&lt;/p></description></item><item><title>OpenTSDB</title><link>https://horaedb.apache.org/docs/user-guide/ecosystem/opentsdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/ecosystem/opentsdb/</guid><description>&lt;p>&lt;a href="http://opentsdb.net/">OpenTSDB&lt;/a> is a distributed and scalable time series database based on HBase.&lt;/p>
+&lt;h1 id="write">Write&lt;/h1>
+&lt;p>HoraeDB follows the &lt;a href="http://opentsdb.net/docs/build/html/api_http/put.html">OpenTSDB put&lt;/a> write protocol.&lt;/p>
+&lt;p>&lt;code>summary&lt;/code> and &lt;code>detailed&lt;/code> are not yet supported.&lt;/p>
+&lt;pre tabindex="0">&lt;code>curl --location &amp;#39;http://localhost:5440/opentsdb/api/put&amp;#39; \
+--header &amp;#39;Content-Type: application/json&amp;#39; \
+-d &amp;#39;[{
+ &amp;#34;metric&amp;#34;: &amp;#34;sys.cpu.nice&amp;#34;,
+ &amp;#34;timestamp&amp;#34;: 1692588459000,
+ &amp;#34;value&amp;#34;: 18,
+ &amp;#34;tags&amp;#34;: {
+ &amp;#34;host&amp;#34;: &amp;#34;web01&amp;#34;,
+ &amp;#34;dc&amp;#34;: &amp;#34;lga&amp;#34;
+ }
+},
+{
+ &amp;#34;metric&amp;#34;: &amp;#34;sys.cpu.nice&amp;#34;,
+ &amp;#34;timestamp&amp;#34;: 1692588459000,
+ &amp;#34;value&amp;#34;: 18,
+ &amp;#34;tags&amp;#34;: {
+ &amp;#34;host&amp;#34;: &amp;#34;web01&amp;#34;
+ }
+}]&amp;#39;
+&amp;#39;
+&lt;/code>&lt;/pre>&lt;p>Metric will be mapped to table in HoraeDB, and it will be created automatically in first write(Note: The default TTL is 7d, and points written exceed TTL will be discarded directly).&lt;/p></description></item><item><title>Profiling</title><link>https://horaedb.apache.org/docs/dev/profiling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/profiling/</guid><description>&lt;h3 id="cpu-profiling">CPU profiling&lt;/h3>
+&lt;p>HoraeDB provides cpu profiling http api &lt;code>debug/profile/cpu&lt;/code>.&lt;/p>
+&lt;p>Example:&lt;/p>
+&lt;pre tabindex="0">&lt;code>// 60s cpu sampling data
+curl 0:5000/debug/profile/cpu/60
+
+// Output file path.
+/tmp/flamegraph_cpu.svg
+&lt;/code>&lt;/pre>&lt;h3 id="heap-profiling">Heap profiling&lt;/h3>
+&lt;p>HoraeDB provides heap profiling http api &lt;code>debug/profile/heap&lt;/code>.&lt;/p>
+&lt;h3 id="install-dependencies">Install dependencies&lt;/h3>
+&lt;pre tabindex="0">&lt;code>sudo yum install -y jemalloc-devel ghostscript graphviz
+&lt;/code>&lt;/pre>&lt;p>Example:&lt;/p>
+&lt;pre tabindex="0">&lt;code>// enable malloc prof
+export MALLOC_CONF=prof:true
+
+// run horaedb-server
+./horaedb-server ....
+
+// 60s cpu sampling data
+curl -L &amp;#39;0:5000/debug/profile/heap/60&amp;#39; &amp;gt; /tmp/heap_profile
+jeprof --show_bytes --pdf /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; profile_heap.pdf
+
+jeprof --show_bytes --svg /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; profile_heap.svg
+&lt;/code>&lt;/pre></description></item><item><title>Prometheus</title><link>https://horaedb.apache.org/docs/user-guide/ecosystem/prometheus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/ecosystem/prometheus/</guid><description>&lt;p>&lt;a href="https://prometheus.io/">Prometheus&lt;/a> is a popular cloud-native monitoring tool that is widely adopted by organizations due to its scalability, reliability, and scalability. It is used to scrape metrics from cloud-native services, such as Kubernetes and OpenShift, and stores it in a time-series database. Prometheus is also easily extensible, allowing users to extend its features and capabilities with other databases.&lt;/p>
+&lt;p>HoraeDB can be used as a long-term storage solution for Prometheus. Both remote read and remote write API are supported.&lt;/p></description></item><item><title>Python</title><link>https://horaedb.apache.org/docs/user-guide/sdk/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/python/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>&lt;a href="https://pypi.org/project/ceresdb-client/">horaedb-client&lt;/a> is the python client for &lt;a href="https://github.com/apache/incubator-horaedb">HoraeDB&lt;/a>.&lt;/p>
+&lt;p>Thanks to &lt;a href="https://github.com/PyO3">PyO3&lt;/a>, the python client is actually a wrapper on the &lt;a href="https://github.com/apache/incubator-horaedb-client-rs">rust client&lt;/a>.&lt;/p>
+&lt;p>The guide will give a basic introduction to the python client by &lt;a href="https://github.com/apache/incubator-horaedb-client-py/blob/main/examples/read_write.py">example&lt;/a>.&lt;/p>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;ul>
+&lt;li>Python &amp;gt;= 3.7&lt;/li>
+&lt;/ul>
+&lt;h2 id="installation">Installation&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pip install ceresdb-client
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You can get latest version &lt;a href="https://github.com/apache/incubator-horaedb-client-py/tags">here&lt;/a>.&lt;/p>
+&lt;h2 id="init-horaedb-client">Init HoraeDB Client&lt;/h2>
+&lt;p>The client initialization comes first, here is a code snippet:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">import&lt;/span> &lt;span style="color:#00f;font-weight:bold">asyncio&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">import&lt;/span> &lt;span style="color:#00f;font-weight:bold">datetime&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">from&lt;/span> &lt;span style="color:#00f;font-weight:bold">ceresdb_client&lt;/span> &lt;span style="color:#008000;font-weight:bold">import&lt;/span> Builder, RpcContext, PointBuilder, ValueBuilder, WriteRequest, SqlQueryRequest, Mode, RpcConfig
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rpc_config &lt;span style="color:#666">=&lt;/span> RpcConfig()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rpc_config &lt;span style="color:#666">=&lt;/span> RpcConfig()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rpc_config&lt;span style="color:#666">.&lt;/span>thread_num &lt;span style="color:#666">=&lt;/span> &lt;span style="color:#666">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rpc_config&lt;span style="color:#666">.&lt;/span>default_write_timeout_ms &lt;span style="color:#666">=&lt;/span> &lt;span style="color:#666">1000&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>builder &lt;span style="color:#666">=&lt;/span> Builder(&lt;span style="color:#ba2121">&amp;#39;127.0.0.1:8831&amp;#39;&lt;/span>, Mode&lt;span style="color:#666">.&lt;/span>Direct)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>builder&lt;span style="color:#666">.&lt;/span>set_rpc_config(rpc_config)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>builder&lt;span style="color:#666">.&lt;/span>set_default_database(&lt;span style="color:#ba2121">&amp;#39;public&amp;#39;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>client &lt;span style="color:#666">=&lt;/span> builder&lt;span style="color:#666">.&lt;/span>build()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Firstly, it&amp;rsquo;s worth noting that the imported packages are used across all the code snippets in this guide, and they will not be repeated in the following.&lt;/p></description></item><item><title>Rationale and Goals</title><link>https://horaedb.apache.org/docs/dev/style_guide/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/style_guide/</guid><description>&lt;p>As every Rust programmer knows, the language has many powerful features, and there are often
+several patterns which can express the same idea. Also, as every professional programmer comes to
+discover, code is almost always read far more than it is written.&lt;/p>
+&lt;p>Thus, we choose to use a consistent set of idioms throughout our code so that it is easier to read
+and understand for both existing and new contributors.&lt;/p></description></item><item><title>RoadMap</title><link>https://horaedb.apache.org/docs/dev/roadmap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/roadmap/</guid><description>&lt;h3 id="v010">v0.1.0&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Standalone version, local storage&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Analytical storage format&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Support SQL&lt;/li>
+&lt;/ul>
+&lt;h3 id="v020">v0.2.0&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Distributed version supports static topology defined in config file.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> The underlying storage supports Aliyun OSS.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> WAL implementation based on &lt;a href="https://github.com/oceanbase/oceanbase">OBKV&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h3 id="v030">v0.3.0&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Release multi-language clients, including Java, Rust and Python.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Static cluster mode with &lt;code>HoraeMeta&lt;/code>.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Basic implementation of hybrid storage format.&lt;/li>
+&lt;/ul>
+&lt;h3 id="v040">v0.4.0&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Implement more sophisticated cluster solution that enhances reliability and scalability of HoraeDB.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Set up nightly benchmark with TSBS.&lt;/li>
+&lt;/ul>
+&lt;h3 id="v100-alpha-released">v1.0.0-alpha (Released)&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Implement Distributed WAL based on &lt;code>Apache Kafka&lt;/code>.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Release Golang client.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Improve the query performance for classic time series workloads.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Support dynamic migration of tables in cluster mode.&lt;/li>
+&lt;/ul>
+&lt;h3 id="v100">v1.0.0&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Formally release HoraeDB and its SDKs with all breaking changes finished.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Finish the majority of work related to &lt;code>Table Partitioning&lt;/code>.&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Various efforts to improve query performance, especially for cloud-native cluster mode. These works include:
+&lt;ul>
+&lt;li>Multi-tier cache.&lt;/li>
+&lt;li>Introduce various methods to reduce the data fetched from remote storage (improve the accuracy of SST data filtering).&lt;/li>
+&lt;li>Increase the parallelism while fetching data from remote object-store.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;input checked="" disabled="" type="checkbox"> Improve data ingestion performance by introducing resource control over compaction.&lt;/li>
+&lt;/ul>
+&lt;h3 id="afterwards">Afterwards&lt;/h3>
+&lt;p>With an in-depth understanding of the time-series database and its various use cases, the majority of our work will focus on performance, reliability, scalability, ease of use, and collaborations with open-source communities.&lt;/p></description></item><item><title>Rust</title><link>https://horaedb.apache.org/docs/user-guide/sdk/rust/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/rust/</guid><description>&lt;h2 id="install">Install&lt;/h2>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cargo add ceresdb-client
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You can get latest version &lt;a href="https://github.com/apache/incubator-horaedb-client-rs/tags">here&lt;/a>.&lt;/p>
+&lt;h2 id="init-client">Init Client&lt;/h2>
+&lt;p>At first, we need to init the client.&lt;/p>
+&lt;ul>
+&lt;li>New builder for the client, and you must set &lt;code>endpoint&lt;/code> and &lt;code>mode&lt;/code>:
+&lt;ul>
+&lt;li>&lt;code>endpoint&lt;/code> is a string which is usually like &amp;ldquo;ip/domain_name:port&amp;rdquo;.&lt;/li>
+&lt;li>&lt;code>mode&lt;/code> is used to define the way to access horaedb server, &lt;a href="https://github.com/apache/incubator-horaedb-client-rs/blob/main/src/db_client/builder.rs#L20">detail about mode&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rust" data-lang="rust">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">mut&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>Builder::new(&lt;span style="color:#ba2121">&amp;#34;ip/domain_name:port&amp;#34;&lt;/span>,&lt;span style="color:#bbb"> &lt;/span>Mode::Direct&lt;span style="color:#666">/&lt;/span>Mode::Proxy);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>New and set &lt;code>rpc_config&lt;/code>, it can be defined on demand or just use the default value, &lt;a href="https://github.com/apache/incubator-horaedb-client-rs/blob/main/src/options.rs">detail about rpc config&lt;/a>:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rust" data-lang="rust">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>rpc_config&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>RpcConfig&lt;span style="color:#bbb"> &lt;/span>{&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>thread_num: &lt;span style="color:#008000">Some&lt;/span>(&lt;span style="color:#666">1&lt;/span>),&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>default_write_timeout: &lt;span style="color:#00f;font-weight:bold">Duration&lt;/span>::from_millis(&lt;span style="color:#666">1000&lt;/span>),&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">..&lt;/span>&lt;span style="color:#008000">Default&lt;/span>::default()&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>};&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb">&lt;/span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder.rpc_config(rpc_config);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>Set &lt;code>default_database&lt;/code>, it will be used if following rpc calling without setting the database in the &lt;code>RpcContext&lt;/code>(will be introduced in later):&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rust" data-lang="rust">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder.default_database(&lt;span style="color:#ba2121">&amp;#34;public&amp;#34;&lt;/span>);&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>Finally, we build client from builder:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rust" data-lang="rust">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">let&lt;/span>&lt;span style="color:#bbb"> &lt;/span>client&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#bbb"> &lt;/span>builder.build();&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="manage-table">Manage Table&lt;/h2>
+&lt;p>For ease of use, when using gRPC&amp;rsquo;s write interface for writing, if a table does not exist, HoraeDB will automatically create a table based on the first write.&lt;/p></description></item><item><title>SDK Development</title><link>https://horaedb.apache.org/docs/dev/sdk_develop/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/sdk_develop/</guid><description>&lt;h1 id="rust">Rust&lt;/h1>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone https://github.com/apache/horaedb-client-rs
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cargo build
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="python">Python&lt;/h1>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;ul>
+&lt;li>python 3.7+&lt;/li>
+&lt;/ul>
+&lt;p>The Python SDK rely on Rust SDK, so &lt;a href="https://doc.rust-lang.org/stable/cargo/getting-started/installation.html">cargo&lt;/a> is also required, then install build tool &lt;a href="https://github.com/PyO3/maturin">maturin&lt;/a>:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pip install maturin
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then we can build Python SDK:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone https://github.com/apache/horaedb-client-py
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>maturin build
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="go">Go&lt;/h1>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone https://github.com/apache/horaedb-client-go
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>go build ./...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="java">Java&lt;/h1>
+&lt;h2 id="requirements-1">Requirements&lt;/h2>
+&lt;ul>
+&lt;li>java 1.8&lt;/li>
+&lt;li>maven 3.6.3+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone https://github.com/apache/horaedb-client-java
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mvn clean install -DskipTests&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#008000">true&lt;/span> -Dmaven.javadoc.skip&lt;span style="color:#666">=&lt;/span>&lt;span style="color:#008000">true&lt;/span> -B -V
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>SELECT</title><link>https://horaedb.apache.org/docs/user-guide/sql/dml/select/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/dml/select/</guid><description>&lt;h2 id="basic-syntax">Basic syntax&lt;/h2>
+&lt;p>Basic syntax (parts between &lt;code>[]&lt;/code> are optional):&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000;font-weight:bold">SELECT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>select_expr&lt;span style="color:#bbb"> &lt;/span>[,&lt;span style="color:#bbb"> &lt;/span>select_expr]&lt;span style="color:#bbb"> &lt;/span>...&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">FROM&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">table_name&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#008000;font-weight:bold">WHERE&lt;/span>&lt;span style="color:#bbb"> &lt;/span>where_condition]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#008000;font-weight:bold">GROUP&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">BY&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="">{&lt;/span>col_name&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">|&lt;/span>&lt;span style="color:#bbb"> &lt;/span>expr&lt;span style="">}&lt;/span>&lt;span style="color:#bbb"> &lt;/span>...&lt;span style="color:#bbb"> &lt;/span>]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#008000;font-weight:bold">ORDER&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">BY&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="">{&lt;/span>col_name&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">|&lt;/span>&lt;span style="color:#bbb"> &lt;/span>expr&lt;span style="">}&lt;/span>&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#008000;font-weight:bold">ASC&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#666">|&lt;/span>&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">DESC&lt;/span>]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#008000;font-weight:bold">LIMIT&lt;/span>&lt;span style="color:#bbb"> &lt;/span>[&lt;span style="color:#008000;font-weight:bold">offset&lt;/span>,]&lt;span style="color:#bbb"> &lt;/span>&lt;span style="color:#008000;font-weight:bold">row_count&lt;/span>&lt;span style="color:#bbb"> &lt;/span>]&lt;span style="color:#bbb">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>Select&lt;/code> syntax in HoraeDB is similar to mysql, here is an example:&lt;/p></description></item><item><title>Special Columns</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</guid><description>&lt;p>Tables in HoraeDB have the following constraints:&lt;/p>
+&lt;ul>
+&lt;li>Primary key is required&lt;/li>
+&lt;li>The primary key must contain a time column, and can only contain one time column&lt;/li>
+&lt;li>The primary key must be non-null, so all columns in primary key must be non-null.&lt;/li>
+&lt;/ul>
+&lt;h2 id="timestamp-column">Timestamp Column&lt;/h2>
+&lt;p>Tables in HoraeDB must have one timestamp column maps to timestamp in timeseries data, such as timestamp in OpenTSDB/Prometheus.
+The timestamp column can be set with &lt;code>timestamp key&lt;/code> keyword, like &lt;code>TIMESTAMP KEY(ts)&lt;/code>.&lt;/p></description></item><item><title>Storage</title><link>https://horaedb.apache.org/docs/design/storage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/storage/</guid><description>&lt;p>The storage engine mainly provides the following two functions：&lt;/p>
+&lt;ol>
+&lt;li>Persistence of data&lt;/li>
+&lt;li>Under the premise of ensuring the correctness of the data, organize the data in the most reasonable way to meet the query needs of different scenarios.&lt;/li>
+&lt;/ol>
+&lt;p>This document will introduce the internal implementation of the storage engine in HoraeDB. Readers can refer to the content here to explore how to use HoraeDB efficiently.&lt;/p>
+&lt;h1 id="overall-structure">Overall Structure&lt;/h1>
+&lt;p>HoraeDB is a distributed storage system based on the share-nothing architecture.&lt;/p></description></item><item><title>Table Operation</title><link>https://horaedb.apache.org/docs/user-guide/operation/system_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/operation/system_table/</guid><description>&lt;h2 id="query-table-information">Query Table Information&lt;/h2>
+&lt;p>Like Mysql&amp;rsquo;s &lt;code>information_schema.tables&lt;/code>, HoraeDB provides &lt;code>system.public.tables&lt;/code> to save tables information.
+Columns:&lt;/p>
+&lt;ul>
+&lt;li>timestamp([TimeStamp])&lt;/li>
+&lt;li>catalog([String])&lt;/li>
+&lt;li>schema([String])&lt;/li>
+&lt;li>table_name([String])&lt;/li>
+&lt;li>table_id([Uint64])&lt;/li>
+&lt;li>engine([String])&lt;/li>
+&lt;/ul>
+&lt;h3 id="example">Example&lt;/h3>
+&lt;p>Query table information via table_name like this:&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>curl --location --request POST &lt;span style="color:#ba2121">&amp;#39;http://localhost:5000/sql&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>--header &lt;span style="color:#ba2121">&amp;#39;Content-Type: application/json&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>-d &lt;span style="color:#ba2121">&amp;#39;{
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121"> &amp;#34;query&amp;#34;: &amp;#34;select * from system.public.tables where `table_name`=\&amp;#34;my_table\&amp;#34;&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121">}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="response">Response&lt;/h3>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;rows&amp;#34;&lt;/span>:[
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;timestamp&amp;#34;&lt;/span>:&lt;span style="color:#666">0&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;catalog&amp;#34;&lt;/span>:&lt;span style="color:#ba2121">&amp;#34;horaedb&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;schema&amp;#34;&lt;/span>:&lt;span style="color:#ba2121">&amp;#34;public&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;table_name&amp;#34;&lt;/span>:&lt;span style="color:#ba2121">&amp;#34;my_table&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;table_id&amp;#34;&lt;/span>:&lt;span style="color:#666">3298534886446&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#008000;font-weight:bold">&amp;#34;engine&amp;#34;&lt;/span>:&lt;span style="color:#ba2121">&amp;#34;Analytic&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Table Operation</title><link>https://horaedb.apache.org/docs/user-guide/operation/table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/operation/table/</guid><description>&lt;p>HoraeDB supports standard SQL protocols and allows you to create tables and read/write data via http requests. More &lt;a href="../sql/README.md">SQL&lt;/a>&lt;/p>
+&lt;h2 id="create-table">Create Table&lt;/h2>
+&lt;h3 id="example">Example&lt;/h3>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>curl --location --request POST &lt;span style="color:#ba2121">&amp;#39;http://127.0.0.1:5000/sql&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>--header &lt;span style="color:#ba2121">&amp;#39;Content-Type: application/json&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>-d &lt;span style="color:#ba2121">&amp;#39;{
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121"> &amp;#34;query&amp;#34;: &amp;#34;CREATE TABLE `demo` (`name` string TAG, `value` double NOT NULL, `t` timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE=Analytic with (enable_ttl=&amp;#39;&lt;/span>&lt;span style="color:#b62;font-weight:bold">\&amp;#39;&lt;/span>&lt;span style="color:#ba2121">&amp;#39;false&amp;#39;&lt;/span>&lt;span style="color:#b62;font-weight:bold">\&amp;#39;&lt;/span>&lt;span style="color:#ba2121">&amp;#39;)&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121">}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="write-data">Write Data&lt;/h2>
+&lt;h3 id="example-1">Example&lt;/h3>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>curl --location --request POST &lt;span style="color:#ba2121">&amp;#39;http://127.0.0.1:5000/sql&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>--header &lt;span style="color:#ba2121">&amp;#39;Content-Type: application/json&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>-d &lt;span style="color:#ba2121">&amp;#39;{
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121"> &amp;#34;query&amp;#34;: &amp;#34;INSERT INTO demo(t, name, value) VALUES(1651737067000, &amp;#39;&lt;/span>&lt;span style="color:#b62;font-weight:bold">\&amp;#39;&lt;/span>&lt;span style="color:#ba2121">&amp;#39;horaedb&amp;#39;&lt;/span>&lt;span style="color:#b62;font-weight:bold">\&amp;#39;&lt;/span>&lt;span style="color:#ba2121">&amp;#39;, 100)&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121">}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="read-data">Read Data&lt;/h2>
+&lt;h3 id="example-2">Example&lt;/h3>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>curl --location --request POST &lt;span style="color:#ba2121">&amp;#39;http://127.0.0.1:5000/sql&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>--header &lt;span style="color:#ba2121">&amp;#39;Content-Type: application/json&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>-d &lt;span style="color:#ba2121">&amp;#39;{
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121"> &amp;#34;query&amp;#34;: &amp;#34;select * from demo&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121">}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="query-table-info">Query Table Info&lt;/h2>
+&lt;h3 id="example-3">Example&lt;/h3>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>curl --location --request POST &lt;span style="color:#ba2121">&amp;#39;http://127.0.0.1:5000/sql&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>--header &lt;span style="color:#ba2121">&amp;#39;Content-Type: application/json&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>-d &lt;span style="color:#ba2121">&amp;#39;{
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121"> &amp;#34;query&amp;#34;: &amp;#34;show create table demo&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121">}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="drop-table">Drop Table&lt;/h3>
+&lt;h3 id="example-4">Example&lt;/h3>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>curl --location --request POST &lt;span style="color:#ba2121">&amp;#39;http://127.0.0.1:5000/sql&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>--header &lt;span style="color:#ba2121">&amp;#39;Content-Type: application/json&amp;#39;&lt;/span> &lt;span style="color:#b62;font-weight:bold">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span>-d &lt;span style="color:#ba2121">&amp;#39;{
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121"> &amp;#34;query&amp;#34;: &amp;#34;DROP TABLE demo&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ba2121">}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="route-table">Route Table&lt;/h2>
+&lt;h3 id="example-5">Example&lt;/h3>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>curl --location --request GET &lt;span style="color:#ba2121">&amp;#39;http://127.0.0.1:5000/route/{table_name}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Table Partitioning</title><link>https://horaedb.apache.org/docs/design/table_partitioning/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/table_partitioning/</guid><description>&lt;p>&lt;strong>Note: This feature is still in development, and the API may change in the future.&lt;/strong>&lt;/p>
+&lt;p>This chapter discusses &lt;code>PartitionTable&lt;/code>.&lt;/p>
+&lt;p>The partition table syntax used by HoraeDB is similar to that of &lt;a href="https://dev.mysql.com/doc/refman/8.0/en/partitioning-types.html">MySQL&lt;/a>.&lt;/p>
+&lt;p>General partition tables include &lt;code>Range Partitioning&lt;/code>, &lt;code>List Partitoning&lt;/code>, &lt;code>Hash Partitioning&lt;/code>, and &lt;code>Key Partititioning&lt;/code>.&lt;/p>
+&lt;p>HoraeDB currently only supports &lt;code>Key Partitioning&lt;/code>.&lt;/p>
+&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>Similar to MySQL, different portions of a partition table are stored as separate tables in different locations.&lt;/p>
+&lt;p>Currently designed, a partition table can be opened on multiple HoraeDB nodes, supports writing and querying at the same time, and can be expanded horizontally.&lt;/p></description></item><item><title>Wal</title><link>https://horaedb.apache.org/docs/design/wal/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal/</guid><description>&lt;ul>
+&lt;li>&lt;a href="https://horaedb.apache.org/docs/design/wal_on_rocksdb/">WAL on RocksDB&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://horaedb.apache.org/docs/design/wal_on_kafka/">WAL on Kafka&lt;/a>&lt;/li>
+&lt;li>WAL on OceanBase will be introduced in later.&lt;/li>
+&lt;/ul></description></item><item><title>WAL on Kafka</title><link>https://horaedb.apache.org/docs/design/wal_on_kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal_on_kafka/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>In this section we present a distributed WAL implementation(based on Kafka). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by region, which can be simply understood as a shared log file of multiple tables.&lt;/p>
+&lt;p>As shown in the following figure, regions are mapped to topics(with only one partition) in Kafka. And usually two topics are needed by a region, one is used for storing logs and the other is used for storing metadata.&lt;/p></description></item><item><title>WAL on RocksDB</title><link>https://horaedb.apache.org/docs/design/wal_on_rocksdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal_on_rocksdb/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>In this section we present a standalone WAL implementation (based on RocksDB). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by table, and we call the corresponding storage data structure &lt;code>TableUnit&lt;/code>. All related data (logs or some metadata) is stored in a single column family for simplicity.&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span> ┌───────────────────────────────┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ HoraeDB │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ ┌─────────────────────┐ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ WAL │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ ...... │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ ┌────────────────┐ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Write ─────┼─┼──► TableUnit │ │Delete │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │ ◄────── │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Read ─────┼─┼──► ┌────────────┐ │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │ RocksDBRef │ │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ └────────────┘ │ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ | | |
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ └────────────────┘ │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ ...... │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ └─────────────────────┘ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> └───────────────────────────────┘
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="data-model">Data Model&lt;/h2>
+&lt;h3 id="common-log-format">Common Log Format&lt;/h3>
+&lt;p>We use the common key and value format here.
+Here is the defined key format, and the following is introduction for fields in it:&lt;/p></description></item></channel></rss>

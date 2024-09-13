@@ -1,3 +1,89 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data Model on Apache HoraeDB</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/</link><description>Recent content in Data Model on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/docs/user-guide/sql/model/index.xml" rel="self" type="application/rss+xml"/><item><title>Data Types</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/data_types/</guid><description>HoraeDB implements table model, and the supported data types are similar to MySQL. The following table lists the mapping relationship between MySQL and HoraeDB.
-Support Data Type(case-insensitive) SQL HoraeDB null Null timestamp Timestamp double Double float Float string String Varbinary Varbinary uint64 UInt64 uint32 UInt32 uint16 UInt16 uint8 UInt8 int64/bigint Int64 int32/int Int32 int16/smallint Int16 int8/tinyint Int8 boolean Boolean date Date time Time</description></item><item><title>Special Columns</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</guid><description>Tables in HoraeDB have the following constraints:
-Primary key is required The primary key must contain a time column, and can only contain one time column The primary key must be non-null, so all columns in primary key must be non-null. Timestamp Column Tables in HoraeDB must have one timestamp column maps to timestamp in timeseries data, such as timestamp in OpenTSDB/Prometheus. The timestamp column can be set with timestamp key keyword, like TIMESTAMP KEY(ts).</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data Model on Apache HoraeDB</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/</link><description>Recent content in Data Model on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/docs/user-guide/sql/model/index.xml" rel="self" type="application/rss+xml"/><item><title>Data Types</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/data_types/</guid><description>&lt;p>HoraeDB implements table model, and the supported data types are similar to MySQL.
+The following table lists the mapping relationship between MySQL and HoraeDB.&lt;/p>
+&lt;h2 id="support-data-typecase-insensitive">Support Data Type(case-insensitive)&lt;/h2>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th style="text-align: left">SQL&lt;/th>
+ &lt;th style="text-align: left">HoraeDB&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td style="text-align: left">null&lt;/td>
+ &lt;td style="text-align: left">Null&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">timestamp&lt;/td>
+ &lt;td style="text-align: left">Timestamp&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">double&lt;/td>
+ &lt;td style="text-align: left">Double&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">float&lt;/td>
+ &lt;td style="text-align: left">Float&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">string&lt;/td>
+ &lt;td style="text-align: left">String&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">Varbinary&lt;/td>
+ &lt;td style="text-align: left">Varbinary&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">uint64&lt;/td>
+ &lt;td style="text-align: left">UInt64&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">uint32&lt;/td>
+ &lt;td style="text-align: left">UInt32&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">uint16&lt;/td>
+ &lt;td style="text-align: left">UInt16&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">uint8&lt;/td>
+ &lt;td style="text-align: left">UInt8&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">int64/bigint&lt;/td>
+ &lt;td style="text-align: left">Int64&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">int32/int&lt;/td>
+ &lt;td style="text-align: left">Int32&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">int16/smallint&lt;/td>
+ &lt;td style="text-align: left">Int16&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">int8/tinyint&lt;/td>
+ &lt;td style="text-align: left">Int8&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">boolean&lt;/td>
+ &lt;td style="text-align: left">Boolean&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">date&lt;/td>
+ &lt;td style="text-align: left">Date&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td style="text-align: left">time&lt;/td>
+ &lt;td style="text-align: left">Time&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item><item><title>Special Columns</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</guid><description>&lt;p>Tables in HoraeDB have the following constraints:&lt;/p>
+&lt;ul>
+&lt;li>Primary key is required&lt;/li>
+&lt;li>The primary key must contain a time column, and can only contain one time column&lt;/li>
+&lt;li>The primary key must be non-null, so all columns in primary key must be non-null.&lt;/li>
+&lt;/ul>
+&lt;h2 id="timestamp-column">Timestamp Column&lt;/h2>
+&lt;p>Tables in HoraeDB must have one timestamp column maps to timestamp in timeseries data, such as timestamp in OpenTSDB/Prometheus.
+The timestamp column can be set with &lt;code>timestamp key&lt;/code> keyword, like &lt;code>TIMESTAMP KEY(ts)&lt;/code>.&lt;/p></description></item></channel></rss>
