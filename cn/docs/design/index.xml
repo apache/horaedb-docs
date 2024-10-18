@@ -355,4 +355,33 @@
 &lt;/div>
 &lt;/div>&lt;h2 id="数据模型">数据模型&lt;/h2>
 &lt;h3 id="通用日志格式">通用日志格式&lt;/h3>
-&lt;p>通用日志格式分为 key 格式和 value 格式，下面是对 key 格式各个字段的介绍:&lt;/p></description></item></channel></rss>
+&lt;p>通用日志格式分为 key 格式和 value 格式，下面是对 key 格式各个字段的介绍:&lt;/p></description></item><item><title>基于本地磁盘的 WAL</title><link>https://horaedb.apache.org/cn/docs/design/wal_on_disk/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/wal_on_disk/</guid><description>&lt;h2 id="架构">架构&lt;/h2>
+&lt;p>本节将介绍基于本地磁盘的单机版 WAL（Write-Ahead Log，以下简称日志）的实现。在此实现中，日志按 region 级别进行管理。&lt;/p>
+&lt;pre tabindex="0">&lt;code> ┌────────────────────────────┐
+ │ HoraeDB │
+ │ │
+ │ ┌────────────────────────┐ │
+ │ │ WAL │ │ ┌────────────────────────┐
+ │ │ │ │ │ │
+ │ │ ...... │ │ │ File System │
+ │ │ │ │ │ │
+ │ │ ┌────────────────────┐ │ │ manage │ ┌────────────────────┐ │
+ Write ─────┼─┼─► Region ├─┼─┼─────────┼─► Region Dir │ │
+ │ │ │ │ │ │ │ │ │ │
+ Read ─────┼─┼─► ┌────────────┐ │ │ │ mmap │ │ ┌────────────────┐ │ │
+ │ │ │ │ Segment 0 ├───┼─┼─┼─────────┼─┼─► Segment File 0 │ │ │
+ │ │ │ └────────────┘ │ │ │ │ │ └────────────────┘ │ │
+Delete ─────┼─┼─► ┌────────────┐ │ │ │ mmap │ │ ┌────────────────┐ │ │
+ │ │ │ │ Segment 1 ├───┼─┼─┼─────────┼─┼─► SegmenteFile 1 │ │ │
+ │ │ │ └────────────┘ │ │ │ │ │ └────────────────┘ │ │
+ │ │ │ ┌────────────┐ │ │ │ mmap │ │ ┌────────────────┐ │ │
+ │ │ │ │ Segment 2 ├───┼─┼─┼─────────┼─┼─► SegmenteFile 2 │ │ │
+ │ │ │ └────────────┘ │ │ │ │ │ └────────────────┘ │ │
+ │ │ │ ...... │ │ │ │ │ ...... │ │
+ │ │ └────────────────────┘ │ │ │ └────────────────────┘ │
+ │ │ ...... │ │ │ ...... │
+ │ └────────────────────────┘ │ └────────────────────────┘
+ └────────────────────────────┘
+&lt;/code>&lt;/pre>&lt;h2 id="数据模型">数据模型&lt;/h2>
+&lt;h3 id="文件路径">文件路径&lt;/h3>
+&lt;p>每个 region 都拥有一个目录，用于管理该 region 的所有 segment。目录名为 region 的 ID。每个 segment 的命名方式为 &lt;code>seg_&amp;lt;id&amp;gt;&lt;/code>，ID 从 0 开始递增。&lt;/p></description></item></channel></rss>

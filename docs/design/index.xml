@@ -86,7 +86,36 @@
 &lt;li>&lt;a href="https://horaedb.apache.org/docs/design/wal_on_rocksdb/">WAL on RocksDB&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://horaedb.apache.org/docs/design/wal_on_kafka/">WAL on Kafka&lt;/a>&lt;/li>
 &lt;li>WAL on OceanBase will be introduced in later.&lt;/li>
-&lt;/ul></description></item><item><title>WAL on Kafka</title><link>https://horaedb.apache.org/docs/design/wal_on_kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal_on_kafka/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;/ul></description></item><item><title>WAL on Disk</title><link>https://horaedb.apache.org/docs/design/wal_on_disk/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal_on_disk/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>This section introduces the implementation of a standalone Write-Ahead Log (WAL, hereinafter referred to as &amp;ldquo;the log&amp;rdquo;) based on a local disk. In this implementation, the log is managed at the region level.&lt;/p>
+&lt;pre tabindex="0">&lt;code> ┌────────────────────────────┐
+ │ HoraeDB │
+ │ │
+ │ ┌────────────────────────┐ │
+ │ │ WAL │ │ ┌────────────────────────┐
+ │ │ │ │ │ │
+ │ │ ...... │ │ │ File System │
+ │ │ │ │ │ │
+ │ │ ┌────────────────────┐ │ │ manage │ ┌────────────────────┐ │
+ Write ─────┼─┼─► Region ├─┼─┼─────────┼─► Region Dir │ │
+ │ │ │ │ │ │ │ │ │ │
+ Read ─────┼─┼─► ┌────────────┐ │ │ │ mmap │ │ ┌────────────────┐ │ │
+ │ │ │ │ Segment 0 ├───┼─┼─┼─────────┼─┼─► Segment File 0 │ │ │
+ │ │ │ └────────────┘ │ │ │ │ │ └────────────────┘ │ │
+Delete ─────┼─┼─► ┌────────────┐ │ │ │ mmap │ │ ┌────────────────┐ │ │
+ │ │ │ │ Segment 1 ├───┼─┼─┼─────────┼─┼─► Segment File 1 │ │ │
+ │ │ │ └────────────┘ │ │ │ │ │ └────────────────┘ │ │
+ │ │ │ ┌────────────┐ │ │ │ mmap │ │ ┌────────────────┐ │ │
+ │ │ │ │ Segment 2 ├───┼─┼─┼─────────┼─┼─► Segment File 2 │ │ │
+ │ │ │ └────────────┘ │ │ │ │ │ └────────────────┘ │ │
+ │ │ │ ...... │ │ │ │ │ ...... │ │
+ │ │ └────────────────────┘ │ │ │ └────────────────────┘ │
+ │ │ ...... │ │ │ ...... │
+ │ └────────────────────────┘ │ └────────────────────────┘
+ └────────────────────────────┘
+&lt;/code>&lt;/pre>&lt;h2 id="data-model">Data Model&lt;/h2>
+&lt;h3 id="file-paths">File Paths&lt;/h3>
+&lt;p>Each region has its own directory to manage all segments for that region. The directory is named after the region&amp;rsquo;s ID. Each segment is named using the format &lt;code>seg_&amp;lt;id&amp;gt;&lt;/code>, with IDs starting from 0 and incrementing.&lt;/p></description></item><item><title>WAL on Kafka</title><link>https://horaedb.apache.org/docs/design/wal_on_kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal_on_kafka/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
 &lt;p>In this section we present a distributed WAL implementation(based on Kafka). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by region, which can be simply understood as a shared log file of multiple tables.&lt;/p>
 &lt;p>As shown in the following figure, regions are mapped to topics(with only one partition) in Kafka. And usually two topics are needed by a region, one is used for storing logs and the other is used for storing metadata.&lt;/p></description></item><item><title>WAL on RocksDB</title><link>https://horaedb.apache.org/docs/design/wal_on_rocksdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/design/wal_on_rocksdb/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
 &lt;p>In this section we present a standalone WAL implementation (based on RocksDB). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by table, and we call the corresponding storage data structure &lt;code>TableUnit&lt;/code>. All related data (logs or some metadata) is stored in a single column family for simplicity.&lt;/p>
