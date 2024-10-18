@@ -27,86 +27,86 @@
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">Function&lt;/th>
- &lt;th style="text-align: left">Description&lt;/th>
+ &lt;th>Function&lt;/th>
+ &lt;th>Description&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">abs(x)&lt;/td>
- &lt;td style="text-align: left">absolute value&lt;/td>
+ &lt;td>abs(x)&lt;/td>
+ &lt;td>absolute value&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">acos(x)&lt;/td>
- &lt;td style="text-align: left">inverse cosine&lt;/td>
+ &lt;td>acos(x)&lt;/td>
+ &lt;td>inverse cosine&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">asin(x)&lt;/td>
- &lt;td style="text-align: left">inverse sine&lt;/td>
+ &lt;td>asin(x)&lt;/td>
+ &lt;td>inverse sine&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">atan(x)&lt;/td>
- &lt;td style="text-align: left">inverse tangent&lt;/td>
+ &lt;td>atan(x)&lt;/td>
+ &lt;td>inverse tangent&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">atan2(y, x)&lt;/td>
- &lt;td style="text-align: left">inverse tangent of y / x&lt;/td>
+ &lt;td>atan2(y, x)&lt;/td>
+ &lt;td>inverse tangent of y / x&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">ceil(x)&lt;/td>
- &lt;td style="text-align: left">nearest integer greater than or equal to argument&lt;/td>
+ &lt;td>ceil(x)&lt;/td>
+ &lt;td>nearest integer greater than or equal to argument&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">cos(x)&lt;/td>
- &lt;td style="text-align: left">cosine&lt;/td>
+ &lt;td>cos(x)&lt;/td>
+ &lt;td>cosine&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">exp(x)&lt;/td>
- &lt;td style="text-align: left">exponential&lt;/td>
+ &lt;td>exp(x)&lt;/td>
+ &lt;td>exponential&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">floor(x)&lt;/td>
- &lt;td style="text-align: left">nearest integer less than or equal to argument&lt;/td>
+ &lt;td>floor(x)&lt;/td>
+ &lt;td>nearest integer less than or equal to argument&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">ln(x)&lt;/td>
- &lt;td style="text-align: left">natural logarithm&lt;/td>
+ &lt;td>ln(x)&lt;/td>
+ &lt;td>natural logarithm&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">log10(x)&lt;/td>
- &lt;td style="text-align: left">base 10 logarithm&lt;/td>
+ &lt;td>log10(x)&lt;/td>
+ &lt;td>base 10 logarithm&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">log2(x)&lt;/td>
- &lt;td style="text-align: left">base 2 logarithm&lt;/td>
+ &lt;td>log2(x)&lt;/td>
+ &lt;td>base 2 logarithm&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">power(base, exponent)&lt;/td>
- &lt;td style="text-align: left">base raised to the power of exponent&lt;/td>
+ &lt;td>power(base, exponent)&lt;/td>
+ &lt;td>base raised to the power of exponent&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">round(x)&lt;/td>
- &lt;td style="text-align: left">round to nearest integer&lt;/td>
+ &lt;td>round(x)&lt;/td>
+ &lt;td>round to nearest integer&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">signum(x)&lt;/td>
- &lt;td style="text-align: left">sign of the argument (-1, 0, +1)&lt;/td>
+ &lt;td>signum(x)&lt;/td>
+ &lt;td>sign of the argument (-1, 0, +1)&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">sin(x)&lt;/td>
- &lt;td style="text-align: left">sine&lt;/td>
+ &lt;td>sin(x)&lt;/td>
+ &lt;td>sine&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">sqrt(x)&lt;/td>
- &lt;td style="text-align: left">square root&lt;/td>
+ &lt;td>sqrt(x)&lt;/td>
+ &lt;td>square root&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">tan(x)&lt;/td>
- &lt;td style="text-align: left">tangent&lt;/td>
+ &lt;td>tan(x)&lt;/td>
+ &lt;td>tangent&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">trunc(x)&lt;/td>
- &lt;td style="text-align: left">truncate toward zero&lt;/td>
+ &lt;td>trunc(x)&lt;/td>
+ &lt;td>truncate toward zero&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
@@ -114,18 +114,18 @@
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">Function&lt;/th>
- &lt;th style="text-align: left">Description&lt;/th>
+ &lt;th>Function&lt;/th>
+ &lt;th>Description&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">coalesce&lt;/td>
- &lt;td style="text-align: left">Returns the first of its arguments that is not null. Null is returned only if all arguments are null. It is often used to substitute a default value for null values when data is retrieved for display.&lt;/td>
+ &lt;td>coalesce&lt;/td>
+ &lt;td>Returns the first of its arguments that is not null. Null is returned only if all arguments are null. It is often used to substitute a default value for null values when data is retrieved for display.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">nullif&lt;/td>
- &lt;td style="text-align: left">Returns a null value if value1 equals value2; otherwise it returns value1. This can be used to perform the inverse operation of the coalesce expression.&lt;/td>
+ &lt;td>nullif&lt;/td>
+ &lt;td>Returns a null value if value1 equals value2; otherwise it returns value1. This can be used to perform the inverse operation of the coalesce expression.&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
@@ -133,130 +133,130 @@
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">Function&lt;/th>
- &lt;th style="text-align: left">Description&lt;/th>
+ &lt;th>Function&lt;/th>
+ &lt;th>Description&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">ascii&lt;/td>
- &lt;td style="text-align: left">Returns the numeric code of the first character of the argument. In UTF8 encoding, returns the Unicode code point of the character. In other multibyte encodings, the argument must be an ASCII character.&lt;/td>
+ &lt;td>ascii&lt;/td>
+ &lt;td>Returns the numeric code of the first character of the argument. In UTF8 encoding, returns the Unicode code point of the character. In other multibyte encodings, the argument must be an ASCII character.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">bit_length&lt;/td>
- &lt;td style="text-align: left">Returns the number of bits in a character string expression.&lt;/td>
+ &lt;td>bit_length&lt;/td>
+ &lt;td>Returns the number of bits in a character string expression.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">btrim&lt;/td>
- &lt;td style="text-align: left">Removes the longest string containing any of the specified characters from the start and end of string.&lt;/td>
+ &lt;td>btrim&lt;/td>
+ &lt;td>Removes the longest string containing any of the specified characters from the start and end of string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">char_length&lt;/td>
- &lt;td style="text-align: left">Equivalent to length.&lt;/td>
+ &lt;td>char_length&lt;/td>
+ &lt;td>Equivalent to length.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">character_length&lt;/td>
- &lt;td style="text-align: left">Equivalent to length.&lt;/td>
+ &lt;td>character_length&lt;/td>
+ &lt;td>Equivalent to length.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">concat&lt;/td>
- &lt;td style="text-align: left">Concatenates two or more strings into one string.&lt;/td>
+ &lt;td>concat&lt;/td>
+ &lt;td>Concatenates two or more strings into one string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">concat_ws&lt;/td>
- &lt;td style="text-align: left">Combines two values with a given separator.&lt;/td>
+ &lt;td>concat_ws&lt;/td>
+ &lt;td>Combines two values with a given separator.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">chr&lt;/td>
- &lt;td style="text-align: left">Returns the character based on the number code.&lt;/td>
+ &lt;td>chr&lt;/td>
+ &lt;td>Returns the character based on the number code.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">initcap&lt;/td>
- &lt;td style="text-align: left">Capitalizes the first letter of each word in a string.&lt;/td>
+ &lt;td>initcap&lt;/td>
+ &lt;td>Capitalizes the first letter of each word in a string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">left&lt;/td>
- &lt;td style="text-align: left">Returns the specified leftmost characters of a string.&lt;/td>
+ &lt;td>left&lt;/td>
+ &lt;td>Returns the specified leftmost characters of a string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">length&lt;/td>
- &lt;td style="text-align: left">Returns the number of characters in a string.&lt;/td>
+ &lt;td>length&lt;/td>
+ &lt;td>Returns the number of characters in a string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">lower&lt;/td>
- &lt;td style="text-align: left">Converts all characters in a string to their lower case equivalent.&lt;/td>
+ &lt;td>lower&lt;/td>
+ &lt;td>Converts all characters in a string to their lower case equivalent.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">lpad&lt;/td>
- &lt;td style="text-align: left">Left-pads a string to a given length with a specific set of characters.&lt;/td>
+ &lt;td>lpad&lt;/td>
+ &lt;td>Left-pads a string to a given length with a specific set of characters.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">ltrim&lt;/td>
- &lt;td style="text-align: left">Removes the longest string containing any of the characters in characters from the start of string.&lt;/td>
+ &lt;td>ltrim&lt;/td>
+ &lt;td>Removes the longest string containing any of the characters in characters from the start of string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">md5&lt;/td>
- &lt;td style="text-align: left">Calculates the MD5 hash of a given string.&lt;/td>
+ &lt;td>md5&lt;/td>
+ &lt;td>Calculates the MD5 hash of a given string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">octet_length&lt;/td>
- &lt;td style="text-align: left">Equivalent to length.&lt;/td>
+ &lt;td>octet_length&lt;/td>
+ &lt;td>Equivalent to length.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">repeat&lt;/td>
- &lt;td style="text-align: left">Returns a string consisting of the input string repeated a specified number of times.&lt;/td>
+ &lt;td>repeat&lt;/td>
+ &lt;td>Returns a string consisting of the input string repeated a specified number of times.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">replace&lt;/td>
- &lt;td style="text-align: left">Replaces all occurrences in a string of a substring with a new substring.&lt;/td>
+ &lt;td>replace&lt;/td>
+ &lt;td>Replaces all occurrences in a string of a substring with a new substring.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">reverse&lt;/td>
- &lt;td style="text-align: left">Reverses a string.&lt;/td>
+ &lt;td>reverse&lt;/td>
+ &lt;td>Reverses a string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">right&lt;/td>
- &lt;td style="text-align: left">Returns the specified rightmost characters of a string.&lt;/td>
+ &lt;td>right&lt;/td>
+ &lt;td>Returns the specified rightmost characters of a string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">rpad&lt;/td>
- &lt;td style="text-align: left">Right-pads a string to a given length with a specific set of characters.&lt;/td>
+ &lt;td>rpad&lt;/td>
+ &lt;td>Right-pads a string to a given length with a specific set of characters.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">rtrim&lt;/td>
- &lt;td style="text-align: left">Removes the longest string containing any of the characters in characters from the end of string.&lt;/td>
+ &lt;td>rtrim&lt;/td>
+ &lt;td>Removes the longest string containing any of the characters in characters from the end of string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">digest&lt;/td>
- &lt;td style="text-align: left">Calculates the hash of a given string.&lt;/td>
+ &lt;td>digest&lt;/td>
+ &lt;td>Calculates the hash of a given string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">split_part&lt;/td>
- &lt;td style="text-align: left">Splits a string on a specified delimiter and returns the specified field from the resulting array.&lt;/td>
+ &lt;td>split_part&lt;/td>
+ &lt;td>Splits a string on a specified delimiter and returns the specified field from the resulting array.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">starts_with&lt;/td>
- &lt;td style="text-align: left">Checks whether a string starts with a particular substring.&lt;/td>
+ &lt;td>starts_with&lt;/td>
+ &lt;td>Checks whether a string starts with a particular substring.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">strpos&lt;/td>
- &lt;td style="text-align: left">Searches a string for a specific substring and returns its position.&lt;/td>
+ &lt;td>strpos&lt;/td>
+ &lt;td>Searches a string for a specific substring and returns its position.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">substr&lt;/td>
- &lt;td style="text-align: left">Extracts a substring of a string.&lt;/td>
+ &lt;td>substr&lt;/td>
+ &lt;td>Extracts a substring of a string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">translate&lt;/td>
- &lt;td style="text-align: left">Translates one set of characters into another.&lt;/td>
+ &lt;td>translate&lt;/td>
+ &lt;td>Translates one set of characters into another.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">trim&lt;/td>
- &lt;td style="text-align: left">Removes the longest string containing any of the characters in characters from either the start or end of string.&lt;/td>
+ &lt;td>trim&lt;/td>
+ &lt;td>Removes the longest string containing any of the characters in characters from either the start or end of string.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">upper&lt;/td>
- &lt;td style="text-align: left">Converts all characters in a string to their upper case equivalent.&lt;/td>
+ &lt;td>upper&lt;/td>
+ &lt;td>Converts all characters in a string to their upper case equivalent.&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
@@ -264,18 +264,18 @@
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">Function&lt;/th>
- &lt;th style="text-align: left">Description&lt;/th>
+ &lt;th>Function&lt;/th>
+ &lt;th>Description&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">regexp_match&lt;/td>
- &lt;td style="text-align: left">Determines whether a string matches a regular expression pattern.&lt;/td>
+ &lt;td>regexp_match&lt;/td>
+ &lt;td>Determines whether a string matches a regular expression pattern.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">regexp_replace&lt;/td>
- &lt;td style="text-align: left">Replaces all occurrences in a string of a substring that matches a regular expression pattern with a new substring.&lt;/td>
+ &lt;td>regexp_replace&lt;/td>
+ &lt;td>Replaces all occurrences in a string of a substring that matches a regular expression pattern with a new substring.&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
@@ -283,50 +283,50 @@
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">Function&lt;/th>
- &lt;th style="text-align: left">Description&lt;/th>
+ &lt;th>Function&lt;/th>
+ &lt;th>Description&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">to_timestamp&lt;/td>
- &lt;td style="text-align: left">Converts a string to type Timestamp(Nanoseconds, None).&lt;/td>
+ &lt;td>to_timestamp&lt;/td>
+ &lt;td>Converts a string to type Timestamp(Nanoseconds, None).&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">to_timestamp_millis&lt;/td>
- &lt;td style="text-align: left">Converts a string to type Timestamp(Milliseconds, None).&lt;/td>
+ &lt;td>to_timestamp_millis&lt;/td>
+ &lt;td>Converts a string to type Timestamp(Milliseconds, None).&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">to_timestamp_micros&lt;/td>
- &lt;td style="text-align: left">Converts a string to type Timestamp(Microseconds, None).&lt;/td>
+ &lt;td>to_timestamp_micros&lt;/td>
+ &lt;td>Converts a string to type Timestamp(Microseconds, None).&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">to_timestamp_seconds&lt;/td>
- &lt;td style="text-align: left">Converts a string to type Timestamp(Seconds, None).&lt;/td>
+ &lt;td>to_timestamp_seconds&lt;/td>
+ &lt;td>Converts a string to type Timestamp(Seconds, None).&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">extract&lt;/td>
- &lt;td style="text-align: left">Retrieves subfields such as year or hour from date/time values.&lt;/td>
+ &lt;td>extract&lt;/td>
+ &lt;td>Retrieves subfields such as year or hour from date/time values.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">date_part&lt;/td>
- &lt;td style="text-align: left">Retrieves subfield from date/time values.&lt;/td>
+ &lt;td>date_part&lt;/td>
+ &lt;td>Retrieves subfield from date/time values.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">date_trunc&lt;/td>
- &lt;td style="text-align: left">Truncates date/time values to specified precision.&lt;/td>
+ &lt;td>date_trunc&lt;/td>
+ &lt;td>Truncates date/time values to specified precision.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">date_bin&lt;/td>
- &lt;td style="text-align: left">Bin date/time values to specified precision.&lt;/td>
+ &lt;td>date_bin&lt;/td>
+ &lt;td>Bin date/time values to specified precision.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">from_unixtime&lt;/td>
- &lt;td style="text-align: left">Converts Unix epoch to type Timestamp(Nanoseconds, None).&lt;/td>
+ &lt;td>from_unixtime&lt;/td>
+ &lt;td>Converts Unix epoch to type Timestamp(Nanoseconds, None).&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">now&lt;/td>
- &lt;td style="text-align: left">Returns current time as Timestamp(Nanoseconds, UTC).&lt;/td>
+ &lt;td>now&lt;/td>
+ &lt;td>Returns current time as Timestamp(Nanoseconds, UTC).&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
@@ -334,46 +334,46 @@
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">Function&lt;/th>
- &lt;th style="text-align: left">Description&lt;/th>
+ &lt;th>Function&lt;/th>
+ &lt;th>Description&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">array&lt;/td>
- &lt;td style="text-align: left">Create an array.&lt;/td>
+ &lt;td>array&lt;/td>
+ &lt;td>Create an array.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">arrow_typeof&lt;/td>
- &lt;td style="text-align: left">Returns underlying type.&lt;/td>
+ &lt;td>arrow_typeof&lt;/td>
+ &lt;td>Returns underlying type.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">in_list&lt;/td>
- &lt;td style="text-align: left">Check if value in list.&lt;/td>
+ &lt;td>in_list&lt;/td>
+ &lt;td>Check if value in list.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">random&lt;/td>
- &lt;td style="text-align: left">Generate random value.&lt;/td>
+ &lt;td>random&lt;/td>
+ &lt;td>Generate random value.&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">sha224&lt;/td>
- &lt;td style="text-align: left">sha224&lt;/td>
+ &lt;td>sha224&lt;/td>
+ &lt;td>sha224&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">sha256&lt;/td>
- &lt;td style="text-align: left">sha256&lt;/td>
+ &lt;td>sha256&lt;/td>
+ &lt;td>sha256&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">sha384&lt;/td>
- &lt;td style="text-align: left">sha384&lt;/td>
+ &lt;td>sha384&lt;/td>
+ &lt;td>sha384&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">sha512&lt;/td>
- &lt;td style="text-align: left">sha512&lt;/td>
+ &lt;td>sha512&lt;/td>
+ &lt;td>sha512&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">to_hex&lt;/td>
- &lt;td style="text-align: left">Convert to hex.&lt;/td>
+ &lt;td>to_hex&lt;/td>
+ &lt;td>Convert to hex.&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table></description></item><item><title>Aggregate Functions</title><link>https://horaedb.apache.org/docs/user-guide/sql/aggregate_functions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/aggregate_functions/</guid><description>&lt;p>HoraeDB SQL is implemented with &lt;a href="https://github.com/apache/arrow-datafusion">DataFusion&lt;/a>, Here is the list of aggregate functions. See more detail, Refer to &lt;a href="https://github.com/apache/arrow-datafusion/blob/master/docs/source/user-guide/sql/aggregate_functions.md">Datafusion&lt;/a>&lt;/p>
@@ -381,34 +381,34 @@
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">Function&lt;/th>
- &lt;th style="text-align: left">Description&lt;/th>
+ &lt;th>Function&lt;/th>
+ &lt;th>Description&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">min&lt;/td>
- &lt;td style="text-align: left">Returns the minimum value in a numerical column&lt;/td>
+ &lt;td>min&lt;/td>
+ &lt;td>Returns the minimum value in a numerical column&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">max&lt;/td>
- &lt;td style="text-align: left">Returns the maximum value in a numerical column&lt;/td>
+ &lt;td>max&lt;/td>
+ &lt;td>Returns the maximum value in a numerical column&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">count&lt;/td>
- &lt;td style="text-align: left">Returns the number of rows&lt;/td>
+ &lt;td>count&lt;/td>
+ &lt;td>Returns the number of rows&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">avg&lt;/td>
- &lt;td style="text-align: left">Returns the average of a numerical column&lt;/td>
+ &lt;td>avg&lt;/td>
+ &lt;td>Returns the average of a numerical column&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">sum&lt;/td>
- &lt;td style="text-align: left">Sums a numerical column&lt;/td>
+ &lt;td>sum&lt;/td>
+ &lt;td>Sums a numerical column&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">array_agg&lt;/td>
- &lt;td style="text-align: left">Puts values into an array&lt;/td>
+ &lt;td>array_agg&lt;/td>
+ &lt;td>Puts values into an array&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
@@ -416,38 +416,38 @@
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">Function&lt;/th>
- &lt;th style="text-align: left">Description&lt;/th>
+ &lt;th>Function&lt;/th>
+ &lt;th>Description&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">var / var_samp&lt;/td>
- &lt;td style="text-align: left">Returns the variance of a given column&lt;/td>
+ &lt;td>var / var_samp&lt;/td>
+ &lt;td>Returns the variance of a given column&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">var_pop&lt;/td>
- &lt;td style="text-align: left">Returns the population variance of a given column&lt;/td>
+ &lt;td>var_pop&lt;/td>
+ &lt;td>Returns the population variance of a given column&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">stddev / stddev_samp&lt;/td>
- &lt;td style="text-align: left">Returns the standard deviation of a given column&lt;/td>
+ &lt;td>stddev / stddev_samp&lt;/td>
+ &lt;td>Returns the standard deviation of a given column&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">stddev_pop&lt;/td>
- &lt;td style="text-align: left">Returns the population standard deviation of a given column&lt;/td>
+ &lt;td>stddev_pop&lt;/td>
+ &lt;td>Returns the population standard deviation of a given column&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">covar / covar_samp&lt;/td>
- &lt;td style="text-align: left">Returns the covariance of a given column&lt;/td>
+ &lt;td>covar / covar_samp&lt;/td>
+ &lt;td>Returns the covariance of a given column&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">covar_pop&lt;/td>
- &lt;td style="text-align: left">Returns the population covariance of a given column&lt;/td>
+ &lt;td>covar_pop&lt;/td>
+ &lt;td>Returns the population covariance of a given column&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">corr&lt;/td>
- &lt;td style="text-align: left">Returns the correlation coefficient of a given column&lt;/td>
+ &lt;td>corr&lt;/td>
+ &lt;td>Returns the correlation coefficient of a given column&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
@@ -455,26 +455,26 @@
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">Function&lt;/th>
- &lt;th style="text-align: left">Description&lt;/th>
+ &lt;th>Function&lt;/th>
+ &lt;th>Description&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">approx_distinct&lt;/td>
- &lt;td style="text-align: left">Returns the approximate number (HyperLogLog) of distinct input values&lt;/td>
+ &lt;td>approx_distinct&lt;/td>
+ &lt;td>Returns the approximate number (HyperLogLog) of distinct input values&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">approx_median&lt;/td>
- &lt;td style="text-align: left">Returns the approximate median of input values. It is an alias of approx_percentile_cont(x, 0.5).&lt;/td>
+ &lt;td>approx_median&lt;/td>
+ &lt;td>Returns the approximate median of input values. It is an alias of approx_percentile_cont(x, 0.5).&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">approx_percentile_cont&lt;/td>
- &lt;td style="text-align: left">Returns the approximate percentile (TDigest) of input values, where p is a float64 between 0 and 1 (inclusive). It supports raw data as input and build Tdigest sketches during query time, and is approximately equal to approx_percentile_cont_with_weight(x, 1, p).&lt;/td>
+ &lt;td>approx_percentile_cont&lt;/td>
+ &lt;td>Returns the approximate percentile (TDigest) of input values, where p is a float64 between 0 and 1 (inclusive). It supports raw data as input and build Tdigest sketches during query time, and is approximately equal to approx_percentile_cont_with_weight(x, 1, p).&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">approx_percentile_cont_with_weight&lt;/td>
- &lt;td style="text-align: left">Returns the approximate percentile (TDigest) of input values with weight, where w is weight column expression and p is a float64 between 0 and 1 (inclusive). It supports raw data as input or pre-aggregated TDigest sketches, then builds or merges Tdigest sketches during query time. TDigest sketches are a list of centroid (x, w), where x stands for mean and w stands for weight.&lt;/td>
+ &lt;td>approx_percentile_cont_with_weight&lt;/td>
+ &lt;td>Returns the approximate percentile (TDigest) of input values with weight, where w is weight column expression and p is a float64 between 0 and 1 (inclusive). It supports raw data as input or pre-aggregated TDigest sketches, then builds or merges Tdigest sketches during query time. TDigest sketches are a list of centroid (x, w), where x stands for mean and w stands for weight.&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table></description></item></channel></rss>

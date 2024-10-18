@@ -18,22 +18,22 @@
 &lt;/div>&lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">option name&lt;/th>
- &lt;th style="text-align: left">description&lt;/th>
+ &lt;th>option name&lt;/th>
+ &lt;th>description&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">defaultDatabase&lt;/td>
- &lt;td style="text-align: left">using database, database can be overwritten by ReqContext in single &lt;code>Write&lt;/code> or &lt;code>SQLRequest&lt;/code>&lt;/td>
+ &lt;td>defaultDatabase&lt;/td>
+ &lt;td>using database, database can be overwritten by ReqContext in single &lt;code>Write&lt;/code> or &lt;code>SQLRequest&lt;/code>&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">RPCMaxRecvMsgSize&lt;/td>
- &lt;td style="text-align: left">configration for grpc &lt;code>MaxCallRecvMsgSize&lt;/code>, default 1024 _ 1024 _ 1024&lt;/td>
+ &lt;td>RPCMaxRecvMsgSize&lt;/td>
+ &lt;td>configration for grpc &lt;code>MaxCallRecvMsgSize&lt;/code>, default 1024 _ 1024 _ 1024&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">RouteMaxCacheSize&lt;/td>
- &lt;td style="text-align: left">If the maximum number of router cache size, router client whill evict oldest if exceeded, default is 10000&lt;/td>
+ &lt;td>RouteMaxCacheSize&lt;/td>
+ &lt;td>If the maximum number of router cache size, router client whill evict oldest if exceeded, default is 10000&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>

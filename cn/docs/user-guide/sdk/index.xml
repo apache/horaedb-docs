@@ -18,22 +18,22 @@
 &lt;/div>&lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">参数名称&lt;/th>
- &lt;th style="text-align: left">说明&lt;/th>
+ &lt;th>参数名称&lt;/th>
+ &lt;th>说明&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">defaultDatabase&lt;/td>
- &lt;td style="text-align: left">所使用的 database，可以被单个 &lt;code>Write&lt;/code> 或者 &lt;code>SQLRequest&lt;/code> 请求中的 database 覆盖&lt;/td>
+ &lt;td>defaultDatabase&lt;/td>
+ &lt;td>所使用的 database，可以被单个 &lt;code>Write&lt;/code> 或者 &lt;code>SQLRequest&lt;/code> 请求中的 database 覆盖&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">RPCMaxRecvMsgSize&lt;/td>
- &lt;td style="text-align: left">grpc &lt;code>MaxCallRecvMsgSize&lt;/code> 配置, 默认是 1024 _ 1024 _ 1024&lt;/td>
+ &lt;td>RPCMaxRecvMsgSize&lt;/td>
+ &lt;td>grpc &lt;code>MaxCallRecvMsgSize&lt;/code> 配置, 默认是 1024 _ 1024 _ 1024&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">RouteMaxCacheSize&lt;/td>
- &lt;td style="text-align: left">如果 router 客户端中的 路由缓存超过了这个值，将会淘汰最不活跃的直至降低这个阈值, 默认是 10000&lt;/td>
+ &lt;td>RouteMaxCacheSize&lt;/td>
+ &lt;td>如果 router 客户端中的 路由缓存超过了这个值，将会淘汰最不活跃的直至降低这个阈值, 默认是 10000&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>

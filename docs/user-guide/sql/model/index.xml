@@ -4,78 +4,78 @@ The following table lists the mapping relationship between MySQL and HoraeDB.&lt
 &lt;table>
  &lt;thead>
  &lt;tr>
- &lt;th style="text-align: left">SQL&lt;/th>
- &lt;th style="text-align: left">HoraeDB&lt;/th>
+ &lt;th>SQL&lt;/th>
+ &lt;th>HoraeDB&lt;/th>
  &lt;/tr>
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td style="text-align: left">null&lt;/td>
- &lt;td style="text-align: left">Null&lt;/td>
+ &lt;td>null&lt;/td>
+ &lt;td>Null&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">timestamp&lt;/td>
- &lt;td style="text-align: left">Timestamp&lt;/td>
+ &lt;td>timestamp&lt;/td>
+ &lt;td>Timestamp&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">double&lt;/td>
- &lt;td style="text-align: left">Double&lt;/td>
+ &lt;td>double&lt;/td>
+ &lt;td>Double&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">float&lt;/td>
- &lt;td style="text-align: left">Float&lt;/td>
+ &lt;td>float&lt;/td>
+ &lt;td>Float&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">string&lt;/td>
- &lt;td style="text-align: left">String&lt;/td>
+ &lt;td>string&lt;/td>
+ &lt;td>String&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">Varbinary&lt;/td>
- &lt;td style="text-align: left">Varbinary&lt;/td>
+ &lt;td>Varbinary&lt;/td>
+ &lt;td>Varbinary&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">uint64&lt;/td>
- &lt;td style="text-align: left">UInt64&lt;/td>
+ &lt;td>uint64&lt;/td>
+ &lt;td>UInt64&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">uint32&lt;/td>
- &lt;td style="text-align: left">UInt32&lt;/td>
+ &lt;td>uint32&lt;/td>
+ &lt;td>UInt32&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">uint16&lt;/td>
- &lt;td style="text-align: left">UInt16&lt;/td>
+ &lt;td>uint16&lt;/td>
+ &lt;td>UInt16&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">uint8&lt;/td>
- &lt;td style="text-align: left">UInt8&lt;/td>
+ &lt;td>uint8&lt;/td>
+ &lt;td>UInt8&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">int64/bigint&lt;/td>
- &lt;td style="text-align: left">Int64&lt;/td>
+ &lt;td>int64/bigint&lt;/td>
+ &lt;td>Int64&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">int32/int&lt;/td>
- &lt;td style="text-align: left">Int32&lt;/td>
+ &lt;td>int32/int&lt;/td>
+ &lt;td>Int32&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">int16/smallint&lt;/td>
- &lt;td style="text-align: left">Int16&lt;/td>
+ &lt;td>int16/smallint&lt;/td>
+ &lt;td>Int16&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">int8/tinyint&lt;/td>
- &lt;td style="text-align: left">Int8&lt;/td>
+ &lt;td>int8/tinyint&lt;/td>
+ &lt;td>Int8&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">boolean&lt;/td>
- &lt;td style="text-align: left">Boolean&lt;/td>
+ &lt;td>boolean&lt;/td>
+ &lt;td>Boolean&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">date&lt;/td>
- &lt;td style="text-align: left">Date&lt;/td>
+ &lt;td>date&lt;/td>
+ &lt;td>Date&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td style="text-align: left">time&lt;/td>
- &lt;td style="text-align: left">Time&lt;/td>
+ &lt;td>time&lt;/td>
+ &lt;td>Time&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table></description></item><item><title>Special Columns</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</guid><description>&lt;p>Tables in HoraeDB have the following constraints:&lt;/p>
