@@ -17,7 +17,7 @@ Verify this release using the [signatures](https://downloads.apache.org/incubato
 
 ## Docker images
 
-Pre-built binaries are not provided yet, users can [compile from source]({{< ref "compile_run.md" >}}) or using docker images:
+Pre-built binaries are not provided yet, users can [compile from source](docs/dev/compile_run.md) or using docker images:
 
 - https://hub.docker.com/r/apache/horaemeta-server
 - https://hub.docker.com/r/apache/horaedb-server
@@ -30,7 +30,7 @@ For older releases, please check the [archive](https://downloads.apache.org/incu
 
 It's highly recommended to verify the files that you download.
 
-Fury provides SHA digest and PGP signature files for all the files that we host on the download site. These files are named after the files they relate to but have `sha512`, `asc` extensions.
+HoraeDB provides SHA digest and PGP signature files for all the files that we host on the download site. These files are named after the files they relate to but have `sha512`, `asc` extensions.
 
 ## Verify Checksums
 
