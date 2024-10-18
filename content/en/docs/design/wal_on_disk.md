@@ -38,7 +38,7 @@ Delete ─────┼─┼─►   ┌────────────�
 
 ### File Paths
 
-Each region has its own directory to manage all segments for that region. The directory is named after the region's ID. Each segment is named using the format `segment_<id>.wal`, with IDs starting from 0 and incrementing.
+Each region has its own directory to manage all segments for that region. The directory is named after the region's ID. Each segment is named using the format `seg_<id>`, with IDs starting from 0 and incrementing.
 
 ### Segment Format
 
