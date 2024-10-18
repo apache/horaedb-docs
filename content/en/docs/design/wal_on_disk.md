@@ -93,15 +93,13 @@ Field Descriptions:
 
 2. `crc`: Used to ensure data consistency. Computes the CRC checksum from the table id to the end of the record.
 
-3. `length`: The number of bytes from the table id to the end of the record.
+3. `table id`: The unique identifier of the table.
 
-4. `table id`: The unique identifier of the table.
+4. `sequence num`: The sequence number of the record.
 
-5. `sequence num`: The sequence number of the record.
+5. `value length`: The byte length of the value.
 
-6. `value length`: The byte length of the value.
-
-7. `value`: The value in the general log format.
+6. `value`: The value in the general log format.
 
 The region ID is not stored in the log because it can be obtained from the file path.
 

@@ -93,15 +93,13 @@ segment 中的日志格式如下：
 
 2. `crc`：用于确保数据一致性。计算从 table id 到该记录结束的 CRC 校验值。
 
-3. `length`：从 table id 到该记录结束的字节数。
+3. `table id`：表的唯一标识符。
 
-4. `table id`：表的唯一标识符。
+4. `sequence num`：记录的序列号。
 
-5. `sequence num`：记录的序列号。
+5. `value length`：value 的字节长度。
 
-6. `value length`：value 的字节长度。
-
-7. `value`：通用日志格式中的值。
+6. `value`：通用日志格式中的值。
 
 日志中不存储 region ID，因为可以通过文件路径获取该信息。
 
