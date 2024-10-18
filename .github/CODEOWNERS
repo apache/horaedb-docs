@@ -1,0 +1,4 @@
+# Order is important; the last matching pattern takes the most precedence.
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#example-of-a-codeowners-file
+
+*  @jiacai2050
