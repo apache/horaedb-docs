@@ -30,7 +30,7 @@ For older releases, please check the [archive](https://downloads.apache.org/incu
 
 It's highly recommended to verify the files that you download.
 
-Fury provides SHA digest and PGP signature files for all the files that we host on the download site. These files are named after the files they relate to but have `sha512`, `asc` extensions.
+HoraeDB provides SHA digest and PGP signature files for all the files that we host on the download site. These files are named after the files they relate to but have `sha512`, `asc` extensions.
 
 ## Verify Checksums
 
