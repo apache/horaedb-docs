@@ -1039,7 +1039,54 @@ HoraeMeta 本身通过嵌入式的 &lt;a href="https://github.com/etcd-io/etcd">
 &lt;h4 id="动态拓扑和静态拓扑">动态拓扑和静态拓扑&lt;/h4>
 &lt;p>即使使用了 HoraeMeta 来部署 HoraeDB 集群，也可以选择静态拓扑或动态拓扑。对于静态拓扑，表的分布在集群初始化后是静态的，而对于动态拓扑，表可以在不同的 HoraeDB 节点之间进行动态迁移以达到负载平衡或者 failover 的目的。但是动态拓扑只有在 HoraeDB 节点使用的存储是非本地的情况下才能启用，否则会因为表的数据是持久化在本地，当表转移到不同的 HoraeDB 节点时会导致数据损坏。&lt;/p>
 &lt;p>目前，HoraeMeta 默认关闭集群拓扑的动态调度，并且在本篇指南中，这个选项也不会被开启，因为指南中的例子采用的是本地存储。如果要启用动态调度，可以将 &lt;code>TOPOLOGY_TYPE&lt;/code> 设置为 &lt;code>dynamic&lt;/code>（默认为 &lt;code>static&lt;/code>），之后负载均衡和 failover 将会起作用。但是需要注意的是，如果底层存储是本地磁盘，则不要启用它。&lt;/p>
-&lt;p>此外对于静态拓扑，参数 &lt;code>DEFAULT_CLUSTER_NODE_COUNT&lt;/code> 表示已部署集群中 HoraeDB 节点的数量，应该被设置为 HoraeDB 服务器的实际机器数，这个参数非常重要，因为集群初始化完毕之后，HoraeDB 集群将无法再增减机器。&lt;/p></description></item><item><title>分区表</title><link>https://horaedb.apache.org/cn/docs/design/table_partitioning/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/table_partitioning/</guid><description>&lt;p>&lt;strong>注意：此功能仍在开发中，API 将来可能会发生变化。&lt;/strong>&lt;/p>
+&lt;p>此外对于静态拓扑，参数 &lt;code>DEFAULT_CLUSTER_NODE_COUNT&lt;/code> 表示已部署集群中 HoraeDB 节点的数量，应该被设置为 HoraeDB 服务器的实际机器数，这个参数非常重要，因为集群初始化完毕之后，HoraeDB 集群将无法再增减机器。&lt;/p></description></item><item><title>下载</title><link>https://horaedb.apache.org/cn/downloads/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/downloads/</guid><description>&lt;p>Apache HoraeDB 使用源码压缩包进行发布。&lt;/p>
+&lt;h1 id="最新发布">最新发布&lt;/h1>
+&lt;p>最新一次发布版本：2.0.0(2024-05-23)，源码&lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.0.0/apache-horaedb-incubating-v2.0.0-src.tar.gz">下载地址&lt;/a>。&lt;/p>
+&lt;p>用户可以按照以下指南使用 &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.0.0/apache-horaedb-incubating-v2.0.0-src.tar.gz.asc">signatures&lt;/a> 和 &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.0.0/apache-horaedb-incubating-v2.0.0-src.tar.gz.sha512">checksums&lt;/a> 验证此版本。&lt;/p>
+&lt;h2 id="docker-镜像">Docker 镜像&lt;/h2>
+&lt;p>暂不提供预构建好的二进制文件，用户可以使用源码&lt;a href="https://horaedb.apache.org/cn/docs/dev/compile_run/">编译&lt;/a>或者使用 docker 镜像：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://hub.docker.com/r/apache/horaemeta-server">https://hub.docker.com/r/apache/horaemeta-server&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://hub.docker.com/r/apache/horaedb-server">https://hub.docker.com/r/apache/horaedb-server&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="历史版本">历史版本&lt;/h2>
+&lt;p>历史已发布版本，可以在&lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/">这里&lt;/a>查询得到。&lt;/p>
+&lt;h1 id="验证-signatures-和-checksums">验证 signatures 和 checksums&lt;/h1>
+&lt;p>强烈建议用户验证下载的文件。&lt;/p>
+&lt;p>HoraeDB 为所有在下载站点上的文件提供 SHA digest 文件和 PGP 签名文件，验证文件以原始文件命名，并带有 &lt;code>sha512&lt;/code>、&lt;code>asc&lt;/code> 扩展名。&lt;/p>
+&lt;h2 id="验证-checksums">验证 Checksums&lt;/h2>
+&lt;p>用户需要下载 &lt;code>tar.gz&lt;/code> 文件和 &lt;code>tar.gz.sha512&lt;/code> 文件来验证 Checksums。验证命令：&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sha512sum -c apache-horaedb-incubating-v2.0.0-src.tar.gz.sha512
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>正确结果：&lt;/p>
+&lt;pre tabindex="0">&lt;code>apache-horaedb-incubating-v2.0.0-src.tar.gz: OK
+&lt;/code>&lt;/pre>&lt;h2 id="验证-signatures">验证 Signatures&lt;/h2>
+&lt;p>验证 PGP Signatures，用户需要下载 &lt;a href="https://downloads.apache.org/incubator/horaedb/KEYS">release KEYS&lt;/a> 文件。&lt;/p>
+&lt;p>导入下载的 KEYS 文件：&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gpg --import KEYS
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>验证命令：&lt;/p>
+&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gpg --verify apache-horaedb-incubating-v2.0.0-src.tar.gz.asc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>正确结果：&lt;/p></description></item><item><title>分区表</title><link>https://horaedb.apache.org/cn/docs/design/table_partitioning/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/table_partitioning/</guid><description>&lt;p>&lt;strong>注意：此功能仍在开发中，API 将来可能会发生变化。&lt;/strong>&lt;/p>
 &lt;p>本章讨论 &lt;code>PartitionTable&lt;/code>。&lt;/p>
 &lt;p>HoraeDB 使用的分区表语法类似于 &lt;a href="https://dev.mysql.com/doc/refman/8.0/en/partitioning-types.html">MySQL&lt;/a> 。&lt;/p>
 &lt;p>一般的分区表包括&lt;code>Range Partitioning&lt;/code>、&lt;code>List Partitoning&lt;/code>、&lt;code>Hash Partitioning&lt;/code>和&lt;code>Key Partititioning&lt;/code>。&lt;/p>
