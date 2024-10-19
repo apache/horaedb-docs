@@ -17,7 +17,7 @@ Apache HoraeDB 使用源码压缩包进行发布。
 
 ## Docker 镜像
 
-暂不提供预构建好的二进制文件，用户可以使用源码[编译](docs/dev/compile_run.md)或者使用 docker 镜像：
+暂不提供预构建好的二进制文件，用户可以使用源码[编译]({{< ref "compile_run.md" >}})或者使用 docker 镜像：
 
 - https://hub.docker.com/r/apache/horaemeta-server
 - https://hub.docker.com/r/apache/horaedb-server

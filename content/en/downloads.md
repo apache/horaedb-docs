@@ -17,7 +17,7 @@ Verify this release using the [signatures](https://downloads.apache.org/incubato
 
 ## Docker images
 
-Pre-built binaries are not provided yet, users can [compile from source](docs/dev/compile_run.md) or using docker images:
+Pre-built binaries are not provided yet, users can [compile from source]({{< ref "compile_run.md" >}}) or using docker images:
 
 - https://hub.docker.com/r/apache/horaemeta-server
 - https://hub.docker.com/r/apache/horaedb-server
