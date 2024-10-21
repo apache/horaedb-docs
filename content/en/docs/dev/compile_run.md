@@ -5,7 +5,9 @@ weight: 30
 
 In order to compile HoraeDB, some relevant dependencies(including the `Rust` toolchain) should be installed.
 
-# Dependencies(Ubuntu20.04)
+# Dependencies
+
+## Ubuntu
 
 Assuming the development environment is Ubuntu20.04, execute the following command to install the required dependencies:
 
@@ -13,9 +15,9 @@ Assuming the development environment is Ubuntu20.04, execute the following comma
 sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler
 ```
 
-It should be noted that the compilation of the project has version requirements for dependencies such as cmake, gcc, g++, etc. If your development environment is an old Linux distribution, it is necessary to manually install these dependencies of a higher version.
+It should be noted that the compilation of the project requires a higher version of CMake; if your development environment is an older Linux distribution, you will need to manually install the dependencies for a higher version.
 
-# Dependencies(MacOS)
+## macOS
 
 If the development environment is MacOS, execute the following command to install the required dependencies.
 
@@ -49,16 +51,14 @@ source $HOME/.cargo/env
 
 # Compile and Run
 
-Note: The gcc version required is 8; using higher versions may result in compilation errors. This issue is being tracked in [issue-1506](https://github.com/apache/incubator-horaedb/issues/1506).
-
 Compile HoraeDB by the following command:
 
 ```
-cargo build --release
+cargo build
 ```
 
 Then you can run HoraeDB using the default configuration file provided in the codebase.
 
 ```bash
-./target/release/horaedb-server --config ./docs/minimal.toml
+./target/debug/horaedb-server --config ./docs/minimal.toml
 ```

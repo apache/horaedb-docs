@@ -28,3 +28,16 @@ jobs:
           # if you encounter error, rerun the command below and commit the changes
           make lint
           git diff --exit-code
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+      - name: Build with Hugo
+        env:
+          # For maximum backward compatibility with Hugo modules
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
+        run: |
+          npm i -D postcss postcss-cli autoprefixer
+          hugo --minify
