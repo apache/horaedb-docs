@@ -51,7 +51,8 @@
 &lt;/ul>
 &lt;h1 id="scope">Scope&lt;/h1>
 &lt;p>The &lt;code>scope&lt;/code> is more flexible than &lt;code>type&lt;/code>. And it may have different values under different &lt;code>type&lt;/code>s.&lt;/p></description></item><item><title>Compile</title><link>https://horaedb.apache.org/docs/dev/compile_run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/compile_run/</guid><description>&lt;p>In order to compile HoraeDB, some relevant dependencies(including the &lt;code>Rust&lt;/code> toolchain) should be installed.&lt;/p>
-&lt;h1 id="dependenciesubuntu2004">Dependencies(Ubuntu20.04)&lt;/h1>
+&lt;h1 id="dependencies">Dependencies&lt;/h1>
+&lt;h2 id="ubuntu">Ubuntu&lt;/h2>
 &lt;p>Assuming the development environment is Ubuntu20.04, execute the following command to install the required dependencies:&lt;/p>
 &lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -61,7 +62,7 @@
 &lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>It should be noted that the compilation of the project has version requirements for dependencies such as cmake, gcc, g++, etc. If your development environment is an old Linux distribution, it is necessary to manually install these dependencies of a higher version.&lt;/p></description></item><item><title>Profiling</title><link>https://horaedb.apache.org/docs/dev/profiling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/profiling/</guid><description>&lt;h3 id="cpu-profiling">CPU profiling&lt;/h3>
+&lt;/div>&lt;p>It should be noted that the compilation of the project requires a higher version of CMake; if your development environment is an older Linux distribution, you will need to manually install the dependencies for a higher version.&lt;/p></description></item><item><title>Profiling</title><link>https://horaedb.apache.org/docs/dev/profiling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/profiling/</guid><description>&lt;h3 id="cpu-profiling">CPU profiling&lt;/h3>
 &lt;p>HoraeDB provides cpu profiling http api &lt;code>debug/profile/cpu&lt;/code>.&lt;/p>
 &lt;p>Example:&lt;/p>
 &lt;pre tabindex="0">&lt;code>// 60s cpu sampling data

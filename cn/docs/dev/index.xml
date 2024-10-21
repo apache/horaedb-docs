@@ -33,7 +33,8 @@
 &lt;li>生产环境下 , Linux 是首选平台。&lt;/li>
 &lt;li>macOS 主要用在开发环境。&lt;/li>
 &lt;/ul></description></item><item><title>编译</title><link>https://horaedb.apache.org/cn/docs/dev/compile_run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/compile_run/</guid><description>&lt;p>为了编译 HoraeDB, 首先需要安装相关的依赖（包括 &lt;code>Rust&lt;/code> 的工具链)。&lt;/p>
-&lt;h1 id="依赖ubuntu2004">依赖(Ubuntu20.04)&lt;/h1>
+&lt;h1 id="依赖">依赖&lt;/h1>
+&lt;h2 id="ubuntu">Ubuntu&lt;/h2>
 &lt;p>假设我们的开发环境是 Ubuntu20.04, 可以执行如下命令来安装所需的依赖。&lt;/p>
 &lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -43,9 +44,8 @@
 &lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>需要注意的是，项目的编译对 cmake、gcc、g++等依赖项有版本要求。&lt;/p>
-&lt;p>如果你的开发环境是旧的 Linux 发行版，有必要手动安装这些依赖项的高版本。&lt;/p>
-&lt;h1 id="依赖macos">依赖(MacOS)&lt;/h1>
+&lt;/div>&lt;p>需要注意的是，项目的编译对 cmake 有版本要求。如果你的开发环境是旧的 Linux 发行版，有必要手动安装这些依赖项的高版本。&lt;/p>
+&lt;h2 id="macos">macOS&lt;/h2>
 &lt;p>如果你的开发环境是 &lt;code>MacOS&lt;/code> ，可以使用如下命令手动安装这些依赖项的高版本。&lt;/p>
 &lt;ol>
 &lt;li>安装命令行工具：&lt;/li>

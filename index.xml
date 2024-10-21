@@ -62,7 +62,8 @@
 &lt;h2 id="deploy-horaemeta">Deploy HoraeMeta&lt;/h2>
 &lt;h3 id="introduce">Introduce&lt;/h3>
 &lt;p>HoraeMeta is one of the core services of HoraeDB distributed mode, it is used to manage and schedule the HoraeDB cluster. By the way, the high availability of HoraeMeta is ensured by embedding &lt;a href="https://github.com/etcd-io/etcd">ETCD&lt;/a>. Also, the ETCD service is provided for HoraeDB servers to manage the distributed shard locks.&lt;/p></description></item><item><title>Compile</title><link>https://horaedb.apache.org/docs/dev/compile_run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/dev/compile_run/</guid><description>&lt;p>In order to compile HoraeDB, some relevant dependencies(including the &lt;code>Rust&lt;/code> toolchain) should be installed.&lt;/p>
-&lt;h1 id="dependenciesubuntu2004">Dependencies(Ubuntu20.04)&lt;/h1>
+&lt;h1 id="dependencies">Dependencies&lt;/h1>
+&lt;h2 id="ubuntu">Ubuntu&lt;/h2>
 &lt;p>Assuming the development environment is Ubuntu20.04, execute the following command to install the required dependencies:&lt;/p>
 &lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -72,7 +73,7 @@
 &lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>It should be noted that the compilation of the project has version requirements for dependencies such as cmake, gcc, g++, etc. If your development environment is an old Linux distribution, it is necessary to manually install these dependencies of a higher version.&lt;/p></description></item><item><title>Contribution Guidelines</title><link>https://horaedb.apache.org/docs/contribution-guidelines/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/contribution-guidelines/</guid><description>&lt;p>Thank you for thinking of contributing! We very much welcome contributions from the community.
+&lt;/div>&lt;p>It should be noted that the compilation of the project requires a higher version of CMake; if your development environment is an older Linux distribution, you will need to manually install the dependencies for a higher version.&lt;/p></description></item><item><title>Contribution Guidelines</title><link>https://horaedb.apache.org/docs/contribution-guidelines/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/contribution-guidelines/</guid><description>&lt;p>Thank you for thinking of contributing! We very much welcome contributions from the community.
 To make the process easier and more valuable for everyone involved we have a few rules and guidelines to follow.&lt;/p>
 &lt;h2 id="submitting-issues-and-feature-requests">Submitting Issues and Feature Requests&lt;/h2>
 &lt;p>Before you file an &lt;a href="https://github.com/apache/horaedb/issues/new">issue&lt;/a>, please search existing issues in case the same or similar issues have already been filed.
