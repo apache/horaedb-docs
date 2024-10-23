@@ -6,7 +6,7 @@ title: "Compaction Offload"
 
 This chapter discusses compaction offload, which is designed to separate the compaction workload from the local horaedb nodes and delegate it to external compaction nodes.
 
-## Overview 
+## Overview
 
 ```plaintext
 ┌───────────────────────────────────────────────────────────────────────┐
@@ -14,7 +14,7 @@ This chapter discusses compaction offload, which is designed to separate the com
 │                           HoraeMeta Cluster                           │
 │                                                                       │
 └───────────────────────────────────────────────────────────────────────┘
-    ▲                ▲                       |                   |                               
+    ▲                ▲                       |                   |
     │                │Fetch compaction       │Monitor compaction │
     │                │node  info             │node               │
     |                │                       ▼                   ▼
@@ -23,7 +23,7 @@ This chapter discusses compaction offload, which is designed to separate the com
 │  HoraeDB   │  │  HoraeDB   │ ◀───────▶  │ Compaction │   │ Compaction │
 │            │  │            │ Ret Result │ Node       │   │ Node       │
 └────────────┘  └────────────┘            └────────────┘   └────────────┘
-    |                |                       |                   |                               
+    |                |                       |                   |
     │                │  Update the SSTable   │                   │
     │                │                       │                   │
     ▼                ▼                       ▼                   ▼
@@ -64,6 +64,7 @@ The compaction service is implemented as grpc service.
 `HoraeMeta` manages the compaction nodes cluster with `CompactionNodeManager`, which takes responsibilities for compaction nodes metadata management and scheduling.
 
 The compaction nodes metadata includes:
+
 - Compaction node information, such as node name, node state;
 - A compaction node name list, used as the key to access compaction node info, for better scheduling with round-robin strategy;
 - ...
@@ -78,7 +79,7 @@ As for the compaction nodes scheduling work, it mainly includes:
 
 Load Balancing is critical for compaction nodes cluster to make their overall processing more efficient. The effect of load balancing mainly based on the schedule algorithm for compaction nodes impl in `CompactionNodeManager`.
 
-*(ps: The current implementation of schedule algorithm is round-robin strategy for easiness.)*
+_(ps: The current implementation of schedule algorithm is round-robin strategy for easiness.)_
 
 The main process for the schedule algorithm based on real load is:
 
