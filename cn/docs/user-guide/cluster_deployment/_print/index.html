@@ -1,0 +1,652 @@
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=cn class=no-js><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><link rel=canonical type=text/html href=https://horaedb.apache.org/cn/docs/user-guide/cluster_deployment/><link rel=alternate type=application/rss+xml href=https://horaedb.apache.org/cn/docs/user-guide/cluster_deployment/index.xml><meta name=robots content="noindex, nofollow"><link rel="shortcut icon" href=/favicons/favicon.ico><link rel=apple-touch-icon href=/favicons/apple-touch-icon-180x180.png sizes=180x180><link rel=icon type=image/png href=/favicons/favicon-16x16.png sizes=16x16><link rel=icon type=image/png href=/favicons/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/favicons/android-36x36.png sizes=36x36><link rel=icon type=image/png href=/favicons/android-48x48.png sizes=48x48><link rel=icon type=image/png href=/favicons/android-72x72.png sizes=72x72><link rel=icon type=image/png href=/favicons/android-96x96.png sizes=96x96><link rel=icon type=image/png href=/favicons/android-144x144.png sizes=144x144><link rel=icon type=image/png href=/favicons/android-192x192.png sizes=192x192><title>集群部署 | Apache HoraeDB</title>
+<meta name=description content="在快速开始部分我们已经介绍过单机版本 HoraeDB 的部署。
+除此之外，HoraeDB 作为一个分布式时序数据库，多个 HoraeDB 实例能够以集群的方式提供可伸缩和高可用的数据服务。
+由于目前 HoraeDB 对于 Kubernetes 的支持还在开发之中，目前 HoraeDB 集群部署只能通过手动完成，集群部署的模式主要有两种，两者的区别在于是否需要部署 HoraeMeta，对于 NoMeta 的模式，我们仅建议在测试场景下使用。"><meta property="og:url" content="https://horaedb.apache.org/cn/docs/user-guide/cluster_deployment/"><meta property="og:site_name" content="Apache HoraeDB"><meta property="og:title" content="集群部署"><meta property="og:description" content="在快速开始部分我们已经介绍过单机版本 HoraeDB 的部署。
+除此之外，HoraeDB 作为一个分布式时序数据库，多个 HoraeDB 实例能够以集群的方式提供可伸缩和高可用的数据服务。
+由于目前 HoraeDB 对于 Kubernetes 的支持还在开发之中，目前 HoraeDB 集群部署只能通过手动完成，集群部署的模式主要有两种，两者的区别在于是否需要部署 HoraeMeta，对于 NoMeta 的模式，我们仅建议在测试场景下使用。"><meta property="og:locale" content="cn"><meta property="og:type" content="website"><meta itemprop=name content="集群部署"><meta itemprop=description content="在快速开始部分我们已经介绍过单机版本 HoraeDB 的部署。
+除此之外，HoraeDB 作为一个分布式时序数据库，多个 HoraeDB 实例能够以集群的方式提供可伸缩和高可用的数据服务。
+由于目前 HoraeDB 对于 Kubernetes 的支持还在开发之中，目前 HoraeDB 集群部署只能通过手动完成，集群部署的模式主要有两种，两者的区别在于是否需要部署 HoraeMeta，对于 NoMeta 的模式，我们仅建议在测试场景下使用。"><meta itemprop=dateModified content="2024-08-21T10:34:40+08:00"><meta itemprop=wordCount content="17"><meta name=twitter:card content="summary"><meta name=twitter:title content="集群部署"><meta name=twitter:description content="在快速开始部分我们已经介绍过单机版本 HoraeDB 的部署。
+除此之外，HoraeDB 作为一个分布式时序数据库，多个 HoraeDB 实例能够以集群的方式提供可伸缩和高可用的数据服务。
+由于目前 HoraeDB 对于 Kubernetes 的支持还在开发之中，目前 HoraeDB 集群部署只能通过手动完成，集群部署的模式主要有两种，两者的区别在于是否需要部署 HoraeMeta，对于 NoMeta 的模式，我们仅建议在测试场景下使用。"><link rel=preload href=/scss/main.min.5e43f8574351718e9b44966c9f3a571202ed048c082f457fb574c10b1a1bc56c.css as=style integrity="sha256-XkP4V0NRcY6bRJZsnzpXEgLtBIwIL0V/tXTBCxobxWw=" crossorigin=anonymous><link href=/scss/main.min.5e43f8574351718e9b44966c9f3a571202ed048c082f457fb574c10b1a1bc56c.css rel=stylesheet integrity="sha256-XkP4V0NRcY6bRJZsnzpXEgLtBIwIL0V/tXTBCxobxWw=" crossorigin=anonymous><script src=https://code.jquery.com/jquery-3.7.1.min.js integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin=anonymous></script><script defer src=https://unpkg.com/lunr@2.3.9/lunr.min.js integrity=sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli crossorigin=anonymous></script></head><body class=td-section><header><nav class="td-navbar js-navbar-scroll" data-bs-theme=dark><div class="container-fluid flex-column flex-md-row"><a class=navbar-brand href=/cn/><span class="navbar-brand__logo navbar-logo"></span><span class=navbar-brand__name>Apache HoraeDB</span></a><div class="td-navbar-nav-scroll ms-md-auto" id=main_navbar><ul class=navbar-nav><li class=nav-item><a class="nav-link active" href=/cn/docs/><i class='fa-solid fa-book'></i><span>文档</span></a></li><li class=nav-item><a class=nav-link href=/cn/downloads/><i class='fa-solid fa-download'></i><span>下载</span></a></li><li class=nav-item><a class=nav-link href=/cn/blog/><i class='fa-brands fa-blogger'></i><span>博客</span></a></li><li class="nav-item dropdown d-none d-lg-block"><div class=dropdown><a class="nav-link dropdown-toggle" href=# role=button data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false>中文</a><ul class=dropdown-menu><li><a class=dropdown-item href=/docs/user-guide/cluster_deployment/>English</a></li></ul></div></li><li class="td-light-dark-menu nav-item dropdown"><svg class="d-none"><symbol id="check2" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5.0 010 .708l-7 7a.5.5.0 01-.708.0l-3.5-3.5a.5.5.0 11.708-.708L6.5 10.293l6.646-6.647a.5.5.0 01.708.0z"/></symbol><symbol id="circle-half" viewBox="0 0 16 16"><path d="M8 15A7 7 0 108 1v14zm0 1A8 8 0 118 0a8 8 0 010 16z"/></symbol><symbol id="moon-stars-fill" viewBox="0 0 16 16"><path d="M6 .278a.768.768.0 01.08.858 7.208 7.208.0 00-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527.0 1.04-.055 1.533-.16a.787.787.0 01.81.316.733.733.0 01-.031.893A8.349 8.349.0 018.344 16C3.734 16 0 12.286.0 7.71.0 4.266 2.114 1.312 5.124.06A.752.752.0 016 .278z"/><path d="M10.794 3.148a.217.217.0 01.412.0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217.0 010 .412l-1.162.387A1.734 1.734.0 0011.593 7.69l-.387 1.162a.217.217.0 01-.412.0l-.387-1.162A1.734 1.734.0 009.31 6.593l-1.162-.387a.217.217.0 010-.412l1.162-.387a1.734 1.734.0 001.097-1.097l.387-1.162zM13.863.099a.145.145.0 01.274.0l.258.774c.115.346.386.617.732.732l.774.258a.145.145.0 010 .274l-.774.258a1.156 1.156.0 00-.732.732l-.258.774a.145.145.0 01-.274.0l-.258-.774a1.156 1.156.0 00-.732-.732l-.774-.258a.145.145.0 010-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/></symbol><symbol id="sun-fill" viewBox="0 0 16 16"><path d="M8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.5.5.0 01.5.5v2a.5.5.0 01-1 0v-2A.5.5.0 018 0zm0 13a.5.5.0 01.5.5v2a.5.5.0 01-1 0v-2A.5.5.0 018 13zm8-5a.5.5.0 01-.5.5h-2a.5.5.0 010-1h2a.5.5.0 01.5.5zM3 8a.5.5.0 01-.5.5h-2a.5.5.0 010-1h2A.5.5.0 013 8zm10.657-5.657a.5.5.0 010 .707l-1.414 1.415a.5.5.0 11-.707-.708l1.414-1.414a.5.5.0 01.707.0zm-9.193 9.193a.5.5.0 010 .707L3.05 13.657a.5.5.0 01-.707-.707l1.414-1.414a.5.5.0 01.707.0zm9.193 2.121a.5.5.0 01-.707.0l-1.414-1.414a.5.5.0 01.707-.707l1.414 1.414a.5.5.0 010 .707zM4.464 4.465a.5.5.0 01-.707.0L2.343 3.05a.5.5.0 11.707-.707l1.414 1.414a.5.5.0 010 .708z"/></symbol></svg>
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" id=bd-theme type=button aria-expanded=false data-bs-toggle=dropdown data-bs-display=static aria-label="Toggle theme (auto)"><svg class="bi my-1 theme-icon-active"><use href="#circle-half"/></svg></button><ul class="dropdown-menu dropdown-menu-end" aria-labelledby=bd-theme-text><li><button type=button class="dropdown-item d-flex align-items-center" data-bs-theme-value=light aria-pressed=false>
+<svg class="bi me-2 opacity-50"><use href="#sun-fill"/></svg>
+Light<svg class="bi ms-auto d-none"><use href="#check2"/></svg></button></li><li><button type=button class="dropdown-item d-flex align-items-center" data-bs-theme-value=dark aria-pressed=false>
+<svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"/></svg>
+Dark<svg class="bi ms-auto d-none"><use href="#check2"/></svg></button></li><li><button type=button class="dropdown-item d-flex align-items-center active" data-bs-theme-value=auto aria-pressed=true>
+<svg class="bi me-2 opacity-50"><use href="#circle-half"/></svg>
+Auto<svg class="bi ms-auto d-none"><use href="#check2"/></svg></button></li></ul></li></ul></div><div class="d-none d-lg-block"><div class="td-search td-search--offline"><div class=td-search__icon></div><input type=search class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete=off data-offline-search-index-json-src=/offline-search-index.b741d6ebe310f897cfa36de6096275c8.json data-offline-search-base-href=/ data-offline-search-max-results=10></div></div></div></nav></header><div class="container-fluid td-outer"><div class=td-main><div class="row flex-xl-nowrap"><main class="col-12 col-md-9 col-xl-8 ps-md-5" role=main><div class=td-content><div class="pageinfo pageinfo-primary d-print-none"><p>This is the multi-page printable view of this section.
+<a href=# onclick="return print(),!1">Click here to print</a>.</p><p><a href=/cn/docs/user-guide/cluster_deployment/>Return to the regular view of this page</a>.</p></div><h1 class=title>集群部署</h1><ul><li>1: <a href=#pg-b594c5402ac7944a3ffa540117ff40ad>NoMeta 模式</a></li><li>2: <a href=#pg-f8177b6910dfd52c70228b40053918c4>WithMeta 模式</a></li></ul><div class=content><p>在<a href=../quick_start.md>快速开始</a>部分我们已经介绍过单机版本 HoraeDB 的部署。</p><p>除此之外，HoraeDB 作为一个分布式时序数据库，多个 HoraeDB 实例能够以集群的方式提供可伸缩和高可用的数据服务。</p><p>由于目前 HoraeDB 对于 Kubernetes 的支持还在开发之中，目前 HoraeDB 集群部署只能通过手动完成，集群部署的模式主要有两种，两者的区别在于是否需要部署 HoraeMeta，对于 <code>NoMeta</code> 的模式，我们仅建议在测试场景下使用。</p></div></div><div class=td-content style=page-break-before:always><h1 id=pg-b594c5402ac7944a3ffa540117ff40ad>1 - NoMeta 模式</h1><p><strong>注意：此功能仅供测试使用，不推荐生产使用，相关功能将来可能会发生变化。</strong></p><p>本章介绍如何部署一个静态（无 HoraeMeta）的 HoraeDB 集群。</p><p>在没有 HoraeMeta 的情况下，利用 HoraeDB 服务端针对表名提供了可配置的路由功能即可实现集群化部署，为此我们需要提供一个包含路由规则的正确配置。根据这个配置，请求会被发送到集群中的每个 HoraeDB 实例。</p><h2 id=目标>目标</h2><p>本文的目标是：在同一台机器上部署一个集群，这个集群包含两个 HoraeDB 实例。</p><p>如果想要部署一个更大规模的集群，参考此方案也可以进行部署。</p><h2 id=准备配置文件>准备配置文件</h2><h3 id=基础配置>基础配置</h3><p>HoraeDB 的基础配置如下：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[server]
+</span></span><span style=display:flex><span>bind_addr = <span style=color:#ba2121>&#34;0.0.0.0&#34;</span>
+</span></span><span style=display:flex><span>http_port = <span style=color:#666>5440</span>
+</span></span><span style=display:flex><span>grpc_port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[logger]
+</span></span><span style=display:flex><span>level = <span style=color:#ba2121>&#34;info&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[tracing]
+</span></span><span style=display:flex><span>dir = <span style=color:#ba2121>&#34;/tmp/horaedb&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.storage.object_store]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;Local&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/tmp/horaedb&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.wal]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;RocksDB&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/tmp/horaedb&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>为了在同一个机器上部署两个实例，我们需要为每个实例配置不同的服务端口和数据目录。</p><p>实例 <code>HoraeDB_0</code> 的配置如下：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[server]
+</span></span><span style=display:flex><span>bind_addr = <span style=color:#ba2121>&#34;0.0.0.0&#34;</span>
+</span></span><span style=display:flex><span>http_port = <span style=color:#666>5440</span>
+</span></span><span style=display:flex><span>grpc_port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[logger]
+</span></span><span style=display:flex><span>level = <span style=color:#ba2121>&#34;info&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[tracing]
+</span></span><span style=display:flex><span>dir = <span style=color:#ba2121>&#34;/tmp/horaedb_0&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.storage.object_store]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;Local&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/tmp/horaedb_0&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.wal]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;RocksDB&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/tmp/horaedb_0&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>实例 <code>HoraeDB_1</code> 的配置如下：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[server]
+</span></span><span style=display:flex><span>bind_addr = <span style=color:#ba2121>&#34;0.0.0.0&#34;</span>
+</span></span><span style=display:flex><span>http_port = <span style=color:#666>15440</span>
+</span></span><span style=display:flex><span>grpc_port = <span style=color:#666>18831</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[logger]
+</span></span><span style=display:flex><span>level = <span style=color:#ba2121>&#34;info&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[tracing]
+</span></span><span style=display:flex><span>dir = <span style=color:#ba2121>&#34;/tmp/horaedb_1&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.storage.object_store]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;Local&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/tmp/horaedb_1&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.wal]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;RocksDB&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/tmp/horaedb_1&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=schema-和-shard>Schema 和 Shard</h3><p>接下来我们需要定义 <code>Schema</code> 和分片以及路由规则。</p><p>如下定义了 <code>Schema</code> 和分片：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[cluster_deployment]
+</span></span><span style=display:flex><span>mode = <span style=color:#ba2121>&#34;NoMeta&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards]]
+</span></span><span style=display:flex><span>schema = <span style=color:#ba2121>&#39;public_0&#39;</span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards.shard_views]]
+</span></span><span style=display:flex><span>shard_id = <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>[cluster_deployment.topology.schema_shards.shard_views.endpoint]
+</span></span><span style=display:flex><span>addr = <span style=color:#ba2121>&#39;127.0.0.1&#39;</span>
+</span></span><span style=display:flex><span>port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards.shard_views]]
+</span></span><span style=display:flex><span>shard_id = <span style=color:#666>1</span>
+</span></span><span style=display:flex><span>[cluster_deployment.topology.schema_shards.shard_views.endpoint]
+</span></span><span style=display:flex><span>addr = <span style=color:#ba2121>&#39;127.0.0.1&#39;</span>
+</span></span><span style=display:flex><span>port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards]]
+</span></span><span style=display:flex><span>schema = <span style=color:#ba2121>&#39;public_1&#39;</span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards.shard_views]]
+</span></span><span style=display:flex><span>shard_id = <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>[cluster_deployment.topology.schema_shards.shard_views.endpoint]
+</span></span><span style=display:flex><span>addr = <span style=color:#ba2121>&#39;127.0.0.1&#39;</span>
+</span></span><span style=display:flex><span>port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards.shard_views]]
+</span></span><span style=display:flex><span>shard_id = <span style=color:#666>1</span>
+</span></span><span style=display:flex><span>[cluster_deployment.topology.schema_shards.shard_views.endpoint]
+</span></span><span style=display:flex><span>addr = <span style=color:#ba2121>&#39;127.0.0.1&#39;</span>
+</span></span><span style=display:flex><span>port = <span style=color:#666>18831</span>
+</span></span></code></pre></td></tr></table></div></div><p>上述的配置中，定义了两个 <code>Schema</code>：</p><ul><li><code>public_0</code> 有两个分片在 <code>HoraeDB_0</code> 实例上。</li><li><code>public_1</code> 有两个分片同时在 <code>HoraeDB_0</code> 和 <code>HoraeDB_1</code> 实例上。</li></ul><h3 id=路由规则>路由规则</h3><p>定义 <code>Schema</code> 和分片后，需要定义路由规则，如下是一个前缀路由规则：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[[cluster_deployment.route_rules.prefix_rules]]
+</span></span><span style=display:flex><span>schema = <span style=color:#ba2121>&#39;public_0&#39;</span>
+</span></span><span style=display:flex><span>prefix = <span style=color:#ba2121>&#39;prod_&#39;</span>
+</span></span><span style=display:flex><span>shard = <span style=color:#666>0</span>
+</span></span></code></pre></td></tr></table></div></div><p>在这个规则里，<code>public_0</code> 中表名以 <code>prod_</code> 为前缀的所有表属于，相关操作会被路由到 <code>shard_0</code> 也就是 <code>HoraeDB_0</code> 实例。 <code>public_0</code> 中其他的表会以 hash 的方式路由到 <code>shard_0</code> 和 <code>shard_1</code>.</p><p>在前缀规则之外，我们也可以定义一个 hash 规则：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[[cluster_deployment.route_rules.hash_rules]]
+</span></span><span style=display:flex><span>schema = <span style=color:#ba2121>&#39;public_1&#39;</span>
+</span></span><span style=display:flex><span>shards = [<span style=color:#666>0</span>, <span style=color:#666>1</span>]
+</span></span></code></pre></td></tr></table></div></div><p>这个规则告诉 HoraeDB, <code>public_1</code> 的所有表会被路由到 <code>public_1</code> 的 <code>shard_0</code> and <code>shard_1</code>, 也就是 <code>HoraeDB0</code> 和 <code>HoraeDB_1</code>.
+实际上如果没有定义 <code>public_1</code> 的路由规则，这是默认的路由行为。</p><p><code>HoraeDB_0</code> 和 <code>HoraeDB_1</code> 实例完整的配置文件如下：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[server]
+</span></span><span style=display:flex><span>bind_addr = <span style=color:#ba2121>&#34;0.0.0.0&#34;</span>
+</span></span><span style=display:flex><span>http_port = <span style=color:#666>5440</span>
+</span></span><span style=display:flex><span>grpc_port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[logger]
+</span></span><span style=display:flex><span>level = <span style=color:#ba2121>&#34;info&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[tracing]
+</span></span><span style=display:flex><span>dir = <span style=color:#ba2121>&#34;/tmp/horaedb_0&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.storage.object_store]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;Local&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/tmp/horaedb_0&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.wal]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;RocksDB&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/tmp/horaedb_0&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[cluster_deployment]
+</span></span><span style=display:flex><span>mode = <span style=color:#ba2121>&#34;NoMeta&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards]]
+</span></span><span style=display:flex><span>schema = <span style=color:#ba2121>&#39;public_0&#39;</span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards.shard_views]]
+</span></span><span style=display:flex><span>shard_id = <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>[cluster_deployment.topology.schema_shards.shard_views.endpoint]
+</span></span><span style=display:flex><span>addr = <span style=color:#ba2121>&#39;127.0.0.1&#39;</span>
+</span></span><span style=display:flex><span>port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards.shard_views]]
+</span></span><span style=display:flex><span>shard_id = <span style=color:#666>1</span>
+</span></span><span style=display:flex><span>[cluster_deployment.topology.schema_shards.shard_views.endpoint]
+</span></span><span style=display:flex><span>addr = <span style=color:#ba2121>&#39;127.0.0.1&#39;</span>
+</span></span><span style=display:flex><span>port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards]]
+</span></span><span style=display:flex><span>schema = <span style=color:#ba2121>&#39;public_1&#39;</span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards.shard_views]]
+</span></span><span style=display:flex><span>shard_id = <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>[cluster_deployment.topology.schema_shards.shard_views.endpoint]
+</span></span><span style=display:flex><span>addr = <span style=color:#ba2121>&#39;127.0.0.1&#39;</span>
+</span></span><span style=display:flex><span>port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards.shard_views]]
+</span></span><span style=display:flex><span>shard_id = <span style=color:#666>1</span>
+</span></span><span style=display:flex><span>[cluster_deployment.topology.schema_shards.shard_views.endpoint]
+</span></span><span style=display:flex><span>addr = <span style=color:#ba2121>&#39;127.0.0.1&#39;</span>
+</span></span><span style=display:flex><span>port = <span style=color:#666>18831</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[server]
+</span></span><span style=display:flex><span>bind_addr = <span style=color:#ba2121>&#34;0.0.0.0&#34;</span>
+</span></span><span style=display:flex><span>http_port = <span style=color:#666>15440</span>
+</span></span><span style=display:flex><span>grpc_port = <span style=color:#666>18831</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[logger]
+</span></span><span style=display:flex><span>level = <span style=color:#ba2121>&#34;info&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[tracing]
+</span></span><span style=display:flex><span>dir = <span style=color:#ba2121>&#34;/tmp/horaedb_1&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.storage.object_store]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;Local&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/tmp/horaedb_1&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.wal]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;RocksDB&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/tmp/horaedb_1&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[cluster_deployment]
+</span></span><span style=display:flex><span>mode = <span style=color:#ba2121>&#34;NoMeta&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards]]
+</span></span><span style=display:flex><span>schema = <span style=color:#ba2121>&#39;public_0&#39;</span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards.shard_views]]
+</span></span><span style=display:flex><span>shard_id = <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>[cluster_deployment.topology.schema_shards.shard_views.endpoint]
+</span></span><span style=display:flex><span>addr = <span style=color:#ba2121>&#39;127.0.0.1&#39;</span>
+</span></span><span style=display:flex><span>port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards.shard_views]]
+</span></span><span style=display:flex><span>shard_id = <span style=color:#666>1</span>
+</span></span><span style=display:flex><span>[cluster_deployment.topology.schema_shards.shard_views.endpoint]
+</span></span><span style=display:flex><span>addr = <span style=color:#ba2121>&#39;127.0.0.1&#39;</span>
+</span></span><span style=display:flex><span>port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards]]
+</span></span><span style=display:flex><span>schema = <span style=color:#ba2121>&#39;public_1&#39;</span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards.shard_views]]
+</span></span><span style=display:flex><span>shard_id = <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>[cluster_deployment.topology.schema_shards.shard_views.endpoint]
+</span></span><span style=display:flex><span>addr = <span style=color:#ba2121>&#39;127.0.0.1&#39;</span>
+</span></span><span style=display:flex><span>port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>[[cluster_deployment.topology.schema_shards.shard_views]]
+</span></span><span style=display:flex><span>shard_id = <span style=color:#666>1</span>
+</span></span><span style=display:flex><span>[cluster_deployment.topology.schema_shards.shard_views.endpoint]
+</span></span><span style=display:flex><span>addr = <span style=color:#ba2121>&#39;127.0.0.1&#39;</span>
+</span></span><span style=display:flex><span>port = <span style=color:#666>18831</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们给这两份不同的配置文件分别命名为 <code>config_0.toml</code> 和 <code>config_1.toml</code>；
+但是在实际环境中不同的实例可以部署在不同的服务器上，也就是说，不同的实例没有必要设置不同的服务端口和数据目录，这种情况下实例的配置可以使用同一份配置文件。</p><h2 id=启动-horaedb>启动 HoraeDB</h2><p>配置准备好后，我们就可以开始启动 HoraeDB 容器了。</p><p>启动命令如下：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>sudo docker run -d -t --name horaedb_0 -p 5440:5440 -p 8831:8831 -v <span style=color:green;font-weight:700>$(</span><span style=color:green>pwd</span><span style=color:green;font-weight:700>)</span>/config_0.toml:/etc/horaedb/horaedb.toml horaedb/horaedb-server
+</span></span><span style=display:flex><span>sudo docker run -d -t --name horaedb_1 -p 15440:15440 -p 18831:18831 -v <span style=color:green;font-weight:700>$(</span><span style=color:green>pwd</span><span style=color:green;font-weight:700>)</span>/config_1.toml:/etc/horaedb/horaedb.toml horaedb/horaedb-server
+</span></span></code></pre></td></tr></table></div></div><p>容器启动成功后，两个实例的 HoraeDB 集群就搭建完成了，可以开始提供读写服务。</p></div><div class=td-content style=page-break-before:always><h1 id=pg-f8177b6910dfd52c70228b40053918c4>2 - WithMeta 模式</h1><p>本文展示如何部署一个由 HoraeMeta 控制的 HoraeDB 集群，有了 HoraeMeta 提供的服务，如果 HoraeDB 使用存储不在本地的话，就可以实现很多分布式特性，比如水平扩容、负载均衡、服务高可用等。</p><h2 id=部署-horaemeta>部署 HoraeMeta</h2><p>HoraeMeta 是 HoraeDB 分布式模式的核心服务之一，用于管理 HoraeDB 节点的调度，为 HoraeDB 集群提供高可用、负载均衡、集群管控等能力。
+HoraeMeta 本身通过嵌入式的 <a href=https://github.com/etcd-io/etcd>ETCD</a> 保障高可用。此外，ETCD 的服务也被暴露给 HoraeDB 用于实现分布式锁使用。</p><h3 id=编译打包>编译打包</h3><ul><li>安装 Golang，版本号 >= 1.19。</li><li>在项目根目录下使用 <code>make build</code> 进行编译打包。</li></ul><h3 id=部署方式>部署方式</h3><h4 id=启动配置>启动配置</h4><p>目前 HoraeMeta 支持以配置文件和环境变量两种方式来指定服务启动配置。我们提供了配置文件方式启动的示例，具体可以参考 <a href=https://github.com/apache/incubator-horaedb-meta/tree/main/config>config</a>。
+环境变量的配置优先级高于配置文件，当同时存在时，以环境变量为准。</p><h4 id=动态拓扑和静态拓扑>动态拓扑和静态拓扑</h4><p>即使使用了 HoraeMeta 来部署 HoraeDB 集群，也可以选择静态拓扑或动态拓扑。对于静态拓扑，表的分布在集群初始化后是静态的，而对于动态拓扑，表可以在不同的 HoraeDB 节点之间进行动态迁移以达到负载平衡或者 failover 的目的。但是动态拓扑只有在 HoraeDB 节点使用的存储是非本地的情况下才能启用，否则会因为表的数据是持久化在本地，当表转移到不同的 HoraeDB 节点时会导致数据损坏。</p><p>目前，HoraeMeta 默认关闭集群拓扑的动态调度，并且在本篇指南中，这个选项也不会被开启，因为指南中的例子采用的是本地存储。如果要启用动态调度，可以将 <code>TOPOLOGY_TYPE</code> 设置为 <code>dynamic</code>（默认为 <code>static</code>），之后负载均衡和 failover 将会起作用。但是需要注意的是，如果底层存储是本地磁盘，则不要启用它。</p><p>此外对于静态拓扑，参数 <code>DEFAULT_CLUSTER_NODE_COUNT</code> 表示已部署集群中 HoraeDB 节点的数量，应该被设置为 HoraeDB 服务器的实际机器数，这个参数非常重要，因为集群初始化完毕之后，HoraeDB 集群将无法再增减机器。</p><h4 id=启动实例>启动实例</h4><p>HoraeMeta 基于 etcd 实现高可用，在线上环境我们一般部署多个节点，但是在本地环境和测试时，可以直接部署单个节点来简化整个部署流程。</p><ul><li>单节点</li></ul><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker run -d --name horaemeta-server <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>  -p 2379:2379 <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
+</span></span></code></pre></td></tr></table></div></div><ul><li>多节点</li></ul><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>wget https://horaedb.apache.org/config-horaemeta-cluster0.toml
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>docker run -d --network<span style=color:#666>=</span>host --name horaemeta-server0 <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>  -v <span style=color:green;font-weight:700>$(</span><span style=color:green>pwd</span><span style=color:green;font-weight:700>)</span>/config-horaemeta-cluster0.toml:/etc/horaemeta/horaemeta.toml <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>wget https://horaedb.apache.org/config-horaemeta-cluster1.toml
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>docker run -d --network<span style=color:#666>=</span>host --name horaemeta-server1 <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>  -v <span style=color:green;font-weight:700>$(</span><span style=color:green>pwd</span><span style=color:green;font-weight:700>)</span>/config-horaemeta-cluster1.toml:/etc/horaemeta/horaemeta.toml <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>wget https://horaedb.apache.org/config-horaemeta-cluster2.toml
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>docker run -d --network<span style=color:#666>=</span>host --name horaemeta-server2 <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>  -v <span style=color:green;font-weight:700>$(</span><span style=color:green>pwd</span><span style=color:green;font-weight:700>)</span>/config-horaemeta-cluster2.toml:/etc/horaemeta/horaemeta.toml <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
+</span></span></code></pre></td></tr></table></div></div><p>如果 HoraeDB 底层采用的是远程存储，可以环境变量来开启动态调度：只需将 <code>-e ENABLE_SCHEDULE=true</code> 加入到 docker run 命令中去。</p><h2 id=部署-horaedb>部署 HoraeDB</h2><p>在 <code>NoMeta</code> 模式中，由于 HoraeDB 集群拓扑是静态的，因此 HoraeDB 只需要一个本地存储来作为底层的存储层即可。但是在 <code>WithMeta</code> 模式中，集群的拓扑是可以变化的，因此如果 HoraeDB 的底层存储使用一个独立的存储服务的话，HoraeDB 集群就可以获得分布式系统的一些特性：高可用、负载均衡、水平扩展等。
+当然，HoraeDB 仍然可以使用本地存储，这样的话，集群的拓扑仍然是静态的。</p><p>存储相关的配置主要包括两个部分：</p><ul><li>Object Storage</li><li>WAL Storage</li></ul><p>注意：在生产环境中如果我们把 HoraeDB 部署在多个节点上时，请按照如下方式把机器的网络地址设置到环境变量中：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:green>export</span> <span style=color:#19177c>HORAEDB_SERVER_ADDR</span><span style=color:#666>=</span><span style=color:#ba2121>&#34;{server_addr}:8831&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>注意，此网络地址用于 HoraeMeta 和 HoraeDB 通信使用，需保证网络联通可用。</p><h3 id=object-storage>Object Storage</h3><h4 id=本地存储>本地存储</h4><p>类似 <code>NoMeta</code> 模式，我们仍然可以为 HoraeDB 配置一个本地磁盘作为底层存储：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[analytic.storage.object_store]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;Local&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/home/admin/data/horaedb&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=oss>OSS</h4><p>Aliyun OSS 也可以作为 HoraeDB 的底层存储，以此提供数据容灾能力。下面是一个配置示例，示例中的模版变量需要被替换成实际的 OSS 参数才可以真正的使用：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[analytic.storage.object_store]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;Aliyun&#34;</span>
+</span></span><span style=display:flex><span>key_id = <span style=color:#ba2121>&#34;{key_id}&#34;</span>
+</span></span><span style=display:flex><span>key_secret = <span style=color:#ba2121>&#34;{key_secret}&#34;</span>
+</span></span><span style=display:flex><span>endpoint = <span style=color:#ba2121>&#34;{endpoint}&#34;</span>
+</span></span><span style=display:flex><span>bucket = <span style=color:#ba2121>&#34;{bucket}&#34;</span>
+</span></span><span style=display:flex><span>prefix = <span style=color:#ba2121>&#34;{data_dir}&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=s3>S3</h4><p>Amazon S3 也可以作为 HoraeDB 的底层存储，下面是一个配置示例，示例中的模版变量需要被替换成实际的 S3 参数才可以真正的使用：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[analytic.storage.object_store]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;S3&#34;</span>
+</span></span><span style=display:flex><span>region = <span style=color:#ba2121>&#34;{region}&#34;</span>
+</span></span><span style=display:flex><span>key_id = <span style=color:#ba2121>&#34;{key_id}&#34;</span>
+</span></span><span style=display:flex><span>key_secret = <span style=color:#ba2121>&#34;{key_secret}&#34;</span>
+</span></span><span style=display:flex><span>endpoint = <span style=color:#ba2121>&#34;{endpoint}&#34;</span>
+</span></span><span style=display:flex><span>bucket = <span style=color:#ba2121>&#34;{bucket}&#34;</span>
+</span></span><span style=display:flex><span>prefix = <span style=color:#ba2121>&#34;{prefix}&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=wal-storage>WAL Storage</h3><h4 id=rocksdb>RocksDB</h4><p>基于 RocksDB 的 WAL 也是一种本地存储，无第三方依赖，可以很方便的快速部署：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[analytic.wal]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;RocksDB&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/home/admin/data/horaedb&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=oceanbase>OceanBase</h4><p>如果已经有了一个部署好的 OceanBase 集群的话，HoraeDB 可以使用它作为 WAL Storage 来保证其数据的容灾性。下面是一个配置示例，示例中的模版变量需要被替换成实际的 OceanBase 集群的参数才可以真正的使用：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[analytic.wal]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;Obkv&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.wal.data_namespace]
+</span></span><span style=display:flex><span>ttl = <span style=color:#ba2121>&#34;365d&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.wal.obkv]
+</span></span><span style=display:flex><span>full_user_name = <span style=color:#ba2121>&#34;{full_user_name}&#34;</span>
+</span></span><span style=display:flex><span>param_url = <span style=color:#ba2121>&#34;{param_url}&#34;</span>
+</span></span><span style=display:flex><span>password = <span style=color:#ba2121>&#34;{password}&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.wal.obkv.client]
+</span></span><span style=display:flex><span>sys_user_name = <span style=color:#ba2121>&#34;{sys_user_name}&#34;</span>
+</span></span><span style=display:flex><span>sys_password = <span style=color:#ba2121>&#34;{sys_password}&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=kafka>Kafka</h4><p>如果你已经部署了一个 Kafka 集群，HoraeDB 可以也可以使用它作为 WAL Storage。下面是一个配置示例，示例中的模版变量需要被替换成实际的 Kafka 集群的参数才可以真正的使用：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[analytic.wal]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;Kafka&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.wal.kafka.client]
+</span></span><span style=display:flex><span>boost_broker = <span style=color:#ba2121>&#34;{boost_broker}&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h4 id=meta-客户端配置>Meta 客户端配置</h4><p>除了存储层的配置外，HoraeDB 需要 HoraeMeta 相关的配置来与 HoraeMeta 集群进行通信：</p><pre tabindex=0><code>[cluster.meta_client]
+cluster_name = &#39;defaultCluster&#39;
+meta_addr = &#39;http://{HoraeMetaAddr}:2379&#39;
+lease = &#34;10s&#34;
+timeout = &#34;5s&#34;
+
+[cluster_deployment.etcd_client]
+server_addrs = [&#39;http://{HoraeMetaAddr}:2379&#39;]
+</code></pre><h3 id=完整配置>完整配置</h3><p>将上面提到的所有关键配置合并之后，我们可以得到一个完整的、可运行的配置。为了让这个配置可以直接运行起来，配置中均采用了本地存储：基于 RocksDB 的 WAL 和本地磁盘的 Object Storage：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">60
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span>[server]
+</span></span><span style=display:flex><span>bind_addr = <span style=color:#ba2121>&#34;0.0.0.0&#34;</span>
+</span></span><span style=display:flex><span>http_port = <span style=color:#666>5440</span>
+</span></span><span style=display:flex><span>grpc_port = <span style=color:#666>8831</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[logger]
+</span></span><span style=display:flex><span>level = <span style=color:#ba2121>&#34;info&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[runtime]
+</span></span><span style=display:flex><span>read_thread_num = <span style=color:#666>20</span>
+</span></span><span style=display:flex><span>write_thread_num = <span style=color:#666>16</span>
+</span></span><span style=display:flex><span>background_thread_num = <span style=color:#666>12</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[cluster_deployment]
+</span></span><span style=display:flex><span>mode = <span style=color:#ba2121>&#34;WithMeta&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[cluster_deployment.meta_client]
+</span></span><span style=display:flex><span>cluster_name = <span style=color:#ba2121>&#39;defaultCluster&#39;</span>
+</span></span><span style=display:flex><span>meta_addr = <span style=color:#ba2121>&#39;http://127.0.0.1:2379&#39;</span>
+</span></span><span style=display:flex><span>lease = <span style=color:#ba2121>&#34;10s&#34;</span>
+</span></span><span style=display:flex><span>timeout = <span style=color:#ba2121>&#34;5s&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[cluster_deployment.etcd_client]
+</span></span><span style=display:flex><span>server_addrs = [<span style=color:#ba2121>&#39;127.0.0.1:2379&#39;</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic]
+</span></span><span style=display:flex><span>write_group_worker_num = <span style=color:#666>16</span>
+</span></span><span style=display:flex><span>replay_batch_size = <span style=color:#666>100</span>
+</span></span><span style=display:flex><span>max_replay_tables_per_batch = <span style=color:#666>128</span>
+</span></span><span style=display:flex><span>write_group_command_channel_cap = <span style=color:#666>1024</span>
+</span></span><span style=display:flex><span>sst_background_read_parallelism = <span style=color:#666>8</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.manifest]
+</span></span><span style=display:flex><span>scan_batch_size = <span style=color:#666>100</span>
+</span></span><span style=display:flex><span>snapshot_every_n_updates = <span style=color:#666>10000</span>
+</span></span><span style=display:flex><span>scan_timeout = <span style=color:#ba2121>&#34;5s&#34;</span>
+</span></span><span style=display:flex><span>store_timeout = <span style=color:#ba2121>&#34;5s&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.wal]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;RocksDB&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/home/admin/data/horaedb&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.storage]
+</span></span><span style=display:flex><span>mem_cache_capacity = <span style=color:#ba2121>&#34;20GB&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># 1&lt;&lt;8=256</span>
+</span></span><span style=display:flex><span>mem_cache_partition_bits = <span style=color:#666>8</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.storage.object_store]
+</span></span><span style=display:flex><span>type = <span style=color:#ba2121>&#34;Local&#34;</span>
+</span></span><span style=display:flex><span>data_dir = <span style=color:#ba2121>&#34;/home/admin/data/horaedb/&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.table_opts]
+</span></span><span style=display:flex><span>arena_block_size = <span style=color:#666>2097152</span>
+</span></span><span style=display:flex><span>write_buffer_size = <span style=color:#666>33554432</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[analytic.compaction]
+</span></span><span style=display:flex><span>schedule_channel_len = <span style=color:#666>16</span>
+</span></span><span style=display:flex><span>schedule_interval = <span style=color:#ba2121>&#34;30m&#34;</span>
+</span></span><span style=display:flex><span>max_ongoing_tasks = <span style=color:#666>8</span>
+</span></span><span style=display:flex><span>memory_limit = <span style=color:#ba2121>&#34;4G&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>将这个配置命名成 <code>config.toml</code>。至于使用远程存储的配置示例在下面我们也提供了，需要注意的是，配置中的相关参数需要被替换成实际的参数才能真正使用：</p><ul><li><a href=../../resources/config_local_oss.toml>本地 RocksDB WAL + OSS</a></li><li><a href=../../resources/config_obkv_oss.toml>OceanBase WAL + OSS</a></li><li><a href=../../resources/config_kafka_oss.toml>Kafka WAL + OSS</a></li></ul><h3 id=启动集群>启动集群</h3><p>首先，我们先启动 HoraeMeta：</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker run -d --name horaemeta-server <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>  -p 2379:2379 <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>  ghcr.io/apache/horaemeta-server:nightly-20231225-ab067bf0
+</span></span></code></pre></td></tr></table></div></div><p>HoraeMeta 启动好了，没有问题之后，就可以把 HoraeDB 的容器创建出来：
+TODO: 补充完整</p></div></main></div></div><footer class="td-footer row d-print-none"><div class=container-fluid><div class="row mx-md-2"><div class=td-footer__center>Apache HoraeDB is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the Apache Incubator. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.<hr><span class=td-footer__copyright>&copy;
+2023&ndash;2024
+<span class=td-footer__authors><p>The Apache Software Foundation, Licensed under the Apache License, Version 2.0.</p><p>Apache, the names of Apache projects, and the feather logo are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries.</p></span></span><span class=td-footer__all_rights_reserved>All Rights Reserved</span></div></div></div></footer></div><script src=/js/main.min.f72d00502781aaf278a14088eb2356b1ba2a05ad698a0c43fe86314d74ceab56.js integrity="sha256-9y0AUCeBqvJ4oUCI6yNWsboqBa1pigxD/oYxTXTOq1Y=" crossorigin=anonymous></script><script defer src=/js/click-to-copy.min.73478a7d4807698aed7e355eb23f9890ca18fea3158604c8471746d046702bad.js integrity="sha256-c0eKfUgHaYrtfjVesj+YkMoY/qMVhgTIRxdG0EZwK60=" crossorigin=anonymous></script><script src=/js/tabpane-persist.js></script></body></html>

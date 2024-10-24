@@ -1,0 +1,291 @@
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=en class=no-js><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><link rel=canonical type=text/html href=https://horaedb.apache.org/docs/user-guide/operation/><link rel=alternate type=application/rss+xml href=https://horaedb.apache.org/docs/user-guide/operation/index.xml><meta name=robots content="noindex, nofollow"><link rel="shortcut icon" href=/favicons/favicon.ico><link rel=apple-touch-icon href=/favicons/apple-touch-icon-180x180.png sizes=180x180><link rel=icon type=image/png href=/favicons/favicon-16x16.png sizes=16x16><link rel=icon type=image/png href=/favicons/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/favicons/android-36x36.png sizes=36x36><link rel=icon type=image/png href=/favicons/android-48x48.png sizes=48x48><link rel=icon type=image/png href=/favicons/android-72x72.png sizes=72x72><link rel=icon type=image/png href=/favicons/android-96x96.png sizes=96x96><link rel=icon type=image/png href=/favicons/android-144x144.png sizes=144x144><link rel=icon type=image/png href=/favicons/android-192x192.png sizes=192x192><title>Operation and Maintenance | Apache HoraeDB</title>
+<meta name=description content="This guide introduces the operation and maintenance of HoraeDB, including cluster installation, database&amp;table operations, fault tolerance, disaster recovery, data import and export, etc."><meta property="og:url" content="https://horaedb.apache.org/docs/user-guide/operation/"><meta property="og:site_name" content="Apache HoraeDB"><meta property="og:title" content="Operation and Maintenance"><meta property="og:description" content="This guide introduces the operation and maintenance of HoraeDB, including cluster installation, database&amp;table operations, fault tolerance, disaster recovery, data import and export, etc."><meta property="og:locale" content="en"><meta property="og:type" content="website"><meta itemprop=name content="Operation and Maintenance"><meta itemprop=description content="This guide introduces the operation and maintenance of HoraeDB, including cluster installation, database&amp;table operations, fault tolerance, disaster recovery, data import and export, etc."><meta itemprop=dateModified content="2024-08-21T10:34:40+08:00"><meta itemprop=wordCount content="23"><meta name=twitter:card content="summary"><meta name=twitter:title content="Operation and Maintenance"><meta name=twitter:description content="This guide introduces the operation and maintenance of HoraeDB, including cluster installation, database&amp;table operations, fault tolerance, disaster recovery, data import and export, etc."><link rel=preload href=/scss/main.min.5e43f8574351718e9b44966c9f3a571202ed048c082f457fb574c10b1a1bc56c.css as=style integrity="sha256-XkP4V0NRcY6bRJZsnzpXEgLtBIwIL0V/tXTBCxobxWw=" crossorigin=anonymous><link href=/scss/main.min.5e43f8574351718e9b44966c9f3a571202ed048c082f457fb574c10b1a1bc56c.css rel=stylesheet integrity="sha256-XkP4V0NRcY6bRJZsnzpXEgLtBIwIL0V/tXTBCxobxWw=" crossorigin=anonymous><script src=https://code.jquery.com/jquery-3.7.1.min.js integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin=anonymous></script><script defer src=https://unpkg.com/lunr@2.3.9/lunr.min.js integrity=sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli crossorigin=anonymous></script></head><body class=td-section><header><nav class="td-navbar js-navbar-scroll" data-bs-theme=dark><div class="container-fluid flex-column flex-md-row"><a class=navbar-brand href=/><span class="navbar-brand__logo navbar-logo"></span><span class=navbar-brand__name>Apache HoraeDB</span></a><div class="td-navbar-nav-scroll ms-md-auto" id=main_navbar><ul class=navbar-nav><li class=nav-item><a class="nav-link active" href=/docs/><i class='fa-solid fa-book'></i><span>Docs</span></a></li><li class=nav-item><a class=nav-link href=/blog/><i class='fa-brands fa-blogger'></i><span>Blog</span></a></li><li class=nav-item><a class=nav-link href=/downloads/><i class='fa-solid fa-download'></i><span>Downloads</span></a></li><li class=nav-item><a class=nav-link href=/community/><span>Community</span></a></li><li class="nav-item dropdown d-none d-lg-block"><div class=dropdown><a class="nav-link dropdown-toggle" href=# role=button data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false>English</a><ul class=dropdown-menu><li><a class=dropdown-item href=/cn/docs/user-guide/operation/>中文</a></li></ul></div></li><li class="td-light-dark-menu nav-item dropdown"><svg class="d-none"><symbol id="check2" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5.0 010 .708l-7 7a.5.5.0 01-.708.0l-3.5-3.5a.5.5.0 11.708-.708L6.5 10.293l6.646-6.647a.5.5.0 01.708.0z"/></symbol><symbol id="circle-half" viewBox="0 0 16 16"><path d="M8 15A7 7 0 108 1v14zm0 1A8 8 0 118 0a8 8 0 010 16z"/></symbol><symbol id="moon-stars-fill" viewBox="0 0 16 16"><path d="M6 .278a.768.768.0 01.08.858 7.208 7.208.0 00-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527.0 1.04-.055 1.533-.16a.787.787.0 01.81.316.733.733.0 01-.031.893A8.349 8.349.0 018.344 16C3.734 16 0 12.286.0 7.71.0 4.266 2.114 1.312 5.124.06A.752.752.0 016 .278z"/><path d="M10.794 3.148a.217.217.0 01.412.0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217.0 010 .412l-1.162.387A1.734 1.734.0 0011.593 7.69l-.387 1.162a.217.217.0 01-.412.0l-.387-1.162A1.734 1.734.0 009.31 6.593l-1.162-.387a.217.217.0 010-.412l1.162-.387a1.734 1.734.0 001.097-1.097l.387-1.162zM13.863.099a.145.145.0 01.274.0l.258.774c.115.346.386.617.732.732l.774.258a.145.145.0 010 .274l-.774.258a1.156 1.156.0 00-.732.732l-.258.774a.145.145.0 01-.274.0l-.258-.774a1.156 1.156.0 00-.732-.732l-.774-.258a.145.145.0 010-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/></symbol><symbol id="sun-fill" viewBox="0 0 16 16"><path d="M8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.5.5.0 01.5.5v2a.5.5.0 01-1 0v-2A.5.5.0 018 0zm0 13a.5.5.0 01.5.5v2a.5.5.0 01-1 0v-2A.5.5.0 018 13zm8-5a.5.5.0 01-.5.5h-2a.5.5.0 010-1h2a.5.5.0 01.5.5zM3 8a.5.5.0 01-.5.5h-2a.5.5.0 010-1h2A.5.5.0 013 8zm10.657-5.657a.5.5.0 010 .707l-1.414 1.415a.5.5.0 11-.707-.708l1.414-1.414a.5.5.0 01.707.0zm-9.193 9.193a.5.5.0 010 .707L3.05 13.657a.5.5.0 01-.707-.707l1.414-1.414a.5.5.0 01.707.0zm9.193 2.121a.5.5.0 01-.707.0l-1.414-1.414a.5.5.0 01.707-.707l1.414 1.414a.5.5.0 010 .707zM4.464 4.465a.5.5.0 01-.707.0L2.343 3.05a.5.5.0 11.707-.707l1.414 1.414a.5.5.0 010 .708z"/></symbol></svg>
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" id=bd-theme type=button aria-expanded=false data-bs-toggle=dropdown data-bs-display=static aria-label="Toggle theme (auto)"><svg class="bi my-1 theme-icon-active"><use href="#circle-half"/></svg></button><ul class="dropdown-menu dropdown-menu-end" aria-labelledby=bd-theme-text><li><button type=button class="dropdown-item d-flex align-items-center" data-bs-theme-value=light aria-pressed=false>
+<svg class="bi me-2 opacity-50"><use href="#sun-fill"/></svg>
+Light<svg class="bi ms-auto d-none"><use href="#check2"/></svg></button></li><li><button type=button class="dropdown-item d-flex align-items-center" data-bs-theme-value=dark aria-pressed=false>
+<svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"/></svg>
+Dark<svg class="bi ms-auto d-none"><use href="#check2"/></svg></button></li><li><button type=button class="dropdown-item d-flex align-items-center active" data-bs-theme-value=auto aria-pressed=true>
+<svg class="bi me-2 opacity-50"><use href="#circle-half"/></svg>
+Auto<svg class="bi ms-auto d-none"><use href="#check2"/></svg></button></li></ul></li></ul></div><div class="d-none d-lg-block"><div class="td-search td-search--offline"><div class=td-search__icon></div><input type=search class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete=off data-offline-search-index-json-src=/offline-search-index.b741d6ebe310f897cfa36de6096275c8.json data-offline-search-base-href=/ data-offline-search-max-results=10></div></div></div></nav></header><div class="container-fluid td-outer"><div class=td-main><div class="row flex-xl-nowrap"><main class="col-12 col-md-9 col-xl-8 ps-md-5" role=main><div class=td-content><div class="pageinfo pageinfo-primary d-print-none"><p>This is the multi-page printable view of this section.
+<a href=# onclick="return print(),!1">Click here to print</a>.</p><p><a href=/docs/user-guide/operation/>Return to the regular view of this page</a>.</p></div><h1 class=title>Operation and Maintenance</h1><ul><li>1: <a href=#pg-738a2f3b8314089a64b49e9b83ab85e7>Block List</a></li><li>2: <a href=#pg-5ee6dffed65012da62e99d132c3d88a0>Cluster Operation</a></li><li>3: <a href=#pg-8075e68e25cc23e412d57385899cca86>Observability</a></li><li>4: <a href=#pg-a415e58936001e7befe959b3318dac0e>Table Operation</a></li><li>5: <a href=#pg-5a18a99c1e89b2e34e598ab36e5b8980>Table Operation</a></li></ul><div class=content><p>This guide introduces the operation and maintenance of HoraeDB, including cluster installation, database&amp;table operations, fault tolerance, disaster recovery, data import and export, etc.</p></div></div><div class=td-content><h1 id=pg-738a2f3b8314089a64b49e9b83ab85e7>1 - Block List</h1><h2 id=add-block-list>Add block list</h2><p>If you want to reject query for a table, you can add table name to &lsquo;read_block_list&rsquo;.</p><h3 id=example>Example</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>curl --location --request POST <span style=color:#ba2121>&#39;http://localhost:5000/admin/block&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>--header <span style=color:#ba2121>&#39;Content-Type: application/json&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>-d <span style=color:#ba2121>&#39;{
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;operation&#34;:&#34;Add&#34;,
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;write_block_list&#34;:[],
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;read_block_list&#34;:[&#34;my_table&#34;]
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>}&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=response>Response</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>&#34;write_block_list&#34;</span>: [],
+</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>&#34;read_block_list&#34;</span>: [<span style=color:#ba2121>&#34;my_table&#34;</span>]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=set-block-list>Set block list</h2><p>You can use set operation to clear exist tables and set new tables to &lsquo;read_block_list&rsquo; like following example.</p><h3 id=example-1>Example</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>curl --location --request POST <span style=color:#ba2121>&#39;http://localhost:5000/admin/block&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>--header <span style=color:#ba2121>&#39;Content-Type: application/json&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>-d <span style=color:#ba2121>&#39;{
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;operation&#34;:&#34;Set&#34;,
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;write_block_list&#34;:[],
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;read_block_list&#34;:[&#34;my_table1&#34;,&#34;my_table2&#34;]
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>}&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=response-1>Response</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>&#34;write_block_list&#34;</span>: [],
+</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>&#34;read_block_list&#34;</span>: [<span style=color:#ba2121>&#34;my_table1&#34;</span>, <span style=color:#ba2121>&#34;my_table2&#34;</span>]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div><h2 id=remove-block-list>Remove block list</h2><p>You can remove tables from &lsquo;read_block_list&rsquo; like following example.</p><h3 id=example-2>Example</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>curl --location --request POST <span style=color:#ba2121>&#39;http://localhost:5000/admin/block&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>--header <span style=color:#ba2121>&#39;Content-Type: application/json&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>-d <span style=color:#ba2121>&#39;{
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;operation&#34;:&#34;Remove&#34;,
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;write_block_list&#34;:[],
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;read_block_list&#34;:[&#34;my_table1&#34;]
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>}&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=response-2>Response</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>&#34;write_block_list&#34;</span>: [],
+</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>&#34;read_block_list&#34;</span>: [<span style=color:#ba2121>&#34;my_table2&#34;</span>]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></td></tr></table></div></div></div><div class=td-content style=page-break-before:always><h1 id=pg-5ee6dffed65012da62e99d132c3d88a0>2 - Cluster Operation</h1><p>The Operations for HoraeDB cluster mode, it can only be used when HoraeMeta is deployed.</p><h2 id=operation-interface>Operation Interface</h2><p>You need to replace 127.0.0.1 with the actual project path.</p><ul><li>Query table
+When tableNames is not empty, use tableNames for query.
+When tableNames is empty, ids are used for query. When querying with ids, schemaName is useless.</li></ul><pre tabindex=0><code>curl --location &#39;http://127.0.0.1:8080/api/v1/table/query&#39; \
+--header &#39;Content-Type: application/json&#39; \
+-d &#39;{
+    &#34;clusterName&#34;:&#34;defaultCluster&#34;,
+    &#34;schemaName&#34;:&#34;public&#34;,
+    &#34;names&#34;:[&#34;demo1&#34;, &#34;__demo1_0&#34;],
+}&#39;
+
+curl --location &#39;http://127.0.0.1:8080/api/v1/table/query&#39; \
+--header &#39;Content-Type: application/json&#39; \
+-d &#39;{
+    &#34;clusterName&#34;:&#34;defaultCluster&#34;,
+    &#34;ids&#34;:[0, 1]
+}&#39;
+</code></pre><ul><li>Query the route of table</li></ul><pre tabindex=0><code>curl --location --request POST &#39;http://127.0.0.1:8080/api/v1/route&#39; \
+--header &#39;Content-Type: application/json&#39; \
+-d &#39;{
+    &#34;clusterName&#34;:&#34;defaultCluster&#34;,
+    &#34;schemaName&#34;:&#34;public&#34;,
+    &#34;table&#34;:[&#34;demo&#34;]
+}&#39;
+</code></pre><ul><li>Query the mapping of shard and node</li></ul><pre tabindex=0><code>curl --location --request POST &#39;http://127.0.0.1:8080/api/v1/getNodeShards&#39; \
+--header &#39;Content-Type: application/json&#39; \
+-d &#39;{
+    &#34;ClusterName&#34;:&#34;defaultCluster&#34;
+}&#39;
+</code></pre><ul><li>Query the mapping of table and shard
+If ShardIDs in the request is empty, query with all shardIDs in the cluster.</li></ul><pre tabindex=0><code>curl --location --request POST &#39;http://127.0.0.1:8080/api/v1/getShardTables&#39; \
+--header &#39;Content-Type: application/json&#39; \
+-d &#39;{
+    &#34;clusterName&#34;:&#34;defaultCluster&#34;,
+    &#34;shardIDs&#34;: [1,2]
+}&#39;
+</code></pre><ul><li>Drop table</li></ul><pre tabindex=0><code>curl --location --request POST &#39;http://127.0.0.1:8080/api/v1/dropTable&#39; \
+--header &#39;Content-Type: application/json&#39; \
+-d &#39;{
+    &#34;clusterName&#34;: &#34;defaultCluster&#34;,
+    &#34;schemaName&#34;: &#34;public&#34;,
+    &#34;table&#34;: &#34;demo&#34;
+}&#39;
+</code></pre><ul><li>Transfer leader shard</li></ul><pre tabindex=0><code>curl --location --request POST &#39;http://127.0.0.1:8080/api/v1/transferLeader&#39; \
+--header &#39;Content-Type: application/json&#39; \
+-d &#39;{
+    &#34;clusterName&#34;:&#34;defaultCluster&#34;,
+    &#34;shardID&#34;: 1,
+    &#34;oldLeaderNodeName&#34;: &#34;127.0.0.1:8831&#34;,
+    &#34;newLeaderNodeName&#34;: &#34;127.0.0.1:18831&#34;
+}&#39;
+</code></pre><ul><li>Split shard</li></ul><pre tabindex=0><code>curl --location --request POST &#39;http://127.0.0.1:8080/api/v1/split&#39; \
+--header &#39;Content-Type: application/json&#39; \
+-d &#39;{
+    &#34;clusterName&#34; : &#34;defaultCluster&#34;,
+    &#34;schemaName&#34; :&#34;public&#34;,
+    &#34;nodeName&#34; :&#34;127.0.0.1:8831&#34;,
+    &#34;shardID&#34; : 0,
+    &#34;splitTables&#34;:[&#34;demo&#34;]
+}&#39;
+</code></pre><ul><li>Create cluster</li></ul><pre tabindex=0><code>curl --location &#39;http://127.0.0.1:8080/api/v1/clusters&#39; \
+--header &#39;Content-Type: application/json&#39; \
+--data &#39;{
+    &#34;name&#34;:&#34;testCluster&#34;,
+    &#34;nodeCount&#34;:3,
+    &#34;shardTotal&#34;:9,
+    &#34;topologyType&#34;:&#34;static&#34;
+}&#39;
+</code></pre><ul><li>Update cluster</li></ul><pre tabindex=0><code>curl --location --request PUT &#39;http://127.0.0.1:8080/api/v1/clusters/{NewClusterName}&#39; \
+--header &#39;Content-Type: application/json&#39; \
+--data &#39;{
+    &#34;nodeCount&#34;:28,
+    &#34;shardTotal&#34;:128,
+    &#34;topologyType&#34;:&#34;dynamic&#34;
+}&#39;
+</code></pre><ul><li>List clusters</li></ul><pre tabindex=0><code>curl --location &#39;http://127.0.0.1:8080/api/v1/clusters&#39;
+</code></pre><ul><li>Update <code>enableSchedule</code></li></ul><pre tabindex=0><code>curl --location --request PUT &#39;http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule&#39; \
+--header &#39;Content-Type: application/json&#39; \
+--data &#39;{
+    &#34;enable&#34;:true
+}&#39;
+</code></pre><ul><li>Query <code>enableSchedule</code></li></ul><pre tabindex=0><code>curl --location &#39;http://127.0.0.1:8080/api/v1/clusters/{ClusterName}/enableSchedule&#39;
+</code></pre><ul><li>Update flow limiter</li></ul><pre tabindex=0><code>curl --location --request PUT &#39;http://127.0.0.1:8080/api/v1/flowLimiter&#39; \
+--header &#39;Content-Type: application/json&#39; \
+--data &#39;{
+    &#34;limit&#34;:1000,
+    &#34;burst&#34;:10000,
+    &#34;enable&#34;:true
+}&#39;
+</code></pre><ul><li>Query information of flow limiter</li></ul><pre tabindex=0><code>curl --location &#39;http://127.0.0.1:8080/api/v1/flowLimiter&#39;
+</code></pre><ul><li>List nodes of HoraeMeta cluster</li></ul><pre tabindex=0><code>curl --location &#39;http://127.0.0.1:8080/api/v1/etcd/member&#39;
+</code></pre><ul><li>Move leader of HoraeMeta cluster</li></ul><pre tabindex=0><code>curl --location &#39;http://127.0.0.1:8080/api/v1/etcd/moveLeader&#39; \
+--header &#39;Content-Type: application/json&#39; \
+--data &#39;{
+    &#34;memberName&#34;:&#34;meta1&#34;
+}&#39;
+</code></pre><ul><li>Add node of HoraeMeta cluster</li></ul><pre tabindex=0><code>curl --location --request PUT &#39;http://127.0.0.1:8080/api/v1/etcd/member&#39; \
+--header &#39;Content-Type: application/json&#39; \
+--data &#39;{
+    &#34;memberAddrs&#34;:[&#34;http://127.0.0.1:42380&#34;]
+}&#39;
+</code></pre><ul><li>Replace node of HoraeMeta cluster</li></ul><pre tabindex=0><code>curl --location &#39;http://127.0.0.1:8080/api/v1/etcd/member&#39; \
+--header &#39;Content-Type: application/json&#39; \
+--data &#39;{
+    &#34;oldMemberName&#34;:&#34;meta0&#34;,
+    &#34;newMemberAddr&#34;:[&#34;http://127.0.0.1:42380&#34;]
+}&#39;
+</code></pre></div><div class=td-content style=page-break-before:always><h1 id=pg-8075e68e25cc23e412d57385899cca86>3 - Observability</h1><p>HoraeDB is observable with Prometheus and Grafana.</p><h2 id=prometheus>Prometheus</h2><p><a href=https://github.com/prometheus/prometheus>Prometheus</a> is a systems and service monitoring system.</p><h3 id=configuration>Configuration</h3><p>Save the following configuration into the <code>prometheus.yml</code> file. For example, in the <code>tmp</code> directory, <code>/tmp/prometheus.yml</code>.</p><p>Two HoraeDB http service are started on localhost:5440 and localhost:5441.</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:green;font-weight:700>global</span>:<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>  </span><span style=color:green;font-weight:700>scrape_interval</span>:<span style=color:#bbb> </span>30s<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb></span><span style=color:green;font-weight:700>scrape_configs</span>:<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>  </span>- <span style=color:green;font-weight:700>job_name</span>:<span style=color:#bbb> </span>horaedb-server<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>    </span><span style=color:green;font-weight:700>static_configs</span>:<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>      </span>- <span style=color:green;font-weight:700>targets</span>:<span style=color:#bbb> </span>[your_ip:5440, your_ip:5441]<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>        </span><span style=color:green;font-weight:700>labels</span>:<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>          </span><span style=color:green;font-weight:700>env</span>:<span style=color:#bbb> </span>horaedbcluster<span style=color:#bbb>
+</span></span></span></code></pre></td></tr></table></div></div><p>See details about configuration <a href=https://prometheus.io/docs/prometheus/latest/configuration/configuration/>here</a>.</p><h3 id=run>Run</h3><p>You can use docker to start Prometheus. The docker image information is <a href=https://hub.docker.com/r/prom/prometheus>here</a>.</p><pre tabindex=0><code>docker run \
+    -d --name=prometheus \
+    -p 9090:9090 \
+    -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml \
+    prom/prometheus:v2.41.0
+</code></pre><p>For more detailed installation methods, refer to <a href=https://prometheus.io/docs/prometheus/latest/installation/>here</a>.</p><h2 id=grafana>Grafana</h2><p><a href=https://github.com/grafana/grafana>Grafana</a> is an open and composable observability and data visualization platform.</p><h3 id=run-1>Run</h3><p>You can use docker to start grafana. The docker image information is <a href=https://hub.docker.com/r/grafana/grafana>here</a>.</p><pre tabindex=0><code>docker run -d --name=grafana -p 3000:3000 grafana/grafana:9.3.6
+</code></pre><p>Default admin user credentials are admin/admin.</p><p>Grafana is available on http://127.0.0.1:3000.</p><p>For more detailed installation methods, refer to <a href=https://grafana.com/docs/grafana/latest/setup-grafana/installation/>here</a>.</p><h3 id=configure-data-source>Configure data source</h3><ol><li>Hover the cursor over the Configuration (gear) icon.</li><li>Select Data Sources.</li><li>Select the Prometheus data source.</li></ol><p>Note: The url of Prometheus is <code>http://your_ip:9090</code>.</p><img src=/images/grafana-datasource.png height=400 width=200><p>See more details <a href=https://grafana.com/docs/grafana/latest/datasources/prometheus/>here</a>.</p><h3 id=import-grafana-dashboard>Import grafana dashboard</h3><p><a href=/grafana-dashboard.json>dashboard json</a></p><img src=/images/grafana-dashboard.png height=400 width=200><h2 id=horaedb-metrics>HoraeDB Metrics</h2><p>After importing the dashboard, you will see the following page:</p><img src=/images/grafana-horaedb-dashboard.png height=400 width=600><h3 id=panels>Panels</h3><ul><li>tps: Number of cluster write requests.</li><li>qps: Number of cluster query requests.</li><li>99th query/write duration: 99th quantile of write and query duration.</li><li>table query: Query group by table.</li><li>99th write duration details by instance: 99th quantile of write duration group by instance.</li><li>99th query duration details by instance: 99th quantile of query duration group by instance.</li><li>99th write partition table duration: 99th quantile of write duration of partition table.</li><li>table rows: The rows of data written.</li><li>table rows by instance: The written rows by instance.</li><li>total tables to write: Number of tables with data written.</li><li>flush count: Number of HoraeDB flush.</li><li>99th flush duration details by instance: 99th quantile of flush duration group by instance.</li><li>99th write stall duration details by instance: 99th quantile of write stall duration group by instance.</li></ul></div><div class=td-content style=page-break-before:always><h1 id=pg-a415e58936001e7befe959b3318dac0e>4 - Table Operation</h1><h2 id=query-table-information>Query Table Information</h2><p>Like Mysql&rsquo;s <code>information_schema.tables</code>, HoraeDB provides <code>system.public.tables</code> to save tables information.
+Columns:</p><ul><li>timestamp([TimeStamp])</li><li>catalog([String])</li><li>schema([String])</li><li>table_name([String])</li><li>table_id([Uint64])</li><li>engine([String])</li></ul><h3 id=example>Example</h3><p>Query table information via table_name like this:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>curl --location --request POST <span style=color:#ba2121>&#39;http://localhost:5000/sql&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>--header <span style=color:#ba2121>&#39;Content-Type: application/json&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>-d <span style=color:#ba2121>&#39;{
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;query&#34;: &#34;select * from system.public.tables where `table_name`=\&#34;my_table\&#34;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>}&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=response>Response</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>&#34;rows&#34;</span>:[
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:green;font-weight:700>&#34;timestamp&#34;</span>:<span style=color:#666>0</span>,
+</span></span><span style=display:flex><span>            <span style=color:green;font-weight:700>&#34;catalog&#34;</span>:<span style=color:#ba2121>&#34;horaedb&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:green;font-weight:700>&#34;schema&#34;</span>:<span style=color:#ba2121>&#34;public&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:green;font-weight:700>&#34;table_name&#34;</span>:<span style=color:#ba2121>&#34;my_table&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:green;font-weight:700>&#34;table_id&#34;</span>:<span style=color:#666>3298534886446</span>,
+</span></span><span style=display:flex><span>            <span style=color:green;font-weight:700>&#34;engine&#34;</span>:<span style=color:#ba2121>&#34;Analytic&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span><span>}</span>
+</span></span></code></pre></td></tr></table></div></div></div><div class=td-content style=page-break-before:always><h1 id=pg-5a18a99c1e89b2e34e598ab36e5b8980>5 - Table Operation</h1><p>HoraeDB supports standard SQL protocols and allows you to create tables and read/write data via http requests. More <a href=../sql/README.md>SQL</a></p><h2 id=create-table>Create Table</h2><h3 id=example>Example</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>curl --location --request POST <span style=color:#ba2121>&#39;http://127.0.0.1:5000/sql&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>--header <span style=color:#ba2121>&#39;Content-Type: application/json&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>-d <span style=color:#ba2121>&#39;{
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;query&#34;: &#34;CREATE TABLE `demo` (`name` string TAG, `value` double NOT NULL, `t` timestamp NOT NULL, TIMESTAMP KEY(t)) ENGINE=Analytic with (enable_ttl=&#39;</span><span style=color:#b62;font-weight:700>\&#39;</span><span style=color:#ba2121>&#39;false&#39;</span><span style=color:#b62;font-weight:700>\&#39;</span><span style=color:#ba2121>&#39;)&#34;
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>}&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=write-data>Write Data</h2><h3 id=example-1>Example</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>curl --location --request POST <span style=color:#ba2121>&#39;http://127.0.0.1:5000/sql&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>--header <span style=color:#ba2121>&#39;Content-Type: application/json&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>-d <span style=color:#ba2121>&#39;{
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;query&#34;: &#34;INSERT INTO demo(t, name, value) VALUES(1651737067000, &#39;</span><span style=color:#b62;font-weight:700>\&#39;</span><span style=color:#ba2121>&#39;horaedb&#39;</span><span style=color:#b62;font-weight:700>\&#39;</span><span style=color:#ba2121>&#39;, 100)&#34;
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>}&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=read-data>Read Data</h2><h3 id=example-2>Example</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>curl --location --request POST <span style=color:#ba2121>&#39;http://127.0.0.1:5000/sql&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>--header <span style=color:#ba2121>&#39;Content-Type: application/json&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>-d <span style=color:#ba2121>&#39;{
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;query&#34;: &#34;select * from demo&#34;
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>}&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=query-table-info>Query Table Info</h2><h3 id=example-3>Example</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>curl --location --request POST <span style=color:#ba2121>&#39;http://127.0.0.1:5000/sql&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>--header <span style=color:#ba2121>&#39;Content-Type: application/json&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>-d <span style=color:#ba2121>&#39;{
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;query&#34;: &#34;show create table demo&#34;
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>}&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=drop-table>Drop Table</h3><h3 id=example-4>Example</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>curl --location --request POST <span style=color:#ba2121>&#39;http://127.0.0.1:5000/sql&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>--header <span style=color:#ba2121>&#39;Content-Type: application/json&#39;</span> <span style=color:#b62;font-weight:700>\
+</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>-d <span style=color:#ba2121>&#39;{
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>    &#34;query&#34;: &#34;DROP TABLE demo&#34;
+</span></span></span><span style=display:flex><span><span style=color:#ba2121>}&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=route-table>Route Table</h2><h3 id=example-5>Example</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>curl --location --request GET <span style=color:#ba2121>&#39;http://127.0.0.1:5000/route/{table_name}&#39;</span>
+</span></span></code></pre></td></tr></table></div></div></div></main></div></div><footer class="td-footer row d-print-none"><div class=container-fluid><div class="row mx-md-2"><div class=td-footer__center>Apache HoraeDB is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the Apache Incubator. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.<hr><span class=td-footer__copyright>&copy;
+2023&ndash;2024
+<span class=td-footer__authors><p>The Apache Software Foundation, Licensed under the Apache License, Version 2.0.</p><p>Apache, the names of Apache projects, and the feather logo are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries.</p></span></span><span class=td-footer__all_rights_reserved>All Rights Reserved</span></div></div></div></footer></div><script src=/js/main.min.f72d00502781aaf278a14088eb2356b1ba2a05ad698a0c43fe86314d74ceab56.js integrity="sha256-9y0AUCeBqvJ4oUCI6yNWsboqBa1pigxD/oYxTXTOq1Y=" crossorigin=anonymous></script><script defer src=/js/click-to-copy.min.73478a7d4807698aed7e355eb23f9890ca18fea3158604c8471746d046702bad.js integrity="sha256-c0eKfUgHaYrtfjVesj+YkMoY/qMVhgTIRxdG0EZwK60=" crossorigin=anonymous></script><script src=/js/tabpane-persist.js></script></body></html>

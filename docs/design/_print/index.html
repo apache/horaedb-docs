@@ -1,0 +1,804 @@
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=en class=no-js><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><link rel=canonical type=text/html href=https://horaedb.apache.org/docs/design/><link rel=alternate type=application/rss+xml href=https://horaedb.apache.org/docs/design/index.xml><meta name=robots content="noindex, nofollow"><link rel="shortcut icon" href=/favicons/favicon.ico><link rel=apple-touch-icon href=/favicons/apple-touch-icon-180x180.png sizes=180x180><link rel=icon type=image/png href=/favicons/favicon-16x16.png sizes=16x16><link rel=icon type=image/png href=/favicons/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/favicons/android-36x36.png sizes=36x36><link rel=icon type=image/png href=/favicons/android-48x48.png sizes=48x48><link rel=icon type=image/png href=/favicons/android-72x72.png sizes=72x72><link rel=icon type=image/png href=/favicons/android-96x96.png sizes=96x96><link rel=icon type=image/png href=/favicons/android-144x144.png sizes=144x144><link rel=icon type=image/png href=/favicons/android-192x192.png sizes=192x192><title>Technical and Design | Apache HoraeDB</title>
+<meta name=description content="A high-performance, distributed, cloud native time-series database."><meta property="og:url" content="https://horaedb.apache.org/docs/design/"><meta property="og:site_name" content="Apache HoraeDB"><meta property="og:title" content="Technical and Design"><meta property="og:description" content="A high-performance, distributed, cloud native time-series database."><meta property="og:locale" content="en"><meta property="og:type" content="website"><meta itemprop=name content="Technical and Design"><meta itemprop=description content="A high-performance, distributed, cloud native time-series database."><meta itemprop=dateModified content="2024-08-21T10:34:40+08:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Technical and Design"><meta name=twitter:description content="A high-performance, distributed, cloud native time-series database."><link rel=preload href=/scss/main.min.5e43f8574351718e9b44966c9f3a571202ed048c082f457fb574c10b1a1bc56c.css as=style integrity="sha256-XkP4V0NRcY6bRJZsnzpXEgLtBIwIL0V/tXTBCxobxWw=" crossorigin=anonymous><link href=/scss/main.min.5e43f8574351718e9b44966c9f3a571202ed048c082f457fb574c10b1a1bc56c.css rel=stylesheet integrity="sha256-XkP4V0NRcY6bRJZsnzpXEgLtBIwIL0V/tXTBCxobxWw=" crossorigin=anonymous><script src=https://code.jquery.com/jquery-3.7.1.min.js integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin=anonymous></script><script defer src=https://unpkg.com/lunr@2.3.9/lunr.min.js integrity=sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli crossorigin=anonymous></script></head><body class=td-section><header><nav class="td-navbar js-navbar-scroll" data-bs-theme=dark><div class="container-fluid flex-column flex-md-row"><a class=navbar-brand href=/><span class="navbar-brand__logo navbar-logo"></span><span class=navbar-brand__name>Apache HoraeDB</span></a><div class="td-navbar-nav-scroll ms-md-auto" id=main_navbar><ul class=navbar-nav><li class=nav-item><a class="nav-link active" href=/docs/><i class='fa-solid fa-book'></i><span>Docs</span></a></li><li class=nav-item><a class=nav-link href=/blog/><i class='fa-brands fa-blogger'></i><span>Blog</span></a></li><li class=nav-item><a class=nav-link href=/downloads/><i class='fa-solid fa-download'></i><span>Downloads</span></a></li><li class=nav-item><a class=nav-link href=/community/><span>Community</span></a></li><li class="nav-item dropdown d-none d-lg-block"><div class=dropdown><a class="nav-link dropdown-toggle" href=# role=button data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false>English</a><ul class=dropdown-menu><li><a class=dropdown-item href=/cn/docs/design/>中文</a></li></ul></div></li><li class="td-light-dark-menu nav-item dropdown"><svg class="d-none"><symbol id="check2" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5.0 010 .708l-7 7a.5.5.0 01-.708.0l-3.5-3.5a.5.5.0 11.708-.708L6.5 10.293l6.646-6.647a.5.5.0 01.708.0z"/></symbol><symbol id="circle-half" viewBox="0 0 16 16"><path d="M8 15A7 7 0 108 1v14zm0 1A8 8 0 118 0a8 8 0 010 16z"/></symbol><symbol id="moon-stars-fill" viewBox="0 0 16 16"><path d="M6 .278a.768.768.0 01.08.858 7.208 7.208.0 00-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527.0 1.04-.055 1.533-.16a.787.787.0 01.81.316.733.733.0 01-.031.893A8.349 8.349.0 018.344 16C3.734 16 0 12.286.0 7.71.0 4.266 2.114 1.312 5.124.06A.752.752.0 016 .278z"/><path d="M10.794 3.148a.217.217.0 01.412.0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217.0 010 .412l-1.162.387A1.734 1.734.0 0011.593 7.69l-.387 1.162a.217.217.0 01-.412.0l-.387-1.162A1.734 1.734.0 009.31 6.593l-1.162-.387a.217.217.0 010-.412l1.162-.387a1.734 1.734.0 001.097-1.097l.387-1.162zM13.863.099a.145.145.0 01.274.0l.258.774c.115.346.386.617.732.732l.774.258a.145.145.0 010 .274l-.774.258a1.156 1.156.0 00-.732.732l-.258.774a.145.145.0 01-.274.0l-.258-.774a1.156 1.156.0 00-.732-.732l-.774-.258a.145.145.0 010-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/></symbol><symbol id="sun-fill" viewBox="0 0 16 16"><path d="M8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.5.5.0 01.5.5v2a.5.5.0 01-1 0v-2A.5.5.0 018 0zm0 13a.5.5.0 01.5.5v2a.5.5.0 01-1 0v-2A.5.5.0 018 13zm8-5a.5.5.0 01-.5.5h-2a.5.5.0 010-1h2a.5.5.0 01.5.5zM3 8a.5.5.0 01-.5.5h-2a.5.5.0 010-1h2A.5.5.0 013 8zm10.657-5.657a.5.5.0 010 .707l-1.414 1.415a.5.5.0 11-.707-.708l1.414-1.414a.5.5.0 01.707.0zm-9.193 9.193a.5.5.0 010 .707L3.05 13.657a.5.5.0 01-.707-.707l1.414-1.414a.5.5.0 01.707.0zm9.193 2.121a.5.5.0 01-.707.0l-1.414-1.414a.5.5.0 01.707-.707l1.414 1.414a.5.5.0 010 .707zM4.464 4.465a.5.5.0 01-.707.0L2.343 3.05a.5.5.0 11.707-.707l1.414 1.414a.5.5.0 010 .708z"/></symbol></svg>
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" id=bd-theme type=button aria-expanded=false data-bs-toggle=dropdown data-bs-display=static aria-label="Toggle theme (auto)"><svg class="bi my-1 theme-icon-active"><use href="#circle-half"/></svg></button><ul class="dropdown-menu dropdown-menu-end" aria-labelledby=bd-theme-text><li><button type=button class="dropdown-item d-flex align-items-center" data-bs-theme-value=light aria-pressed=false>
+<svg class="bi me-2 opacity-50"><use href="#sun-fill"/></svg>
+Light<svg class="bi ms-auto d-none"><use href="#check2"/></svg></button></li><li><button type=button class="dropdown-item d-flex align-items-center" data-bs-theme-value=dark aria-pressed=false>
+<svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"/></svg>
+Dark<svg class="bi ms-auto d-none"><use href="#check2"/></svg></button></li><li><button type=button class="dropdown-item d-flex align-items-center active" data-bs-theme-value=auto aria-pressed=true>
+<svg class="bi me-2 opacity-50"><use href="#circle-half"/></svg>
+Auto<svg class="bi ms-auto d-none"><use href="#check2"/></svg></button></li></ul></li></ul></div><div class="d-none d-lg-block"><div class="td-search td-search--offline"><div class=td-search__icon></div><input type=search class="td-search__input form-control" placeholder="Search this site…" aria-label="Search this site…" autocomplete=off data-offline-search-index-json-src=/offline-search-index.b741d6ebe310f897cfa36de6096275c8.json data-offline-search-base-href=/ data-offline-search-max-results=10></div></div></div></nav></header><div class="container-fluid td-outer"><div class=td-main><div class="row flex-xl-nowrap"><main class="col-12 col-md-9 col-xl-8 ps-md-5" role=main><div class=td-content><div class="pageinfo pageinfo-primary d-print-none"><p>This is the multi-page printable view of this section.
+<a href=# onclick="return print(),!1">Click here to print</a>.</p><p><a href=/docs/design/>Return to the regular view of this page</a>.</p></div><h1 class=title>Technical and Design</h1><ul><li>1: <a href=#pg-9cb1119c134a0f5bde0ea4b1c00fea17>Introduction to Architecture of HoraeDB Cluster</a></li><li>2: <a href=#pg-65252b1200ceedab2612d2d8e8e37aec>Introduction to HoraeDB's Architecture</a></li><li>3: <a href=#pg-6355ad384a13652a272ba53f173f2c7c>Storage</a></li><li>4: <a href=#pg-c9e7f93a52a47c5f64f3865a148a8e7e>Table Partitioning</a></li><li>5: <a href=#pg-87f506fcaf75ce14798677d99f59d7f6>Wal</a></li><li>6: <a href=#pg-0754b13496965933f1163bf7cf753a30>WAL on Disk</a></li><li>7: <a href=#pg-12f8303a42cd1145a4db8658c1b26f87>WAL on Kafka</a></li><li>8: <a href=#pg-a98f50743cbedab55a9aa0f5136cd5ff>WAL on RocksDB</a></li></ul><div class=content></div></div><div class=td-content><h1 id=pg-9cb1119c134a0f5bde0ea4b1c00fea17>1 - Introduction to Architecture of HoraeDB Cluster</h1><p>Note: Some of the features mentioned in the article have not yet been implemented.</p><h2 id=overview>Overview</h2><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plaintext data-lang=plaintext><span style=display:flex><span>┌───────────────────────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                                                                       │
+</span></span><span style=display:flex><span>│                           HoraeMeta Cluster                           │
+</span></span><span style=display:flex><span>│                                                                       │
+</span></span><span style=display:flex><span>└───────────────────────────────────────────────────────────────────────┘
+</span></span><span style=display:flex><span>                              ▲               ▲                 ▲
+</span></span><span style=display:flex><span>                              │               │                 │
+</span></span><span style=display:flex><span>                              │               │                 │
+</span></span><span style=display:flex><span>                              ▼               ▼                 ▼
+</span></span><span style=display:flex><span>┌───────┐Route Info ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐
+</span></span><span style=display:flex><span>│client │◀────────▶ │  │  │TableN││ │ │  │  │TableN││ │ │  │  │TableN││ │
+</span></span><span style=display:flex><span>└───────┘Write/Query└──Shard(L)──┴┴─┘ └──Shard(F)──┴┴─┘ └──Shard(F)──┴┴─┘
+</span></span><span style=display:flex><span>                            ▲ │                 ▲               ▲
+</span></span><span style=display:flex><span>                              │                 │               │
+</span></span><span style=display:flex><span>                            │ Write─────────┐   ├────Sync───────┘
+</span></span><span style=display:flex><span>                                            │   │
+</span></span><span style=display:flex><span>                            │     ┌────────┬▼───┴────┬──────────────────┐
+</span></span><span style=display:flex><span>              Upload/Download     │        │         │                  │
+</span></span><span style=display:flex><span>                    SST     │     │WAL     │Region N │                  │
+</span></span><span style=display:flex><span>                                  │Service │         │                  │
+</span></span><span style=display:flex><span>                            │     └────────┴─────────┴──────────────────┘
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                            ▼
+</span></span><span style=display:flex><span>┌───────────────────────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                                                                       │
+</span></span><span style=display:flex><span>│                            Object Storage                             │
+</span></span><span style=display:flex><span>│                                                                       │
+</span></span><span style=display:flex><span>└───────────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></td></tr></table></div></div><p>The diagram above describes the architecture of a HoraeDB cluster, where some key concepts need to be explained:</p><ul><li><code>HoraeMeta Cluster</code>: Takes responsibilities for managing the metadata and resource scheduling of the cluster;</li><li><code>Shard(L)/Shard(F)</code>: Leader shard and follower shard consisting of multiple tables;</li><li><code>HoraeDB</code>: One HoraeDB instance consisting of multiple shards;</li><li><code>WAL Service</code>: Write-ahead log service for storing new-written real-time data;</li><li><code>Object Storage</code>: Object storage service for storing SST converted from memtable;</li></ul><p>From the architecture diagram above, it can be concluded that the compute and storage are separated in the HoraeDB cluster, which makes it easy to implement useful distributed features, such as elastic autoscaling of compute/storage resources, high availability, load balancing, and so on.</p><p>Let&rsquo;s dive into some of the key components mentioned above before explaining how these features are implemented.</p><h3 id=shard>Shard</h3><p><code>Shard</code> is the basic scheduling unit in the cluster, which consists of a group of tables. And the tables in a shard share the same region for better storage locality in the <code>WAL Service</code>, and because of this, it is efficient to recover the data of all tables in the shard by scanning the entire WAL region. For most of implementations of <code>WAL Service</code>, without the shard concept, it costs a lot to recover the table data one by one due to massive random IO, and this case will deteriorate sharply when the number of tables grows to a certain level.</p><p>A specific role, <code>Leader</code> or <code>Follower</code>, should be assigned to a shard. A pair of leader-follower shards share the same set of tables, and the leader shard can serve the write and query requests from the client while the follower shard can only serve the read-only requests, and must synchronize the newly written data from the WAL service in order to provide the latest snapshot for data retrieval. Actually, the follower is not needed if the high availability is not required, while with at least one follower, it takes only a short time to resume service by simply switching the <code>Follower</code> to <code>Leader</code> when the HoraeDB instance on which the leader shard exists crashes.</p><p>The diagram below concludes the relationship between HoraeDB instance, <code>Shard</code>, <code>Table</code>. As shown in the diagram, the leader and follower shards are interleaved on the HoraeDB instance.</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plaintext data-lang=plaintext><span style=display:flex><span>┌─HoraeDB Instance0──────┐     ┌─HoraeDB Instance1──────┐
+</span></span><span style=display:flex><span>│  ┌─Shard0(L)────────┐  │     │  ┌─Shard0(F)────────┐  │
+</span></span><span style=display:flex><span>│  │ ┌────┬────┬────┐ │  │     │  │ ┌────┬────┬────┐ │  │
+</span></span><span style=display:flex><span>│  │ │ T0 │ T1 │ T2 │ │  │     │  │ │ T0 │ T1 │ T2 │ │  │
+</span></span><span style=display:flex><span>│  │ └────┴────┴────┘ │  │     │  │ └────┴────┴────┘ │  │
+</span></span><span style=display:flex><span>│  └──────────────────┘  │     │  └──────────────────┘  │
+</span></span><span style=display:flex><span>│                        │     │                        │
+</span></span><span style=display:flex><span>│  ┌─Shard1(F)────────┐  │     │  ┌─Shard1(L)────────┐  │
+</span></span><span style=display:flex><span>│  │ ┌────┬────┬────┐ │  │     │  │ ┌────┬────┬────┐ │  │
+</span></span><span style=display:flex><span>│  │ │ T0 │ T1 │ T2 │ │  │     │  │ │ T0 │ T1 │ T2 │ │  │
+</span></span><span style=display:flex><span>│  │ └────┴────┴────┘ │  │     │  │ └────┴────┴────┘ │  │
+</span></span><span style=display:flex><span>│  └──────────────────┘  │     │  └──────────────────┘  │
+</span></span><span style=display:flex><span>└────────────────────────┘     └────────────────────────┘
+</span></span></code></pre></td></tr></table></div></div><p>Since <code>Shard</code> is the basic scheduling unit, it is natural to introduce some basic shard operations:</p><ul><li>Create/Drop table to/from a shard;</li><li>Open/Close a shard;</li><li>Split one shard into two shards;</li><li>Merge two shards into one shard;</li><li>Switch the role of a shard;</li></ul><p>With these basic shard operations, some complex scheduling logic can be implemented, e.g. perform an expansion by splitting one shard into two shards and migrating one of them to the new HoraeDB instance.</p><h3 id=horaemeta>HoraeMeta</h3><p><code>HoraeMeta</code> is implemented by embedding an ETCD inside to ensure consistency and takes responsibilities for cluster metadata management and scheduling.</p><p>The cluster metadata includes:</p><ul><li>Table information, such as table name, table ID, and which cluster the table belongs to;</li><li>The mapping between table and shard and between shard and HoraeDB instance;</li><li>&mldr;</li></ul><p>As for the cluster scheduling work, it mainly includes:</p><ul><li>Receiving the heartbeats from the HoraeDB instances and determining the online status of these registered instances;</li><li>Assigning specific role shards to the registered HoraeDB instances;</li><li>Participating in table creation by assigning a unique table ID and the most appropriate shard to the table;</li><li>Performing load balancing through shard operations according to the load information sent with the heartbeats;</li><li>Performing expansion through shard operations when new instances are registered;</li><li>Initiating failover through shard operations when old instances go offline;</li></ul><h3 id=route>Route</h3><p>In order to avoid the overhead of forwarding requests, the communication between clients and the HoraeDB instances is peer-to-peer, that is to say, the client should retrieve routing information from the server before sending any specific write/query requests.</p><p>Actually, the routing information is decided by the <code>HoraeMeta</code>, but clients are only allowed the access to it through the HoraeDB instances rather than <code>HoraeMeta</code>, to avoid potential performance issues on the <code>HoraeMeta</code>.</p><h3 id=wal-service--object-storage>WAL Service & Object Storage</h3><p>In the HoraeDB cluster, <code>WAL Service</code> and <code>Object Storage</code> exist as separate distributed systems featured with HA, data replication and scalability. Current distributed implementations for <code>WAL Service</code> includes <code>Kafka</code> and <code>OBKV</code> (access <code>OceanBase</code> by its table api), and the implementations for <code>Object Storage</code> include popular object storage services, such as AWS S3, Azure object storage and Aliyun OSS.</p><p>The two components are similar in that they are introduced to serve as the underlying storage layer for separating compute and storage, while the difference between two components is obvious that <code>WAL Service</code> is used to store the newly written data from the real-time write requests whose individual size is small but quantity is large, and <code>Object Storage</code> is used to store the read-friendly data files (SST) organized in the background, whose individual size is large and aggregate size is much larger.</p><p>The two components make it much easier to implement the horaedb cluster, which features horizontal scalability, high availability and load balancing.</p><h2 id=scalability>Scalability</h2><p>Scalability is an important feature for a distributed system. Let&rsquo;s take a look at to how the horizontal scalability of the HoraeDB cluster is achieved.</p><p>First, the two storage components (<code>WAL Service</code> and <code>Object Storage</code>) should be horizontally scalable when deciding on the actual implementations for them, so the two storage services can be expanded separately if the storage capacity is not sufficient.</p><p>It will be a little bit complex when discussing the scalability of the compute service. Basically, these cases will bring the capacity problem:</p><ul><li>Massive queries on massive tables;</li><li>Massive queries on a single large table;</li><li>Massive queries on a normal table;</li></ul><p>For the first case, it is easy to achieve horizontal scalability just by assigning shards that are created or split from old shards to expanded HoraeDB instances.</p><p>For the second case, the table partitioning is proposed and after partitioning, massive queries are distributed across multiple HoraeDB instances.</p><p>And the last case is the most important and the most difficult. Actually, the follower shard can handle part of the queries, but the number of follower shards is limited by the throughput threshold of the synchronization from the WAL regions. As shown in the diagram below, a pure compute shard can be introduced if the followers are not enough to handle the massive queries. Such a shard is not required to synchronize data with the leader shard, and retrieves the newly written data from the leader/follower shard only when the query comes. As for the SSTs required by the query, they will be downloaded from <code>Object Storage</code> and cached afterwards. With the two parts of the data, the compute resources are fully utilized to execute the CPU-intensive query plan. As we can see, such a shard can be added with only a little overhead (retrieving some data from the leader/follower shard when it needs), so to some extent, the horizontal scalability is achieved.</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plaintext data-lang=plaintext><span style=display:flex><span>                                             ┌HoraeDB─────┬┬─┐
+</span></span><span style=display:flex><span>                            ┌──newly written─│  │  │TableN││ │
+</span></span><span style=display:flex><span>                            ▼                └──Shard(L/F)┴┴─┘
+</span></span><span style=display:flex><span>┌───────┐  Query  ┌HoraeDB─────┬┬─┐
+</span></span><span style=display:flex><span>│client │────────▶│  │  │TableN││ │
+</span></span><span style=display:flex><span>└───────┘         └──Shard─────┴┴─┘          ┌───────────────┐
+</span></span><span style=display:flex><span>                            ▲                │    Object     │
+</span></span><span style=display:flex><span>                            └───old SST──────│    Storage    │
+</span></span><span style=display:flex><span>                                             └───────────────┘
+</span></span></code></pre></td></tr></table></div></div><h2 id=high-availability>High Availability</h2><p>Assuming that <code>WAL service</code> and <code>Object Storage</code> are highly available, the high availability of the HoraeDB cluster can be achieved by such a procedure:</p><ul><li>When detecting that the heartbeat is broken, <code>HoraeMeta</code> determines that the HoraeDB instance is offline;</li><li>The follower shards whose paired leader shards exist on the offline instance are switched to leader shards for fast failover;</li><li>A slow failover can be achieved by opening the crashed shards on another instance if such follower shards don&rsquo;t exist.</li></ul><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plaintext data-lang=plaintext><span style=display:flex><span>┌─────────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                                                         │
+</span></span><span style=display:flex><span>│                    HoraeMeta Cluster                    │
+</span></span><span style=display:flex><span>│                                                         │
+</span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────┘
+</span></span><span style=display:flex><span>                             ▲
+</span></span><span style=display:flex><span>             ┌ ─ Heartbeat ─ ┤
+</span></span><span style=display:flex><span>                   Broken    │
+</span></span><span style=display:flex><span>             │               │
+</span></span><span style=display:flex><span>┌ HoraeDB Instance0 ─ ─ ─    │   ┌─HoraeDB Instance1──────┐                   ┌─HoraeDB Instance1──────┐
+</span></span><span style=display:flex><span>   ┌─Shard0(L)────────┐  │   │   │  ┌─Shard0(F)────────┐  │                   │  ┌─Shard0(L)────────┐  │
+</span></span><span style=display:flex><span>│  │ ┌────┬────┬────┐ │      │   │  │ ┌────┬────┬────┐ │  │                   │  │ ┌────┬────┬────┐ │  │
+</span></span><span style=display:flex><span>   │ │ T0 │ T1 │ T2 │ │  │   ├───│  │ │ T0 │ T1 │ T2 │ │  │                   │  │ │ T0 │ T1 │ T2 │ │  │
+</span></span><span style=display:flex><span>│  │ └────┴────┴────┘ │      │   │  │ └────┴────┴────┘ │  │                   │  │ └────┴────┴────┘ │  │
+</span></span><span style=display:flex><span>   └──────────────────┘  │   │   │  └──────────────────┘  │     Failover      │  └──────────────────┘  │
+</span></span><span style=display:flex><span>│                            │   ├─HoraeDB Instance2──────┤   ───────────▶    ├─HoraeDB Instance2──────┤
+</span></span><span style=display:flex><span>   ┌─Shard1(L)────────┐  │   │   │  ┌─Shard1(F)────────┐  │                   │  ┌─Shard1(L)────────┐  │
+</span></span><span style=display:flex><span>│  │ ┌────┬────┬────┐ │      │   │  │ ┌────┬────┬────┐ │  │                   │  │ ┌────┬────┬────┐ │  │
+</span></span><span style=display:flex><span>   │ │ T0 │ T1 │ T2 │ │  │   └───│  │ │ T0 │ T1 │ T2 │ │  │                   │  │ │ T0 │ T1 │ T2 │ │  │
+</span></span><span style=display:flex><span>│  │ └────┴────┴────┘ │          │  │ └────┴────┴────┘ │  │                   │  │ └────┴────┴────┘ │  │
+</span></span><span style=display:flex><span>   └──────────────────┘  │       │  └──────────────────┘  │                   │  └──────────────────┘  │
+</span></span><span style=display:flex><span>└ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─        └────────────────────────┘                   └────────────────────────┘
+</span></span></code></pre></td></tr></table></div></div><h2 id=load-balancing>Load Balancing</h2><p>HoraeMeta collects the instance load information contained in the received heartbeats to create a load overview of the whole cluster, according to which the load balancing can be implemented as an automatic mechanism:</p><ul><li>Pick a shard on a low-load instance for the newly created table;</li><li>Migrate a shard from a high-load instance load to another low-load instance;</li><li>Split the large shard on the high-load instance and migrate the split shards to other low-load instances;</li></ul></div><div class=td-content style=page-break-before:always><h1 id=pg-65252b1200ceedab2612d2d8e8e37aec>2 - Introduction to HoraeDB's Architecture</h1><h2 id=target>Target</h2><ul><li>Provide the overview of HoraeDB to the developers who want to know more about HoraeDB but have no idea where to start.</li><li>Make a brief introduction to the important modules of HoraeDB and the connections between these modules but details about their implementations are not be involved.</li></ul><h2 id=motivation>Motivation</h2><p>HoraeDB is a timeseries database (<strong>TSDB</strong>). However, HoraeDB&rsquo;s goal is to handle both timeseries and analytic workloads compared with the classic TSDB, which usually have a poor performance in handling analytic workloads.</p><p>In the classic timeseries database, the <code>Tag</code> columns (InfluxDB calls them <code>Tag</code> and Prometheus calls them <code>Label</code>) are normally indexed by generating an inverted index. However, it is found that the cardinality of <code>Tag</code> varies in different scenarios. And in some scenarios the cardinality of <code>Tag</code> is very high (we name this case after analytic workload), and it takes a very high cost to store and retrieve the inverted index. On the other hand, it is observed that scanning+pruning often used by the analytical databases can do a good job to handle such analytic workload.</p><p>The basic design idea of HoraeDB is to adopt a hybrid storage format and the corresponding query method for a better performance in processing both timeseries and analytic workloads.</p><h2 id=architecture>Architecture</h2><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plaintext data-lang=plaintext><span style=display:flex><span>┌──────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│       RPC Layer (HTTP/gRPC/MySQL)        │
+</span></span><span style=display:flex><span>└──────────────────────────────────────────┘
+</span></span><span style=display:flex><span>┌──────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                 SQL Layer                │
+</span></span><span style=display:flex><span>│ ┌─────────────────┐  ┌─────────────────┐ │
+</span></span><span style=display:flex><span>│ │     Parser      │  │     Planner     │ │
+</span></span><span style=display:flex><span>│ └─────────────────┘  └─────────────────┘ │
+</span></span><span style=display:flex><span>└──────────────────────────────────────────┘
+</span></span><span style=display:flex><span>┌───────────────────┐  ┌───────────────────┐
+</span></span><span style=display:flex><span>│    Interpreter    │  │      Catalog      │
+</span></span><span style=display:flex><span>└───────────────────┘  └───────────────────┘
+</span></span><span style=display:flex><span>┌──────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│               Query Engine               │
+</span></span><span style=display:flex><span>│ ┌─────────────────┐  ┌─────────────────┐ │
+</span></span><span style=display:flex><span>│ │    Optimizer    │  │    Executor     │ │
+</span></span><span style=display:flex><span>│ └─────────────────┘  └─────────────────┘ │
+</span></span><span style=display:flex><span>└──────────────────────────────────────────┘
+</span></span><span style=display:flex><span>┌──────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│         Pluggable Table Engine           │
+</span></span><span style=display:flex><span>│  ┌────────────────────────────────────┐  │
+</span></span><span style=display:flex><span>│  │              Analytic              │  │
+</span></span><span style=display:flex><span>│  │┌────────────────┐┌────────────────┐│  │
+</span></span><span style=display:flex><span>│  ││      Wal       ││    Memtable    ││  │
+</span></span><span style=display:flex><span>│  │└────────────────┘└────────────────┘│  │
+</span></span><span style=display:flex><span>│  │┌────────────────┐┌────────────────┐│  │
+</span></span><span style=display:flex><span>│  ││     Flush      ││   Compaction   ││  │
+</span></span><span style=display:flex><span>│  │└────────────────┘└────────────────┘│  │
+</span></span><span style=display:flex><span>│  │┌────────────────┐┌────────────────┐│  │
+</span></span><span style=display:flex><span>│  ││    Manifest    ││  Object Store  ││  │
+</span></span><span style=display:flex><span>│  │└────────────────┘└────────────────┘│  │
+</span></span><span style=display:flex><span>│  └────────────────────────────────────┘  │
+</span></span><span style=display:flex><span>│  ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │
+</span></span><span style=display:flex><span>│           Another Table Engine        │  │
+</span></span><span style=display:flex><span>│  └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─   │
+</span></span><span style=display:flex><span>└──────────────────────────────────────────┘
+</span></span></code></pre></td></tr></table></div></div><p>The figure above shows the architecture of HoraeDB stand-alone service and the details of some important modules will be described in the following part.</p><h3 id=rpc-layer>RPC Layer</h3><p>module path: <a href=https://github.com/apache/incubator-horaedb/tree/main/server>https://github.com/apache/incubator-horaedb/tree/main/server</a></p><p>The current RPC supports multiple protocols including HTTP, gRPC, MySQL.</p><p>Basically, HTTP and MySQL are used to debug HoraeDB, query manually and perform DDL operations (such as creating, deleting tables, etc.). And gRPC protocol can be regarded as a customized protocol for high-performance, which is suitable for massive reading and writing operations.</p><h3 id=sql-layer>SQL Layer</h3><p>module path: <a href=https://github.com/apache/incubator-horaedb/tree/main/query_frontend>https://github.com/apache/incubator-horaedb/tree/main/query_frontend</a></p><p>SQL layer takes responsibilities for parsing sql and generating the query plan.</p><p>Based on <a href=https://github.com/sqlparser-rs/sqlparser-rs>sqlparser</a> a sql dialect, which introduces some key concepts including <code>Tag</code> and <code>Timestamp</code>, is provided for processing timeseries data. And by utilizing <a href=https://github.com/apache/arrow-datafusion>DataFusion</a> the planner is able to generate both regular logical plans and tailored ones which is used to implement the special operators defined by timeseries queries, e.g <code>PromQL</code>.</p><h3 id=interpreter>Interpreter</h3><p>module path: <a href=https://github.com/apache/incubator-horaedb/tree/main/interpreters>https://github.com/apache/incubator-horaedb/tree/main/interpreters</a></p><p>The <code>Interpreter</code> module encapsulates the SQL <code>CRUD</code> operations. In the query procedure, a sql received by HoraeDB is parsed, converted into the query plan and then executed in some specific interpreter, such as <code>SelectInterpreter</code>, <code>InsertInterpreter</code> and etc.</p><h3 id=catalog>Catalog</h3><p>module path: <a href=https://github.com/apache/incubator-horaedb/tree/main/catalog_impls>https://github.com/apache/incubator-horaedb/tree/main/catalog_impls</a></p><p><code>Catalog</code> is actually the module managing metadata and the levels of metadata adopted by HoraeDB is similar to PostgreSQL: <code>Catalog > Schema > Table</code>, but they are only used as namespace.</p><p>At present, <code>Catalog</code> and <code>Schema</code> have two different kinds of implementation for standalone and distributed mode because some strategies to generate ids and ways to persist metadata differ in different mode.</p><h3 id=query-engine>Query Engine</h3><p>module path: <a href=https://github.com/apache/incubator-horaedb/tree/main/query_engine>https://github.com/apache/incubator-horaedb/tree/main/query_engine</a></p><p><code>Query Engine</code> is responsible for optimizing and executing query plan given a basic SQL plan provided by SQL layer and now such work is mainly delegated to <a href=https://github.com/apache/arrow-datafusion>DataFusion</a>.</p><p>In addition to the basic functions of SQL, HoraeDB also defines some customized query protocols and optimization rules for some specific query plans by utilizing the extensibility provided by <a href=https://github.com/apache/arrow-datafusion>DataFusion</a>. For example, the implementation of <code>PromQL</code> is implemented in this way and read it if you are interested.</p><h3 id=pluggable-table-engine>Pluggable Table Engine</h3><p>module path: <a href=https://github.com/apache/incubator-horaedb/tree/main/table_engine>https://github.com/apache/incubator-horaedb/tree/main/table_engine</a></p><p><code>Table Engine</code> is actually a storage engine for managing tables in HoraeDB and the pluggability of <code>Table Engine</code> is a core design of HoraeDB which matters in achieving our long-term target, e.g supporting handle log or tracing workload by implementing new storage engines. HoraeDB will have multiple kinds of <code>Table Engine</code> for different workloads and the most appropriate one should be chosen as the storage engine according to the workload pattern.</p><p>Now the requirements for a <code>Table Engine</code> are:</p><ul><li>Manage all the shared resources under the engine:<ul><li>Memory</li><li>Storage</li><li>CPU</li></ul></li><li>Manage metadata of tables such as table schema and table options;</li><li>Provide <code>Table</code> instances which provides <code>read</code> and <code>write</code> methods;</li><li>Take responsibilities for creating, opening, dropping and closing <code>Table</code> instance;</li><li>&mldr;.</li></ul><p>Actually the things that a <code>Table Engine</code> needs to process are a little complicated. And now in HoraeDB only one <code>Table Engine</code> called <code>Analytic</code> is provided and does a good job in processing analytical workload, but it is not ready yet to handle the timeseries workload (we plan to enhance it for a better performance by adding some indexes which help handle timeseries workload).</p><p>The following part gives a description about details of <code>Analytic Table Engine</code>.</p><h4 id=wal>WAL</h4><p>module path: <a href=https://github.com/apache/incubator-horaedb/tree/main/wal>https://github.com/apache/incubator-horaedb/tree/main/wal</a></p><p>The model of HoraeDB processing data is <code>WAL</code> + <code>MemTable</code> that the recent written data is written to <code>WAL</code> first and then to <code>MemTable</code> and after a certain amount of data in <code>MemTable</code> is accumulated, the data will be organized in a query-friendly form to persistent devices.</p><p>Now three implementations of <code>WAL</code> are provided for standalone and distributed mode:</p><ul><li>For standalone mode, <code>WAL</code> is based on <code>RocksDB</code> and data is persisted on the local disk.</li><li>For distributed mode, <code>WAL</code> is required as a distributed component and to be responsible for durability of the newly written data, so now we provide an implementation based on <a href=https://github.com/oceanbase/oceanbase>OceanBase</a>.</li><li>For distributed mode, in addition to <a href=https://github.com/oceanbase/oceanbase>OceanBase</a>, we also provide a more lightweight implementation based on <a href=https://github.com/apache/kafka><code>Apache Kafka</code></a>.</li></ul><h4 id=memtable>MemTable</h4><p>module path: <a href=https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/memtable>https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/memtable</a></p><p>For <code>WAL</code> can&rsquo;t provide efficient data retrieval, the newly written data is also stored in <code>Memtable</code> for efficient data retrieval, after a certain amount of data is reached, HoraeDB organizes the data in <code>MemTable</code> into a query-friendly storage format (<code>SST</code>) and stores it to the persistent device.</p><p>The current implementation of <code>MemTable</code> is based on <a href=https://github.com/tikv/agatedb/blob/8510bff2bfde5b766c3f83cf81c00141967d48a4/skiplist>agatedb&rsquo;s skiplist</a>. It allows concurrent reads and writes and can control memory usage based on <a href=https://github.com/apache/incubator-horaedb/tree/main/components/skiplist>Arena</a>.</p><h4 id=flush>Flush</h4><p>module path: <a href=https://github.com/apache/incubator-horaedb/blob/main/analytic_engine/src/instance/flush_compaction.rs>https://github.com/apache/incubator-horaedb/blob/main/analytic_engine/src/instance/flush_compaction.rs</a></p><p>What <code>Flush</code> does is that when the memory usage of <code>MemTable</code> reaches the threshold, some <code>MemTables</code> are selected for flushing into query-friendly <code>SST</code>s saved on persistent device.</p><p>During the flushing procedure, the data will be divided by a certain time range (which is configured by table option <code>Segment Duration</code>), and any <code>SST</code> is ensured that the timestamps of the data in it are in the same <code>Segment</code>. Actually this is also a common operation in most timeseries databases which organizes data in the time dimension to speed up subsequent time-related operations, such as querying data over a time range and assisting purge data outside the <code>TTL</code>.</p><h4 id=compaction>Compaction</h4><p>module path: <a href=https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/compaction>https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/compaction</a></p><p>The data of <code>MemTable</code> is flushed as <code>SST</code>s, but the file size of recently flushed <code>SST</code> may be very small. And too small or too many <code>SST</code>s lead to the poor query performance. Therefore, <code>Compaction</code> is then introduced to rearrange the <code>SST</code>s so that the multiple smaller <code>SST</code> files can be compacted into a larger <code>SST</code> file.</p><h4 id=manifest>Manifest</h4><p>module path: <a href=https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/meta>https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/meta</a></p><p><code>Manifest</code> takes responsibilities for managing tables&rsquo; metadata of <code>Analytic Engine</code> including:</p><ul><li>Table schema and table options;</li><li>The sequence number where the newest flush finishes;</li><li>The information of all the <code>SST</code>s belonging to the table.</li></ul><p>Now the <code>Manifest</code> is based on <code>WAL</code> and <code>Object Storage</code>. The newly written updates on the <code>Manifest</code> are persisted as logs in <code>WAL</code>, and in order to avoid infinite expansion of <code>Manifest</code> (actually every <code>Flush</code> leads to an update), <code>Snapshot</code> is also introduced to clean up the history of metadata updates, and the generated <code>Snapshot</code> will be saved to <code>Object Storage</code>.</p><h4 id=object-storage>Object Storage</h4><p>module path: <a href=https://github.com/apache/incubator-horaedb/tree/main/components/object_store>https://github.com/apache/incubator-horaedb/tree/main/components/object_store</a></p><p>The <code>SST</code> generated by <code>Flush</code> needs to be persisted and the abstraction of the persistent storage device is <code>ObjectStore</code> including multiple implementations:</p><ul><li>Based on local file system;</li><li>Based on <a href=https://www.alibabacloud.com/product/object-storage-service>Alibaba Cloud OSS</a>.</li></ul><p>The distributed architecture of HoraeDB separates storage and computing, which requires <code>Object Store</code> needs to be a highly available and reliable service independent of HoraeDB. Therefore, storage systems like <a href=https://aws.amazon.com/s3/>Amazon S3</a>, <a href=https://www.alibabacloud.com/product/object-storage-service>Alibaba Cloud OSS</a> is a good choice and in the future implementations on storage systems of some other cloud service providers is planned to provide.</p><h4 id=sst>SST</h4><p>module path: <a href=https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/sst>https://github.com/apache/incubator-horaedb/tree/main/analytic_engine/src/sst</a></p><p><code>SST</code> is actually an abstraction that can have multiple specific implementations. The current implementation is based on <a href=https://parquet.apache.org/>Parquet</a>, which is a column-oriented data file format designed for efficient data storage and retrieval.</p><p>The format of <code>SST</code> is very critical for retrieving data and is also the most important part to perform well in handling both timeseries and analytic workloads. At present, our <a href=https://parquet.apache.org/>Parquet</a>-based implementation is good at processing analytic workload but is poor at processing timeseries workload. In our roadmap, we will explore more storage formats in order to achieve a good performance in both workloads.</p><h4 id=space>Space</h4><p>module path: <a href=https://github.com/apache/incubator-horaedb/blob/main/analytic_engine/src/space.rs>https://github.com/apache/incubator-horaedb/blob/main/analytic_engine/src/space.rs</a></p><p>In <code>Analytic Engine</code>, there is a concept called <code>space</code> and here is an explanation for it to resolve some ambiguities when read source code. Actually <code>Analytic Engine</code> does not have the concept of <code>catalog</code> and <code>schema</code> and only provides two levels of relationship: <code>space</code> and <code>table</code>. And in the implementation, the <code>schema id</code> (which should be unique across all <code>catalog</code>s) on the upper layer is actually mapped to <code>space id</code>.</p><p>The <code>space</code> in <code>Analytic Engine</code> serves mainly for isolation of resources for different tenants, such as the usage of memory.</p><h2 id=critical-path>Critical Path</h2><p>After a brief introduction to some important modules of HoraeDB, we will give a description for some critical paths in code, hoping to provide interested developers with a guide for reading the code.</p><h3 id=query>Query</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plaintext data-lang=plaintext><span style=display:flex><span>┌───────┐      ┌───────┐      ┌───────┐
+</span></span><span style=display:flex><span>│       │──1──▶│       │──2──▶│       │
+</span></span><span style=display:flex><span>│Server │      │  SQL  │      │Catalog│
+</span></span><span style=display:flex><span>│       │◀─10──│       │◀─3───│       │
+</span></span><span style=display:flex><span>└───────┘      └───────┘      └───────┘
+</span></span><span style=display:flex><span>                │    ▲
+</span></span><span style=display:flex><span>               4│   9│
+</span></span><span style=display:flex><span>                │    │
+</span></span><span style=display:flex><span>                ▼    │
+</span></span><span style=display:flex><span>┌─────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                                     │
+</span></span><span style=display:flex><span>│             Interpreter             │
+</span></span><span style=display:flex><span>│                                     │
+</span></span><span style=display:flex><span>└─────────────────────────────────────┘
+</span></span><span style=display:flex><span>                           │    ▲
+</span></span><span style=display:flex><span>                          5│   8│
+</span></span><span style=display:flex><span>                           │    │
+</span></span><span style=display:flex><span>                           ▼    │
+</span></span><span style=display:flex><span>                   ┌──────────────────┐
+</span></span><span style=display:flex><span>                   │                  │
+</span></span><span style=display:flex><span>                   │   Query Engine   │
+</span></span><span style=display:flex><span>                   │                  │
+</span></span><span style=display:flex><span>                   └──────────────────┘
+</span></span><span style=display:flex><span>                           │    ▲
+</span></span><span style=display:flex><span>                          6│   7│
+</span></span><span style=display:flex><span>                           │    │
+</span></span><span style=display:flex><span>                           ▼    │
+</span></span><span style=display:flex><span> ┌─────────────────────────────────────┐
+</span></span><span style=display:flex><span> │                                     │
+</span></span><span style=display:flex><span> │            Table Engine             │
+</span></span><span style=display:flex><span> │                                     │
+</span></span><span style=display:flex><span> └─────────────────────────────────────┘
+</span></span></code></pre></td></tr></table></div></div><p>Take <code>SELECT</code> SQL as an example. The figure above shows the query procedure and the numbers in it indicates the order of calling between the modules.</p><p>Here are the details:</p><ul><li>Server module chooses a proper rpc module (it may be HTTP, gRPC or mysql) to process the requests according the protocol used by the requests;</li><li>Parse SQL in the request by the parser;</li><li>With the parsed sql and the information provided by catalog/schema module, <a href=https://github.com/apache/arrow-datafusion>DataFusion</a> can generate the logical plan;</li><li>With the logical plan, the corresponding <code>Interpreter</code> is created and logical plan will be executed by it;</li><li>For the logical plan of normal <code>Select</code> SQL, it will be executed through <code>SelectInterpreter</code>;</li><li>In the <code>SelectInterpreter</code> the specific query logic is executed by the <code>Query Engine</code>:<ul><li>Optimize the logical plan;</li><li>Generate the physical plan;</li><li>Optimize the physical plan;</li><li>Execute the physical plan;</li></ul></li><li>The execution of physical plan involves <code>Analytic Engine</code>:<ul><li>Data is obtained by <code>read</code> method of <code>Table</code> instance provided by <code>Analytic Engine</code>;</li><li>The source of the table data is <code>SST</code> and <code>Memtable</code>, and the data can be filtered by the pushed down predicates;</li><li>After retrieving the table data, <code>Query Engine</code> will complete the specific computation and generate the final results;</li></ul></li><li><code>SelectInterpreter</code> gets the results and feeds them to the protocol module;</li><li>After the protocol layer converts the results, the server module responds to the client with them.</li></ul><p>The following is the flow of function calls in version <a href=https://github.com/apache/incubator-horaedb/releases/tag/v1.2.2>v1.2.2</a>:</p><pre tabindex=0><code>                                                       ┌───────────────────────◀─────────────┐    ┌───────────────────────┐
+                                                       │      handle_sql       │────────┐    │    │       parse_sql       │
+                                                       └───────────────────────┘        │    │    └────────────────┬──────┘
+                                                           │             ▲              │    │           ▲         │
+                                                           │             │              │    │           │         │
+                                                           │             │              │    └36───┐     │        11
+                                                          1│             │              │          │     │         │
+                                                           │            8│              │          │     │         │
+                                                           │             │              │          │    10         │
+                                                           │             │              │          │     │         │
+                                                           ▼             │              │          │     │         ▼
+                                                       ┌─────────────────┴─────┐       9│         ┌┴─────┴────────────────┐───────12─────────▶┌───────────────────────┐
+                                                       │maybe_forward_sql_query│        └────────▶│fetch_sql_query_output │                   │   statement_to_plan   │
+                                                       └───┬───────────────────┘                  └────┬──────────────────┘◀───────19─────────└───────────────────────┘
+                                                           │             ▲                             │              ▲                           │               ▲
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │             35                          13              18
+                                                          2│            7│                            20              │                           │               │
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │              │                           │               │
+                                                           │             │                             │              │                           ▼               │
+                                                           ▼             │                             ▼              │                       ┌───────────────────────┐
+          ┌───────────────────────┐───────────6───────▶┌─────────────────┴─────┐                    ┌─────────────────┴─────┐                 │Planner::statement_to_p│
+          │ forward_with_endpoint │                    │        forward        │                    │execute_plan_involving_│                 │          lan          │
+          └───────────────────────┘◀────────5──────────└───┬───────────────────┘                 ┌──│    partition_table    │◀────────┐       └───┬───────────────────┘
+                                                           │             ▲                       │  └───────────────────────┘         │           │              ▲
+                                                           │             │                       │     │              ▲               │           │              │
+                                                           │             │                       │     │              │               │          14             17
+           ┌───────────────────────┐                       │            4│                       │     │              │               │           │              │
+     ┌─────│ PhysicalPlan::execute │                      3│             │                       │    21              │               │           │              │
+     │     └───────────────────────┘◀──┐                   │             │                       │     │             22               │           │              │
+     │                                 │                   │             │                       │     │              │               │           ▼              │
+     │                                 │                   │             │                       │     │              │               │       ┌────────────────────────┐
+     │                                 │                   ▼             │                       │     ▼              │              34       │sql_statement_to_datafus│
+     │     ┌───────────────────────┐  30               ┌─────────────────┴─────┐                 │  ┌─────────────────┴─────┐         │       │        ion_plan        │
+    31     │ build_df_session_ctx  │   │               │         route         │                 │  │   build_interpreter   │         │       └────────────────────────┘
+     │     └────┬──────────────────┘   │               └───────────────────────┘                 │  └───────────────────────┘         │           │              ▲
+     │          │           ▲          │                                                         │                                    │           │              │
+     │         27          26          │                                                        23                                    │          15             16
+     │          ▼           │          │                                                         │                                    │           │              │
+     └────▶┌────────────────┴──────┐   │               ┌───────────────────────┐                 │                                    │           │              │
+           │ execute_logical_plan  ├───┴────32────────▶│       execute         │──────────┐      │   ┌───────────────────────┐        │           ▼              │
+           └────┬──────────────────┘◀────────────25────┴───────────────────────┘         33      │   │interpreter_execute_pla│        │       ┌────────────────────────┐
+                │           ▲                                           ▲                 └──────┴──▶│           n           │────────┘       │SqlToRel::sql_statement_│
+               28           │                                           └──────────24────────────────┴───────────────────────┘                │   to_datafusion_plan   │
+                │          29                                                                                                                 └────────────────────────┘
+                ▼           │
+           ┌────────────────┴──────┐
+           │     optimize_plan     │
+           └───────────────────────┘
+</code></pre><ol><li>The received request will be forwarded to <code>handle_sql</code> after various protocol conversions, and since the request may not be processed by this node, it may need to be forwarded to <code>maybe_forward_sql_query</code> to handle the forwarding logic.</li><li>After constructing the <code>ForwardRequest</code> in <code>maybe_forward_sql_query</code>, call <code>forward</code></li><li>After constructing the <code>RouteRequest</code> in <code>forward</code>, call <code>route</code></li><li>Use <code>route</code> to get the destination node <code>endpoint</code> and return to <code>forward</code>.</li><li>Call <code>forward_with_endpoint</code> to forward the request</li><li>return <code>forward</code></li><li>return <code>maybe_forward_sql_query</code></li><li>return <code>handle_sql</code></li><li>If this is a <code>Local</code> request, call <code>fetch_sql_query_output</code> to process it</li><li>Call <code>parse_sql</code> to parse <code>sql</code> into <code>Statment</code></li><li>return <code>fetch_sql_query_output</code></li><li>Call <code>statement_to_plan</code> with <code>Statment</code></li><li>Construct <code>Planner</code> with <code>ctx</code> and <code>Statment</code>, and call the <code>statement_to_plan</code> method of <code>Planner</code></li><li>The <code>planner</code> will call the corresponding <code>planner</code> method for the requested category, at this point our <code>sql</code> is a query and will call <code>sql_statement_to_plan</code></li><li>Call <code>sql_statement_to_datafusion_plan</code> , which will generate the <code>datafusion</code> object, and then call <code>SqlToRel::sql_statement_to_plan</code></li><li>The generated logical plan is returned from <code>SqlToRel::sql_statement_to_plan</code></li><li>return</li><li>return</li><li>return</li><li>Call <code>execute_plan_involving_partition_table</code> (in the default configuration) for subsequent optimization and execution of this logical plan</li><li>Call <code>build_interpreter</code> to generate <code>Interpreter</code></li><li>return</li><li>Call <code>Interpreter's</code> <code>interpreter_execute_plan</code> method for logical plan execution.</li><li>The corresponding <code>execute</code> function is called, at this time the <code>sql</code> is a query, so the execute of the <code>SelectInterpreter</code> will be called</li><li>call <code>execute_logical_plan</code> , which will call <code>build_df_session_ctx</code> to generate the optimizer</li><li><code>build_df_session_ctx</code> will use the <code>config</code> information to generate the corresponding context, first using datafusion and some custom optimization rules (in logical_optimize_rules()) to generate the logical plan optimizer, using <code>apply_adapters_for_physical_optimize_rules</code> to generate the physical plan optimizer</li><li>return optimizer</li><li>Call <code>optimize_plan</code>, using the optimizer just generated to first optimize the logical plan and then the physical plan</li><li>Return to optimized physical plan</li><li>execute physical plan</li><li>returned after execution</li><li>After collecting the results of all slices, return</li><li>return</li><li>return</li><li>return</li><li>Return to the upper layer for network protocol conversion and finally return to the request sender</li></ol><h3 id=write>Write</h3><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-plaintext data-lang=plaintext><span style=display:flex><span>┌───────┐      ┌───────┐      ┌───────┐
+</span></span><span style=display:flex><span>│       │──1──▶│       │──2──▶│       │
+</span></span><span style=display:flex><span>│Server │      │  SQL  │      │Catalog│
+</span></span><span style=display:flex><span>│       │◀─8───│       │◀─3───│       │
+</span></span><span style=display:flex><span>└───────┘      └───────┘      └───────┘
+</span></span><span style=display:flex><span>                │    ▲
+</span></span><span style=display:flex><span>               4│   7│
+</span></span><span style=display:flex><span>                │    │
+</span></span><span style=display:flex><span>                ▼    │
+</span></span><span style=display:flex><span>┌─────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                                     │
+</span></span><span style=display:flex><span>│             Interpreter             │
+</span></span><span style=display:flex><span>│                                     │
+</span></span><span style=display:flex><span>└─────────────────────────────────────┘
+</span></span><span style=display:flex><span>      │    ▲
+</span></span><span style=display:flex><span>      │    │
+</span></span><span style=display:flex><span>      │    │
+</span></span><span style=display:flex><span>      │    │
+</span></span><span style=display:flex><span>      │    │       ┌──────────────────┐
+</span></span><span style=display:flex><span>      │    │       │                  │
+</span></span><span style=display:flex><span>     5│   6│       │   Query Engine   │
+</span></span><span style=display:flex><span>      │    │       │                  │
+</span></span><span style=display:flex><span>      │    │       └──────────────────┘
+</span></span><span style=display:flex><span>      │    │
+</span></span><span style=display:flex><span>      │    │
+</span></span><span style=display:flex><span>      │    │
+</span></span><span style=display:flex><span>      ▼    │
+</span></span><span style=display:flex><span> ┌─────────────────────────────────────┐
+</span></span><span style=display:flex><span> │                                     │
+</span></span><span style=display:flex><span> │            Table Engine             │
+</span></span><span style=display:flex><span> │                                     │
+</span></span><span style=display:flex><span> └─────────────────────────────────────┘
+</span></span></code></pre></td></tr></table></div></div><p>Take <code>INSERT</code> SQL as an example. The figure above shows the query procedure and the numbers in it indicates the order of calling between the modules.</p><p>Here are the details:</p><ul><li>Server module chooses a proper rpc module (it may be HTTP, gRPC or mysql) to process the requests according the protocol used by the requests;</li><li>Parse SQL in the request by the parser;</li><li>With the parsed sql and the catalog/schema module, <a href=https://github.com/apache/arrow-datafusion>DataFusion</a> can generate the logical plan;</li><li>With the logical plan, the corresponding <code>Interpreter</code> is created and logical plan will be executed by it;</li><li>For the logical plan of normal <code>INSERT</code> SQL, it will be executed through <code>InsertInterpreter</code>;</li><li>In the <code>InsertInterpreter</code>, <code>write</code> method of <code>Table</code> provided <code>Analytic Engine</code> is called:<ul><li>Write the data into <code>WAL</code> first;</li><li>Write the data into <code>MemTable</code> then;</li></ul></li><li>Before writing to <code>MemTable</code>, the memory usage will be checked. If the memory usage is too high, the flush process will be triggered:<ul><li>Persist some old MemTables as <code>SST</code>s;</li><li>Store updates about the new <code>SST</code>s and the flushed sequence number of <code>WAL</code> to <code>Manifest</code>;</li><li>Delete the corresponding <code>WAL</code> entries;</li></ul></li><li>Server module responds to the client with the execution result.</li></ul></div><div class=td-content style=page-break-before:always><h1 id=pg-6355ad384a13652a272ba53f173f2c7c>3 - Storage</h1><p>The storage engine mainly provides the following two functions：</p><ol><li>Persistence of data</li><li>Under the premise of ensuring the correctness of the data, organize the data in the most reasonable way to meet the query needs of different scenarios.</li></ol><p>This document will introduce the internal implementation of the storage engine in HoraeDB. Readers can refer to the content here to explore how to use HoraeDB efficiently.</p><h1 id=overall-structure>Overall Structure</h1><p>HoraeDB is a distributed storage system based on the share-nothing architecture.</p><p>Data between different servers is isolated from each other and does not affect each other. The storage engine in each stand-alone machine is a variant of <a href=https://en.wikipedia.org/wiki/Log-structured_merge-tree>log-structured merge-tree</a>, which is optimized for time-series scenarios. The following figure shows its core components:</p><p><img src=/images/storage-overview.svg></p><h2 id=write-ahead-log-wal>Write Ahead Log (WAL)</h2><p>A write request will be written to</p><ol><li>memtable in memory</li><li>WAL in durable storage</li></ol><p>Since memtable is not persisted to the underlying storage system in real time, so WAL is required to ensure the reliability of the data in memtable.</p><p>On the other hand, due to the design of the <a href=cluster.md>distributed architecture</a>, WAL itself is required to be highly available. Now there are following implementations in HoraeDB:</p><ul><li><a href=/docs/design/wal_on_rocksdb/>Local disk</a> (based on <a href=http://rocksdb.org/>RocksDB</a>, no distributed high availability)</li><li><a href=https://www.oceanbase.com>OceanBase</a></li><li><a href=/docs/design/wal_on_kafka/>Kafka</a></li></ul><h2 id=memtable>Memtable</h2><p>Memtable is a memory data structure used to hold recently written table data. Different tables have its corresponding memtable.</p><p>Memtable is read-write by default (aka active), and when the write reaches some threshold, it will become read-only and be replaced by a new memtable.</p><p>The read-only memtable will be flushed to the underlying storage system in SST format by background thread. After flush is completed, the read-only memtable can be destroyed, and the corresponding data in WAL can also be deleted.</p><h2 id=sorted-string-tablesst>Sorted String Table（SST）</h2><p>SST is a persistent format for data, which is stored in the order of primary keys of table. Currently, HoraeDB uses parquet format for this.</p><p>For HoraeDB, SST has an important option: segment_duration, only SST within the same segment can be merged, which is benefical for time-series data. And it is also convenient to eliminate expired data.</p><p>In addition to storing the original data, the statistical information of the data will also be stored in the SST to speed up the query, such as the maximum value, the minimum value, etc.</p><h2 id=compactor>Compactor</h2><p>Compactor can merge multiple small SST files into one, which is used to solve the problem of too many small files. In addition, Compactor will also delete expired data and duplicate data during the compaction. In future, compaction maybe add more task, such as downsample.</p><p>The current compaction strategy in HoraeDB reference Cassandra:</p><ul><li><a href=https://cassandra.apache.org/doc/latest/cassandra/operating/compaction/stcs.html>SizeTieredCompactionStrategy</a></li><li><a href=https://cassandra.apache.org/doc/latest/cassandra/operating/compaction/twcs.html>TimeWindowCompactionStrategy</a></li></ul><h2 id=manifest>Manifest</h2><p>Manifest records metadata of table, SST file, such as: the minimum and maximum timestamps of the data in an SST.</p><p>Due to the design of the distributed architecture, the manifest itself is required to be highly available. Now in HoraeDB, there are mainly the following implementations：</p><ul><li>WAL</li><li>ObjectStore</li></ul><h2 id=objectstore>ObjectStore</h2><p>ObjectStore is place where data (i.e. SST) is persisted.</p><p>Generally speaking major cloud vendors should provide corresponding services, such as Alibaba Cloud&rsquo;s OSS and AWS&rsquo;s S3.</p></div><div class=td-content style=page-break-before:always><h1 id=pg-c9e7f93a52a47c5f64f3865a148a8e7e>4 - Table Partitioning</h1><p><strong>Note: This feature is still in development, and the API may change in the future.</strong></p><p>This chapter discusses <code>PartitionTable</code>.</p><p>The partition table syntax used by HoraeDB is similar to that of <a href=https://dev.mysql.com/doc/refman/8.0/en/partitioning-types.html>MySQL</a>.</p><p>General partition tables include <code>Range Partitioning</code>, <code>List Partitoning</code>, <code>Hash Partitioning</code>, and <code>Key Partititioning</code>.</p><p>HoraeDB currently only supports <code>Key Partitioning</code>.</p><h2 id=architecture>Architecture</h2><p>Similar to MySQL, different portions of a partition table are stored as separate tables in different locations.</p><p>Currently designed, a partition table can be opened on multiple HoraeDB nodes, supports writing and querying at the same time, and can be expanded horizontally.</p><p>As shown in the figure below, <code>PartitionTable</code> is opened on node0 and node1, and the physical subtables where the actual data are stored on node2 and node3.</p><pre tabindex=0><code>                        ┌───────────────────────┐      ┌───────────────────────┐
+                        │Node0                  │      │Node1                  │
+                        │   ┌────────────────┐  │      │  ┌────────────────┐   │
+                        │   │ PartitionTable │  │      │  │ PartitionTable │   │
+                        │   └────────────────┘  │      │  └────────────────┘   │
+                        │            │          │      │           │           │
+                        └────────────┼──────────┘      └───────────┼───────────┘
+                                     │                             │
+                                     │                             │
+             ┌───────────────────────┼─────────────────────────────┼───────────────────────┐
+             │                       │                             │                       │
+┌────────────┼───────────────────────┼─────────────┐ ┌─────────────┼───────────────────────┼────────────┐
+│Node2       │                       │             │ │Node3        │                       │            │
+│            ▼                       ▼             │ │             ▼                       ▼            │
+│ ┌─────────────────────┐ ┌─────────────────────┐  │ │  ┌─────────────────────┐ ┌─────────────────────┐ │
+│ │                     │ │                     │  │ │  │                     │ │                     │ │
+│ │     SubTable_0      │ │     SubTable_1      │  │ │  │     SubTable_2      │ │     SubTable_3      │ │
+│ │                     │ │                     │  │ │  │                     │ │                     │ │
+│ └─────────────────────┘ └─────────────────────┘  │ │  └─────────────────────┘ └─────────────────────┘ │
+│                                                  │ │                                                  │
+└──────────────────────────────────────────────────┘ └──────────────────────────────────────────────────┘
+</code></pre><h3 id=key-partitioning>Key Partitioning</h3><p><code>Key Partitioning</code> supports one or more column calculations, using the hash algorithm provided by HoraeDB for calculations.</p><p>Use restrictions:</p><ul><li>Only tag column is supported as partition key.</li><li><code>LINEAR KEY</code> is not supported yet.</li></ul><p>The table creation statement for the key partitioning is as follows:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=display:flex><span><span style=color:green;font-weight:700>CREATE</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>TABLE</span><span style=color:#bbb> </span><span style=color:#666>`</span>demo<span style=color:#666>`</span>(<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>    </span><span style=color:#666>`</span>name<span style=color:#666>`</span>string<span style=color:#bbb> </span>TAG,<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>    </span><span style=color:#666>`</span>id<span style=color:#666>`</span><span style=color:#bbb> </span><span style=color:green>int</span><span style=color:#bbb> </span>TAG,<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>    </span><span style=color:#666>`</span>value<span style=color:#666>`</span><span style=color:#bbb> </span>double<span style=color:#bbb> </span><span style=color:green;font-weight:700>NOT</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>NULL</span>,<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>    </span><span style=color:#666>`</span>t<span style=color:#666>`</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>timestamp</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>NOT</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>NULL</span>,<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>    </span><span style=color:green;font-weight:700>TIMESTAMP</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>KEY</span>(t)<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>    </span>)<span style=color:#bbb> </span>PARTITION<span style=color:#bbb> </span><span style=color:green;font-weight:700>BY</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>KEY</span>(name)<span style=color:#bbb> </span>PARTITIONS<span style=color:#bbb> </span><span style=color:#666>2</span><span style=color:#bbb> </span>ENGINE<span style=color:#bbb> </span><span style=color:#666>=</span><span style=color:#bbb> </span>Analytic<span style=color:#bbb>
+</span></span></span></code></pre></td></tr></table></div></div><p>Refer to <a href=https://dev.mysql.com/doc/refman/5.7/en/partitioning-key.html>MySQL key partitioning</a>.</p><h2 id=query>Query</h2><p>Since the partition table data is actually stored in different physical tables, it is necessary to calculate the actual requested physical table according to the query request when querying.</p><p>The query will calculate the physical table to be queried according to the query parameters, and then remotely request the node where the physical table is located to obtain data through the HoraeDB internal service <a href=https://github.com/apache/incubator-horaedb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/server/src/grpc/remote_engine_service/mod.rs>remote engine</a> (support predicate pushdown).</p><p>The implementation of the partition table is in <a href=https://github.com/apache/incubator-horaedb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/analytic_engine/src/table/partition.rs>PartitionTableImpl</a>.</p><ul><li>Step 1: Parse query sql and calculate the physical table to be queried according to the query parameters.</li><li>Step 2: Query data of physical table.</li><li>Step 3: Compute with the raw data.</li></ul><pre tabindex=0><code>                       │
+                     1 │
+                       │
+                       ▼
+               ┌───────────────┐
+               │Node0          │
+               │               │
+               │               │
+               └───────────────┘
+                       ┬
+                2      │       2
+        ┌──────────────┴──────────────┐
+        │              ▲              │
+        │       3      │       3      │
+        ▼ ─────────────┴───────────── ▼
+┌───────────────┐             ┌───────────────┐
+│Node1          │             │Node2          │
+│               │             │               │
+│               │             │               │
+└───────────────┘             └───────────────┘
+</code></pre><h3 id=key-partitioning-1>Key partitioning</h3><ul><li>Filters like <code>and</code>, <code>or</code>, <code>in</code>, <code>=</code> will choose specific SubTables.</li><li>Fuzzy matching filters like <code>&lt;</code>, <code>></code> are also supported, but may have poor performance since it will scan all physical tables.</li></ul><p><code>Key partitioning</code> rule is implemented in <a href=https://github.com/apache/incubator-horaedb/blob/89dca646c627de3cee2133e8f3df96d89854c1a3/table_engine/src/partition/rule/key.rs>KeyRule</a>.</p><h2 id=write>Write</h2><p>The write process is similar to the query process.</p><p>First, according to the partition rules, the write request is split into different partitioned physical tables, and then sent to different physical nodes through the remote engine for actual data writing.</p></div><div class=td-content style=page-break-before:always><h1 id=pg-87f506fcaf75ce14798677d99f59d7f6>5 - Wal</h1><ul><li><a href=/docs/design/wal_on_rocksdb/>WAL on RocksDB</a></li><li><a href=/docs/design/wal_on_kafka/>WAL on Kafka</a></li><li>WAL on OceanBase will be introduced in later.</li></ul></div><div class=td-content style=page-break-before:always><h1 id=pg-0754b13496965933f1163bf7cf753a30>6 - WAL on Disk</h1><h2 id=architecture>Architecture</h2><p>This section introduces the implementation of a standalone Write-Ahead Log (WAL, hereinafter referred to as &ldquo;the log&rdquo;) based on a local disk. In this implementation, the log is managed at the region level.</p><pre tabindex=0><code>            ┌────────────────────────────┐
+            │          HoraeDB           │
+            │                            │
+            │ ┌────────────────────────┐ │
+            │ │          WAL           │ │         ┌────────────────────────┐
+            │ │                        │ │         │                        │
+            │ │         ......         │ │         │      File System       │
+            │ │                        │ │         │                        │
+            │ │ ┌────────────────────┐ │ │ manage  │ ┌────────────────────┐ │
+ Write ─────┼─┼─►       Region       ├─┼─┼─────────┼─►     Region Dir     │ │
+            │ │ │                    │ │ │         │ │                    │ │
+ Read  ─────┼─┼─►   ┌────────────┐   │ │ │  mmap   │ │ ┌────────────────┐ │ │
+            │ │ │   │  Segment 0 ├───┼─┼─┼─────────┼─┼─► Segment File 0 │ │ │
+            │ │ │   └────────────┘   │ │ │         │ │ └────────────────┘ │ │
+Delete ─────┼─┼─►   ┌────────────┐   │ │ │  mmap   │ │ ┌────────────────┐ │ │
+            │ │ │   │  Segment 1 ├───┼─┼─┼─────────┼─┼─► Segment File 1 │ │ │
+            │ │ │   └────────────┘   │ │ │         │ │ └────────────────┘ │ │
+            │ │ │   ┌────────────┐   │ │ │  mmap   │ │ ┌────────────────┐ │ │
+            │ │ │   │  Segment 2 ├───┼─┼─┼─────────┼─┼─► Segment File 2 │ │ │
+            │ │ │   └────────────┘   │ │ │         │ │ └────────────────┘ │ │
+            │ │ │       ......       │ │ │         │ │       ......       │ │
+            │ │ └────────────────────┘ │ │         │ └────────────────────┘ │
+            │ │         ......         │ │         │         ......         │
+            │ └────────────────────────┘ │         └────────────────────────┘
+            └────────────────────────────┘
+</code></pre><h2 id=data-model>Data Model</h2><h3 id=file-paths>File Paths</h3><p>Each region has its own directory to manage all segments for that region. The directory is named after the region&rsquo;s ID. Each segment is named using the format <code>seg_&lt;id></code>, with IDs starting from 0 and incrementing.</p><h3 id=segment-format>Segment Format</h3><p>Logs for all tables within a region are stored in segments, arranged in ascending order of sequence numbers. The structure of the segment files is as follows:</p><pre tabindex=0><code>   Segment0            Segment1
+┌────────────┐      ┌────────────┐
+│ Magic Num  │      │ Magic Num  │
+├────────────┤      ├────────────┤
+│   Record   │      │   Record   │
+├────────────┤      ├────────────┤
+│   Record   │      │   Record   │
+├────────────┤      ├────────────┤   ....
+│   Record   │      │   Record   │
+├────────────┤      ├────────────┤
+│     ...    │      │     ...    │
+│            │      │            │
+└────────────┘      └────────────┘
+    seg_0               seg_1
+</code></pre><p>In memory, each segment stores additional information used for read, write, and delete operations:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-rust data-lang=rust><span style=display:flex><span><span style=color:green;font-weight:700>pub</span><span style=color:#bbb> </span><span style=color:green;font-weight:700>struct</span> <span style=color:#00f;font-weight:700>Segment</span><span style=color:#bbb> </span>{<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>    </span><span style=color:#ba2121;font-style:italic>/// A hashmap storing both min and max sequence numbers of records within
+</span></span></span><span style=display:flex><span><span style=color:#ba2121;font-style:italic></span><span style=color:#bbb>    </span><span style=color:#ba2121;font-style:italic>/// this segment for each `TableId`.
+</span></span></span><span style=display:flex><span><span style=color:#ba2121;font-style:italic></span><span style=color:#bbb>    </span>table_ranges: <span style=color:#00f;font-weight:700>HashMap</span><span style=color:#666>&lt;</span>TableId,<span style=color:#bbb> </span>(SequenceNumber,<span style=color:#bbb> </span>SequenceNumber)<span style=color:#666>&gt;</span>,<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>    </span><span style=color:#ba2121;font-style:italic>/// An optional vector of positions within the segment.
+</span></span></span><span style=display:flex><span><span style=color:#ba2121;font-style:italic></span><span style=color:#bbb>    </span>record_position: <span style=color:green>Vec</span><span style=color:#666>&lt;</span>Position<span style=color:#666>&gt;</span>,<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>    </span><span style=color:#666>..</span>.<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb></span>}<span style=color:#bbb>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=log-format>Log Format</h3><p>The log format within a segment is as follows:</p><pre tabindex=0><code>+---------+--------+------------+--------------+--------------+-------+
+| version |  crc   |  table id  | sequence num | value length | value |
+|  (u8)   | (u32)  |   (u64)    |    (u64)     |     (u32)    |(bytes)|
++---------+--------+------------+--------------+--------------+-------+
+</code></pre><p>Field Descriptions:</p><ol><li><p><code>version</code>: Log version number.</p></li><li><p><code>crc</code>: Used to ensure data consistency. Computes the CRC checksum from the table id to the end of the record.</p></li><li><p><code>table id</code>: The unique identifier of the table.</p></li><li><p><code>sequence num</code>: The sequence number of the record.</p></li><li><p><code>value length</code>: The byte length of the value.</p></li><li><p><code>value</code>: The value in the general log format.</p></li></ol><p>The region ID is not stored in the log because it can be obtained from the file path.</p><h2 id=main-processes>Main Processes</h2><h3 id=opening-the-wal>Opening the WAL</h3><ol><li><p>Identify all region directories under the WAL directory.</p></li><li><p>In each region directory, identify all segment files.</p></li><li><p>Open each segment file, traverse all logs within it, record the start and end offsets of each log, and record the minimum and maximum sequence numbers of each <code>TableId</code> in the segment, then close the file.</p></li><li><p>If there is no region directory or there are no segment files under the directory, automatically create the corresponding directory and files.</p></li></ol><h3 id=reading-logs>Reading Logs</h3><ol><li><p>Based on the metadata of the segments, determine all segments involved in the current read operation.</p></li><li><p>Open these segments in order of their IDs from smallest to largest, and decode the raw bytes into logs.</p></li></ol><h3 id=writing-logs>Writing Logs</h3><ol><li><p>Serialize the logs to be written into byte data and append them to the segment file with the largest ID.</p></li><li><p>When a segment is created, it pre-allocates a fixed size of 64MB and will not change dynamically. When the pre-allocated space is used up, a new segment is created, and appending continues in the new segment.</p></li><li><p>After each append, <code>flush</code> is not called immediately; by default, <code>flush</code> is performed every ten writes or when the segment file is closed.</p></li><li><p>Update the segment&rsquo;s metadata <code>table_ranges</code> in memory.</p></li></ol><h3 id=deleting-logs>Deleting Logs</h3><p>Suppose logs in the table with ID <code>table_id</code> and sequence numbers less than <code>seq_num</code> need to be marked as deleted:</p><ol><li><p>Update the <code>table_ranges</code> field of the relevant segments in memory, updating the minimum sequence number of the table to <code>seq_num + 1</code>.</p></li><li><p>If after modification, the minimum sequence number of the table in this segment is greater than the maximum sequence number, remove the table from <code>table_ranges</code>.</p></li><li><p>If a segment&rsquo;s <code>table_ranges</code> is empty and it is not the segment with the largest ID, delete the segment file.</p></li></ol></div><div class=td-content style=page-break-before:always><h1 id=pg-12f8303a42cd1145a4db8658c1b26f87>7 - WAL on Kafka</h1><h2 id=architecture>Architecture</h2><p>In this section we present a distributed WAL implementation(based on Kafka). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by region, which can be simply understood as a shared log file of multiple tables.</p><p>As shown in the following figure, regions are mapped to topics(with only one partition) in Kafka. And usually two topics are needed by a region, one is used for storing logs and the other is used for storing metadata.</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>                                                 ┌──────────────────────────┐
+</span></span><span style=display:flex><span>                                                 │         Kafka            │
+</span></span><span style=display:flex><span>                                                 │                          │
+</span></span><span style=display:flex><span>                                                 │         ......           │
+</span></span><span style=display:flex><span>                                                 │                          │
+</span></span><span style=display:flex><span>                                                 │ ┌─────────────────────┐  │
+</span></span><span style=display:flex><span>                                                 │ │      Meta Topic     │  │
+</span></span><span style=display:flex><span>                                                 │ │                     │  │
+</span></span><span style=display:flex><span>                                         Delete  │ │ ┌─────────────────┐ │  │
+</span></span><span style=display:flex><span>               ┌──────────────────────┐  ┌───────┼─┼─►    Partition    │ │  │
+</span></span><span style=display:flex><span>               │       HoraeDB        │  │       │ │ │                 │ │  │
+</span></span><span style=display:flex><span>               │                      │  │       │ │ └─────────────────┘ │  │
+</span></span><span style=display:flex><span>               │ ┌──────────────────┐ │  │       │ │                     │  │
+</span></span><span style=display:flex><span>               │ │       WAL        │ │  │       │ └─────────────────────┘  │
+</span></span><span style=display:flex><span>               │ │      ......      │ │  │       │                          │
+</span></span><span style=display:flex><span>               │ │ ┌──────────────┐ │ │  │       │ ┌──────────────────────┐ │
+</span></span><span style=display:flex><span>               │ │ │    Region    │ │ │  │       │ │     Data Topic       │ │
+</span></span><span style=display:flex><span>               │ │ │              ├─┼─┼──┘       │ │                      │ │
+</span></span><span style=display:flex><span>               | | | ┌──────────┐ │ │ │          │ │ ┌──────────────────┐ │ │
+</span></span><span style=display:flex><span>               │ │ │ │ Metadata │ │ │ │          │ │ │    Partition     │ │ │
+</span></span><span style=display:flex><span>               │ │ │ └──────────┘ │ │ │    Write │ │ │                  │ │ │
+</span></span><span style=display:flex><span>Write ─────────┼─┼─►              ├─┼─┼───┐      │ │ │ ┌──┬──┬──┬──┬──┐ │ │ │
+</span></span><span style=display:flex><span>               │ │ │ ┌──────────┐ │ │ │   └──────┼─┼─┼─►  │  │  │  │  ├─┼─┼─┼────┐
+</span></span><span style=display:flex><span>               │ │ │ │  Client  │ │ │ │          │ │ │ └──┴──┴──┴──┴──┘ │ │ │    │
+</span></span><span style=display:flex><span>Read ◄─────────┼─┼─┤ └──────────┘ │ │ │          │ │ │                  │ │ │    │
+</span></span><span style=display:flex><span>               │ │ │              │ │ │          │ │ └──────────────────┘ │ │    │
+</span></span><span style=display:flex><span>               │ │ └──▲───────────┘ │ │          │ │                      │ │    │
+</span></span><span style=display:flex><span>               │ │    │ ......      │ │          │ └──────────────────────┘ │    │
+</span></span><span style=display:flex><span>               │ └────┼─────────────┘ │          │         ......           │    │
+</span></span><span style=display:flex><span>               │      │               │          └──────────────────────────┘    │
+</span></span><span style=display:flex><span>               └──────┼───────────────┘                                          │
+</span></span><span style=display:flex><span>                      │                                                          │
+</span></span><span style=display:flex><span>                      │                                                          │
+</span></span><span style=display:flex><span>                      │                        Read                              │
+</span></span><span style=display:flex><span>                      └──────────────────────────────────────────────────────────┘
+</span></span></code></pre></td></tr></table></div></div><h2 id=data-model>Data Model</h2><h3 id=log-format>Log Format</h3><p>The common log format described in <a href=/docs/design/wal_on_rocksdb/>WAL on RocksDB</a> is used here.</p><h3 id=metadata>Metadata</h3><p>Each region will maintain its metadata both in memory and in Kafka, we call it <code>RegionMeta</code> here. It can be thought of as a map, taking table id as a key and <code>TableMeta</code> as a value.
+We briefly introduce the variables in <code>TableMeta</code> here:</p><ul><li><code>next_seq_num</code>, the sequence number allocated to the next log entry.</li><li><code>latest_marked_deleted</code>, the last flushed sequence number, all logs in the table with a lower sequence number than it can be removed.</li><li><code>current_high_watermark</code>, the high watermark in the Kafka partition after the last writing of this table.</li><li><code>seq_offset_mapping</code>, mapping from sequence numbers to offsets will be done on every write and will removed to the updated <code>latest_marked_deleted</code> after flushing.</li></ul><pre tabindex=0><code>┌─────────────────────────────────────────┐
+│              RegionMeta                 │
+│                                         │
+│ Map&lt;TableId, TableMeta&gt; table_metas     │
+└─────────────────┬───────────────────────┘
+                  │
+                  │
+                  │
+                  └─────┐
+                        │
+                        │
+ ┌──────────────────────┴──────────────────────────────┐
+ │                       TableMeta                     │
+ │                                                     │
+ │ SequenceNumber next_seq_num                         │
+ │                                                     │
+ │ SequenceNumber latest_mark_deleted                  │
+ │                                                     │
+ │ KafkaOffset high_watermark                          │
+ │                                                     │
+ │ Map&lt;SequenceNumber, KafkaOffset&gt; seq_offset_mapping │
+ └─────────────────────────────────────────────────────┘
+</code></pre><h2 id=main-process>Main Process</h2><p>We focus on the main process in one region, following process will be introduced:</p><ul><li>Open or create region.</li><li>Write and read logs.</li><li>Delete logs.</li></ul><h3 id=open-or-create-region>Open or Create Region</h3><h4 id=steps>Steps</h4><ul><li>Search the region in the opened namespace.</li><li>If the region found, the most important thing we need to do is to recover its metadata, we will introduce this later.</li><li>If the region not found and auto creating is defined, just create the corresponding topic in Kafka.</li><li>Add the found or created region to cache, return it afterwards.</li></ul><h4 id=recovery>Recovery</h4><p>As mentioned above, the <code>RegionMeta</code> is actually a map of the <code>TableMeta</code>. So here we will focus on recovering a specific <code>TableMeta</code>, and examples will be given to better illustrate this process.</p><ul><li>First, recover the <code>RegionMeta</code> from snapshot. We will take a snapshot of the <code>RegionMeta</code> in some scenarios (e.g. mark logs deleted, clean logs) and put it to the meta topic. The snapshot is actually the <code>RegionMeta</code> at a particular point in time. When recovering a region, we can use it to avoid scanning all logs in the data topic. The following is the example, we recover from the snapshot taken at the time when Kafka high watermark is 64:</li></ul><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>high watermark in snapshot: 64
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span> ┌──────────────────────────────┐
+</span></span><span style=display:flex><span> │         RegionMeta           │
+</span></span><span style=display:flex><span> │                              │
+</span></span><span style=display:flex><span> │          ......              │
+</span></span><span style=display:flex><span> │ ┌──────────────────────────┐ │
+</span></span><span style=display:flex><span> │ │       TableMeta          │ │
+</span></span><span style=display:flex><span> │ │                          │ │
+</span></span><span style=display:flex><span> │ │ next_seq_num: 5          │ │
+</span></span><span style=display:flex><span> │ │                          │ │
+</span></span><span style=display:flex><span> │ │ latest_mark_deleted: 2   │ │
+</span></span><span style=display:flex><span> │ │                          │ │
+</span></span><span style=display:flex><span> │ │ high_watermark: 32       │ │
+</span></span><span style=display:flex><span> │ │                          │ │
+</span></span><span style=display:flex><span> │ │ seq_offset_mapping:      │ │
+</span></span><span style=display:flex><span> │ │                          │ │
+</span></span><span style=display:flex><span> │ │ (2, 16) (3, 16) (4, 31)  │ │
+</span></span><span style=display:flex><span> │ └──────────────────────────┘ │
+</span></span><span style=display:flex><span> │          ......              │
+</span></span><span style=display:flex><span> └──────────────────────────────┘
+</span></span></code></pre></td></tr></table></div></div><ul><li>Recovering from logs. After recovering from snapshot, we can continue to recover by scanning logs in data topic from the Kafka high watermark when snapshot is taken, and obviously that avoid scanning the whole data topic. Let&rsquo;s see the example:</li></ul><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>┌────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                                    │
+</span></span><span style=display:flex><span>│    high_watermark in snapshot: 64  │
+</span></span><span style=display:flex><span>│                                    │
+</span></span><span style=display:flex><span>│  ┌──────────────────────────────┐  │
+</span></span><span style=display:flex><span>│  │         RegionMeta           │  │
+</span></span><span style=display:flex><span>│  │                              │  │
+</span></span><span style=display:flex><span>│  │          ......              │  │
+</span></span><span style=display:flex><span>│  │ ┌──────────────────────────┐ │  │
+</span></span><span style=display:flex><span>│  │ │       TableMeta          │ │  │
+</span></span><span style=display:flex><span>│  │ │                          │ │  │
+</span></span><span style=display:flex><span>│  │ │ next_seq_num: 5          │ │  │                  ┌────────────────────────────────┐
+</span></span><span style=display:flex><span>│  │ │                          │ │  │                  │          RegionMeta            │
+</span></span><span style=display:flex><span>│  │ │ latest_mark_deleted: 2   │ │  │                  │                                │
+</span></span><span style=display:flex><span>│  │ │                          │ │  │                  │            ......              │
+</span></span><span style=display:flex><span>│  │ │ high_watermark: 32       │ │  │                  │ ┌────────────────────────────┐ │
+</span></span><span style=display:flex><span>│  │ │                          │ │  │                  │ │         TableMeta          │ │
+</span></span><span style=display:flex><span>│  │ │ seq_offset_mapping:      │ │  │                  │ │                            │ │
+</span></span><span style=display:flex><span>│  │ │                          │ │  │                  │ │ next_seq_num: 8            │ │
+</span></span><span style=display:flex><span>│  │ │ (2, 16) (3, 16) (4, 31)  │ │  │                  │ │                            │ │
+</span></span><span style=display:flex><span>│  │ └──────────────────────────┘ │  │                  │ │ latest_mark_deleted: 2     │ │
+</span></span><span style=display:flex><span>│  │          ......              │  │                  │ │                            │ │
+</span></span><span style=display:flex><span>│  └──────────────────────────────┘  ├──────────────────► │ high_watermark: 32         │ │
+</span></span><span style=display:flex><span>│                                    │                  │ │                            │ │
+</span></span><span style=display:flex><span>│ ┌────────────────────────────────┐ │                  │ │ seq_offset_mapping:        │ │
+</span></span><span style=display:flex><span>│ │          Data topic            │ │                  │ │                            │ │
+</span></span><span style=display:flex><span>│ │                                │ │                  │ │ (2, 16) (3, 16) (4, 31)    │ │
+</span></span><span style=display:flex><span>│ │ ┌────────────────────────────┐ │ │                  │ │                            │ │
+</span></span><span style=display:flex><span>│ │ │        Partition           │ │ │                  │ │ (5, 72) (6, 81) (7, 90)    │ │
+</span></span><span style=display:flex><span>│ │ │                            │ │ │                  │ │                            │ │
+</span></span><span style=display:flex><span>│ │ │ ┌────┬────┬────┬────┬────┐ │ │ │                  │ └────────────────────────────┘ │
+</span></span><span style=display:flex><span>│ │ │ │ 64 │ 65 │ ...│ 99 │100 │ │ │ │                  │             ......             │
+</span></span><span style=display:flex><span>│ │ │ └────┴────┴────┴────┴────┘ │ │ │                  └────────────────────────────────┘
+</span></span><span style=display:flex><span>│ │ │                            │ │ │
+</span></span><span style=display:flex><span>│ │ └────────────────────────────┘ │ │
+</span></span><span style=display:flex><span>│ │                                │ │
+</span></span><span style=display:flex><span>│ └────────────────────────────────┘ │
+</span></span><span style=display:flex><span>│                                    │
+</span></span><span style=display:flex><span>└────────────────────────────────────┘
+</span></span></code></pre></td></tr></table></div></div><h3 id=write-and-read-logs>Write and Read Logs</h3><p>The writing and reading process in a region is simple.</p><p>For writing:</p><ul><li>Open the specified region (auto create it if necessary).</li><li>Put the logs to specified Kafka partition by client.</li><li>Update <code>next_seq_num</code>, <code>current_high_watermark</code> and <code>seq_offset_mapping</code> in corresponding <code>TableMeta</code>.</li></ul><p>For reading:</p><ul><li>Open the specified region.</li><li>Just read all the logs of the region, and the split and replay work will be done by the caller.</li></ul><h3 id=delete-logs>Delete Logs</h3><p>Log deletion can be divided into two steps:</p><ul><li>Mark the logs deleted.</li><li>Do delayed cleaning work periodically in a background thread.</li></ul><h4 id=mark>Mark</h4><ul><li>Update <code>latest_mark_deleted</code> and <code>seq_offset_mapping</code>(just retain the entries whose&rsquo;s sequence >= updated latest_mark_deleted) in <code>TableMeta</code>.</li><li>Maybe we need to make and sync the <code>RegionMeta</code> snapshot to Kafka while dropping table.</li></ul><h4 id=clean>Clean</h4><p>The cleaning logic done in a background thread called cleaner:</p><ul><li>Make <code>RegionMeta</code> snapshot.</li><li>Decide whether to clean the logs based on the snapshot.</li><li>If so, sync the snapshot to Kafka first, then clean the logs.</li></ul></div><div class=td-content style=page-break-before:always><h1 id=pg-a98f50743cbedab55a9aa0f5136cd5ff>8 - WAL on RocksDB</h1><h2 id=architecture>Architecture</h2><p>In this section we present a standalone WAL implementation (based on RocksDB). Write-ahead logs(hereinafter referred to as logs) of tables are managed here by table, and we call the corresponding storage data structure <code>TableUnit</code>. All related data (logs or some metadata) is stored in a single column family for simplicity.</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>            ┌───────────────────────────────┐
+</span></span><span style=display:flex><span>            │         HoraeDB               │
+</span></span><span style=display:flex><span>            │                               │
+</span></span><span style=display:flex><span>            │ ┌─────────────────────┐       │
+</span></span><span style=display:flex><span>            │ │         WAL         │       │
+</span></span><span style=display:flex><span>            │ │                     │       │
+</span></span><span style=display:flex><span>            │ │        ......       │       │
+</span></span><span style=display:flex><span>            │ │                     │       │
+</span></span><span style=display:flex><span>            │ │  ┌────────────────┐ │       │
+</span></span><span style=display:flex><span> Write ─────┼─┼──►   TableUnit    │ │Delete │
+</span></span><span style=display:flex><span>            │ │  │                │ ◄────── │
+</span></span><span style=display:flex><span> Read  ─────┼─┼──► ┌────────────┐ │ │       │
+</span></span><span style=display:flex><span>            │ │  │ │ RocksDBRef │ │ │       │
+</span></span><span style=display:flex><span>            │ │  │ └────────────┘ │ │       │
+</span></span><span style=display:flex><span>            │ │  │                | |       |
+</span></span><span style=display:flex><span>            │ │  └────────────────┘ │       │
+</span></span><span style=display:flex><span>            │ │        ......       │       │
+</span></span><span style=display:flex><span>            │ └─────────────────────┘       │
+</span></span><span style=display:flex><span>            │                               │
+</span></span><span style=display:flex><span>            └───────────────────────────────┘
+</span></span></code></pre></td></tr></table></div></div><h2 id=data-model>Data Model</h2><h3 id=common-log-format>Common Log Format</h3><p>We use the common key and value format here.
+Here is the defined key format, and the following is introduction for fields in it:</p><ul><li><code>namespace</code>: multiple instances of WAL can exist for different purposes (e.g. manifest also needs wal). The namespace is used to distinguish them.</li><li><code>region_id</code>: in some WAL implementations we may need to manage logs from multiple tables, region is the concept to describe such a set of table logs. Obviously the region id is the identification of the region.</li><li><code>table_id</code>: identification of the table logs to which they belong.</li><li><code>sequence_num</code>: each login table can be assigned an identifier, called a sequence number here.</li><li><code>version</code>: for compatibility with old and new formats.</li></ul><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>+---------------+----------------+-------------------+--------------------+-------------+
+</span></span><span style=display:flex><span>| namespace(u8) | region_id(u64) |   table_id(u64)   |  sequence_num(u64) | version(u8) |
+</span></span><span style=display:flex><span>+---------------+----------------+-------------------+--------------------+-------------+
+</span></span></code></pre></td></tr></table></div></div><p>Here is the defined value format, <code>version</code> is the same as the key format, <code>payload</code> can be understood as encoded log content.</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>+-------------+----------+
+</span></span><span style=display:flex><span>| version(u8) | payload  |
+</span></span><span style=display:flex><span>+-------------+----------+
+</span></span></code></pre></td></tr></table></div></div><h3 id=metadata>Metadata</h3><p>The metadata here is stored in the same key-value format as the log. Actually only the last flushed sequence is stored in this implementation. Here is the defined metadata key format and field instructions:</p><ul><li><code>namespace</code>, <code>table_id</code>, <code>version</code> are the same as the log format.</li><li><code>key_type</code>, used to define the type of metadata. MaxSeq now defines that metadata of this type will only record the most recently flushed sequence in the table.
+Because it is only used in wal on RocksDB, which manages the logs at table level, so there is no region id in this key.</li></ul><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>+---------------+--------------+----------------+-------------+
+</span></span><span style=display:flex><span>| namespace(u8) | key_type(u8) | table_id(u64)  | version(u8) |
+</span></span><span style=display:flex><span>+---------------+--------------+----------------+-------------+
+</span></span></code></pre></td></tr></table></div></div><p>Here is the defined metadata value format, as you can see, just the <code>version</code> and <code>max_seq</code>(flushed sequence) in it:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>+-------------+--------------+
+</span></span><span style=display:flex><span>| version(u8) | max_seq(u64) |
+</span></span><span style=display:flex><span>+-------------+--------------+
+</span></span></code></pre></td></tr></table></div></div><h2 id=main-process>Main Process</h2><ul><li>Open <code>TableUnit</code>:<ul><li>Read the latest log entry of all tables to recover the next sequence numbers of tables mainly.</li><li>Scan the metadata to recover next sequence num as a supplement (because some table has just triggered flush and no new written logs after this, so no logs exists now).</li></ul></li><li>Write and read logs. Just write and read key-value from RocksDB.</li><li>Delete logs. For simplicity It will remove corresponding logs synchronously.</li></ul></div></main></div></div><footer class="td-footer row d-print-none"><div class=container-fluid><div class="row mx-md-2"><div class=td-footer__center>Apache HoraeDB is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the Apache Incubator. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.<hr><span class=td-footer__copyright>&copy;
+2023&ndash;2024
+<span class=td-footer__authors><p>The Apache Software Foundation, Licensed under the Apache License, Version 2.0.</p><p>Apache, the names of Apache projects, and the feather logo are either registered trademarks or trademarks of the Apache Software Foundation in the United States and/or other countries.</p></span></span><span class=td-footer__all_rights_reserved>All Rights Reserved</span></div></div></div></footer></div><script src=/js/main.min.f72d00502781aaf278a14088eb2356b1ba2a05ad698a0c43fe86314d74ceab56.js integrity="sha256-9y0AUCeBqvJ4oUCI6yNWsboqBa1pigxD/oYxTXTOq1Y=" crossorigin=anonymous></script><script defer src=/js/click-to-copy.min.73478a7d4807698aed7e355eb23f9890ca18fea3158604c8471746d046702bad.js integrity="sha256-c0eKfUgHaYrtfjVesj+YkMoY/qMVhgTIRxdG0EZwK60=" crossorigin=anonymous></script><script src=/js/tabpane-persist.js></script></body></html>
