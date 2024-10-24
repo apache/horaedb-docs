@@ -1,6 +1,6 @@
 ---
 title: Apache HoraeDB 与你相约北京理工大学
-date: 2024-10-07
+date: 2024-10-24
 tags:
   - community
 ---
