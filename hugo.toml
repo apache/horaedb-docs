@@ -86,3 +86,6 @@ sidebar_menu_compact = true
 ul_show = 1
 sidebar_menu_foldable = true
 showLightDarkModeMenu = true
+
+[outputs]
+section = [ "HTML", "RSS", "print" ]
