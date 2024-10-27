@@ -9,29 +9,29 @@ This chapter discusses compaction offload, which is designed to separate the com
 ## Overview
 
 ```plaintext
-┌───────────────────────────────────────────────────────────────────────┐
-│                                                                       │
-│                           HoraeMeta Cluster                           │
-│                                                                       │
-└───────────────────────────────────────────────────────────────────────┘
-    ▲                ▲                       |                   |
-    │                │Fetch compaction       │Monitor compaction │
-    │                │node  info             │node               │
-    |                │                       ▼                   ▼
-┌────────────┐  ┌────────────┐            ┌────────────┐   ┌────────────┐
-│            │  │            │Offload Task│            │   │            │
-│  HoraeDB   │  │  HoraeDB   │ ◀───────▶  │ Compaction │   │ Compaction │
-│            │  │            │ Ret Result │ Node       │   │ Node       │
-└────────────┘  └────────────┘            └────────────┘   └────────────┘
-    |                |                       |                   |
-    │                │  Update the SSTable   │                   │
-    │                │                       │                   │
-    ▼                ▼                       ▼                   ▼
-┌───────────────────────────────────────────────────────────────────────┐
-│                                                                       │
-│                            Object Storage                             │
-│                                                                       │
-└───────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│                           HoraeMeta Cluster                             │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+    ▲                ▲                           |                   |
+    │                │1.Fetch compaction         │(Monitor compaction│
+    │                │  node  info               │node)              │
+    |                │                           ▼                   ▼
+┌────────────┐  ┌────────────┐              ┌────────────┐   ┌────────────┐
+│            │  │            │2.Offload Task│            │   │            │
+│  HoraeDB   │  │  HoraeDB   │  ─────────▶  │ Compaction │   │ Compaction │
+│            │  │            │  ◀─────────  │ Node       │   │ Node       │
+└────────────┘  └────────────┘ 4.Ret Result └────────────┘   └────────────┘
+    |                |                            |                 |
+    │  5.Update the  │                            │    3.Compact    │
+    │    SSTable     │                            │                 │
+    ▼                ▼                            ▼                 ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                ┌─────────────────────┐  │
+│                            Object Storage      │ Temporary Workspace │  │
+│                                                └─────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────┘
 ```
 
 The diagram above describes the architecture of cluster for compaction offload, where some key concepts need to be explained:
@@ -39,17 +39,15 @@ The diagram above describes the architecture of cluster for compaction offload, 
 - `Compaction Node`: Takes responsibility to handle offloaded compaction tasks. The compaction node receives the compaction task and performs the actual merging of SSTables, then sends back the task result to HoraeDB.
 - `HoraeMeta Cluster`: HoraeMeta acts as a compaction nodes manager in the compaction offload scenario. It monitors the compaction nodes cluster and schedule the compaction nodes.
 
-The procedure of compaction based above architecture diagram is:
+The procedure of remote compaction based above architecture diagram is:
 
-1. HoraeDB triggers compaction procedure under some conditions and then generates the compaction task.
-2. HoraeDB fetchs the information of suitable compaction node from the HoraeMeta.
-3. HoraeDB distributes the compaction task to the remote compaction node, according to the information fetch from HoraeMeta.
-4. Compaction node executes the task and send the result back to the HoraeDB.
-5. HoraeDB receives the result and updates the manifest.
+1. HoraeDB fetchs the information of suitable compaction node from the HoraeMeta.
+2. HoraeDB distributes the compaction task to the remote compaction node, according to the information fetch from HoraeMeta.
+3. Compaction node executes the task and outputs compaction results to the temporary workspace.
+4. Compaction node sends compaction results back to HoraeDB.
+5. HoraeDB receives the result, installs the data in temporary workspace and purges compaction input files.
 
-We can see that the compaction offload architecture in HoraeDB is different from the traditional one. It separates the compaction task distribution from HoraeMeta and moves it into HoraeDB, which reduces the load of HoraeMeta to lower the risk of single points of failure.
-
-The above architecture above makes it easy to implement some wonderful features like load balancing and high availability. Let's dive into the key components in the architecture and talking about how these features are implemented.
+The architecture above makes it easy to implement some wonderful features like load balancing and high availability. Let's dive into the key components in the architecture and talking about how these features are implemented.
 
 ### Compaction Node
 
