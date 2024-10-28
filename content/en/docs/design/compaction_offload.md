@@ -41,9 +41,9 @@ The diagram above describes the architecture of cluster for compaction offload, 
 
 The procedure of remote compaction based above architecture diagram is:
 
-1. HoraeDB fetchs the information of suitable compaction node from the HoraeMeta.
-2. HoraeDB distributes the compaction task to the remote compaction node, according to the information fetch from HoraeMeta.
-3. Compaction node executes the task and outputs compaction results to the temporary workspace.
+1. HoraeDB servers fetch the information of suitable compaction nodes from the HoraeMeta.
+2. HoraeDB submit the compaction task to the remote compaction node, according to the information fetched from HoraeMeta.
+3. Compaction node executes the task and write results to the temporary workspace.
 4. Compaction node sends compaction results back to HoraeDB.
 5. HoraeDB receives the result, installs the data in temporary workspace and purges compaction input files.
 
