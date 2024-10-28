@@ -53,6 +53,16 @@ offlineSearch = true
 	icon = "fab fa-github"
     desc = "Discussion and help from your fellow users"
 [[params.links.user]]
+	name = "Discord"
+	url = "https://discord.gg/h5r4kVMRYN"
+	icon = "fab fa-discord"
+    desc = "Chat with other project developers/users from all over the world"
+[[params.links.user]]
+	name = "DingTalk"
+	url = "/images/dingtalk.jpg"
+	icon = "fa-regular fa-comments"
+    desc = "Chat with other project developers/users from China"
+[[params.links.user]]
 	name = "Weixin Official Accounts"
 	url = "/images/weixin-mp.jpg"
 	icon = "fa-brands fa-weixin"
@@ -64,13 +74,8 @@ offlineSearch = true
 	icon = "fab fa-github"
     desc = "Development takes place here!"
 [[params.links.developer]]
-	name = "DingTalk"
-	url = "/images/dingtalk.jpg"
-	icon = "fa-regular fa-comments"
-    desc = "Chat with other project developers on DingTalk"
-[[params.links.developer]]
 	name = "Developer mailing list"
-	url = "mailto:dev-subscribe@horaedb.apache.org"
+	url = "https://lists.apache.org/list.html?dev@horaedb.apache.org"
 	icon = "fa fa-envelope"
     desc = "Discuss development issues around the project"
 
