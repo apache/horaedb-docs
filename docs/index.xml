@@ -4,10 +4,4 @@
 &lt;blockquote>
 &lt;p>Note: please choose tag version &amp;gt;= v1.0.0, others are mainly for testing.&lt;/p>
 &lt;/blockquote>
-&lt;p>You can use command below to start a standalone server&lt;/p></description></item><item><title>Contribution Guidelines</title><link>https://horaedb.apache.org/docs/contribution-guidelines/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/contribution-guidelines/</guid><description>&lt;p>Thank you for thinking of contributing! We very much welcome contributions from the community.
-To make the process easier and more valuable for everyone involved we have a few rules and guidelines to follow.&lt;/p>
-&lt;h2 id="submitting-issues-and-feature-requests">Submitting Issues and Feature Requests&lt;/h2>
-&lt;p>Before you file an &lt;a href="https://github.com/apache/horaedb/issues/new">issue&lt;/a>, please search existing issues in case the same or similar issues have already been filed.
-If you find an existing open ticket covering your issue then please avoid adding &amp;ldquo;👍&amp;rdquo; or &amp;ldquo;me too&amp;rdquo; comments; GitHub notifications can cause a lot of noise for the project maintainers who triage the back-log.
-However, if you have a new piece of information for an existing ticket, and you think it may help the investigation or resolution, then please do add it as a comment!
-You can signal to the team that you&amp;rsquo;re experiencing an existing issue with one of GitHub&amp;rsquo;s emoji reactions (these are a good way to add &amp;ldquo;weight&amp;rdquo; to an issue from a prioritisation perspective).&lt;/p></description></item></channel></rss>
+&lt;p>You can use command below to start a standalone server&lt;/p></description></item></channel></rss>
