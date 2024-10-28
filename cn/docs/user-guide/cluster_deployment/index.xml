@@ -60,7 +60,7 @@ HoraeMeta 本身通过嵌入式的 &lt;a href="https://github.com/etcd-io/etcd">
 &lt;/ul>
 &lt;h3 id="部署方式">部署方式&lt;/h3>
 &lt;h4 id="启动配置">启动配置&lt;/h4>
-&lt;p>目前 HoraeMeta 支持以配置文件和环境变量两种方式来指定服务启动配置。我们提供了配置文件方式启动的示例，具体可以参考 &lt;a href="https://github.com/apache/incubator-horaedb-meta/tree/main/config">config&lt;/a>。
+&lt;p>目前 HoraeMeta 支持以配置文件和环境变量两种方式来指定服务启动配置。我们提供了配置文件方式启动的示例，具体可以参考 &lt;a href="https://github.com/apache/horaedb/tree/main/horaemeta/config">config&lt;/a>。
 环境变量的配置优先级高于配置文件，当同时存在时，以环境变量为准。&lt;/p>
 &lt;h4 id="动态拓扑和静态拓扑">动态拓扑和静态拓扑&lt;/h4>
 &lt;p>即使使用了 HoraeMeta 来部署 HoraeDB 集群，也可以选择静态拓扑或动态拓扑。对于静态拓扑，表的分布在集群初始化后是静态的，而对于动态拓扑，表可以在不同的 HoraeDB 节点之间进行动态迁移以达到负载平衡或者 failover 的目的。但是动态拓扑只有在 HoraeDB 节点使用的存储是非本地的情况下才能启用，否则会因为表的数据是持久化在本地，当表转移到不同的 HoraeDB 节点时会导致数据损坏。&lt;/p>
