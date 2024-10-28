@@ -8,6 +8,7 @@ menu:
 ---
 
 {{% blocks/section color="white" %}}
+
 # How to Subscribe Mail List
 
 Mailing lists are a form of communication used by the Apache community. Generally speaking, many things in the Apache community are hosted by mailing lists, For example: project q&A, technical discussion, transaction decision, release vote, etc，By subscribing, you can get the first update of the HoraeDB community and keep up with the community. The following list is the main list we are using:
