@@ -16,22 +16,22 @@ Mailing lists are a form of communication used by the Apache community. Generall
 - dev@horaedb.apache.org, Community activity information
 - commits@horaedb.apache.org, Code repo update information
 
-For subscribing to the dev@horaedb.apache.org mailing list, the steps are as follows：
+In order to subscribe to the dev@horaedb.apache.org mailing list, the steps are as follows：
 
-- Send an email without any content or subject: dev-subscribe@horaedb.apache.org
-- Wait until you receive an email with the subject line confirm subscribe to dev@horaedb.apache.org (if you have not received it for a long time, please confirm whether the email is blocked by your email, if you have not been blocked and will receive a reply for a long time, return to step 1)
-- Reply directly to the email without changing the subject line or adding the email content.
-- Wait until you receive an email with the subject line WELCOME to dev@horaedb.apache.org .
-- If you receive an email from dev, you have successfully subscribed to the email. To initiate a discussion, you can send an email directly to dev@horaedb.apache.org, which will be sent to everyone who subscribed to the mailing list.
+1. Send an email without any content or subject: dev-subscribe@horaedb.apache.org
+2. Wait until you receive an email with the subject line confirm subscribe to dev@horaedb.apache.org (if you have not received it for a long time, please confirm whether the email is blocked by your email, if you have not been blocked and will receive a reply for a long time, return to step 1)
+3. Reply directly to the email without changing the subject line or adding the email content.
+4. Wait until you receive an email with the subject line WELCOME to dev@horaedb.apache.org .
+5. If you receive an email from dev, you have successfully subscribed to the email. To initiate a discussion, you can send an email directly to dev@horaedb.apache.org, which will be sent to everyone who subscribed to the mailing list.
 
 ## Unsubscribe from the mail list
 
-The steps for unsubscribing to a mailing list are similar to those for subscribing to a mailing list:：
+The steps for unsubscribing to a mailing list are similar to those for subscribing to a mailing list:
 
-- Send an email without any content or subject to: dev-unsubscribe@horaedb.apache.org
-- Wait until you receive an email with the subject line confirm unsubscribe from dev@horaedb.apache.org
-- Reply directly to the email without changing the subject line or adding the email content
-- Wait until you receive an email with the subject line GOODBYE from dev@horaedb.apache.org
-- Unsubscribe success
+1. Send an email without any content or subject to: dev-unsubscribe@horaedb.apache.org
+2. Wait until you receive an email with the subject line confirm unsubscribe from dev@horaedb.apache.org
+3. Reply directly to the email without changing the subject line or adding the email content
+4. Wait until you receive an email with the subject line GOODBYE from dev@horaedb.apache.org
+5. Unsubscribe success
 
 {{% /blocks/section %}}
