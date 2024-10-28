@@ -18,7 +18,7 @@ HoraeMeta 本身通过嵌入式的 [ETCD](https://github.com/etcd-io/etcd) 保�
 
 #### 启动配置
 
-目前 HoraeMeta 支持以配置文件和环境变量两种方式来指定服务启动配置。我们提供了配置文件方式启动的示例，具体可以参考 [config](https://github.com/apache/incubator-horaedb-meta/tree/main/config)。
+目前 HoraeMeta 支持以配置文件和环境变量两种方式来指定服务启动配置。我们提供了配置文件方式启动的示例，具体可以参考 [config](https://github.com/apache/horaedb/tree/main/horaemeta/config)。
 环境变量的配置优先级高于配置文件，当同时存在时，以环境变量为准。
 
 #### 动态拓扑和静态拓扑

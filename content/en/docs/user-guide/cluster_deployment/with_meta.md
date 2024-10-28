@@ -14,13 +14,13 @@ HoraeMeta is one of the core services of HoraeDB distributed mode, it is used to
 ### Build
 
 - Golang version >= 1.19.
-- run `make build` in root path of [HoraeMeta](https://github.com/apache/incubator-horaedb-meta).
+- run `make build` in root path of [HoraeMeta](https://github.com/apache/horaedb/tree/main/horaemeta).
 
 ### Deploy
 
 #### Config
 
-At present, HoraeMeta supports specifying service startup configuration in two ways: configuration file and environment variable. We provide an example of configuration file startup. For details, please refer to [config](https://github.com/apache/incubator-horaedb-meta/tree/main/config). The configuration priority of environment variables is higher than that of configuration files. When they exist at the same time, the environment variables shall prevail.
+At present, HoraeMeta supports specifying service startup configuration in two ways: configuration file and environment variable. We provide an example of configuration file startup. For details, please refer to [config](https://github.com/apache/horaedb/tree/main/horaemeta/config). The configuration priority of environment variables is higher than that of configuration files. When they exist at the same time, the environment variables shall prevail.
 
 #### Dynamic or Static
 

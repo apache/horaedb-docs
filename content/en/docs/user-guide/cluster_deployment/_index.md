@@ -3,7 +3,7 @@ title: "Cluster Deployment"
 weight: 20
 ---
 
-In the [Quick Start](../quick_start.md) section, we have introduced the deployment of single HoraeDB instance.
+In the [Getting Started]({{< ref "getting-started.md" >}}) section, we have introduced the deployment of single HoraeDB instance.
 
 Besides, as a distributed timeseries database, multiple HoraeDB instances can be deployed as a cluster to serve with high availability and scalability.
 
