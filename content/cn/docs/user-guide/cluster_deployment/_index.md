@@ -3,7 +3,7 @@ title: "集群部署"
 weight: 20
 ---
 
-在[快速开始](../quick_start.md)部分我们已经介绍过单机版本 HoraeDB 的部署。
+在[快速开始]({{< ref "getting-started.md" >}})部分我们已经介绍过单机版本 HoraeDB 的部署。
 
 除此之外，HoraeDB 作为一个分布式时序数据库，多个 HoraeDB 实例能够以集群的方式提供可伸缩和高可用的数据服务。
 
