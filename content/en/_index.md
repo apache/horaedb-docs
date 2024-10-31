@@ -15,7 +15,7 @@ Get started<i class="fas fa-arrow-alt-circle-right ms-2"></i>
 
 <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 
-<a class="acevent" data-format="square" data-event="na2024" data-mode="light" data-style="border: 3px solid red; padding: 10px; background: yellow;"></a>
+<a class="acevent" data-format="wide" data-mode="light" data-style="border: 3px solid red; padding: 10px; background: yellow;"></a>
 
 {{% blocks/section type="row"  %}}
 
@@ -29,7 +29,7 @@ High scalability, Cost-efficiency, Community-driven
 HoraeDB has an open ecosystem that encourages collaboration and innovation, allowing developers to use what suits them best.
 {{% /blocks/feature %}}
 
-{{% blocks/feature icon="fa-brands fa-github" title="Contributions welcome!" url="docs/contribution-guidelines/" %}}
+{{% blocks/feature icon="fa-brands fa-github" title="Contributions welcome!" url="https://github.com/apache/horaedb/blob/main/CONTRIBUTING.md" %}}
 We do a [Pull Request](https://github.com/apache/horaedb/pulls) contributions workflow on **GitHub**. New users are always welcome!
 {{% /blocks/feature %}}
 
