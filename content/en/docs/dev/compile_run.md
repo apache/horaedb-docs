@@ -12,10 +12,8 @@ In order to compile HoraeDB, some relevant dependencies(including the `Rust` too
 Assuming the development environment is Ubuntu20.04, execute the following command to install the required dependencies:
 
 ```shell
-sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler
+sudo apt install git curl gcc g++ libssl-dev pkg-config protobuf-compiler
 ```
-
-It should be noted that the compilation of the project requires a higher version of CMake; if your development environment is an older Linux distribution, you will need to manually install the dependencies for a higher version.
 
 ## macOS
 
@@ -27,13 +25,7 @@ If the development environment is MacOS, execute the following command to instal
 xcode-select --install
 ```
 
-2. Install cmake:
-
-```shell
-brew install cmake
-```
-
-3. Install protobuf:
+2. Install protobuf:
 
 ```shell
 brew install protobuf
@@ -61,4 +53,27 @@ Then you can run HoraeDB using the default configuration file provided in the co
 
 ```bash
 ./target/debug/horaedb-server --config ./docs/minimal.toml
+```
+
+# Tips
+
+When compiling on macOS, you may encounter following errors:
+
+```
+IO error: while open a file for lock: /var/folders/jx/grdtrdms0zl3hy6zp251vjh80000gn/T/.tmpmFOAF9/manifest/LOCK: Too many open files
+
+or
+
+error: could not compile `regex-syntax` (lib)
+warning: build failed, waiting for other jobs to finish...
+LLVM ERROR: IO failure on output stream: File too large
+error: could not compile `syn` (lib)
+
+```
+
+To fix those, you should adjust ulimit as follows:
+
+```bash
+ulimit -n unlimited
+ulimit -f unlimited
 ```

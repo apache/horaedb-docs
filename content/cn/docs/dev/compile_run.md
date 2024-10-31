@@ -12,10 +12,8 @@ weight: 10
 假设我们的开发环境是 Ubuntu20.04, 可以执行如下命令来安装所需的依赖。
 
 ```shell
-sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler
+sudo apt install git curl gcc g++ libssl-dev pkg-config protobuf-compiler
 ```
-
-需要注意的是，项目的编译对 cmake 有版本要求。如果你的开发环境是旧的 Linux 发行版，有必要手动安装这些依赖项的高版本。
 
 ## macOS
 
@@ -27,13 +25,7 @@ sudo apt install git curl gcc g++ libssl-dev pkg-config cmake protobuf-compiler
 xcode-select --install
 ```
 
-2. 安装 cmake:
-
-```shell
-brew install cmake
-```
-
-3. 安装 protobuf:
+2. 安装 protobuf:
 
 ```shell
 brew install protobuf
@@ -62,4 +54,27 @@ cargo build
 
 ```bash
 ./target/debug/horaedb-server --config ./docs/minimal.toml
+```
+
+# 常见问题
+
+在 macOS 上编译时，可能会遇到下面的错误：
+
+```
+IO error: while open a file for lock: /var/folders/jx/grdtrdms0zl3hy6zp251vjh80000gn/T/.tmpmFOAF9/manifest/LOCK: Too many open files
+
+or
+
+error: could not compile `regex-syntax` (lib)
+warning: build failed, waiting for other jobs to finish...
+LLVM ERROR: IO failure on output stream: File too large
+error: could not compile `syn` (lib)
+
+```
+
+可以通过下面的命令来解决：
+
+```bash
+ulimit -n unlimited
+ulimit -f unlimited
 ```
