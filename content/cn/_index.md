@@ -15,7 +15,7 @@ title: "Horaedb"
 
 <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 
-<a class="acevent" data-format="square" data-event="na2024" data-mode="light" data-style="border: 3px solid red; padding: 10px; background: yellow;"></a>
+<a class="acevent" data-format="wide" data-mode="light" data-style="border: 3px solid red; padding: 10px; background: yellow;"></a>
 
 {{% blocks/section type="row" %}}
 
@@ -29,7 +29,7 @@ title: "Horaedb"
 积极拥抱开源生态，同时能够无缝对接各种开源组件。
 {{% /blocks/feature %}}
 
-{{% blocks/feature icon="fa-brands fa-github" title="100% 开源" url="/docs/contribution-guidelines/" %}}
+{{% blocks/feature icon="fa-brands fa-github" title="100% 开源" url="https://github.com/apache/horaedb/blob/main/CONTRIBUTING.md" %}}
 
 所有代码均在 GitHub 上开源，欢迎新用户的加入！
 {{% /blocks/feature %}}
