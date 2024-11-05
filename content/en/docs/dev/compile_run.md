@@ -43,13 +43,15 @@ source $HOME/.cargo/env
 
 # Compile and Run
 
-Compile HoraeDB by the following command:
+## horaedb-server
+
+Compile horaedb-server by the following command in project root directory:
 
 ```
 cargo build
 ```
 
-Then you can run HoraeDB using the default configuration file provided in the codebase.
+Then you can run it using the default configuration file provided in the codebase.
 
 ```bash
 ./target/debug/horaedb-server --config ./docs/minimal.toml
@@ -76,4 +78,19 @@ To fix those, you should adjust ulimit as follows:
 ```bash
 ulimit -n unlimited
 ulimit -f unlimited
+```
+
+## horaemeta-server
+
+Building horaemeta-server require Golang version >= 1.21, please [install it](https://go.dev/doc/install) before compile.
+
+Then in `horaemeta` directory, execute:
+```bash
+go build -o bin/horaemeta-server ./cmd/horaemeta-server/main.go
+```
+
+Then you can run horaemeta-server like this:
+
+```bash
+bin/horaemeta-server
 ```
