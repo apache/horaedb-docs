@@ -85,6 +85,7 @@ ulimit -f unlimited
 Building horaemeta-server require Golang version >= 1.21, please [install it](https://go.dev/doc/install) before compile.
 
 Then in `horaemeta` directory, execute:
+
 ```bash
 go build -o bin/horaemeta-server ./cmd/horaemeta-server/main.go
 ```
