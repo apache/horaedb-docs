@@ -81,7 +81,8 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h1 id="编译运行">编译运行&lt;/h1>
-&lt;p>编译 HoraeDB 命令如下:&lt;/p></description></item><item><title>性能诊断</title><link>https://horaedb.apache.org/cn/docs/dev/profiling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/profiling/</guid><description>&lt;h3 id="cpu-剖析">CPU 剖析&lt;/h3>
+&lt;h2 id="horaedb-server">horaedb-server&lt;/h2>
+&lt;p>在项目根目录下，执行如下命令编译 horaedb-server:&lt;/p></description></item><item><title>性能诊断</title><link>https://horaedb.apache.org/cn/docs/dev/profiling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/profiling/</guid><description>&lt;h3 id="cpu-剖析">CPU 剖析&lt;/h3>
 &lt;p>HoraeDB 提供 CPU 剖析 http 接口 &lt;code>debug/profile/cpu&lt;/code>.&lt;/p>
 &lt;p>例子:&lt;/p>
 &lt;pre tabindex="0">&lt;code>// 60s CPU 采样数据
