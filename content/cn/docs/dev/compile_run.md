@@ -44,13 +44,15 @@ source $HOME/.cargo/env
 
 # 编译运行
 
-编译 HoraeDB 命令如下:
+## horaedb-server
+
+在项目根目录下，执行如下命令编译 horaedb-server:
 
 ```
 cargo build
 ```
 
-然后可以使用特定的配置文件运行 HoraeDB。
+之后可以用下面命令运行它：
 
 ```bash
 ./target/debug/horaedb-server --config ./docs/minimal.toml
@@ -77,4 +79,20 @@ error: could not compile `syn` (lib)
 ```bash
 ulimit -n unlimited
 ulimit -f unlimited
+```
+
+## horaemeta-server
+
+编译 horaemeta-server 前需要安装 [Golang](https://go.dev/doc/install)，要求 Golang 版本 >= 1.21。
+
+在 `horaemeta` 目录下，执行：
+
+```bash
+go build -o bin/horaemeta-server ./cmd/horaemeta-server/main.go
+```
+
+可以使用如下命令运行它：
+
+```bash
+bin/horaemeta-server
 ```
