@@ -52,7 +52,7 @@ source $HOME/.cargo/env
 cargo build
 ```
 
-然后可以使用特定的配置文件运行 horaedb-server。
+之后可以用下面命令运行它：
 
 ```bash
 ./target/debug/horaedb-server --config ./docs/minimal.toml
@@ -91,7 +91,7 @@ ulimit -f unlimited
 go build -o bin/horaemeta-server ./cmd/horaemeta-server/main.go
 ```
 
-可以使用如下命令运行 horaemeta-server：
+可以使用如下命令运行它：
 
 ```bash
 bin/horaemeta-server
