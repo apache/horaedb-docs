@@ -37,6 +37,24 @@ It offers several advantages for developers and organizations. Here are some key
 - Optimized for Efficiency: OpenDAL is built with performance in mind. It includes optimizations to ensure efficient data access and manipulation, making it suitable for high-performance applications.
 - Comprehensive Documentation: The project provides detailed documentation, making it easier for developers to get started and understand how to use the library effectively.
 
+In newer versions of OpenDAL, [object_store integration](https://github.com/apache/opendal/tree/main/integrations/object_store) is provided, which is very beneficial for HoraeDB code migration, as the APIs used by the upper layers remain virtually unchanged, and only the object store part needs to be abstracted to a unified OpenDAL operator:
+
+```rust
+// Create a new operator
+let operator = Operator::new(S3::default())?.finish();
+
+// Create a new object store
+let object_store = Arc::new(OpendalStore::new(operator));
+```
+
+Additionally, since the Apache OpenDAL implementation of `object_store` is based on the latest version of the object_store, which has breaking changes from the previous version that HoraeDB is using, we've chosen to make it compatible in order to keep the scope of this upgrade as manageable as possible.
+
+In the process of adapting to the new API, the `put_multipart` interface has changed the most, so the main adaptation logic is also here, HoraeDB's approach is to encapsulate the underlying `put_multipart` interface to ensure that the upper layer code is not modified, the details can be found in the reference:
+
+https://github.com/apache/horaedb/blob/v2.1.0/src/components/object_store/src/multi_part.rs
+
+> Note: The adaptation logic is only practical when parquet version < 52.0.0.
+
 ## Download
 
 Go to [download pages](/downloads).
