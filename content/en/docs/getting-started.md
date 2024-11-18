@@ -107,12 +107,12 @@ DROP TABLE `demo`
 
 ## Using the SDKs
 
-See [sdk](./sdk/README.md)
+See [sdk]({{< ref "sdk" >}}).
 
 ## Next Step
 
 Congrats, you have finished this tutorial. For more information about HoraeDB, see the following:
 
-- [SQL Syntax](sql/README.md)
-- [Deployment](cluster_deployment/README.md)
-- [Operation](operation/README.md)
+- [SQL Syntax]({{< ref "sql" >}})
+- [Deployment]({{< ref "cluster_deployment" >}})
+- [Operation]({{< ref "operation" >}})

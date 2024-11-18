@@ -107,12 +107,12 @@ DROP TABLE `demo`
 
 ## 使用 SDK
 
-当前我们支持多种开发语言 SDK，例如 Java，Rust，Python, Go 等, 具体使用方式请参考 [sdk](sdk/README.md)。
+当前我们支持多种开发语言 SDK，例如 Java，Rust，Python, Go 等, 具体使用方式请参考 [sdk]({{< ref "sdk" >}})。
 
 ## 下一步
 
 恭喜你，你已经学习了 HoraeDB 的简单使用。关于 HoraeDB 的更多信息，请参见以下内容。
 
-- [SQL 语法](sql/README.md)
-- [部署文档](cluster_deployment/README.md)
-- [运维文档](operation/README.md)
+- [SQL 语法]({{< ref "sql" >}})
+- [部署文档]({{< ref "cluster_deployment" >}})
+- [运维文档]({{< ref "operation" >}})
