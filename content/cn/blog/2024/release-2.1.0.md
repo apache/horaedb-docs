@@ -22,6 +22,95 @@ Apache HoraeDB（孵化中）团队很高兴地宣布，v2.1.0 版本已于 2024
 
 ## 2. 使用 Apache OpenDAL 访问对象存储
 
+Apache OpenDAL 在最新版本中实现了 object store 的 api，对于 HoraeDB 使用来说，使用 Apache OpenDAL 简单了许多，上层使用的 api 几乎没有发生变化，只需要将对象存储抽象为统一的 OpenDAL operator：
+
+```
+// Create a new operator
+let operator = Operator::new(S3::default())?.finish();
+
+// Create a new object store
+let object_store = Arc::new(OpendalStore::new(operator));
+```
+
+此外，由于 Apache OpenDAL 实现的 object store api 是基于最新版本的，相较于 HoraeDB 之前使用的版本，object store api 发生了变化，HoraeDB 侧升级 object store 到最新版本，对新 api 进行了适配。
+
+对新 api 适配的过程中， `put_multipart` api 变化较大， 与原先 parquert 写入逻辑不再适配：
+```
+// 老 put_multipart 返回 AsyncWrite trait
+async fn put_multipart(
+      &self,
+      location: &Path,
+) -> upstream::Result<(MultipartId, Box<dyn AsyncWrite + Unpin + Send>)>;
+
+// 新 put_multipart 返回 MultipartUpload trait
+async fn put_multipart(&self, location: &Path) -> Result<Box<dyn MultipartUpload>>;
+
+// 其中
+trait AsyncWrite {
+    fn poll_write(
+        mut self: Pin<&mut Self>,
+        cx: &mut std::task::Context<'_>,
+        buf: &[u8],
+    ) -> Poll<Result<usize, IoError>>;
+    fn poll_flush(
+        mut self: Pin<&mut Self>,
+        cx: &mut std::task::Context<'_>,
+    ) -> Poll<Result<(), IoError>>;
+    fn poll_shutdown(
+        mut self: Pin<&mut Self>,
+        cx: &mut std::task::Context<'_>,
+    ) -> Poll<Result<(), IoError>>;
+}
+
+trait MultipartUpload {
+    fn put_part(&mut self, data: PutPayload) -> upstream::UploadPart;
+    async fn complete(&mut self) -> Result<PutResult>;
+    async fn abort(&mut self) -> Result<()>;
+}
+```
+
+Horaedb 侧对新 `put_multipart` api 实现了原先的 api 逻辑：
+
+```
+pub struct ConcurrentMultipartUpload {
+    upload: Box<dyn MultipartUpload>,
+
+    buffer: PutPayloadMut,
+
+    chunk_size: usize,
+
+    tasks: JoinSet<Result<(), Error>>,
+}
+
+pub type MultiUploadRef = Arc<Mutex<ConcurrentMultipartUpload>>;
+
+pub struct MultiUploadWriter {
+    pub multi_upload: MultiUploadRef,
+    // 用于多批数据并发写
+    upload_task: Option<BoxFuture<'static, std::result::Result<usize, IoError>>>,
+    flush_task: Option<BoxFuture<'static, std::result::Result<(), IoError>>>,
+    completion_task: Option<BoxFuture<'static, std::result::Result<(), IoError>>>,
+}
+
+impl AsyncWrite for MultiUploadWriter {
+    fn poll_write(
+        mut self: Pin<&mut Self>,
+        cx: &mut std::task::Context<'_>,
+        buf: &[u8],
+    ) -> Poll<Result<usize, IoError>>;
+    fn poll_flush(
+        mut self: Pin<&mut Self>,
+        cx: &mut std::task::Context<'_>,
+    ) -> Poll<Result<(), IoError>>;
+    fn poll_shutdown(
+        mut self: Pin<&mut Self>,
+        cx: &mut std::task::Context<'_>,
+    ) -> Poll<Result<(), IoError>>;
+}
+```
+
+在 parquet 最新版本中，写入路径上对新 `put_multipart` api 适配程度较高，若用户使用的 parquert 版本 >= 52.0.0，新 api 使用较为方便，若用户使用的 parquert 版本 < 52.0.0，可参考 Horaedb 的适配实现。
+
 ## 下载
 
 见[下载页面](/downloads)。
