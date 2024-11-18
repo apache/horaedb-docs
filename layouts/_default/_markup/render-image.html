@@ -1,0 +1,14 @@
+<figure>
+    <img src="{{ .Destination | safeURL }}"
+      alt="{{ .Text | plainify }}"
+      {{ with .Title}}
+        title="{{ . | plainify }}"
+      {{ end }}
+      loading="lazy" />
+
+  {{ if .Title }}
+  <figcaption><center>{{ .Title | safeHTML }}</center></figcaption>
+  {{ else if .Text }}
+  <figcaption><center>{{ .Text | safeHTML }}</center></figcaption>
+  {{ end }}
+</figure>
