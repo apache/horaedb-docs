@@ -59,7 +59,7 @@ https://github.com/apache/horaedb/blob/v2.1.0/src/components/object_store/src/mu
 
 Go to [download pages](/downloads).
 
-## Others
+## Conclusion
 
 Other bug fixes and improvements can be seen here:
 

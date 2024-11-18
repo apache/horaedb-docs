@@ -50,7 +50,7 @@ let object_store = Arc::new(OpendalStore::new(operator));
 
 见[下载页面](/downloads)。
 
-## 其他
+## 总结
 
 其他错误修复和改进请参见此处：
 https://github.com/apache/horaedb/releases/tag/v2.1.0
