@@ -18,7 +18,7 @@ With this new WAL, the above two problems are solved very well, and in performan
 ![Comparison of Write throughout](/images/local-wal-write.png)
 ![Comparison of Replay time](/images/local-wal-replay.png)
 
-Interested readers can refer to the design documentation [here]({{< ref "wal_on_disk.md" >}}) for more details on this feature.
+Interested readers can refer to the design documentation [here]({{< ref "wal_on_disk" >}}) for more details on this feature.
 
 ### How to enable
 
@@ -36,6 +36,10 @@ It offers several advantages for developers and organizations. Here are some key
 - Unified API. OpenDAL provides a consistent and unified API for accessing different storage backends, such as AWS S3, Azure Blob Storage, and local file systems.
 - Optimized for Efficiency: OpenDAL is built with performance in mind. It includes optimizations to ensure efficient data access and manipulation, making it suitable for high-performance applications.
 - Comprehensive Documentation: The project provides detailed documentation, making it easier for developers to get started and understand how to use the library effectively.
+
+## Download
+
+Go to [download pages](/downloads).
 
 ## Others
 
