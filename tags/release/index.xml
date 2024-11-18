@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Release on Apache HoraeDB</title><link>https://horaedb.apache.org/tags/release/</link><description>Recent content in Release on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 18 Nov 2024 17:32:03 +0800</lastBuildDate><atom:link href="https://horaedb.apache.org/tags/release/index.xml" rel="self" type="application/rss+xml"/><item><title>Release 2.1.0</title><link>https://horaedb.apache.org/blog/2024/release-2.1.0/</link><pubDate>Mon, 18 Nov 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/blog/2024/release-2.1.0/</guid><description>&lt;p>The Apache HoraeDB(incubating) team are pleased to announce that v2.1.0 is released, which has closed over 60 issues, including two major features:&lt;/p>
+&lt;h2 id="1-new-wal-implementation-based-on-local-disk">1. New WAL implementation based on local disk.&lt;/h2>
+&lt;p>In previous version, there is a RocksDB-based WAL. Although it works well in most cases, it has following issues:&lt;/p>
+&lt;ul>
+&lt;li>Compiling from source can be a challenging task, especially since RocksDB is primarily written in C++.&lt;/li>
+&lt;li>For WAL, RocksDB can be somewhat overkill. If you are not familiar with RocksDB, tuning it can be very challenging.&lt;/li>
+&lt;/ul>
+&lt;p>With this new WAL, the above two problems are solved very well, and in performance test, the new WAL slightly outperforms the previous implementation, giving a solid foundation for future optimizations.&lt;/p></description></item></channel></rss>

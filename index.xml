@@ -577,7 +577,14 @@
  &lt;td>Returns the approximate percentile (TDigest) of input values with weight, where w is weight column expression and p is a float64 between 0 and 1 (inclusive). It supports raw data as input or pre-aggregated TDigest sketches, then builds or merges Tdigest sketches during query time. TDigest sketches are a list of centroid (x, w), where x stands for mean and w stands for weight.&lt;/td>
  &lt;/tr>
  &lt;/tbody>
-&lt;/table></description></item><item><title>Release 2.0.0</title><link>https://horaedb.apache.org/blog/2024/release-2.0.0/</link><pubDate>Tue, 23 Apr 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/blog/2024/release-2.0.0/</guid><description>&lt;h2 id="upgrade-from-1xx-to-200">Upgrade from 1.x.x to 2.0.0&lt;/h2>
+&lt;/table></description></item><item><title>Release 2.1.0</title><link>https://horaedb.apache.org/blog/2024/release-2.1.0/</link><pubDate>Mon, 18 Nov 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/blog/2024/release-2.1.0/</guid><description>&lt;p>The Apache HoraeDB(incubating) team are pleased to announce that v2.1.0 is released, which has closed over 60 issues, including two major features:&lt;/p>
+&lt;h2 id="1-new-wal-implementation-based-on-local-disk">1. New WAL implementation based on local disk.&lt;/h2>
+&lt;p>In previous version, there is a RocksDB-based WAL. Although it works well in most cases, it has following issues:&lt;/p>
+&lt;ul>
+&lt;li>Compiling from source can be a challenging task, especially since RocksDB is primarily written in C++.&lt;/li>
+&lt;li>For WAL, RocksDB can be somewhat overkill. If you are not familiar with RocksDB, tuning it can be very challenging.&lt;/li>
+&lt;/ul>
+&lt;p>With this new WAL, the above two problems are solved very well, and in performance test, the new WAL slightly outperforms the previous implementation, giving a solid foundation for future optimizations.&lt;/p></description></item><item><title>Release 2.0.0</title><link>https://horaedb.apache.org/blog/2024/release-2.0.0/</link><pubDate>Tue, 23 Apr 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/blog/2024/release-2.0.0/</guid><description>&lt;h2 id="upgrade-from-1xx-to-200">Upgrade from 1.x.x to 2.0.0&lt;/h2>
 &lt;p>The transition from CeresDB to Apache HoraeDB introduces several breaking changes. To facilitate upgrading from older versions to v2.0.0, specific alterations are necessary.&lt;/p>
 &lt;h4 id="upgrade-steps">Upgrade Steps&lt;/h4>
 &lt;ol>
@@ -988,8 +995,8 @@ The following table lists the mapping relationship between MySQL and HoraeDB.&lt
  &lt;/tbody>
 &lt;/table></description></item><item><title>Downloads</title><link>https://horaedb.apache.org/downloads/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/downloads/</guid><description>&lt;p>Apache HoraeDB is released as source code tarballs with corresponding docker images for convenience.&lt;/p>
 &lt;h1 id="the-latest-release">The latest release&lt;/h1>
-&lt;p>The latest release is 2.0.0(2024-05-23), the source code can be downloaded &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.0.0/apache-horaedb-incubating-v2.0.0-src.tar.gz">here&lt;/a>.&lt;/p>
-&lt;p>Verify this release using the &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.0.0/apache-horaedb-incubating-v2.0.0-src.tar.gz.asc">signatures&lt;/a>, &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.0.0/apache-horaedb-incubating-v2.0.0-src.tar.gz.sha512">checksums&lt;/a> by following guides below.&lt;/p>
+&lt;p>The latest release is 2.1.0(2024-11-18), the source code can be downloaded &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz">here&lt;/a>.&lt;/p>
+&lt;p>Verify this release using the &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz.asc">signatures&lt;/a>, &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz.sha512">checksums&lt;/a> by following guides below.&lt;/p>
 &lt;h2 id="docker-images">Docker images&lt;/h2>
 &lt;p>Pre-built binaries are not provided yet, users can &lt;a href="https://horaedb.apache.org/docs/dev/compile_run/">compile from source&lt;/a> or using docker images:&lt;/p>
 &lt;ul>

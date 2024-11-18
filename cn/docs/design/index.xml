@@ -158,7 +158,15 @@
 &lt;p>本篇文档就来介绍 HoraeDB 中存储引擎的内部实现，读者可以参考这里面的内容，来探索如何高效使用 HoraeDB。&lt;/p>
 &lt;h1 id="整体架构">整体架构&lt;/h1>
 &lt;p>HoraeDB 是一种基于 share-nothing 架构的分布式存储系统，不同服务器之间的数据相互隔离，互不影响。每一个单机中的存储引擎是 LSM（Log-structured merge-tree）的一个变种，针对时序场景做了优化，下图展示了其主要组件的运作方式：&lt;/p>
-&lt;p>&lt;img src="https://horaedb.apache.org/images/storage-overview.svg">&lt;/p>
+&lt;p>&lt;figure>
+ &lt;img src="https://horaedb.apache.org/images/storage-overview.svg"
+ alt=""
+ 
+ loading="lazy" />
+
+ 
+&lt;/figure>
+&lt;/p>
 &lt;h2 id="write-ahead-log-wal">Write Ahead Log (WAL)&lt;/h2>
 &lt;p>一次写入请求的数据会写到两个部分：&lt;/p>
 &lt;ol>
