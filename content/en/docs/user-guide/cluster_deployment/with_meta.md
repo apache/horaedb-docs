@@ -187,9 +187,27 @@ timeout = "5s"
 server_addrs = ['http://{HoraeMetaAddr}:2379']
 ```
 
+### Compaction Offload
+
+Compaction offload is also supported in `WithMeta` mode. To enable compaction offload, the compaction mode of HoraeDB Server should be configured as remote compaction:
+
+```toml
+[analytic.compaction_mode]
+compaction_mode = "Offload"
+node_picker = "Remote"
+```
+
+A Compaction Server, responsible for executing the compaction task, is also needed. The configuration of Compaction Server is similar to the HoraeDB Server, except that the node type (default `HoraeDB`) should be set to `CompactionServer`:
+
+```toml
+[cluster_deployment]
+mode = "WithMeta"
+node_type = "CompactionServer"
+```
+
 ### Complete Config of HoraeDB
 
-With all the parts of the configurations mentioned above, a runnable complete config for HoraeDB can be made. In order to make the HoraeDB cluster runnable, we can decide to adopt RocksDB-based WAL and local-disk-based Object Storage:
+With all the parts of the configurations mentioned above, a runnable complete config for HoraeDB can be made. In order to make the HoraeDB cluster runnable, we can decide to adopt RocksDB-based WAL and local-disk-based Object Storage without compaction offload:
 
 ```toml
 [server]
