@@ -191,7 +191,7 @@ server_addrs = ['http://{HoraeMetaAddr}:2379']
 
 Compaction offload is also supported. To enable compaction offload, the corresponding compaction mode with node picker and endpoint should be configured.
 
-- `node_picker`: There are two types of node picker -- `Local` and `Remote`(WIP). 
+- `node_picker`: There are two types of node picker -- `Local` and `Remote`(WIP).
   - When the `Local` is setted, the local compaction task would be offloaded to the specific remote compaction server, which decided by `endpoint`.
 - `endpoint`: The endpoint, in the form `addr:port`, indicating the _grpc port_ of the remote compaction server.
 
