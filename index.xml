@@ -1391,17 +1391,17 @@ and understand for both existing and new contributors.&lt;/p></description></ite
 &lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cargo add ceresdb-client
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cargo add horaedb-client
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>You can get latest version &lt;a href="https://github.com/apache/incubator-horaedb-client-rs/tags">here&lt;/a>.&lt;/p>
+&lt;/div>&lt;p>You can get latest version &lt;a href="https://github.com/apache/horaedb-client-rs/tags">here&lt;/a>.&lt;/p>
 &lt;h2 id="init-client">Init Client&lt;/h2>
 &lt;p>At first, we need to init the client.&lt;/p>
 &lt;ul>
 &lt;li>New builder for the client, and you must set &lt;code>endpoint&lt;/code> and &lt;code>mode&lt;/code>:
 &lt;ul>
 &lt;li>&lt;code>endpoint&lt;/code> is a string which is usually like &amp;ldquo;ip/domain_name:port&amp;rdquo;.&lt;/li>
-&lt;li>&lt;code>mode&lt;/code> is used to define the way to access horaedb server, &lt;a href="https://github.com/apache/incubator-horaedb-client-rs/blob/main/src/db_client/builder.rs#L20">detail about mode&lt;/a>.&lt;/li>
+&lt;li>&lt;code>mode&lt;/code> is used to define the way to access horaedb server, &lt;a href="https://github.com/apache/horaedb-client-rs/blob/main/src/db_client/builder.rs#L20">detail about mode&lt;/a>.&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
@@ -1414,7 +1414,7 @@ and understand for both existing and new contributors.&lt;/p></description></ite
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;ul>
-&lt;li>New and set &lt;code>rpc_config&lt;/code>, it can be defined on demand or just use the default value, &lt;a href="https://github.com/apache/incubator-horaedb-client-rs/blob/main/src/options.rs">detail about rpc config&lt;/a>:&lt;/li>
+&lt;li>New and set &lt;code>rpc_config&lt;/code>, it can be defined on demand or just use the default value, &lt;a href="https://github.com/apache/horaedb-client-rs/blob/main/src/options.rs">detail about rpc config&lt;/a>:&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
