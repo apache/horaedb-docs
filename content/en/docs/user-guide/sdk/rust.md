@@ -5,10 +5,10 @@ title: "Rust"
 ## Install
 
 ```bash
-cargo add ceresdb-client
+cargo add horaedb-client
 ```
 
-You can get latest version [here](https://github.com/apache/incubator-horaedb-client-rs/tags).
+You can get latest version [here](https://github.com/apache/horaedb-client-rs/tags).
 
 ## Init Client
 
@@ -16,13 +16,13 @@ At first, we need to init the client.
 
 - New builder for the client, and you must set `endpoint` and `mode`:
   - `endpoint` is a string which is usually like "ip/domain_name:port".
-  - `mode` is used to define the way to access horaedb server, [detail about mode](https://github.com/apache/incubator-horaedb-client-rs/blob/main/src/db_client/builder.rs#L20).
+  - `mode` is used to define the way to access horaedb server, [detail about mode](https://github.com/apache/horaedb-client-rs/blob/main/src/db_client/builder.rs#L20).
 
 ```rust
 let mut builder = Builder::new("ip/domain_name:port", Mode::Direct/Mode::Proxy);
 ```
 
-- New and set `rpc_config`, it can be defined on demand or just use the default value, [detail about rpc config](https://github.com/apache/incubator-horaedb-client-rs/blob/main/src/options.rs):
+- New and set `rpc_config`, it can be defined on demand or just use the default value, [detail about rpc config](https://github.com/apache/horaedb-client-rs/blob/main/src/options.rs):
 
 ```rust
 let rpc_config = RpcConfig {
@@ -96,7 +96,7 @@ let resp = client
 
 We support to write with the time series data model like [InfluxDB](https://awesome.influxdata.com/docs/part-2/influxdb-data-model/).
 
-- Build the `point` first by `PointBuilder`, the related data structure of `tag value` and `field value` in it is defined as `Value`, [detail about Value](https://github.com/apache/incubator-horaedb-client-rs/blob/main/src/model/value.rs):
+- Build the `point` first by `PointBuilder`, the related data structure of `tag value` and `field value` in it is defined as `Value`, [detail about Value](https://github.com/apache/horaedb-client-rs/blob/main/src/model/value.rs):
 
 ```rust
 let test_table = "horaedb";
@@ -129,7 +129,7 @@ let mut write_req = WriteRequest::default();
 write_req.add_point(point);
 ```
 
-- New `rpc_ctx`, and it can also be defined on demand or just use the default value, [detail about rpc ctx](https://github.com/apache/incubator-horaedb-client-rs/blob/a72e673103463c7962e01a097592fc7edbcc0b79/src/rpc_client/mod.rs#L29):
+- New `rpc_ctx`, and it can also be defined on demand or just use the default value, [detail about rpc ctx](https://github.com/apache/horaedb-client-rs/blob/a72e673103463c7962e01a097592fc7edbcc0b79/src/rpc_client/mod.rs#L29):
 
 - Finally, write to server by client.
 
@@ -162,4 +162,4 @@ let resp = client.sql_query(rpc_ctx, &req).await.expect("Should success to write
 
 ## Example
 
-You can find the [complete example](https://github.com/apache/incubator-horaedb-client-rs/blob/main/examples/read_write.rs) in the project.
+You can find the [complete example](https://github.com/apache/horaedb-client-rs/blob/main/examples/read_write.rs) in the project.
