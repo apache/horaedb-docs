@@ -189,12 +189,19 @@ server_addrs = ['http://{HoraeMetaAddr}:2379']
 
 ### Compaction Offload
 
-Compaction offload is also supported in `WithMeta` mode. To enable compaction offload, the compaction mode of HoraeDB Server should be configured as remote compaction:
+Compaction offload is also supported. To enable compaction offload, the corresponding compaction mode with node picker and endpoint should be configured.
+
+- `node_picker`: There are two types of node picker -- `Local` and `Remote`(WIP). 
+  - When the `Local` is setted, the local compaction task would be offloaded to the specific remote compaction server, which decided by `endpoint`.
+- `endpoint`: The endpoint, in the form `addr:port`, indicating the _grpc port_ of the remote compaction server.
+
+Here is an example for it:
 
 ```toml
 [analytic.compaction_mode]
 compaction_mode = "Offload"
-node_picker = "Remote"
+node_picker = "Local"
+endpoint = "{RemoteCompactionServerAddr}:{RemoteCompactionServerGrpcPort}"
 ```
 
 A Compaction Server, responsible for executing the compaction task, is also needed. The configuration of Compaction Server is similar to the HoraeDB Server, except that the node type (default `HoraeDB`) should be set to `CompactionServer`:
