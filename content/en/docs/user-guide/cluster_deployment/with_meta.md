@@ -204,13 +204,7 @@ node_picker = "Local"
 endpoint = "{RemoteCompactionServerAddr}:{RemoteCompactionServerGrpcPort}"
 ```
 
-A Compaction Server, responsible for executing the compaction task, is also needed. The configuration of Compaction Server is similar to the HoraeDB Server, except that the node type (default `HoraeDB`) should be set to `CompactionServer`:
-
-```toml
-[cluster_deployment]
-mode = "WithMeta"
-node_type = "CompactionServer"
-```
+A Compaction Server, responsible for executing the compaction task, is also needed. The configuration of Compaction Server is similar to the HoraeDB Server.
 
 ### Complete Config of HoraeDB
 
