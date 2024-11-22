@@ -204,7 +204,7 @@ node_picker = "Local"
 endpoint = "{RemoteCompactionServerAddr}:{RemoteCompactionServerGrpcPort}"
 ```
 
-A Compaction Server, responsible for executing the compaction task, is also needed. The configuration of Compaction Server is similar to the HoraeDB Server.
+A Compaction Server, responsible for executing the compaction task, is also needed. Currently `horaedb-server` will act as this role, in the future we can move it to an independent service.
 
 ### Complete Config of HoraeDB
 
