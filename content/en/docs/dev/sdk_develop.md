@@ -2,17 +2,27 @@
 title: "SDK Development"
 ---
 
-# Rust
+## Rust
+
+https://github.com/apache/horaedb-client-rs
+
+First install cargo with
 
 ```bash
-git clone https://github.com/apache/horaedb-client-rs
+curl https://sh.rustup.rs -sSf | sh
+```
 
+Then build with
+
+```bash
 cargo build
 ```
 
-# Python
+## Python
 
-## Requirements
+https://github.com/apache/horaedb-client-py
+
+### Requirements
 
 - python 3.7+
 
@@ -22,31 +32,29 @@ The Python SDK rely on Rust SDK, so [cargo](https://doc.rust-lang.org/stable/car
 pip install maturin
 ```
 
-Then we can build Python SDK:
+Then build Python SDK with this:
 
 ```bash
-git clone https://github.com/apache/horaedb-client-py
-
 maturin build
 ```
 
-# Go
+## Go
+
+https://github.com/apache/horaedb-client-go
 
 ```bash
-git clone https://github.com/apache/horaedb-client-go
-
 go build ./...
 ```
 
-# Java
+## Java
 
-## Requirements
+https://github.com/apache/horaedb-client-java
+
+### Requirements
 
 - java 1.8
 - maven 3.6.3+
 
 ```bash
-git clone https://github.com/apache/horaedb-client-java
-
 mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 ```
