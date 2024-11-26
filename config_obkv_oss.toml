@@ -7,7 +7,7 @@
 # ```
 # docker run -d --name horaedb-server \
 # -v /etc/horaedb/horaedb.toml:{path_to_this_config} \
-# horaedb/horaedb-server
+# apache/horaedb-server
 # ```
 
 [server]

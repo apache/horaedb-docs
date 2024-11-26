@@ -18,7 +18,7 @@
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span> -p 8831:8831 &lt;span style="color:#b62;font-weight:bold">\
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span> -p 3307:3307 &lt;span style="color:#b62;font-weight:bold">\
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span> -p 5440:5440 &lt;span style="color:#b62;font-weight:bold">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span> ghcr.io/apache/horaedb-server:nightly-20231222-f57b3827
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span> apache/horaedb-server
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>启动后 HoraeDB 会监听如下端口：&lt;/p>
