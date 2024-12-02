@@ -48,7 +48,7 @@ tags:
 
 演讲者是 Fury 项目的发起者 Shawn Yang，也是我的同事（哈哈）。如标题所说，Fury 定位的就是高效的序列化，已经在诸多系统中被使用（参加 [Who is Using Apache Fury?](https://github.com/apache/fury/issues/1766)），并取得显著提升。
 
-一直以为序列化是个已经解决的问题，了解了 Fury 后才了解到这个领域的问题。举个简单的例子，对于常见的 Protobuf 来说， 在序列化一个数组的 Message 时，在序列化时 Message 的元数据会序列化多次，但如果应用层能够保证每个字段都不会缺失，那么这样就是有些浪费的，在 Fury 中就可以 [schema consistent](https://fury.apache.org/docs/specification/fury_xlang_serialization_spec/#schema-consistent) 这种模式来避免这种冗余。
+一直以为序列化是个已经解决的问题，了解了 Fury 后才了解到这个领域的问题。举个简单的例子，对于常见的 Protobuf 来说， 在序列化一个数组的 Message 时，Message 的元数据会序列化多次，但如果应用层能够保证每个字段都不会缺失，那么这样就是有些浪费的，在 Fury 中就可以 [schema consistent](https://fury.apache.org/docs/specification/fury_xlang_serialization_spec/#schema-consistent) 这种模式来避免这种冗余。
 
 ## [Making Apache Kafka even faster and more scalable](https://www.slideshare.net/slideshow/making-apache-kafka-even-faster-and-more-scalable/272645669#2)
 
@@ -65,7 +65,7 @@ Kafka 是一种高吞吐量的分布式流处理平台，尽管十分流行，�
 
 ## Tomcat 11 and Jakarta EE 11
 
-虽然不写 Java 很多年了，但是谁能不喜欢这只 Tom 猫呢？
+Tomcat 是 Java Web 开发领域的一个经典开源项目，不仅仅是一个 Web 服务器和 Servlet 容器，更承载了许多开发者的回忆。虽然不写 Java 很多年了，但看着到这个项目还是挺亲切的，毕竟谁能不喜欢这只 Tom 猫呢？
 
 ![](/images/review-coc-na/tomcat-cupcake.jpg)
 
@@ -84,14 +84,14 @@ Kafka 是一种高吞吐量的分布式流处理平台，尽管十分流行，�
 
 ## Cassandra
 
-Cassandra 议题这次会议上非常多，印象中有一个房间一整天的议题都是与之相关，没想过 Cassandra 能有这么流行，甚至还有一个 BYOT（Bring Your Own Topic） 环节。下面是几个重量的议题：
+Cassandra 议题这次会议上非常多，印象中有一个房间一整天的议题都是与之相关，没想过 Cassandra 能有这么流行，甚至还有一个 BYOT（Bring Your Own Topic） 环节，来让大家交流 Cassandra 使用心得。下面是几个重量的议题：
 
 - The Road to 20 Terabytes per Node: Overcoming Cassandra's Storage Density Challenges
 - Apache Cassandra as a Transactional Database
 - Lessons from (Probably) the World’s Largest Kafka and Cassandra Migration
   - [instaclustr/instaclustr-minotaur: Tooling for consistent rebuilding of a Cassandra cluster](https://github.com/instaclustr/instaclustr-minotaur)
 
-但比较可惜的是，当时坐的位置比较偏，加上之前对 Cassandra 了解较少，上面几个议题的没听懂几个，只能课下再下功夫了解了。但尽管如此，还是对一个议题印象颇深，是一个由满脸白胡子的嘉宾分享的关于在查询中实现分页的分享，很工程的一个问题，演讲者围绕其对性能的影响、潜在的误用风险等多个维度进行了详尽剖析，展现出深厚的专业功底和匠人精神。
+但比较可惜的是，当时坐的位置比较偏，加上之前对 Cassandra 了解较少，上面几个议题的没听懂几个，只能课下再下功夫了解了。但尽管如此，还是对一个议题印象颇深，是一个由满脸白胡子的嘉宾分享的关于在查询中实现分页的演讲，很工程的一个问题，演讲者围绕其对性能的影响、潜在的误用风险等多个维度进行了详尽剖析，展现出深厚的专业功底和匠人精神。
 
 ![](/images/review-coc-na/cassandra-paging.jpg)
 
