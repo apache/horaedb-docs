@@ -25,26 +25,28 @@ tags:
 
 可以想到，苹果把 Swift 定位为通用语言，既可以为苹果生态服务，也是更长远的战略布局。通过通用化，苹果能够扩大 Swift 的生态影响力，吸引更多开发者进入其体系，同时为跨平台的未来做好准备。现在想想，华为的[仓颉语言](https://cangjie-lang.cn/) 也类似的思路吧！打造生态前期投入肯定是巨大的，需要长期投入和耐心的过程，但对苹果、华为这种体量的公司，这种投入实际上是一种战略性资源配置，目的就是建立长期的技术竞争力。
 
+在会场中，我也有幸见到了 [Database Internals](https://www.databass.dev/) 一书的作者 Alex Petrov（目前在苹果工作），给他简单介绍了下 HoraeDB，他的本能反应就是 Very cool！在国内我还真没遇到类似回答。
+
 # 演讲介绍
 
 接下来就介绍几个笔者印象比较深的演讲，由于存在语言问题，加上没有演讲的 PPT，因此下面的介绍是我根据关键词去搜索整理得到，仅供大家参考。
 
 ## Optimizing Apache HoraeDB for High-Cardinality Metrics at AntGroup
 
-这是我带来的演进，讲的就是 HoraeDB 重点解决的问题，以及对应思路和方法。核心一点就是通过 AP 领域的思路（剪枝、[BRIN](https://en.wikipedia.org/wiki/Block_Range_Index)）来解决高基数时间线的问题，细节可以参考本次分享的[PPT](https://downloads.apache.org/incubator/horaedb/slides/20241010-Optimizing%20Apache%20HoraeDB%20for%20High-Cardinality%20Metrics%20at%20AntGroup.pdf)。
+这是我带来的演讲，介绍了 HoraeDB 重点解决的问题，以及对应思路和方法。核心一点就是通过 AP 领域的思路（剪枝、[BRIN](https://en.wikipedia.org/wiki/Block_Range_Index)）来解决高基数时间线的问题，细节可以参考本次分享的[PPT](https://downloads.apache.org/incubator/horaedb/slides/20241010-Optimizing%20Apache%20HoraeDB%20for%20High-Cardinality%20Metrics%20at%20AntGroup.pdf)。
 
-目前的版本在实际运行中，我们也遇到了些新问题。目前的引擎在以时序分析为主的场景来说运行的会比较好，但在传统的时序告警领域工作的并不是很好，主要在于两点：
+现在的版本我们其实也遇到了些新问题。目前的引擎在以时序分析为主的场景来说运行的会比较好，但在传统的时序告警领域工作的并不是很好，主要在于两点：
 
 1. 一次查询的代价太大，在查询引擎中采用了通用的 Arrow 格式，反而导致丢失了针对时序特点的优化
 2. 采用表作为基本数据组织方式过于严格，时序本来是一种弱 Schema 的场景，而提前定义好固定模式的表显然是一种“退步”，另外表作为资源管理单位，也限制了单机能够承载的表数量。
 
 因此在后续的版本中，我们吸取了现在引擎（即目前的 Analytic Engine）的教训，打算重新设计一种引擎（称为：Metric Engine）来解决高基数的问题。
 
-新引擎正在紧锣密鼓的开发中，感兴趣的读者可以参考[这里的 rfc](https://github.com/apache/horaedb/blob/main/docs/rfcs/20240827-metric-engine.md) 来了解设计思路。在后续的版本发布时，我们也会重点强调新引擎的开发进度。
+新引擎正在紧锣密鼓的开发中，感兴趣的读者可以参考[这里的 RFC](https://github.com/apache/horaedb/blob/main/docs/rfcs/20240827-metric-engine.md) 来了解设计思路。在后续的版本发布时，我们也会重点强调新引擎的开发进度。
 
 ## Blazingly-Fast: Introduction to Apache Fury Serialization
 
-演讲者是 Fury 项目的发起者 Shawn Yang，也是我的同事（哈哈）。如标题所说，Fury 定位的就是高效的序列化，已经在诸多 系统中被使用（参加 [Who is Using Apache Fury?](https://github.com/apache/fury/issues/1766)），并取得显著提升。
+演讲者是 Fury 项目的发起者 Shawn Yang，也是我的同事（哈哈）。如标题所说，Fury 定位的就是高效的序列化，已经在诸多系统中被使用（参加 [Who is Using Apache Fury?](https://github.com/apache/fury/issues/1766)），并取得显著提升。
 
 一直以为序列化是个已经解决的问题，了解了 Fury 后才了解到这个领域的问题。举个简单的例子，对于常见的 Protobuf 来说， 在序列化一个数组的 Message 时，在序列化时 Message 的元数据会序列化多次，但如果应用层能够保证每个字段都不会缺失，那么这样就是有些浪费的，在 Fury 中就可以 [schema consistent](https://fury.apache.org/docs/specification/fury_xlang_serialization_spec/#schema-consistent) 这种模式来避免这种冗余。
 
@@ -99,7 +101,7 @@ Apache Arrow 是一个跨语言的内存数据处理框架，通过标准化内�
 
 ## 其他
 
-- [Apache YuniKorn](https://yunikorn.apache.org/)，云原生时代的资源调度器，和现在一个苹果的朋友聊，他们就在用它来调度他们的 AI 相关的任务！
+- [Apache YuniKorn](https://yunikorn.apache.org/)，云原生时代的资源调度器，和现场一个苹果的朋友聊，他们就在用它来调度他们 AI 相关的任务！
 - [PRQL](https://prql-lang.org/)（Pipelined Relational Query Language），另一个查询语言，相比 SQL 功能更强大、简洁。示例：
 
   ```sql
@@ -112,18 +114,18 @@ Apache Arrow 是一个跨语言的内存数据处理框架，通过标准化内�
   }
   ```
 
-对应的 SQL 如下：
+  对应的 SQL 如下：
 
-```sql
-SELECT
-  COALESCE(SUM(plays), 0) AS plays,
-  MAX(length) AS longest,
-  MIN(length) AS shortest
-FROM
-  tracks
-WHERE
-  artist = 'Bob Marley'
-```
+  ```sql
+  SELECT
+    COALESCE(SUM(plays), 0) AS plays,
+    MAX(length) AS longest,
+    MIN(length) AS shortest
+  FROM
+    tracks
+  WHERE
+    artist = 'Bob Marley'
+  ```
 
 # 总结
 
