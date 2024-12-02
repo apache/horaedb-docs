@@ -13,19 +13,40 @@ tags:
 
 # 文化差异
 
+在介绍具体议题之前，我想先简单介绍下与会过程中感受到的中美间的文化差异，以飨读者。
+
 和国内会议类似，第一天议程结束后有个晚宴（event reception），但这个晚宴可不“简单”，不是传统的晚宴，社交属性更重些。场地内会有几个比较高的圆桌，大家在旁边拿完东西后就可以找感兴趣的人开聊。对于第一次参见这种会议的我来说，其实有是些蒙的，和一同去的同事默默站在一角观望可以插入的场子，但看着周边人群在慷慨激昂的谈论时，发现根本无法加入：一是语言听不太懂；二是不知道聊啥。
 
 来之前在国内英语也练了很久，在会场上交流技术问题还能凑合，但这种场合就捉襟见肘了。在转了几圈后，发现几个国人面孔的一桌，大着胆子上去打了个招呼：Hi, can I join you？刚要磕磕绊绊的介绍自己时，问了句：Can you speak Chinese? 对方笑道：肯定可以了！
 
-后来发现他们都来自苹果公司，苹果是这次的大赞助商，所以他们大概来了四五十人！只不过组比较多，所以很多人也是第一次见面。挺他们说这种聚会形式在美国挺常见的，他们虽然在美国很多年了，但碍于文化差异，他们也不能很轻松的融入进去。
+后来发现他们都来自苹果公司，苹果是这次的大赞助商，所以他们大概来了四五十人！只不过组比较多，所以很多人也是第一次见面。听他们说这种聚会形式在美国挺常见的，他们虽然在美已经多年，语言早已不再是什么问题，但碍于文化差异，他们也不能很轻松的融入进去。
 
-也是通过和他们聊才发现，苹果公司内很多基建都是基于 Apache 的项目构建，而且最近几年他们在开源上的粒度也越来越大，印象较深的就是 Swift 语言，其中一个女士貌似是 Swift 的 team member，他看到我穿的是带有 Rust logo 的衣服，就说我应该尝试下 Swift，这两个语言设计理念类似，但 Swift 更简单，而且为了避免苹果一家独大，他们已经把 Swift 迁移到独立的 [GitHub 组织](https://github.com/swiftlang/)上去了，此外，Swift 也不仅仅是苹果平台的特定语言，他们在也花了很多时间来保证 Swift 也可以在 Linux/Windows 上完美的运行。
+也是通过和他们聊才发现，苹果公司内很多基建都是基于 Apache 的项目构建，而且最近几年他们在开源上的力度也越来越大，印象较深的就是 Swift 语言，其中一个女士貌似是 Swift 的 team member，她看到我穿的是带有 Rust logo 的衣服，就说我应该尝试下 Swift，这两个语言设计理念类似，但 Swift 更简单，而且为了避免苹果一家独大，他们已经把 Swift 迁移到独立的 [GitHub 组织](https://github.com/swiftlang/)上去了，此外，Swift 也不仅仅是苹果平台的特定语言，他们在也花了很多时间来保证 Swift 也可以在 Linux/Windows 上完美的运行。
 
-可以想到，苹果把 Swift 定位为通用语言，既可以为苹果生态服务，也是更长远的战略布局。通过通用化，苹果能够扩大 Swift 的生态影响力，吸引更多开发者进入其体系，同时为跨平台的未来做好准备。
+可以想到，苹果把 Swift 定位为通用语言，既可以为苹果生态服务，也是更长远的战略布局。通过通用化，苹果能够扩大 Swift 的生态影响力，吸引更多开发者进入其体系，同时为跨平台的未来做好准备。现在想想，华为的[仓颉语言](https://cangjie-lang.cn/) 也类似的思路吧！打造生态前期投入肯定是巨大的，需要长期投入和耐心的过程，但对苹果、华为这种体量的公司，这种投入实际上是一种战略性资源配置，目的就是建立长期的技术竞争力。
 
 # 演讲介绍
 
-接下来就介绍几个笔者印象比较深的演讲，由于存在语言问题，加上没有演讲的 PPT，因此下面的介绍是我根据关键词去搜索整理得到，供大家参考。
+接下来就介绍几个笔者印象比较深的演讲，由于存在语言问题，加上没有演讲的 PPT，因此下面的介绍是我根据关键词去搜索整理得到，仅供大家参考。
+
+## Optimizing Apache HoraeDB for High-Cardinality Metrics at AntGroup
+
+这是我带来的演进，讲的就是 HoraeDB 重点解决的问题，以及对应思路和方法。核心一点就是通过 AP 领域的思路（剪枝、[BRIN](https://en.wikipedia.org/wiki/Block_Range_Index)）来解决高基数时间线的问题，细节可以参考本次分享的[PPT](https://downloads.apache.org/incubator/horaedb/slides/20241010-Optimizing%20Apache%20HoraeDB%20for%20High-Cardinality%20Metrics%20at%20AntGroup.pdf)。
+
+目前的版本在实际运行中，我们也遇到了些新问题。目前的引擎在以时序分析为主的场景来说运行的会比较好，但在传统的时序告警领域工作的并不是很好，主要在于两点：
+
+1. 一次查询的代价太大，在查询引擎中采用了通用的 Arrow 格式，反而导致丢失了针对时序特点的优化
+2. 采用表作为基本数据组织方式过于严格，时序本来是一种弱 Schema 的场景，而提前定义好固定模式的表显然是一种“退步”，另外表作为资源管理单位，也限制了单机能够承载的表数量。
+
+因此在后续的版本中，我们吸取了现在引擎（即目前的 Analytic Engine）的教训，打算重新设计一种引擎（称为：Metric Engine）来解决高基数的问题。
+
+新引擎正在紧锣密鼓的开发中，感兴趣的读者可以参考[这里的 rfc](https://github.com/apache/horaedb/blob/main/docs/rfcs/20240827-metric-engine.md) 来了解设计思路。在后续的版本发布时，我们也会重点强调新引擎的开发进度。
+
+## Blazingly-Fast: Introduction to Apache Fury Serialization
+
+演讲者是 Fury 项目的发起者 Shawn Yang，也是我的同事（哈哈）。如标题所说，Fury 定位的就是高效的序列化，已经在诸多 系统中被使用（参加 [Who is Using Apache Fury?](https://github.com/apache/fury/issues/1766)），并取得显著提升。
+
+一直以为序列化是个已经解决的问题，了解了 Fury 后才了解到这个领域的问题。举个简单的例子，对于常见的 Protobuf 来说， 在序列化一个数组的 Message 时，在序列化时 Message 的元数据会序列化多次，但如果应用层能够保证每个字段都不会缺失，那么这样就是有些浪费的，在 Fury 中就可以 [schema consistent](https://fury.apache.org/docs/specification/fury_xlang_serialization_spec/#schema-consistent) 这种模式来避免这种冗余。
 
 ## [Making Apache Kafka even faster and more scalable](https://www.slideshare.net/slideshow/making-apache-kafka-even-faster-and-more-scalable/272645669#2)
 
@@ -76,12 +97,6 @@ Cassandra 议题这次会议上非常多，印象中有一个房间一整天的�
 
 Apache Arrow 是一个跨语言的内存数据处理框架，通过标准化内存中的列式数据表示来实现高效的数据交换和处理。 和 JDBC 类似，[ADBC](https://arrow.apache.org/adbc/current/index.html) 是基于 Arrow 的、供应商中立的 API，方便用户高效查询支持 Arrow 的数据库，比如 [DuckDB](https://duckdb.org/2023/08/04/adbc.html)，就有 38 倍的提升！
 
-## Blazingly-Fast: Introduction to Apache Fury Serialization
-
-演讲者是 Fury 项目的发起者 Shawn Yang，也是我的同事（哈哈）。如标题所说，Fury 定位的就是高效的序列化，已经在诸多 系统中被使用（参加 [Who is Using Apache Fury?](https://github.com/apache/fury/issues/1766)），并取得显著提升。
-
-一直以为序列化是个已经解决的问题，了解了 Fury 后才了解到这个领域的问题。举个简单的例子，对于常见的 Protobuf 来说， 在序列化一个数组的 Message 时，在序列化时 Message 的元数据会序列化多次，但如果应用层能够保证每个字段都不会缺失，那么这样就是有些浪费的，在 Fury 中就可以 [schema consistent](https://fury.apache.org/docs/specification/fury_xlang_serialization_spec/#schema-consistent) 这种模式来避免这种冗余。
-
 ## 其他
 
 - [Apache YuniKorn](https://yunikorn.apache.org/)，云原生时代的资源调度器，和现在一个苹果的朋友聊，他们就在用它来调度他们的 AI 相关的任务！
@@ -112,6 +127,8 @@ WHERE
 
 # 总结
 
-参加这次 Apache 大会，HoraeDB 项目算是首次走向国际舞台。与那些已广为人知、炙手可热的项目相比，我们仍然任重而道远。 一个开源项目能够在核心开发团队不断更迭的情况下持续演进，本身就是极其难能可贵的。在 Apache 基金会，我们可以看到诸多值得学习的典范。归根结底，软件的生命力在于人，唯有不断壮大社区，源源不断地吸引卓越人才，才能确保社区生生不息、薪火相传。 我们正处于起步阶段，怀揣着梦想与执着。期许通过社区的持续努力和协作，最终打造出一个世界一流的云原生时序数据库，在开源的广阔天地中绽放光彩。
+参加这次 Apache 大会，HoraeDB 项目算是首次走向国际舞台。与那些已广为人知、炙手可热的项目相比，我们仍然任重而道远。 一个开源项目能够在核心开发团队不断更迭的情况下持续演进，本身就是极其难能可贵的。在 Apache 基金会，我看到了诸多值得学习的典范。
+
+归根结底，软件的生命力在于人，唯有不断壮大社区，源源不断地吸引卓越人才，才能确保社区生生不息、薪火相传。 HoraeDB 目前正处于起步阶段，期许通过社区的持续努力和协作，最终能打造出一个世界一流的云原生时序数据库，在开源的广阔天地中绽放光彩。
 
 欢迎感兴趣的朋友加入我们：<https://horaedb.apache.org/community/>
