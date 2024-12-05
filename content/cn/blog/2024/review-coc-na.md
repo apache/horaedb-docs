@@ -21,7 +21,7 @@ tags:
 
 通过交流，了解到苹果公司内很多基建都是基于 Apache 的项目构建，而且最近几年他们在开源上的力度也越来越大，印象较深的就是 Swift 语言，其中一个女士貌似是 Swift 的 team member，她看到我穿的是带有 Rust logo 的衣服，就建议我尝试下 Swift，这两个语言设计理念类似，但 Swift 更简单，而且为了避免苹果一家独大，他们已经把 Swift 迁移到独立的 [GitHub 组织](https://github.com/swiftlang/)上去。此外，Swift 也不仅仅是苹果平台的特定语言，他们也花了很多精力来保证 Swift 在 Linux/Windows 上也能完美的运行。
 
-可以想到，苹果把 Swift 定位为通用语言，既可以为苹果生态服务，也是更长远的战略布局。通过通用化，苹果能够扩大 Swift 的生态影响力，吸引更多开发者进入其体系，同时为跨平台的未来做好准备。现在想想，华为的[仓颉语言](https://cangjie-lang.cn/) 也类似的思路吧！打造生态前期投入肯定是巨大的，需要长期投入和耐心的过程，但对苹果、华为这种体量的公司，这种投入实际上是一种战略性资源配置，目的就是建立长期的技术竞争力。
+可以想到，苹果把 Swift 定位为通用语言，既可以为苹果生态服务，也是更长远的战略布局。通过通用化，苹果能够扩大 Swift 的生态影响力，吸引更多开发者进入其体系，同时为跨平台的未来做好准备。现在想想，华为的[仓颉语言](https://cangjie-lang.cn/) 也是类似思路。打造生态前期投入肯定是巨大的，需要长期投入和耐心的过程，但对大企业来说，这种投入实际上是一种战略性资源配置，目的就是建立长期的技术竞争力。
 
 在会场中，我也有幸见到了 [Database Internals](https://www.databass.dev/) 一书的作者 Alex Petrov（目前在苹果工作），给他简单介绍了下 HoraeDB，他的本能反应就是 Very cool！在国内我还真没遇到类似回答。
 
@@ -44,7 +44,7 @@ tags:
 
 ## Blazingly-Fast: Introduction to Apache Fury Serialization
 
-演讲者是 Fury 项目的发起者 Shawn Yang，也是我的同事。如标题所说，Fury 定位的就是高效的序列化，已经在诸多系统中被使用（参加 [Who is Using Apache Fury?](https://github.com/apache/fury/issues/1766)），并取得显著提升。
+演讲者是 Fury 项目的发起者 Shawn Yang，也是我的同事。如标题所说，Fury 定位的就是高效的序列化，已经在诸多系统中被使用（参见：[Who is Using Apache Fury?](https://github.com/apache/fury/issues/1766)），并取得显著提升。
 
 一直以为序列化是个已经解决的问题，了解了 Fury 后才了解到这个领域的问题。举个简单的例子，对于常见的 Protobuf 来说， 在序列化一个数组的 Message 时，Message 的元数据会序列化多次，但如果应用层能够保证每个字段都不会缺失，那么这样就是有些浪费的，在 Fury 中就可以 [schema consistent](https://fury.apache.org/docs/specification/fury_xlang_serialization_spec/#schema-consistent) 这种模式来避免这种冗余。
 
