@@ -15,11 +15,11 @@ tags:
 
 在介绍具体议题之前，我想先简单介绍下与会过程中感受到的中美间的文化差异，以飨读者。
 
-和国内会议类似，第一天议程结束后有个晚宴（event reception），但这个晚宴可不“简单”，不是传统的晚宴，社交属性更重些。场地内会有几个比较高的圆桌，大家在旁边拿完东西后就可以找感兴趣的人开聊。对于第一次参见这种会议的我来说，其实有是些蒙的，和一同去的同事默默站在一角观望可以插入的场子，但看着周边人群在慷慨激昂的谈论时，发现根本无法加入：一是语言听不太懂；二是不知道聊啥。
+和国内会议类似，第一天议程结束后有个晚宴（event reception），但这个晚宴可不“简单”，不是传统的晚宴，社交属性更重些。场地内会有几个比较高的圆桌，大家在旁边拿完东西后就可以找感兴趣的人开聊。对于第一次参见这种会议的我来说，其实有是些蒙的，和一同去的同事默默站在一角观望可以插入的场子，但看着周边人群在慷慨激昂的谈论时，发现自己不能很轻松地加入：一是语言问题；二就是文化差异。
 
 在转了几圈后，发现几个国人面孔，通过沟通知道了他们都来自苹果公司，苹果是这次的大赞助商，所以他们大概来了四五十人！只不过组比较多，所以很多人也是第一次见面。听他们说这种聚会形式在美国挺常见的，他们虽然在美已经多年，语言早已不再是什么问题，但碍于文化差异，他们也不能很轻松的融入进去。
 
-通过交流，了解到苹果公司内很多基建都是基于 Apache 的项目构建，而且最近几年他们在开源上的力度也越来越大，印象较深的就是 Swift 语言，其中一个女士貌似是 Swift 的 team member，她看到我穿的是带有 Rust logo 的衣服，就建议我尝试下 Swift，这两个语言设计理念类似，但 Swift 更简单，而且为了避免苹果一家独大，他们已经把 Swift 迁移到独立的 [GitHub 组织](https://github.com/swiftlang/)上去。此外，Swift 也不仅仅是苹果平台的特定语言，他们在也花了很多精力来保证 Swift 在 Linux/Windows 上也能完美的运行。
+通过交流，了解到苹果公司内很多基建都是基于 Apache 的项目构建，而且最近几年他们在开源上的力度也越来越大，印象较深的就是 Swift 语言，其中一个女士貌似是 Swift 的 team member，她看到我穿的是带有 Rust logo 的衣服，就建议我尝试下 Swift，这两个语言设计理念类似，但 Swift 更简单，而且为了避免苹果一家独大，他们已经把 Swift 迁移到独立的 [GitHub 组织](https://github.com/swiftlang/)上去。此外，Swift 也不仅仅是苹果平台的特定语言，他们也花了很多精力来保证 Swift 在 Linux/Windows 上也能完美的运行。
 
 可以想到，苹果把 Swift 定位为通用语言，既可以为苹果生态服务，也是更长远的战略布局。通过通用化，苹果能够扩大 Swift 的生态影响力，吸引更多开发者进入其体系，同时为跨平台的未来做好准备。现在想想，华为的[仓颉语言](https://cangjie-lang.cn/) 也类似的思路吧！打造生态前期投入肯定是巨大的，需要长期投入和耐心的过程，但对苹果、华为这种体量的公司，这种投入实际上是一种战略性资源配置，目的就是建立长期的技术竞争力。
 
@@ -47,6 +47,8 @@ tags:
 演讲者是 Fury 项目的发起者 Shawn Yang，也是我的同事。如标题所说，Fury 定位的就是高效的序列化，已经在诸多系统中被使用（参加 [Who is Using Apache Fury?](https://github.com/apache/fury/issues/1766)），并取得显著提升。
 
 一直以为序列化是个已经解决的问题，了解了 Fury 后才了解到这个领域的问题。举个简单的例子，对于常见的 Protobuf 来说， 在序列化一个数组的 Message 时，Message 的元数据会序列化多次，但如果应用层能够保证每个字段都不会缺失，那么这样就是有些浪费的，在 Fury 中就可以 [schema consistent](https://fury.apache.org/docs/specification/fury_xlang_serialization_spec/#schema-consistent) 这种模式来避免这种冗余。
+
+![Apache Fury Overview](/images/review-coc-na/fury-overview.jpg)
 
 ## [Making Apache Kafka even faster and more scalable](https://www.slideshare.net/slideshow/making-apache-kafka-even-faster-and-more-scalable/272645669#2)
 
@@ -89,7 +91,7 @@ Cassandra 议题这次会议上非常多，印象中有一个房间一整天的�
 - Lessons from (Probably) the World’s Largest Kafka and Cassandra Migration
   - [instaclustr/instaclustr-minotaur: Tooling for consistent rebuilding of a Cassandra cluster](https://github.com/instaclustr/instaclustr-minotaur)
 
-但比较可惜的是，当时坐的位置比较偏，加上之前对 Cassandra 了解较少，上面几个议题的没听懂几个，只能课下再下功夫了解了。但尽管如此，还是对一个议题印象颇深，是一个由满脸白胡子的嘉宾分享的关于在查询中实现分页的演讲，很工程的一个问题，演讲者围绕其对性能的影响、潜在的误用风险等多个维度进行了详尽剖析，展现出深厚的专业功底和匠人精神。
+遗憾的是，由于演讲者说话速度较快，再加上我对 Cassandra 了解较少，大部分议题未能完全领会，只能课下再下功夫了解了。但尽管如此，还是对一个议题印象颇深，是一个由满脸白胡子的嘉宾分享的关于在查询中实现分页的演讲，很工程的一个问题，演讲者围绕其对性能的影响、潜在的误用风险等多个维度进行了详尽剖析，展现出深厚的专业功底和匠人精神。
 
 ![](/images/review-coc-na/cassandra-paging.jpg)
 
