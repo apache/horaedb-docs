@@ -1,7 +1,8 @@
 ---
 title: Release 2.1.0
 date: 2024-11-18
-tags: release
+tags:
+  - release
 ---
 
 The Apache HoraeDB(incubating) team are pleased to announce that v2.1.0 is released, which has closed over 60 issues, including two major features:
