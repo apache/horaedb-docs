@@ -7,7 +7,7 @@ tags:
 
 [Apache HoraeDB](https://horaedb.apache.org/) 是 2023-12-11 加入 Apache 孵化器，由此拉开了我在 Apache 社区的成长探索之旅。作为一个历史悠久的基金会，Apache 旗下的软件可谓家喻户晓：Hadoop、Spark、Kafka 等等。 在这次 2024 年的 ApacheCon [北美大会](https://www.apachecon.com/)上，我有幸代表 HoraeDB 社区参加，终于有机会来近距离和来自世界各地的 Apache 项目的 PMC 们交流。这次经历不仅让我深入理解了 Apache 项目的核心价值与贡献，还深刻认识到开源社区如何驱动技术创新、促进开发者之间的协作与分享。
 
-这次大会在丹佛的君悦大酒店举行，为期四天（2024-10-07 ~ 10），讨论涉及搜索、大数据、物联网、社区等多个方面，从现场来看，讲师比嘉宾还要多，除了 Keynote 分享是在一个大会场进行，其他的场子均在一个小房间里，每个房间外会有一个电子屏展示今日的议题。
+这次大会在丹佛的君悦大酒店举行，为期四天（2024-10-07 ~ 10），讨论涉及搜索、大数据、物联网、社区等多个方面，从现场来看，讲师比嘉宾还要多，除了 Keynote 分享是在一个大会场进行，其他的场子均在一个小房间里，每个房间外会有一个电子屏展示今日的议题。全部日程见官网 [Sessions Schedule](https://communityovercode.org/schedule/)。
 
 ![](/images/review-coc-na/board.jpg)
 
