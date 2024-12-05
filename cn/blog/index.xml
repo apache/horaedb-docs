@@ -1,4 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>博客 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/blog/</link><description>Recent content in 博客 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>2.1.0 版本发布</title><link>https://horaedb.apache.org/cn/blog/2024/release-2.1.0/</link><pubDate>Mon, 18 Nov 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/release-2.1.0/</guid><description>&lt;p>Apache HoraeDB（孵化中）团队很高兴地宣布，v2.1.0 版本已于 2024-11-18 发布，这个版本解决了 60 多个问题，并且包括两个主要功能：&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>博客 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/blog/</link><description>Recent content in 博客 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>2024 年 ApacheCon 北美之旅的收获与感悟</title><link>https://horaedb.apache.org/cn/blog/2024/review-coc-na/</link><pubDate>Fri, 22 Nov 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/review-coc-na/</guid><description>&lt;p>&lt;a href="https://horaedb.apache.org/">Apache HoraeDB&lt;/a> 是 2023-12-11 加入 Apache 孵化器，由此拉开了我在 Apache 社区的成长探索之旅。作为一个历史悠久的基金会，Apache 旗下的软件可谓家喻户晓：Hadoop、Spark、Kafka 等等。 在这次 2024 年的 ApacheCon &lt;a href="https://www.apachecon.com/">北美大会&lt;/a>上，我有幸代表 HoraeDB 社区参加，终于有机会来近距离和来自世界各地的 Apache 项目的 PMC 们交流。这次经历不仅让我深入理解了 Apache 项目的核心价值与贡献，还深刻认识到开源社区如何驱动技术创新、促进开发者之间的协作与分享。&lt;/p>
+&lt;p>这次大会在丹佛的君悦大酒店举行，为期四天（2024-10-07 ~ 10），讨论涉及搜索、大数据、物联网、社区等多个方面，从现场来看，讲师比嘉宾还要多，除了 Keynote 分享是在一个大会场进行，其他的场子均在一个小房间里，每个房间外会有一个电子屏展示今日的议题。全部日程见官网 &lt;a href="https://communityovercode.org/schedule/">Sessions Schedule&lt;/a>。&lt;/p>
+&lt;p>&lt;figure>
+ &lt;img src="https://horaedb.apache.org/images/review-coc-na/board.jpg"
+ alt=""
+ 
+ loading="lazy" />
+
+ 
+&lt;/figure>
+&lt;/p>
+&lt;h1 id="文化差异">文化差异&lt;/h1>
+&lt;p>在介绍具体议题之前，我想先简单介绍下与会过程中感受到的中美间的文化差异，以飨读者。&lt;/p>
+&lt;p>和国内会议类似，第一天议程结束后有个晚宴（event reception），但这个晚宴可不“简单”，不是传统的晚宴，社交属性更重些。场地内会有几个比较高的圆桌，大家在旁边拿完东西后就可以找感兴趣的人开聊。对于第一次参见这种会议的我来说，其实有是些蒙的，和一同去的同事默默站在一角观望可以插入的场子，但看着周边人群在慷慨激昂的谈论时，发现自己不能很轻松地加入：一是语言问题；二就是文化差异。&lt;/p>
+&lt;p>在转了几圈后，发现几个国人面孔，通过沟通知道了他们都来自苹果公司，苹果是这次的大赞助商，所以他们大概来了四五十人！只不过组比较多，所以很多人也是第一次见面。听他们说这种聚会形式在美国挺常见的，他们虽然在美已经多年，语言早已不再是什么问题，但碍于文化差异，他们也不能很轻松的融入进去。&lt;/p>
+&lt;p>通过交流，了解到苹果公司内很多基建都是基于 Apache 的项目构建，而且最近几年他们在开源上的力度也越来越大，印象较深的就是 Swift 语言，其中一个女士貌似是 Swift 的 team member，她看到我穿的是带有 Rust logo 的衣服，就建议我尝试下 Swift，这两个语言设计理念类似，但 Swift 更简单，而且为了避免苹果一家独大，他们已经把 Swift 迁移到独立的 &lt;a href="https://github.com/swiftlang/">GitHub 组织&lt;/a>上去。此外，Swift 也不仅仅是苹果平台的特定语言，他们也花了很多精力来保证 Swift 在 Linux/Windows 上也能完美的运行。&lt;/p>
+&lt;p>可以想到，苹果把 Swift 定位为通用语言，既可以为苹果生态服务，也是更长远的战略布局。通过通用化，苹果能够扩大 Swift 的生态影响力，吸引更多开发者进入其体系，同时为跨平台的未来做好准备。现在想想，华为的&lt;a href="https://cangjie-lang.cn/">仓颉语言&lt;/a> 也是类似思路。打造生态前期投入肯定是巨大的，需要长期投入和耐心的过程，但对大企业来说，这种投入实际上是一种战略性资源配置，目的就是建立长期的技术竞争力。&lt;/p>
+&lt;p>在会场中，我也有幸见到了 &lt;a href="https://www.databass.dev/">Database Internals&lt;/a> 一书的作者 Alex Petrov（目前在苹果工作），给他简单介绍了下 HoraeDB，他的本能反应就是 Very cool！在国内我还真没遇到类似回答。&lt;/p></description></item><item><title>2.1.0 版本发布</title><link>https://horaedb.apache.org/cn/blog/2024/release-2.1.0/</link><pubDate>Mon, 18 Nov 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/release-2.1.0/</guid><description>&lt;p>Apache HoraeDB（孵化中）团队很高兴地宣布，v2.1.0 版本已于 2024-11-18 发布，这个版本解决了 60 多个问题，并且包括两个主要功能：&lt;/p>
 &lt;h2 id="1-引入基于本地磁盘的新-wal-实现">1. 引入基于本地磁盘的新 WAL 实现&lt;/h2>
 &lt;p>在之前的版本中，有一个基于 RocksDB 的 WAL。虽然它在大多数情况下运行良好，但存在以下问题：&lt;/p>
 &lt;ul>
