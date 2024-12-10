@@ -97,7 +97,7 @@
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
-&lt;p>上述两种存储格式详见 &lt;a href="https://horaedb.apache.org/cn/docs/user-guide/sql/engine_options/#存储格式">存储格式&lt;/a> 部分。&lt;/p>
+&lt;p>上述两种存储格式详见 &lt;a href="https://horaedb.apache.org/cn/docs/user-guide/sql/engine_options/#%e5%ad%98%e5%82%a8%e6%a0%bc%e5%bc%8f">存储格式&lt;/a> 部分。&lt;/p>
 &lt;h2 id="存储格式">存储格式&lt;/h2>
 &lt;p>HoraeDB 支持两种存储格式，一个是 &lt;code>columnar&lt;/code>, 这是传统的列式格式，一个物理列中存储表的一个列。&lt;/p>
 &lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">

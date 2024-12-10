@@ -993,20 +993,22 @@ The following table lists the mapping relationship between MySQL and HoraeDB.&lt
  &lt;td>Time&lt;/td>
  &lt;/tr>
  &lt;/tbody>
-&lt;/table></description></item><item><title>Downloads</title><link>https://horaedb.apache.org/downloads/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/downloads/</guid><description>&lt;p>Apache HoraeDB is released as source code tarballs with corresponding docker images for convenience.&lt;/p>
-&lt;h1 id="the-latest-release">The latest release&lt;/h1>
+&lt;/table></description></item><item><title>Downloads</title><link>https://horaedb.apache.org/downloads/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/downloads/</guid><description>&lt;h2 id="server">Server&lt;/h2>
+&lt;p>Apache HoraeDB server is released as source code tarballs with corresponding docker images for convenience.&lt;/p>
+&lt;h3 id="the-latest-release">The latest release&lt;/h3>
 &lt;p>The latest release is 2.1.0(2024-11-18), the source code can be downloaded &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz">here&lt;/a>.&lt;/p>
 &lt;p>Verify this release using the &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz.asc">signatures&lt;/a>, &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz.sha512">checksums&lt;/a> by following guides below.&lt;/p>
-&lt;h2 id="docker-images">Docker images&lt;/h2>
+&lt;h3 id="docker-images">Docker images&lt;/h3>
 &lt;p>Pre-built binaries are not provided yet, users can &lt;a href="https://horaedb.apache.org/docs/dev/compile_run/">compile from source&lt;/a> or using docker images:&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://hub.docker.com/r/apache/horaemeta-server">https://hub.docker.com/r/apache/horaemeta-server&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://hub.docker.com/r/apache/horaedb-server">https://hub.docker.com/r/apache/horaedb-server&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="all-archived-releases">All archived releases&lt;/h2>
+&lt;h3 id="all-archived-releases">All archived releases&lt;/h3>
 &lt;p>For older releases, please check the &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/">archive&lt;/a>.&lt;/p>
-&lt;h1 id="verify-signatures-and-checksums">Verify signatures and checksums&lt;/h1>
-&lt;p>It&amp;rsquo;s highly recommended to verify the files that you download.&lt;/p></description></item><item><title>DROP TABLE</title><link>https://horaedb.apache.org/docs/user-guide/sql/ddl/drop_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/ddl/drop_table/</guid><description>&lt;h2 id="basic-syntax">Basic syntax&lt;/h2>
+&lt;h2 id="client">Client&lt;/h2>
+&lt;h3 id="rust">Rust&lt;/h3>
+&lt;p>The latest rust client version is v2.0.0(2024-11-26), source codes can be downloaded &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb-client-rust/v2.0.0/apache-horaedb-incubating-rust-client-v2.0.0-src.tar.gz">here&lt;/a>.&lt;/p></description></item><item><title>DROP TABLE</title><link>https://horaedb.apache.org/docs/user-guide/sql/ddl/drop_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/ddl/drop_table/</guid><description>&lt;h2 id="basic-syntax">Basic syntax&lt;/h2>
 &lt;p>Basic syntax:&lt;/p>
 &lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1285,10 +1287,28 @@ jeprof --show_bytes --pdf /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; pro
 
 jeprof --show_bytes --svg /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; profile_heap.svg
 &lt;/code>&lt;/pre></description></item><item><title>Prometheus</title><link>https://horaedb.apache.org/docs/user-guide/ecosystem/prometheus/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/ecosystem/prometheus/</guid><description>&lt;p>&lt;a href="https://prometheus.io/">Prometheus&lt;/a> is a popular cloud-native monitoring tool that is widely adopted by organizations due to its scalability, reliability, and scalability. It is used to scrape metrics from cloud-native services, such as Kubernetes and OpenShift, and stores it in a time-series database. Prometheus is also easily extensible, allowing users to extend its features and capabilities with other databases.&lt;/p>
-&lt;p>HoraeDB can be used as a long-term storage solution for Prometheus. Both remote read and remote write API are supported.&lt;/p></description></item><item><title>Python</title><link>https://horaedb.apache.org/docs/user-guide/sdk/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/python/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>&lt;a href="https://pypi.org/project/ceresdb-client/">horaedb-client&lt;/a> is the python client for &lt;a href="https://github.com/apache/incubator-horaedb">HoraeDB&lt;/a>.&lt;/p>
-&lt;p>Thanks to &lt;a href="https://github.com/PyO3">PyO3&lt;/a>, the python client is actually a wrapper on the &lt;a href="https://github.com/apache/incubator-horaedb-client-rs">rust client&lt;/a>.&lt;/p>
-&lt;p>The guide will give a basic introduction to the python client by &lt;a href="https://github.com/apache/incubator-horaedb-client-py/blob/main/examples/read_write.py">example&lt;/a>.&lt;/p>
+&lt;p>HoraeDB can be used as a long-term storage solution for Prometheus. Both remote read and remote write API are supported.&lt;/p></description></item><item><title>Python</title><link>https://horaedb.apache.org/docs/user-guide/sdk/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/python/</guid><description>&lt;p>&lt;a href="https://pypi.org/project/horaedb-client">&lt;figure>
+ &lt;img src="https://img.shields.io/pypi/v/horaedb-client.svg"
+ alt=""
+ 
+ loading="lazy" />
+
+ 
+&lt;/figure>
+&lt;/a>
+&lt;a href="https://github.com/apache/horaedb-client-py">&lt;figure>
+ &lt;img src="https://img.shields.io/github/stars/apache/horaedb-client-py"
+ alt=""
+ 
+ loading="lazy" />
+
+ 
+&lt;/figure>
+&lt;/a>&lt;/p>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>&lt;a href="https://pypi.org/project/horaedb-client/">horaedb-client&lt;/a> is the python client for &lt;a href="https://github.com/apache/horaedb">HoraeDB&lt;/a>.&lt;/p>
+&lt;p>Thanks to &lt;a href="https://github.com/PyO3">PyO3&lt;/a>, the python client is actually a wrapper on the &lt;a href="https://github.com/apache/horaedb-client-rs">rust client&lt;/a>.&lt;/p>
+&lt;p>The guide will give a basic introduction to the python client by &lt;a href="https://github.com/apache/horaedb-client-py/blob/main/examples/read_write.py">example&lt;/a>.&lt;/p>
 &lt;h2 id="requirements">Requirements&lt;/h2>
 &lt;ul>
 &lt;li>Python &amp;gt;= 3.7&lt;/li>
@@ -1299,10 +1319,10 @@ jeprof --show_bytes --svg /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; pro
 &lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pip install ceresdb-client
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>pip install horaedb-client
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>You can get latest version &lt;a href="https://github.com/apache/incubator-horaedb-client-py/tags">here&lt;/a>.&lt;/p>
+&lt;/div>&lt;p>You can get latest version &lt;a href="https://github.com/apache/horaedb-client-py/tags">here&lt;/a>.&lt;/p>
 &lt;h2 id="init-horaedb-client">Init HoraeDB Client&lt;/h2>
 &lt;p>The client initialization comes first, here is a code snippet:&lt;/p>
 &lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -1385,7 +1405,25 @@ and understand for both existing and new contributors.&lt;/p></description></ite
 &lt;li>&lt;input checked="" disabled="" type="checkbox"> Improve data ingestion performance by introducing resource control over compaction.&lt;/li>
 &lt;/ul>
 &lt;h3 id="afterwards">Afterwards&lt;/h3>
-&lt;p>With an in-depth understanding of the time-series database and its various use cases, the majority of our work will focus on performance, reliability, scalability, ease of use, and collaborations with open-source communities.&lt;/p></description></item><item><title>Rust</title><link>https://horaedb.apache.org/docs/user-guide/sdk/rust/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/rust/</guid><description>&lt;h2 id="install">Install&lt;/h2>
+&lt;p>With an in-depth understanding of the time-series database and its various use cases, the majority of our work will focus on performance, reliability, scalability, ease of use, and collaborations with open-source communities.&lt;/p></description></item><item><title>Rust</title><link>https://horaedb.apache.org/docs/user-guide/sdk/rust/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sdk/rust/</guid><description>&lt;p>&lt;a href="https://crates.io/crates/horaedb-client">&lt;figure>
+ &lt;img src="https://img.shields.io/crates/v/horaedb-client.svg"
+ alt=""
+ 
+ loading="lazy" />
+
+ 
+&lt;/figure>
+&lt;/a>
+&lt;a href="https://github.com/apache/horaedb-client-rs">&lt;figure>
+ &lt;img src="https://img.shields.io/github/stars/apache/horaedb-client-rs"
+ alt=""
+ 
+ loading="lazy" />
+
+ 
+&lt;/figure>
+&lt;/a>&lt;/p>
+&lt;h2 id="install">Install&lt;/h2>
 &lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
 &lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1

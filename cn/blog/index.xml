@@ -101,9 +101,9 @@
 &lt;/a>。&lt;/p></description></item><item><title>欢迎 Apache HoraeDB 新晋 Committer： 鲍金日</title><link>https://horaedb.apache.org/cn/blog/2024/new-committer-baojinri/</link><pubDate>Fri, 13 Sep 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/new-committer-baojinri/</guid><description>&lt;p>各位开发者们，&lt;/p>
 &lt;p>今天很高兴宣布，HoraeDB 社区新增了一个 committer：&lt;a href="https://github.com/baojinri">鲍金日&lt;/a>，他之前的贡献得到 HoraeDB PPMC 的&lt;a href="https://lists.apache.org/thread/kqp9jl325b5crz9kt9t3o2bkzplhm7oz">一致认可&lt;/a>，并于 2024-09-10 投票成为 committer，感谢他一直以来的贡献。下面是他的贡献记录：&lt;/p>
 &lt;ul>
-&lt;li>33 PRs to &lt;a href="https://github.com/apache/horaedb/pulls?q=is%3Apr+author%3Abaojinri+is%3Aclosed">main repo&lt;/a>&lt;/li>
-&lt;li>4 PRs to &lt;a href="https://github.com/apache/horaedb-docs/pulls?q=is%3Apr+author%3Abaojinri+is%3Aclosed">docs repo&lt;/a>&lt;/li>
-&lt;li>13 PRs to &lt;a href="https://github.com/apache/incubator-horaedb-meta/pulls?q=is%3Apr+author%3Abaojinri+is%3Aclosed">meta repo&lt;/a>&lt;/li>
+&lt;li>33 PRs to &lt;a href="https://github.com/apache/horaedb/pulls?q=is%3Apr&amp;#43;author%3Abaojinri&amp;#43;is%3Aclosed">main repo&lt;/a>&lt;/li>
+&lt;li>4 PRs to &lt;a href="https://github.com/apache/horaedb-docs/pulls?q=is%3Apr&amp;#43;author%3Abaojinri&amp;#43;is%3Aclosed">docs repo&lt;/a>&lt;/li>
+&lt;li>13 PRs to &lt;a href="https://github.com/apache/incubator-horaedb-meta/pulls?q=is%3Apr&amp;#43;author%3Abaojinri&amp;#43;is%3Aclosed">meta repo&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>需要明确一点，成为 committer 并不需要额外做什么，主要是方便开发者后续可以更便利（有仓库写权限）地参与社区贡献。&lt;/p>
 &lt;p>最后，再次感谢鲍金日一直以来对社区的付出，衷心希望他能继续贡献，共同见证社区的成长。&lt;/p>
