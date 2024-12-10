@@ -4,9 +4,9 @@ title: "Python"
 
 ## 介绍
 
-[horaedb-client](https://pypi.org/project/ceresdb-client/) 是 [HoraeDB](https://github.com/apache/incubator-horaedb) python 客户端.
+[horaedb-client](https://pypi.org/project/horaedb-client/) 是 [HoraeDB](https://github.com/apache/incubator-horaedb) python 客户端.
 
-借助于 [PyO3](https://github.com/PyO3)，python 客户端的实现实际上是基于 [rust 客户端](https://github.com/apache/incubator-horaedb-client-rs) 的封装。
+借助于 [PyO3](https://github.com/PyO3)，python 客户端的实现实际上是基于 [rust 客户端](https://github.com/apache/horaedb-client-rs) 的封装。
 
 本手册将会介绍 python client 的一些基本用法，其中涉及到的完整示例，可以查看[该示例代码](https://github.com/apache/incubator-horaedb-client-py/blob/main/examples/read_write.py).
 
@@ -17,7 +17,7 @@ title: "Python"
 ## 安装
 
 ```bash
-pip install ceresdb-client
+pip install horaedb-client
 ```
 
 你可以在这里找到最新的版本 [here](https://github.com/apache/incubator-horaedb-client-py/tags).

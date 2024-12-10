@@ -2,6 +2,9 @@
 title: "Rust"
 ---
 
+[![](https://img.shields.io/crates/v/horaedb-client.svg)](https://crates.io/crates/horaedb-client)
+[![](https://img.shields.io/github/stars/apache/horaedb-client-rs)](https://github.com/apache/horaedb-client-rs)
+
 ## Install
 
 ```bash

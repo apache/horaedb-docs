@@ -2,13 +2,16 @@
 title: "Python"
 ---
 
+[![](https://img.shields.io/pypi/v/horaedb-client.svg)](https://pypi.org/project/horaedb-client)
+[![](https://img.shields.io/github/stars/apache/horaedb-client-py)](https://github.com/apache/horaedb-client-py)
+
 ## Introduction
 
-[horaedb-client](https://pypi.org/project/ceresdb-client/) is the python client for [HoraeDB](https://github.com/apache/incubator-horaedb).
+[horaedb-client](https://pypi.org/project/horaedb-client/) is the python client for [HoraeDB](https://github.com/apache/horaedb).
 
-Thanks to [PyO3](https://github.com/PyO3), the python client is actually a wrapper on the [rust client](https://github.com/apache/incubator-horaedb-client-rs).
+Thanks to [PyO3](https://github.com/PyO3), the python client is actually a wrapper on the [rust client](https://github.com/apache/horaedb-client-rs).
 
-The guide will give a basic introduction to the python client by [example](https://github.com/apache/incubator-horaedb-client-py/blob/main/examples/read_write.py).
+The guide will give a basic introduction to the python client by [example](https://github.com/apache/horaedb-client-py/blob/main/examples/read_write.py).
 
 ## Requirements
 
@@ -17,10 +20,10 @@ The guide will give a basic introduction to the python client by [example](https
 ## Installation
 
 ```bash
-pip install ceresdb-client
+pip install horaedb-client
 ```
 
-You can get latest version [here](https://github.com/apache/incubator-horaedb-client-py/tags).
+You can get latest version [here](https://github.com/apache/horaedb-client-py/tags).
 
 ## Init HoraeDB Client
 
