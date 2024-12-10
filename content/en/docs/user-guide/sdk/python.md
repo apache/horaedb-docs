@@ -2,7 +2,8 @@
 title: "Python"
 ---
 
-[![](https://img.shields.io/pypi/v/horaedb-client.svg)](https://pypi.org/project/horaedb-client) [![](https://img.shields.io/github/stars/apache/horaedb-client-py)](https://github.com/apache/horaedb-client-py)
+[![](https://img.shields.io/pypi/v/horaedb-client.svg)](https://pypi.org/project/horaedb-client)
+[![](https://img.shields.io/github/stars/apache/horaedb-client-py)](https://github.com/apache/horaedb-client-py)
 
 ## Introduction
 
