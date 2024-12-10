@@ -5,10 +5,10 @@ title: "Rust"
 ## 安装
 
 ```bash
-cargo add ceresdb-client
+cargo add horaedb-client
 ```
 
-你可以在这里找到最新的版本 [here](https://github.com/apache/incubator-horaedb-client-rs/tags).
+你可以在这里找到最新的版本 [here](https://github.com/apache/horaedb-client-rs/tags).
 
 ## 初始化客户端
 
