@@ -11,7 +11,7 @@ Apache HoraeDB 使用源码压缩包进行发布。
 
 # 最新发布
 
-最新一次发布版本：2.1.0(2024-11-18)，源码[下载地址](https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz)。
+最新一次发布版本：2.1.0(2024-11-18)，源码[下载地址](https://www.apache.org/dyn/closer.lua/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz)。
 
 用户可以按照以下指南使用 [signatures](https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz.asc) 和 [checksums](https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz.sha512) 验证此版本。
 
@@ -24,7 +24,7 @@ Apache HoraeDB 使用源码压缩包进行发布。
 
 ## 历史版本
 
-历史已发布版本，可以在[这里](https://downloads.apache.org/incubator/horaedb/horaedb/)查询得到。
+历史已发布版本，可以在[这里](https://archive.apache.org/dist/incubator/horaedb/horaedb/)查询得到。
 
 # 验证 signatures 和 checksums
 
