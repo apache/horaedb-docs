@@ -1,4 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Release on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/tags/release/</link><description>Recent content in Release on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><lastBuildDate>Thu, 05 Dec 2024 17:37:31 +0800</lastBuildDate><atom:link href="https://horaedb.apache.org/cn/tags/release/index.xml" rel="self" type="application/rss+xml"/><item><title>2.1.0 版本发布</title><link>https://horaedb.apache.org/cn/blog/2024/release-2.1.0/</link><pubDate>Mon, 18 Nov 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/release-2.1.0/</guid><description>&lt;p>Apache HoraeDB（孵化中）团队很高兴地宣布，v2.1.0 版本已于 2024-11-18 发布，这个版本解决了 60 多个问题，并且包括两个主要功能：&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Release on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/tags/release/</link><description>Recent content in Release on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><lastBuildDate>Wed, 11 Dec 2024 10:34:34 +0800</lastBuildDate><atom:link href="https://horaedb.apache.org/cn/tags/release/index.xml" rel="self" type="application/rss+xml"/><item><title>HoraeDB Python 客户端 2.0.0 版本发布</title><link>https://horaedb.apache.org/cn/blog/2024/release-python-client-2.0.0/</link><pubDate>Tue, 10 Dec 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/release-python-client-2.0.0/</guid><description>&lt;p>大家好：
+Apache HoraeDB（孵化中）社区很高兴地宣布 Python 客户端 v2.0.0 已经发布，这是进入 Apache 孵化器后的第一个版本！具体使用可以参考&lt;a href="https://horaedb.apache.org/cn/docs/user-guide/sdk/python/">文档&lt;/a>，下面是发布日志：&lt;/p>
+&lt;h2 id="whats-changed">What&amp;rsquo;s Changed&lt;/h2>
+&lt;ul>
+&lt;li>fix: wrong timestamp in example by @ShiKaiWi in &lt;a href="https://github.com/apache/horaedb-client-py/pull/35">https://github.com/apache/horaedb-client-py/pull/35&lt;/a>&lt;/li>
+&lt;li>chore: rename ceresdb to horaedb by @chunshao90 in &lt;a href="https://github.com/apache/horaedb-client-py/pull/36">https://github.com/apache/horaedb-client-py/pull/36&lt;/a>&lt;/li>
+&lt;li>chore: upgrade rust client by @ShiKaiWi in &lt;a href="https://github.com/apache/horaedb-client-py/pull/37">https://github.com/apache/horaedb-client-py/pull/37&lt;/a>&lt;/li>
+&lt;li>chore: add asf yaml by @chunshao90 in &lt;a href="https://github.com/apache/horaedb-client-py/pull/38">https://github.com/apache/horaedb-client-py/pull/38&lt;/a>&lt;/li>
+&lt;li>chore: add incubating notice by @baojinri in &lt;a href="https://github.com/apache/horaedb-client-py/pull/40">https://github.com/apache/horaedb-client-py/pull/40&lt;/a>&lt;/li>
+&lt;li>feat: support basic auth by @jiacai2050 in &lt;a href="https://github.com/apache/horaedb-client-py/pull/41">https://github.com/apache/horaedb-client-py/pull/41&lt;/a>&lt;/li>
+&lt;li>docs: update README.md by @baojinri in &lt;a href="https://github.com/apache/horaedb-client-py/pull/43">https://github.com/apache/horaedb-client-py/pull/43&lt;/a>&lt;/li>
+&lt;li>chore: fix asf header by @jiacai2050 in &lt;a href="https://github.com/apache/horaedb-client-py/pull/44">https://github.com/apache/horaedb-client-py/pull/44&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="new-contributors">New Contributors&lt;/h2>
+&lt;ul>
+&lt;li>@chunshao90 made their first contribution in &lt;a href="https://github.com/apache/horaedb-client-py/pull/36">https://github.com/apache/horaedb-client-py/pull/36&lt;/a>&lt;/li>
+&lt;li>@baojinri made their first contribution in &lt;a href="https://github.com/apache/horaedb-client-py/pull/40">https://github.com/apache/horaedb-client-py/pull/40&lt;/a>&lt;/li>
+&lt;li>@jiacai2050 made their first contribution in &lt;a href="https://github.com/apache/horaedb-client-py/pull/41">https://github.com/apache/horaedb-client-py/pull/41&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Full Changelog&lt;/strong>: &lt;a href="https://github.com/apache/horaedb-client-py/compare/v1.0.0...v2.0.0">https://github.com/apache/horaedb-client-py/compare/v1.0.0...v2.0.0&lt;/a>&lt;/p></description></item><item><title>2.1.0 版本发布</title><link>https://horaedb.apache.org/cn/blog/2024/release-2.1.0/</link><pubDate>Mon, 18 Nov 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/release-2.1.0/</guid><description>&lt;p>Apache HoraeDB（孵化中）团队很高兴地宣布，v2.1.0 版本已于 2024-11-18 发布，这个版本解决了 60 多个问题，并且包括两个主要功能：&lt;/p>
 &lt;h2 id="1-引入基于本地磁盘的新-wal-实现">1. 引入基于本地磁盘的新 WAL 实现&lt;/h2>
 &lt;p>在之前的版本中，有一个基于 RocksDB 的 WAL。虽然它在大多数情况下运行良好，但存在以下问题：&lt;/p>
 &lt;ul>

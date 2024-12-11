@@ -492,7 +492,26 @@ jeprof --show_bytes --svg /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; pro
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>| ..... | | | | |
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>另一个是 &lt;code>hybrid&lt;/code>, 当前还在实验阶段的存储格式，用于在列式存储中模拟面向行的存储，以加速经典的时序查询。&lt;/p></description></item><item><title>2024 年 ApacheCon 北美之旅的收获与感悟</title><link>https://horaedb.apache.org/cn/blog/2024/review-coc-na/</link><pubDate>Fri, 22 Nov 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/review-coc-na/</guid><description>&lt;p>&lt;a href="https://horaedb.apache.org/">Apache HoraeDB&lt;/a> 是 2023-12-11 加入 Apache 孵化器，由此拉开了我在 Apache 社区的成长探索之旅。作为一个历史悠久的基金会，Apache 旗下的软件可谓家喻户晓：Hadoop、Spark、Kafka 等等。 在这次 2024 年的 ApacheCon &lt;a href="https://www.apachecon.com/">北美大会&lt;/a>上，我有幸代表 HoraeDB 社区参加，终于有机会来近距离和来自世界各地的 Apache 项目的 PMC 们交流。这次经历不仅让我深入理解了 Apache 项目的核心价值与贡献，还深刻认识到开源社区如何驱动技术创新、促进开发者之间的协作与分享。&lt;/p>
+&lt;/div>&lt;p>另一个是 &lt;code>hybrid&lt;/code>, 当前还在实验阶段的存储格式，用于在列式存储中模拟面向行的存储，以加速经典的时序查询。&lt;/p></description></item><item><title>HoraeDB Python 客户端 2.0.0 版本发布</title><link>https://horaedb.apache.org/cn/blog/2024/release-python-client-2.0.0/</link><pubDate>Tue, 10 Dec 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/release-python-client-2.0.0/</guid><description>&lt;p>大家好：
+Apache HoraeDB（孵化中）社区很高兴地宣布 Python 客户端 v2.0.0 已经发布，这是进入 Apache 孵化器后的第一个版本！具体使用可以参考&lt;a href="https://horaedb.apache.org/cn/docs/user-guide/sdk/python/">文档&lt;/a>，下面是发布日志：&lt;/p>
+&lt;h2 id="whats-changed">What&amp;rsquo;s Changed&lt;/h2>
+&lt;ul>
+&lt;li>fix: wrong timestamp in example by @ShiKaiWi in &lt;a href="https://github.com/apache/horaedb-client-py/pull/35">https://github.com/apache/horaedb-client-py/pull/35&lt;/a>&lt;/li>
+&lt;li>chore: rename ceresdb to horaedb by @chunshao90 in &lt;a href="https://github.com/apache/horaedb-client-py/pull/36">https://github.com/apache/horaedb-client-py/pull/36&lt;/a>&lt;/li>
+&lt;li>chore: upgrade rust client by @ShiKaiWi in &lt;a href="https://github.com/apache/horaedb-client-py/pull/37">https://github.com/apache/horaedb-client-py/pull/37&lt;/a>&lt;/li>
+&lt;li>chore: add asf yaml by @chunshao90 in &lt;a href="https://github.com/apache/horaedb-client-py/pull/38">https://github.com/apache/horaedb-client-py/pull/38&lt;/a>&lt;/li>
+&lt;li>chore: add incubating notice by @baojinri in &lt;a href="https://github.com/apache/horaedb-client-py/pull/40">https://github.com/apache/horaedb-client-py/pull/40&lt;/a>&lt;/li>
+&lt;li>feat: support basic auth by @jiacai2050 in &lt;a href="https://github.com/apache/horaedb-client-py/pull/41">https://github.com/apache/horaedb-client-py/pull/41&lt;/a>&lt;/li>
+&lt;li>docs: update README.md by @baojinri in &lt;a href="https://github.com/apache/horaedb-client-py/pull/43">https://github.com/apache/horaedb-client-py/pull/43&lt;/a>&lt;/li>
+&lt;li>chore: fix asf header by @jiacai2050 in &lt;a href="https://github.com/apache/horaedb-client-py/pull/44">https://github.com/apache/horaedb-client-py/pull/44&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="new-contributors">New Contributors&lt;/h2>
+&lt;ul>
+&lt;li>@chunshao90 made their first contribution in &lt;a href="https://github.com/apache/horaedb-client-py/pull/36">https://github.com/apache/horaedb-client-py/pull/36&lt;/a>&lt;/li>
+&lt;li>@baojinri made their first contribution in &lt;a href="https://github.com/apache/horaedb-client-py/pull/40">https://github.com/apache/horaedb-client-py/pull/40&lt;/a>&lt;/li>
+&lt;li>@jiacai2050 made their first contribution in &lt;a href="https://github.com/apache/horaedb-client-py/pull/41">https://github.com/apache/horaedb-client-py/pull/41&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Full Changelog&lt;/strong>: &lt;a href="https://github.com/apache/horaedb-client-py/compare/v1.0.0...v2.0.0">https://github.com/apache/horaedb-client-py/compare/v1.0.0...v2.0.0&lt;/a>&lt;/p></description></item><item><title>2024 年 ApacheCon 北美之旅的收获与感悟</title><link>https://horaedb.apache.org/cn/blog/2024/review-coc-na/</link><pubDate>Fri, 22 Nov 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/review-coc-na/</guid><description>&lt;p>&lt;a href="https://horaedb.apache.org/">Apache HoraeDB&lt;/a> 是 2023-12-11 加入 Apache 孵化器，由此拉开了我在 Apache 社区的成长探索之旅。作为一个历史悠久的基金会，Apache 旗下的软件可谓家喻户晓：Hadoop、Spark、Kafka 等等。 在这次 2024 年的 ApacheCon &lt;a href="https://www.apachecon.com/">北美大会&lt;/a>上，我有幸代表 HoraeDB 社区参加，终于有机会来近距离和来自世界各地的 Apache 项目的 PMC 们交流。这次经历不仅让我深入理解了 Apache 项目的核心价值与贡献，还深刻认识到开源社区如何驱动技术创新、促进开发者之间的协作与分享。&lt;/p>
 &lt;p>这次大会在丹佛的君悦大酒店举行，为期四天（2024-10-07 ~ 10），讨论涉及搜索、大数据、物联网、社区等多个方面，从现场来看，讲师比嘉宾还要多，除了 Keynote 分享是在一个大会场进行，其他的场子均在一个小房间里，每个房间外会有一个电子屏展示今日的议题。全部日程见官网 &lt;a href="https://communityovercode.org/schedule/">Sessions Schedule&lt;/a>。&lt;/p>
 &lt;p>&lt;figure>
  &lt;img src="https://horaedb.apache.org/images/review-coc-na/board.jpg"
