@@ -996,7 +996,7 @@ The following table lists the mapping relationship between MySQL and HoraeDB.&lt
 &lt;/table></description></item><item><title>Downloads</title><link>https://horaedb.apache.org/downloads/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/downloads/</guid><description>&lt;h2 id="server">Server&lt;/h2>
 &lt;p>Apache HoraeDB server is released as source code tarballs with corresponding docker images for convenience.&lt;/p>
 &lt;h3 id="the-latest-release">The latest release&lt;/h3>
-&lt;p>The latest release is 2.1.0(2024-11-18), the source code can be downloaded &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz">here&lt;/a>.&lt;/p>
+&lt;p>The latest release is 2.1.0(2024-11-18), the source code can be downloaded &lt;a href="https://www.apache.org/dyn/closer.lua/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz?action=download">here&lt;/a>.&lt;/p>
 &lt;p>Verify this release using the &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz.asc">signatures&lt;/a>, &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz.sha512">checksums&lt;/a> by following guides below.&lt;/p>
 &lt;h3 id="docker-images">Docker images&lt;/h3>
 &lt;p>Pre-built binaries are not provided yet, users can &lt;a href="https://horaedb.apache.org/docs/dev/compile_run/">compile from source&lt;/a> or using docker images:&lt;/p>
@@ -1005,10 +1005,10 @@ The following table lists the mapping relationship between MySQL and HoraeDB.&lt
 &lt;li>&lt;a href="https://hub.docker.com/r/apache/horaedb-server">https://hub.docker.com/r/apache/horaedb-server&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h3 id="all-archived-releases">All archived releases&lt;/h3>
-&lt;p>For older releases, please check the &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/">archive&lt;/a>.&lt;/p>
+&lt;p>For older releases, please check the &lt;a href="https://archive.apache.org/dist/incubator/horaedb/horaedb/">archive&lt;/a>.&lt;/p>
 &lt;h2 id="client">Client&lt;/h2>
 &lt;h3 id="rust">Rust&lt;/h3>
-&lt;p>The latest rust client version is v2.0.0(2024-07-11), source codes can be downloaded &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb-client-rust/v2.0.0/apache-horaedb-incubating-rust-client-v2.0.0-src.tar.gz">here&lt;/a>, release note is &lt;a href="https://github.com/apache/horaedb-client-rs/releases/tag/v2.0.0">here&lt;/a>.&lt;/p></description></item><item><title>DROP TABLE</title><link>https://horaedb.apache.org/docs/user-guide/sql/ddl/drop_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/ddl/drop_table/</guid><description>&lt;h2 id="basic-syntax">Basic syntax&lt;/h2>
+&lt;p>The latest rust client version is v2.0.0(2024-07-11), source codes can be downloaded &lt;a href="https://www.apache.org/dyn/closer.lua/incubator/horaedb/horaedb-client-rust/v2.0.0/apache-horaedb-incubating-rust-client-v2.0.0-src.tar.gz?action=download">here&lt;/a>, release note is &lt;a href="https://github.com/apache/horaedb-client-rs/releases/tag/v2.0.0">here&lt;/a>.&lt;/p></description></item><item><title>DROP TABLE</title><link>https://horaedb.apache.org/docs/user-guide/sql/ddl/drop_table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/ddl/drop_table/</guid><description>&lt;h2 id="basic-syntax">Basic syntax&lt;/h2>
 &lt;p>Basic syntax:&lt;/p>
 &lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 &lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">

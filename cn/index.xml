@@ -1163,7 +1163,7 @@ HoraeMeta 本身通过嵌入式的 &lt;a href="https://github.com/etcd-io/etcd">
 &lt;p>目前，HoraeMeta 默认关闭集群拓扑的动态调度，并且在本篇指南中，这个选项也不会被开启，因为指南中的例子采用的是本地存储。如果要启用动态调度，可以将 &lt;code>TOPOLOGY_TYPE&lt;/code> 设置为 &lt;code>dynamic&lt;/code>（默认为 &lt;code>static&lt;/code>），之后负载均衡和 failover 将会起作用。但是需要注意的是，如果底层存储是本地磁盘，则不要启用它。&lt;/p>
 &lt;p>此外对于静态拓扑，参数 &lt;code>DEFAULT_CLUSTER_NODE_COUNT&lt;/code> 表示已部署集群中 HoraeDB 节点的数量，应该被设置为 HoraeDB 服务器的实际机器数，这个参数非常重要，因为集群初始化完毕之后，HoraeDB 集群将无法再增减机器。&lt;/p></description></item><item><title>下载</title><link>https://horaedb.apache.org/cn/downloads/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/downloads/</guid><description>&lt;p>Apache HoraeDB 使用源码压缩包进行发布。&lt;/p>
 &lt;h1 id="最新发布">最新发布&lt;/h1>
-&lt;p>最新一次发布版本：2.1.0(2024-11-18)，源码&lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz">下载地址&lt;/a>。&lt;/p>
+&lt;p>最新一次发布版本：2.1.0(2024-11-18)，源码&lt;a href="https://www.apache.org/dyn/closer.lua/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz?action=download">下载地址&lt;/a>。&lt;/p>
 &lt;p>用户可以按照以下指南使用 &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz.asc">signatures&lt;/a> 和 &lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/v2.1.0/apache-horaedb-incubating-v2.1.0-src.tar.gz.sha512">checksums&lt;/a> 验证此版本。&lt;/p>
 &lt;h2 id="docker-镜像">Docker 镜像&lt;/h2>
 &lt;p>暂不提供预构建好的二进制文件，用户可以使用源码&lt;a href="https://horaedb.apache.org/cn/docs/dev/compile_run/">编译&lt;/a>或者使用 docker 镜像：&lt;/p>
@@ -1172,7 +1172,7 @@ HoraeMeta 本身通过嵌入式的 &lt;a href="https://github.com/etcd-io/etcd">
 &lt;li>&lt;a href="https://hub.docker.com/r/apache/horaedb-server">https://hub.docker.com/r/apache/horaedb-server&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="历史版本">历史版本&lt;/h2>
-&lt;p>历史已发布版本，可以在&lt;a href="https://downloads.apache.org/incubator/horaedb/horaedb/">这里&lt;/a>查询得到。&lt;/p>
+&lt;p>历史已发布版本，可以在&lt;a href="https://archive.apache.org/dist/incubator/horaedb/horaedb/">这里&lt;/a>查询得到。&lt;/p>
 &lt;h1 id="验证-signatures-和-checksums">验证 signatures 和 checksums&lt;/h1>
 &lt;p>强烈建议用户验证下载的文件。&lt;/p>
 &lt;p>HoraeDB 为所有在下载站点上的文件提供 SHA digest 文件和 PGP 签名文件，验证文件以原始文件命名，并带有 &lt;code>sha512&lt;/code>、&lt;code>asc&lt;/code> 扩展名。&lt;/p>
