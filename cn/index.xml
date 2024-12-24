@@ -492,7 +492,12 @@ jeprof --show_bytes --svg /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; pro
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>| ..... | | | | |
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>另一个是 &lt;code>hybrid&lt;/code>, 当前还在实验阶段的存储格式，用于在列式存储中模拟面向行的存储，以加速经典的时序查询。&lt;/p></description></item><item><title>HoraeDB Python 客户端 2.0.0 版本发布</title><link>https://horaedb.apache.org/cn/blog/2024/release-python-client-2.0.0/</link><pubDate>Tue, 10 Dec 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/release-python-client-2.0.0/</guid><description>&lt;p>大家好：
+&lt;/div>&lt;p>另一个是 &lt;code>hybrid&lt;/code>, 当前还在实验阶段的存储格式，用于在列式存储中模拟面向行的存储，以加速经典的时序查询。&lt;/p></description></item><item><title>欢迎 Apache HoraeDB 新晋 Committer： Neo Chen</title><link>https://horaedb.apache.org/cn/blog/2024/new-committer-neochen/</link><pubDate>Tue, 24 Dec 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/new-committer-neochen/</guid><description>&lt;p>各位开发者们，&lt;/p>
+&lt;p>今天很高兴宣布，HoraeDB 社区新增了一个 committer：&lt;a href="https://github.com/zealchen">Neo Chen&lt;/a>，他之前的贡献得到 HoraeDB PPMC 的一致认可，并于 2024-12-22 投票成为 committer，感谢他一直以来的贡献。下面是他的贡献记录：&lt;/p>
+&lt;p>&lt;a href="https://github.com/apache/horaedb/commits/main/?author=zealchen">https://github.com/apache/horaedb/commits/main/?author=zealchen&lt;/a>&lt;/p>
+&lt;p>需要明确一点，成为 committer 并不需要额外做什么，主要是方便开发者后续可以更便利（有仓库写权限）地参与社区贡献。&lt;/p>
+&lt;p>最后，再次感谢 Neo Chen 一直以来对社区的付出，衷心希望他能继续贡献，共同见证社区的成长。&lt;/p>
+&lt;p>欢迎更多感兴趣的朋友加入我们的&lt;a href="https://horaedb.apache.org/community">社区&lt;/a>，与我们近距离交流。&lt;/p></description></item><item><title>HoraeDB Python 客户端 2.0.0 版本发布</title><link>https://horaedb.apache.org/cn/blog/2024/release-python-client-2.0.0/</link><pubDate>Tue, 10 Dec 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/release-python-client-2.0.0/</guid><description>&lt;p>大家好：
 Apache HoraeDB（孵化中）社区很高兴地宣布 Python 客户端 v2.0.0 已经发布，这是进入 Apache 孵化器后的第一个版本！具体使用可以参考&lt;a href="https://horaedb.apache.org/cn/docs/user-guide/sdk/python/">文档&lt;/a>，下面是发布日志：&lt;/p>
 &lt;h2 id="whats-changed">What&amp;rsquo;s Changed&lt;/h2>
 &lt;ul>
