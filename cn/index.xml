@@ -492,7 +492,34 @@ jeprof --show_bytes --svg /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; pro
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>| ..... | | | | |
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>另一个是 &lt;code>hybrid&lt;/code>, 当前还在实验阶段的存储格式，用于在列式存储中模拟面向行的存储，以加速经典的时序查询。&lt;/p></description></item><item><title>欢迎 Apache HoraeDB 新晋 Committer： Neo Chen</title><link>https://horaedb.apache.org/cn/blog/2024/new-committer-neochen/</link><pubDate>Tue, 24 Dec 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/new-committer-neochen/</guid><description>&lt;p>各位开发者们，&lt;/p>
+&lt;/div>&lt;p>另一个是 &lt;code>hybrid&lt;/code>, 当前还在实验阶段的存储格式，用于在列式存储中模拟面向行的存储，以加速经典的时序查询。&lt;/p></description></item><item><title>2024 开源之夏结束，HoraeDB 参与同学获得最具潜力奖！</title><link>https://horaedb.apache.org/cn/blog/2024/ospp/</link><pubDate>Thu, 26 Dec 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/ospp/</guid><description>&lt;p>&lt;a href="https://summer-ospp.ac.cn/org/orgdetail/44e53042-d59d-4eb1-9195-a8c81c868adc?lang=zh">开源之夏&lt;/a>是由中国科学院软件研究所“开源软件供应链点亮计划”发起并长期支持的一项暑期开源活动，旨在鼓励在校学生积极参与开源软件的开发维护，培养和发掘更多优秀的开发者，促进优秀开源软件社区的蓬勃发展，助力开源软件供应链建设。&lt;/p>
+&lt;p>2024 年 Apache HoraeDB 共有&lt;a href="https://summer-ospp.ac.cn/org/orgdetail/44e53042-d59d-4eb1-9195-a8c81c868adc?lang=zh">两个项目&lt;/a>匹配成功，并且全都顺利完成！&lt;/p>
+&lt;h2 id="单机版-wal-实现">单机版 WAL 实现&lt;/h2>
+&lt;p>WAL 是保证数据可靠性的重要组件，在之前的实现中，采用的是 RocksDB 引擎作为 WAL 的实现，RocksDB 本身是个复杂的组件，基于它来实现 WAL 会有以下问题：&lt;/p>
+&lt;ul>
+&lt;li>编译困难，在 HoraeDB 开发者邮件列表，编译 RocksDB 失败的邮件经常出现&lt;/li>
+&lt;li>RocksDB 自身作为一个完整的 LSM 引擎，本身会有 Compaction、Memtable 等组件，这些组件会带来额外性能损耗，而且调优比较复杂
+基于此，我们想设计一个基于本地磁盘的 WAL 实现，去掉 RocksDB 这个依赖。&lt;/li>
+&lt;/ul>
+&lt;p>顾龙同学在实现本地 WAL 的过程中，展现了其较强的代码功底，主要体现在如下几点：&lt;/p>
+&lt;ol>
+&lt;li>能够独立设计出项目的基本架构&lt;/li>
+&lt;li>较强的代码阅读能力，能够在已有项目的基础上，完成新功能的开发&lt;/li>
+&lt;li>在性能压测阶段，能够找到正确的方式来发现系统的瓶颈，能提出解决方案，最终达到性能要求&lt;/li>
+&lt;/ol>
+&lt;p>&lt;figure>
+ &lt;img src="https://horaedb.apache.org/images/2024-ospp-gulong.png"
+ alt=""
+ 
+ loading="lazy" />
+
+ 
+&lt;/figure>
+&lt;/p>
+&lt;h2 id="远端合并">远端合并&lt;/h2>
+&lt;p>Compaction offloading 是数据库在大规模部署的场景下，很有必要支持的一个能力，否则会和对实时性具有高要求的读写节点竞争有限的资源，大幅影响服务稳定性。而要 compaction 模块是 HoraeDB 的核心模块之一，要理解其逻辑，并在此之上进行较大改动，从而支持 compaction offloading 能力是很有挑战性。&lt;/p>
+&lt;p>苏逸钒同学不但在短时间内就深入了解了 HoraeDB compaction 模块的运行逻辑，而且能通过调研 HBase 等成熟开源项目的类似能力，快速提出在 HoraeDB 支持 compaction offloading 能力的合理方案，并在后续独立实现了方案，展现了其不俗的技术基础、工程能力和学习能力。&lt;/p>
+&lt;p>更难能可贵的是，苏逸钒同学在此之外，还主动熟悉了 HoraeDB 的核心上游项目 Datafusion，并且快速融入了 Datafusion 社区，因此获得最具潜力奖 🏅&lt;/p></description></item><item><title>欢迎 Apache HoraeDB 新晋 Committer： Neo Chen</title><link>https://horaedb.apache.org/cn/blog/2024/new-committer-neochen/</link><pubDate>Tue, 24 Dec 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/blog/2024/new-committer-neochen/</guid><description>&lt;p>各位开发者们，&lt;/p>
 &lt;p>今天很高兴宣布，HoraeDB 社区新增了一个 committer：&lt;a href="https://github.com/zealchen">Neo Chen&lt;/a>，他之前的贡献得到 HoraeDB PPMC 的一致认可，并于 2024-12-22 投票成为 committer，感谢他一直以来的贡献。下面是他的贡献记录：&lt;/p>
 &lt;p>&lt;a href="https://github.com/apache/horaedb/commits/main/?author=zealchen">https://github.com/apache/horaedb/commits/main/?author=zealchen&lt;/a>&lt;/p>
 &lt;p>需要明确一点，成为 committer 并不需要额外做什么，主要是方便开发者后续可以更便利（有仓库写权限）地参与社区贡献。&lt;/p>
