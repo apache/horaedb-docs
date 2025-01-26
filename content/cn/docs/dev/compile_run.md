@@ -55,7 +55,7 @@ cargo build
 之后可以用下面命令运行它：
 
 ```bash
-./target/debug/horaedb-server --config ./docs/minimal.toml
+./target/debug/server --config ./docs/example.toml
 ```
 
 # 常见问题

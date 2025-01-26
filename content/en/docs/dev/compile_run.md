@@ -54,7 +54,7 @@ cargo build
 Then you can run it using the default configuration file provided in the codebase.
 
 ```bash
-./target/debug/horaedb-server --config ./docs/minimal.toml
+./target/debug/server --config ./docs/example.toml
 ```
 
 # Tips
