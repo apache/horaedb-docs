@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docs on Apache HoraeDB</title><link>https://horaedb.apache.org/docs/</link><description>Recent content in Docs on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/docs/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting Started</title><link>https://horaedb.apache.org/docs/getting-started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/getting-started/</guid><description>&lt;p>This page shows you how to get started with HoraeDB quickly. You&amp;rsquo;ll start a standalone HoraeDB server, and then insert and read some sample data using SQL.&lt;/p>
-&lt;h2 id="start-server">Start server&lt;/h2>
-&lt;p>&lt;a href="https://github.com/apache/incubator-horaedb/pkgs/container/horaedb-server">HoraeDB docker image&lt;/a> is the easiest way to get started, if you haven&amp;rsquo;t installed Docker, go &lt;a href="https://www.docker.com/products/docker-desktop/">there&lt;/a> to install it first.&lt;/p>
-&lt;blockquote>
-&lt;p>Note: please choose tag version &amp;gt;= v1.0.0, others are mainly for testing.&lt;/p>
-&lt;/blockquote>
-&lt;p>You can use command below to start a standalone server&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docs on Apache HoraeDB</title><link>https://horaedb.apache.org/docs/</link><description>Recent content in Docs on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/docs/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting Started</title><link>https://horaedb.apache.org/docs/getting-started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/getting-started/</guid><description>&lt;p&gt;This page shows you how to get started with HoraeDB quickly. You&amp;rsquo;ll start a standalone HoraeDB server, and then insert and read some sample data using SQL.&lt;/p&gt;
+&lt;h2 id="start-server"&gt;Start server&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://github.com/apache/incubator-horaedb/pkgs/container/horaedb-server"&gt;HoraeDB docker image&lt;/a&gt; is the easiest way to get started, if you haven&amp;rsquo;t installed Docker, go &lt;a href="https://www.docker.com/products/docker-desktop/"&gt;there&lt;/a&gt; to install it first.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: please choose tag version &amp;gt;= v1.0.0, others are mainly for testing.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;You can use command below to start a standalone server&lt;/p&gt;</description></item></channel></rss>

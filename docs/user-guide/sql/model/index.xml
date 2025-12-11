@@ -1,89 +1,89 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data Model on Apache HoraeDB</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/</link><description>Recent content in Data Model on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/docs/user-guide/sql/model/index.xml" rel="self" type="application/rss+xml"/><item><title>Data Types</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/data_types/</guid><description>&lt;p>HoraeDB implements table model, and the supported data types are similar to MySQL.
-The following table lists the mapping relationship between MySQL and HoraeDB.&lt;/p>
-&lt;h2 id="support-data-typecase-insensitive">Support Data Type(case-insensitive)&lt;/h2>
-&lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th>SQL&lt;/th>
- &lt;th>HoraeDB&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td>null&lt;/td>
- &lt;td>Null&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>timestamp&lt;/td>
- &lt;td>Timestamp&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>double&lt;/td>
- &lt;td>Double&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>float&lt;/td>
- &lt;td>Float&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>string&lt;/td>
- &lt;td>String&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>Varbinary&lt;/td>
- &lt;td>Varbinary&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>uint64&lt;/td>
- &lt;td>UInt64&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>uint32&lt;/td>
- &lt;td>UInt32&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>uint16&lt;/td>
- &lt;td>UInt16&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>uint8&lt;/td>
- &lt;td>UInt8&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>int64/bigint&lt;/td>
- &lt;td>Int64&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>int32/int&lt;/td>
- &lt;td>Int32&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>int16/smallint&lt;/td>
- &lt;td>Int16&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>int8/tinyint&lt;/td>
- &lt;td>Int8&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>boolean&lt;/td>
- &lt;td>Boolean&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>date&lt;/td>
- &lt;td>Date&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td>time&lt;/td>
- &lt;td>Time&lt;/td>
- &lt;/tr>
- &lt;/tbody>
-&lt;/table></description></item><item><title>Special Columns</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</guid><description>&lt;p>Tables in HoraeDB have the following constraints:&lt;/p>
-&lt;ul>
-&lt;li>Primary key is required&lt;/li>
-&lt;li>The primary key must contain a time column, and can only contain one time column&lt;/li>
-&lt;li>The primary key must be non-null, so all columns in primary key must be non-null.&lt;/li>
-&lt;/ul>
-&lt;h2 id="timestamp-column">Timestamp Column&lt;/h2>
-&lt;p>Tables in HoraeDB must have one timestamp column maps to timestamp in timeseries data, such as timestamp in OpenTSDB/Prometheus.
-The timestamp column can be set with &lt;code>timestamp key&lt;/code> keyword, like &lt;code>TIMESTAMP KEY(ts)&lt;/code>.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Data Model on Apache HoraeDB</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/</link><description>Recent content in Data Model on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/docs/user-guide/sql/model/index.xml" rel="self" type="application/rss+xml"/><item><title>Data Types</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/data_types/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/data_types/</guid><description>&lt;p&gt;HoraeDB implements table model, and the supported data types are similar to MySQL.
+The following table lists the mapping relationship between MySQL and HoraeDB.&lt;/p&gt;
+&lt;h2 id="support-data-typecase-insensitive"&gt;Support Data Type(case-insensitive)&lt;/h2&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;SQL&lt;/th&gt;
+ &lt;th&gt;HoraeDB&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;null&lt;/td&gt;
+ &lt;td&gt;Null&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;timestamp&lt;/td&gt;
+ &lt;td&gt;Timestamp&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;double&lt;/td&gt;
+ &lt;td&gt;Double&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;float&lt;/td&gt;
+ &lt;td&gt;Float&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;string&lt;/td&gt;
+ &lt;td&gt;String&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;Varbinary&lt;/td&gt;
+ &lt;td&gt;Varbinary&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;uint64&lt;/td&gt;
+ &lt;td&gt;UInt64&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;uint32&lt;/td&gt;
+ &lt;td&gt;UInt32&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;uint16&lt;/td&gt;
+ &lt;td&gt;UInt16&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;uint8&lt;/td&gt;
+ &lt;td&gt;UInt8&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;int64/bigint&lt;/td&gt;
+ &lt;td&gt;Int64&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;int32/int&lt;/td&gt;
+ &lt;td&gt;Int32&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;int16/smallint&lt;/td&gt;
+ &lt;td&gt;Int16&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;int8/tinyint&lt;/td&gt;
+ &lt;td&gt;Int8&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;boolean&lt;/td&gt;
+ &lt;td&gt;Boolean&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;date&lt;/td&gt;
+ &lt;td&gt;Date&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;time&lt;/td&gt;
+ &lt;td&gt;Time&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;</description></item><item><title>Special Columns</title><link>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/docs/user-guide/sql/model/special_columns/</guid><description>&lt;p&gt;Tables in HoraeDB have the following constraints:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Primary key is required&lt;/li&gt;
+&lt;li&gt;The primary key must contain a time column, and can only contain one time column&lt;/li&gt;
+&lt;li&gt;The primary key must be non-null, so all columns in primary key must be non-null.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="timestamp-column"&gt;Timestamp Column&lt;/h2&gt;
+&lt;p&gt;Tables in HoraeDB must have one timestamp column maps to timestamp in timeseries data, such as timestamp in OpenTSDB/Prometheus.
+The timestamp column can be set with &lt;code&gt;timestamp key&lt;/code&gt; keyword, like &lt;code&gt;TIMESTAMP KEY(ts)&lt;/code&gt;.&lt;/p&gt;</description></item></channel></rss>

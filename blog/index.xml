@@ -1,28 +1,28 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on Apache HoraeDB</title><link>https://horaedb.apache.org/blog/</link><description>Recent content in Blog on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Release 2.1.0</title><link>https://horaedb.apache.org/blog/2024/release-2.1.0/</link><pubDate>Mon, 18 Nov 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/blog/2024/release-2.1.0/</guid><description>&lt;p>The Apache HoraeDB(incubating) team are pleased to announce that v2.1.0 is released, which has closed over 60 issues, including two major features:&lt;/p>
-&lt;h2 id="1-new-wal-implementation-based-on-local-disk">1. New WAL implementation based on local disk.&lt;/h2>
-&lt;p>In previous version, there is a RocksDB-based WAL. Although it works well in most cases, it has following issues:&lt;/p>
-&lt;ul>
-&lt;li>Compiling from source can be a challenging task, especially since RocksDB is primarily written in C++.&lt;/li>
-&lt;li>For WAL, RocksDB can be somewhat overkill. If you are not familiar with RocksDB, tuning it can be very challenging.&lt;/li>
-&lt;/ul>
-&lt;p>With this new WAL, the above two problems are solved very well, and in performance test, the new WAL slightly outperforms the previous implementation, giving a solid foundation for future optimizations.&lt;/p></description></item><item><title>Release 2.0.0</title><link>https://horaedb.apache.org/blog/2024/release-2.0.0/</link><pubDate>Tue, 23 Apr 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/blog/2024/release-2.0.0/</guid><description>&lt;h2 id="upgrade-from-1xx-to-200">Upgrade from 1.x.x to 2.0.0&lt;/h2>
-&lt;p>The transition from CeresDB to Apache HoraeDB introduces several breaking changes. To facilitate upgrading from older versions to v2.0.0, specific alterations are necessary.&lt;/p>
-&lt;h4 id="upgrade-steps">Upgrade Steps&lt;/h4>
-&lt;ol>
-&lt;li>Setup required envs&lt;/li>
-&lt;/ol>
-&lt;pre tabindex="0">&lt;code>export HORAEDB_DEFAULT_CATALOG=ceresdb
-&lt;/code>&lt;/pre>&lt;ol start="2">
-&lt;li>Update config&lt;/li>
-&lt;/ol>
-&lt;p>Etcd&amp;rsquo;s root should be configured both in horaedb and horaemeta&lt;/p>
-&lt;p>For horaedb&lt;/p>
-&lt;pre tabindex="0">&lt;code>[cluster_deployment.etcd_client]
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on Apache HoraeDB</title><link>https://horaedb.apache.org/blog/</link><description>Recent content in Blog on Apache HoraeDB</description><generator>Hugo</generator><language>en</language><atom:link href="https://horaedb.apache.org/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Release 2.1.0</title><link>https://horaedb.apache.org/blog/2024/release-2.1.0/</link><pubDate>Mon, 18 Nov 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/blog/2024/release-2.1.0/</guid><description>&lt;p&gt;The Apache HoraeDB(incubating) team are pleased to announce that v2.1.0 is released, which has closed over 60 issues, including two major features:&lt;/p&gt;
+&lt;h2 id="1-new-wal-implementation-based-on-local-disk"&gt;1. New WAL implementation based on local disk.&lt;/h2&gt;
+&lt;p&gt;In previous version, there is a RocksDB-based WAL. Although it works well in most cases, it has following issues:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Compiling from source can be a challenging task, especially since RocksDB is primarily written in C++.&lt;/li&gt;
+&lt;li&gt;For WAL, RocksDB can be somewhat overkill. If you are not familiar with RocksDB, tuning it can be very challenging.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With this new WAL, the above two problems are solved very well, and in performance test, the new WAL slightly outperforms the previous implementation, giving a solid foundation for future optimizations.&lt;/p&gt;</description></item><item><title>Release 2.0.0</title><link>https://horaedb.apache.org/blog/2024/release-2.0.0/</link><pubDate>Tue, 23 Apr 2024 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/blog/2024/release-2.0.0/</guid><description>&lt;h2 id="upgrade-from-1xx-to-200"&gt;Upgrade from 1.x.x to 2.0.0&lt;/h2&gt;
+&lt;p&gt;The transition from CeresDB to Apache HoraeDB introduces several breaking changes. To facilitate upgrading from older versions to v2.0.0, specific alterations are necessary.&lt;/p&gt;
+&lt;h4 id="upgrade-steps"&gt;Upgrade Steps&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Setup required envs&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;export HORAEDB_DEFAULT_CATALOG=ceresdb
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start="2"&gt;
+&lt;li&gt;Update config&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Etcd&amp;rsquo;s root should be configured both in horaedb and horaemeta&lt;/p&gt;
+&lt;p&gt;For horaedb&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;[cluster_deployment.etcd_client]
 server_addrs = [&amp;#39;127.0.0.1:2379&amp;#39;]
 root_path = &amp;#34;/rootPath&amp;#34;
-&lt;/code>&lt;/pre>&lt;p>For horaemeta&lt;/p>
-&lt;pre tabindex="0">&lt;code>storage-root-path = &amp;#34;/rootPath&amp;#34;
-&lt;/code>&lt;/pre>&lt;ol start="3">
-&lt;li>Upgrade horaemeta&lt;/li>
-&lt;/ol>
-&lt;p>Horaedb will throw following errors, which is expected&lt;/p></description></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;For horaemeta&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;storage-root-path = &amp;#34;/rootPath&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start="3"&gt;
+&lt;li&gt;Upgrade horaemeta&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Horaedb will throw following errors, which is expected&lt;/p&gt;</description></item></channel></rss>

@@ -1,216 +1,216 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>设计文档 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/docs/design/</link><description>Recent content in 设计文档 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/docs/design/index.xml" rel="self" type="application/rss+xml"/><item><title>HoraeDB 架构介绍</title><link>https://horaedb.apache.org/cn/docs/design/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/architecture/</guid><description>&lt;h2 id="本文目标">本文目标&lt;/h2>
-&lt;ul>
-&lt;li>为想了解更多关于 HoraeDB 但不知道从何入手的开发者提供 HoraeDB 的概览&lt;/li>
-&lt;li>简要介绍 HoraeDB 的主要模块以及这些模块之间的联系，但不涉及它们实现的细节&lt;/li>
-&lt;/ul>
-&lt;h2 id="动机">动机&lt;/h2>
-&lt;p>HoraeDB 是一个时序数据库，与经典时序数据库相比，HoraeDB 的目标是能够同时处理时序型和分析型两种模式的数据，并提供高效的读写。&lt;/p>
-&lt;p>在经典的时序数据库中，&lt;code>Tag&lt;/code> 列（ &lt;code>InfluxDB&lt;/code> 称之为 &lt;code>Tag&lt;/code>，&lt;code>Prometheus&lt;/code> 称之为 &lt;code>Label&lt;/code>）通常会对其生成倒排索引，但在实际使用中，&lt;code>Tag&lt;/code> 的基数在不同的场景中是不一样的 ———— 在某些场景下，&lt;code>Tag&lt;/code> 的基数非常高（这种场景下的数据，我们称之为分析型数据），而基于倒排索引的读写要为此付出很高的代价。而另一方面，分析型数据库常用的扫描 + 剪枝方法，可以比较高效地处理这样的分析型数据。&lt;/p>
-&lt;p>因此 HoraeDB 的基本设计理念是采用混合存储格式和相应的查询方法，从而达到能够同时高效处理时序型数据和分析型数据。&lt;/p>
-&lt;h2 id="架构">架构&lt;/h2>
-&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-plaintext" data-lang="plaintext">&lt;span style="display:flex;">&lt;span>┌──────────────────────────────────────────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ RPC Layer (HTTP/gRPC/MySQL) │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└──────────────────────────────────────────┘
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌──────────────────────────────────────────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ SQL Layer │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ┌─────────────────┐ ┌─────────────────┐ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │ Parser │ │ Planner │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ └─────────────────┘ └─────────────────┘ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└──────────────────────────────────────────┘
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌───────────────────┐ ┌───────────────────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Interpreter │ │ Catalog │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└───────────────────┘ └───────────────────┘
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌──────────────────────────────────────────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Query Engine │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ┌─────────────────┐ ┌─────────────────┐ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │ Optimizer │ │ Executor │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ └─────────────────┘ └─────────────────┘ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└──────────────────────────────────────────┘
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌──────────────────────────────────────────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Pluggable Table Engine │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ┌────────────────────────────────────┐ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │ Analytic │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │┌────────────────┐┌────────────────┐│ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ││ Wal ││ Memtable ││ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │└────────────────┘└────────────────┘│ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │┌────────────────┐┌────────────────┐│ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ││ Flush ││ Compaction ││ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │└────────────────┘└────────────────┘│ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │┌────────────────┐┌────────────────┐│ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ││ Manifest ││ Object Store ││ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │└────────────────┘└────────────────┘│ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ └────────────────────────────────────┘ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Another Table Engine │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└──────────────────────────────────────────┘
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>上图展示了 HoraeDB 单机版本的架构，下面将会介绍重要模块的细节。&lt;/p></description></item><item><title>集群模式</title><link>https://horaedb.apache.org/cn/docs/design/clustering/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/clustering/</guid><description>&lt;p>注意：文章中提到的部分特性暂时还未实现。&lt;/p>
-&lt;h2 id="整体架构">整体架构&lt;/h2>
-&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-plaintext" data-lang="plaintext">&lt;span style="display:flex;">&lt;span>┌───────────────────────────────────────────────────────────────────────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ HoraeMeta Cluster │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└───────────────────────────────────────────────────────────────────────┘
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ▲ ▲ ▲
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ▼ ▼ ▼
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌───────┐Route Info ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│client │◀────────▶ │ │ │TableN││ │ │ │ │TableN││ │ │ │ │TableN││ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└───────┘Write/Query└──Shard(L)──┴┴─┘ └──Shard(F)──┴┴─┘ └──Shard(F)──┴┴─┘
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ ▲ ▲
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ Write─────────┐ ├────Sync───────┘
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ ┌────────┬▼───┴────┬──────────────────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Upload SST │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │WAL │Region N │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │Service │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ └────────┴─────────┴──────────────────┘
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ▼
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌───────────────────────────────────────────────────────────────────────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Object Storage │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└───────────────────────────────────────────────────────────────────────┘
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>上面给出来 HoraeDB 集群化方案的整体架构图，对于其中的一些名词做出解释：&lt;/p></description></item><item><title>存储引擎</title><link>https://horaedb.apache.org/cn/docs/design/storage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/storage/</guid><description>&lt;p>存储引擎主要提供以下两个功能：&lt;/p>
-&lt;ol>
-&lt;li>数据的持久化&lt;/li>
-&lt;li>在保证数据正确性的前提下，用最合理的方式来组织数据，来满足不同场景的查询需求&lt;/li>
-&lt;/ol>
-&lt;p>本篇文档就来介绍 HoraeDB 中存储引擎的内部实现，读者可以参考这里面的内容，来探索如何高效使用 HoraeDB。&lt;/p>
-&lt;h1 id="整体架构">整体架构&lt;/h1>
-&lt;p>HoraeDB 是一种基于 share-nothing 架构的分布式存储系统，不同服务器之间的数据相互隔离，互不影响。每一个单机中的存储引擎是 LSM（Log-structured merge-tree）的一个变种，针对时序场景做了优化，下图展示了其主要组件的运作方式：&lt;/p>
-&lt;p>&lt;figure>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>设计文档 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/docs/design/</link><description>Recent content in 设计文档 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/docs/design/index.xml" rel="self" type="application/rss+xml"/><item><title>HoraeDB 架构介绍</title><link>https://horaedb.apache.org/cn/docs/design/architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/architecture/</guid><description>&lt;h2 id="本文目标"&gt;本文目标&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;为想了解更多关于 HoraeDB 但不知道从何入手的开发者提供 HoraeDB 的概览&lt;/li&gt;
+&lt;li&gt;简要介绍 HoraeDB 的主要模块以及这些模块之间的联系，但不涉及它们实现的细节&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="动机"&gt;动机&lt;/h2&gt;
+&lt;p&gt;HoraeDB 是一个时序数据库，与经典时序数据库相比，HoraeDB 的目标是能够同时处理时序型和分析型两种模式的数据，并提供高效的读写。&lt;/p&gt;
+&lt;p&gt;在经典的时序数据库中，&lt;code&gt;Tag&lt;/code&gt; 列（ &lt;code&gt;InfluxDB&lt;/code&gt; 称之为 &lt;code&gt;Tag&lt;/code&gt;，&lt;code&gt;Prometheus&lt;/code&gt; 称之为 &lt;code&gt;Label&lt;/code&gt;）通常会对其生成倒排索引，但在实际使用中，&lt;code&gt;Tag&lt;/code&gt; 的基数在不同的场景中是不一样的 ———— 在某些场景下，&lt;code&gt;Tag&lt;/code&gt; 的基数非常高（这种场景下的数据，我们称之为分析型数据），而基于倒排索引的读写要为此付出很高的代价。而另一方面，分析型数据库常用的扫描 + 剪枝方法，可以比较高效地处理这样的分析型数据。&lt;/p&gt;
+&lt;p&gt;因此 HoraeDB 的基本设计理念是采用混合存储格式和相应的查询方法，从而达到能够同时高效处理时序型数据和分析型数据。&lt;/p&gt;
+&lt;h2 id="架构"&gt;架构&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;"&gt;&lt;tr&gt;&lt;td style="vertical-align:top;padding:0;margin:0;border:0;"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 1
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 2
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 3
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 4
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 5
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 6
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 7
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 8
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 9
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;10
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;11
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;12
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;13
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;14
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;15
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;16
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;17
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;18
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;19
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;20
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;21
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;22
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;23
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;24
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;25
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;26
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;27
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;28
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;29
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;30
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;31
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;32
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;33
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;34
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;35
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;36
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-plaintext" data-lang="plaintext"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;┌──────────────────────────────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ RPC Layer (HTTP/gRPC/MySQL) │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└──────────────────────────────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;┌──────────────────────────────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ SQL Layer │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ ┌─────────────────┐ ┌─────────────────┐ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │ Parser │ │ Planner │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ └─────────────────┘ └─────────────────┘ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└──────────────────────────────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;┌───────────────────┐ ┌───────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ Interpreter │ │ Catalog │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└───────────────────┘ └───────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;┌──────────────────────────────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ Query Engine │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ ┌─────────────────┐ ┌─────────────────┐ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │ Optimizer │ │ Executor │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ └─────────────────┘ └─────────────────┘ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└──────────────────────────────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;┌──────────────────────────────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ Pluggable Table Engine │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ ┌────────────────────────────────────┐ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │ Analytic │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │┌────────────────┐┌────────────────┐│ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ ││ Wal ││ Memtable ││ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │└────────────────┘└────────────────┘│ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │┌────────────────┐┌────────────────┐│ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ ││ Flush ││ Compaction ││ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │└────────────────┘└────────────────┘│ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │┌────────────────┐┌────────────────┐│ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ ││ Manifest ││ Object Store ││ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │└────────────────┘└────────────────┘│ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ └────────────────────────────────────┘ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ Another Table Engine │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└──────────────────────────────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上图展示了 HoraeDB 单机版本的架构，下面将会介绍重要模块的细节。&lt;/p&gt;</description></item><item><title>集群模式</title><link>https://horaedb.apache.org/cn/docs/design/clustering/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/clustering/</guid><description>&lt;p&gt;注意：文章中提到的部分特性暂时还未实现。&lt;/p&gt;
+&lt;h2 id="整体架构"&gt;整体架构&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;"&gt;&lt;tr&gt;&lt;td style="vertical-align:top;padding:0;margin:0;border:0;"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 1
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 2
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 3
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 4
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 5
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 6
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 7
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 8
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 9
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;10
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;11
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;12
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;13
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;14
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;15
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;16
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;17
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;18
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;19
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;20
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;21
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;22
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;23
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;24
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;25
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;26
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;27
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;28
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-plaintext" data-lang="plaintext"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;┌───────────────────────────────────────────────────────────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ HoraeMeta Cluster │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└───────────────────────────────────────────────────────────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ▲ ▲ ▲
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ▼ ▼ ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;┌───────┐Route Info ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐ ┌HoraeDB─────┬┬─┐
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│client │◀────────▶ │ │ │TableN││ │ │ │ │TableN││ │ │ │ │TableN││ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└───────┘Write/Query└──Shard(L)──┴┴─┘ └──Shard(F)──┴┴─┘ └──Shard(F)──┴┴─┘
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ ▲ ▲
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ Write─────────┐ ├────Sync───────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ┌────────┬▼───┴────┬──────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Upload SST │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │WAL │Region N │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │Service │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ └────────┴─────────┴──────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;┌───────────────────────────────────────────────────────────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ Object Storage │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└───────────────────────────────────────────────────────────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面给出来 HoraeDB 集群化方案的整体架构图，对于其中的一些名词做出解释：&lt;/p&gt;</description></item><item><title>存储引擎</title><link>https://horaedb.apache.org/cn/docs/design/storage/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/storage/</guid><description>&lt;p&gt;存储引擎主要提供以下两个功能：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;数据的持久化&lt;/li&gt;
+&lt;li&gt;在保证数据正确性的前提下，用最合理的方式来组织数据，来满足不同场景的查询需求&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;本篇文档就来介绍 HoraeDB 中存储引擎的内部实现，读者可以参考这里面的内容，来探索如何高效使用 HoraeDB。&lt;/p&gt;
+&lt;h1 id="整体架构"&gt;整体架构&lt;/h1&gt;
+&lt;p&gt;HoraeDB 是一种基于 share-nothing 架构的分布式存储系统，不同服务器之间的数据相互隔离，互不影响。每一个单机中的存储引擎是 LSM（Log-structured merge-tree）的一个变种，针对时序场景做了优化，下图展示了其主要组件的运作方式：&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;
  &lt;img src="https://horaedb.apache.org/images/storage-overview.svg"
  alt=""
  
- loading="lazy" />
+ loading="lazy" /&gt;
 
  
-&lt;/figure>
-&lt;/p>
-&lt;h2 id="write-ahead-log-wal">Write Ahead Log (WAL)&lt;/h2>
-&lt;p>一次写入请求的数据会写到两个部分：&lt;/p>
-&lt;ol>
-&lt;li>内存中的 memtable&lt;/li>
-&lt;li>可持久化的 WAL&lt;/li>
-&lt;/ol>
-&lt;p>由于 memtable 不是实时持久化到底层存储系统，因此需要用 WAL 来保证 memtable 中数据的可靠性。&lt;/p>
-&lt;p>另一方面，由于&lt;a href="cluster.md">分布式架构&lt;/a>的设计，要求 WAL 本身是高可用的，现在 HoraeDB 中，主要有以下几种实现：&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://horaedb.apache.org/cn/docs/design/wal_on_rocksdb/">本地磁盘&lt;/a>（基于 &lt;a href="http://rocksdb.org/">RocksDB&lt;/a>，无分布式高可用）&lt;/li>
-&lt;li>&lt;a href="https://www.oceanbase.com">Oceanbase&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://horaedb.apache.org/cn/docs/design/wal_on_kafka/">Kafka&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h2 id="memtable">Memtable&lt;/h2>
-&lt;p>Memtable 是一个内存的数据结构，用来保存最近写入的数据。一个表对应一个 memtable。&lt;/p>
-&lt;p>Memtable 默认是可读写的（称为 active），当写入达到一起阈值时，会变成只读的并且被一个新的 memtable 替换掉。只读的 memtable 会被后台线程以 SST 的形式写入到底层存储系统中，写入完成后，只读的 memtable 就可以被销毁，同时 WAL 中也可以删除对应部分的数据。&lt;/p>
-&lt;h2 id="sorted-string-tablesst">Sorted String Table（SST）&lt;/h2>
-&lt;p>SST 是数据的持久化格式，按照表主键的顺序存放，目前 HoraeDB 采用 parquet 格式来存储。&lt;/p>
-&lt;p>对于 HoraeDB 来说，SST 有一个重要特性： &lt;code>segment_duration&lt;/code>，只有同一个 segment 内的 SST 才有可能进行合并操作。而且有了 segment，也方便淘汰过期的数据。&lt;/p></description></item><item><title>Shared Nothing 架构</title><link>https://horaedb.apache.org/cn/docs/design/shared_nothing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/shared_nothing/</guid><description>&lt;h2 id="背景">背景&lt;/h2>
-&lt;p>在 &lt;a href="https://horaedb.apache.org/cn/docs/design/clustering/">集群&lt;/a> 文章中介绍了 HoraeDB 的集群方案，简单总结一下就是：&lt;/p>
-&lt;ul>
-&lt;li>计算存储分离；&lt;/li>
-&lt;li>由中心化的元数据中心，管理整个集群；&lt;/li>
-&lt;/ul>
-&lt;p>然而计算存储分离的架构下，有个重要的问题在于，在集群调度的过程中，如何保证在共享的存储层中的数据不会因为不同的计算节点访问导致数据损坏，一个简单的例子就是如果同一块数据块被多个计算节点同时更新，可能就会出现数据损坏。&lt;/p>
-&lt;p>而 HoraeDB 的解决方案是通过特定的机制，在共享存储的情况下达到了类似 &lt;a href="https://en.wikipedia.org/wiki/Shared-nothing_architecture">Shared-Nothing 架构&lt;/a> 的效果，也就是说存储层的数据经过一定规则的划分，&lt;strong>可以保证在任何时刻最多只有一个 HoraeDB 实例可以对其进行更新&lt;/strong>，本文中，将这个特性定义成&lt;strong>集群拓扑的正确性&lt;/strong>，如果这个正确性得到保证的话，那么数据就不会因为集群的灵活调度而受到损坏。&lt;/p>
-&lt;p>本文对于 Shared Nothing 架构的优劣不做赘述，主要分享一下，HoraeDB 集群方案是如何在计算存储分离的方案下，达到 Shared Nothing 的效果（即如何保证 &lt;strong>集群拓扑的正确性&lt;/strong>）。&lt;/p>
-&lt;h2 id="数据划分">数据划分&lt;/h2>
-&lt;p>为了达到 Shared Nothing 的效果，首先需要将数据在共享的存储层上面进行好逻辑和物理的划分。在 &lt;a href="https://horaedb.apache.org/cn/docs/design/clustering/#shard">此前的集群介绍文章&lt;/a> 中介绍了 Shard 的基本作用，作为集群的基本调度单元，同时也是数据分布的基本划分单元，不同的 Shard 在存储层对应的数据是隔离的：&lt;/p>
-&lt;ul>
-&lt;li>在 WAL 中，写入的 Table 数据会按照 Shard 组织起来，按照 Shard 写入到 WAL 的不同区域中，不同的 Shard 在 WAL 中的数据是隔离开的；&lt;/li>
-&lt;li>在 Object Storage 中，数据的管理是按照 Table 来划分的，而 Shard 和 Table 之间的关系是一对多的关系，也就说，任何一个 Table 只属于一个 Shard，因此在 Object Storage 中，Shard 之间的数据也是隔离的；&lt;/li>
-&lt;/ul>
-&lt;h2 id="shard-lock">Shard Lock&lt;/h2>
-&lt;p>在数据划分好之后，需要保证的就是在任何时刻，同一时刻最多只有一个 HoraeDB 实例能够更新 Shard 的数据。那么要如何保证这一点的呢？很自然地，通过锁可以达到互斥的效果，不过在分布式集群中，我们需要的是分布式锁。通过分布式锁，每一个 Shard 被分配给 HoraeDB 实例时，HoraeDB 必须先获取到相应的 Shard Lock，才能完成 Shard 的打开操作，对应地，当 Shard 关闭后，HoraeDB 实例也需要主动释放 Shard Lock。&lt;/p></description></item><item><title>分区表</title><link>https://horaedb.apache.org/cn/docs/design/table_partitioning/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/table_partitioning/</guid><description>&lt;p>&lt;strong>注意：此功能仍在开发中，API 将来可能会发生变化。&lt;/strong>&lt;/p>
-&lt;p>本章讨论 &lt;code>PartitionTable&lt;/code>。&lt;/p>
-&lt;p>HoraeDB 使用的分区表语法类似于 &lt;a href="https://dev.mysql.com/doc/refman/8.0/en/partitioning-types.html">MySQL&lt;/a> 。&lt;/p>
-&lt;p>一般的分区表包括&lt;code>Range Partitioning&lt;/code>、&lt;code>List Partitoning&lt;/code>、&lt;code>Hash Partitioning&lt;/code>和&lt;code>Key Partititioning&lt;/code>。&lt;/p>
-&lt;p>HoraeDB 目前仅支持 Key Partitioning。&lt;/p>
-&lt;h2 id="设计">设计&lt;/h2>
-&lt;p>与 MySQL 类似，分区表的不同部分作为单独的表存储在不同的位置。&lt;/p>
-&lt;p>目前设计，一个分区表可以在多个 HoraeDB 节点上打开，支持同时写入和查询，可以水平扩展。&lt;/p>
-&lt;p>如下图所示，在 node0 和 node1 上打开了&lt;code>PartitionTable&lt;/code>，在 node2 和 node3 上打开了存放实际数据的物理子表。&lt;/p>
-&lt;pre tabindex="0">&lt;code> ┌───────────────────────┐ ┌───────────────────────┐
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h2 id="write-ahead-log-wal"&gt;Write Ahead Log (WAL)&lt;/h2&gt;
+&lt;p&gt;一次写入请求的数据会写到两个部分：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;内存中的 memtable&lt;/li&gt;
+&lt;li&gt;可持久化的 WAL&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;由于 memtable 不是实时持久化到底层存储系统，因此需要用 WAL 来保证 memtable 中数据的可靠性。&lt;/p&gt;
+&lt;p&gt;另一方面，由于&lt;a href="cluster.md"&gt;分布式架构&lt;/a&gt;的设计，要求 WAL 本身是高可用的，现在 HoraeDB 中，主要有以下几种实现：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://horaedb.apache.org/cn/docs/design/wal_on_rocksdb/"&gt;本地磁盘&lt;/a&gt;（基于 &lt;a href="http://rocksdb.org/"&gt;RocksDB&lt;/a&gt;，无分布式高可用）&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.oceanbase.com"&gt;Oceanbase&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://horaedb.apache.org/cn/docs/design/wal_on_kafka/"&gt;Kafka&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="memtable"&gt;Memtable&lt;/h2&gt;
+&lt;p&gt;Memtable 是一个内存的数据结构，用来保存最近写入的数据。一个表对应一个 memtable。&lt;/p&gt;
+&lt;p&gt;Memtable 默认是可读写的（称为 active），当写入达到一起阈值时，会变成只读的并且被一个新的 memtable 替换掉。只读的 memtable 会被后台线程以 SST 的形式写入到底层存储系统中，写入完成后，只读的 memtable 就可以被销毁，同时 WAL 中也可以删除对应部分的数据。&lt;/p&gt;
+&lt;h2 id="sorted-string-tablesst"&gt;Sorted String Table（SST）&lt;/h2&gt;
+&lt;p&gt;SST 是数据的持久化格式，按照表主键的顺序存放，目前 HoraeDB 采用 parquet 格式来存储。&lt;/p&gt;
+&lt;p&gt;对于 HoraeDB 来说，SST 有一个重要特性： &lt;code&gt;segment_duration&lt;/code&gt;，只有同一个 segment 内的 SST 才有可能进行合并操作。而且有了 segment，也方便淘汰过期的数据。&lt;/p&gt;</description></item><item><title>Shared Nothing 架构</title><link>https://horaedb.apache.org/cn/docs/design/shared_nothing/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/shared_nothing/</guid><description>&lt;h2 id="背景"&gt;背景&lt;/h2&gt;
+&lt;p&gt;在 &lt;a href="https://horaedb.apache.org/cn/docs/design/clustering/"&gt;集群&lt;/a&gt; 文章中介绍了 HoraeDB 的集群方案，简单总结一下就是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;计算存储分离；&lt;/li&gt;
+&lt;li&gt;由中心化的元数据中心，管理整个集群；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;然而计算存储分离的架构下，有个重要的问题在于，在集群调度的过程中，如何保证在共享的存储层中的数据不会因为不同的计算节点访问导致数据损坏，一个简单的例子就是如果同一块数据块被多个计算节点同时更新，可能就会出现数据损坏。&lt;/p&gt;
+&lt;p&gt;而 HoraeDB 的解决方案是通过特定的机制，在共享存储的情况下达到了类似 &lt;a href="https://en.wikipedia.org/wiki/Shared-nothing_architecture"&gt;Shared-Nothing 架构&lt;/a&gt; 的效果，也就是说存储层的数据经过一定规则的划分，&lt;strong&gt;可以保证在任何时刻最多只有一个 HoraeDB 实例可以对其进行更新&lt;/strong&gt;，本文中，将这个特性定义成&lt;strong&gt;集群拓扑的正确性&lt;/strong&gt;，如果这个正确性得到保证的话，那么数据就不会因为集群的灵活调度而受到损坏。&lt;/p&gt;
+&lt;p&gt;本文对于 Shared Nothing 架构的优劣不做赘述，主要分享一下，HoraeDB 集群方案是如何在计算存储分离的方案下，达到 Shared Nothing 的效果（即如何保证 &lt;strong&gt;集群拓扑的正确性&lt;/strong&gt;）。&lt;/p&gt;
+&lt;h2 id="数据划分"&gt;数据划分&lt;/h2&gt;
+&lt;p&gt;为了达到 Shared Nothing 的效果，首先需要将数据在共享的存储层上面进行好逻辑和物理的划分。在 &lt;a href="https://horaedb.apache.org/cn/docs/design/clustering/#shard"&gt;此前的集群介绍文章&lt;/a&gt; 中介绍了 Shard 的基本作用，作为集群的基本调度单元，同时也是数据分布的基本划分单元，不同的 Shard 在存储层对应的数据是隔离的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 WAL 中，写入的 Table 数据会按照 Shard 组织起来，按照 Shard 写入到 WAL 的不同区域中，不同的 Shard 在 WAL 中的数据是隔离开的；&lt;/li&gt;
+&lt;li&gt;在 Object Storage 中，数据的管理是按照 Table 来划分的，而 Shard 和 Table 之间的关系是一对多的关系，也就说，任何一个 Table 只属于一个 Shard，因此在 Object Storage 中，Shard 之间的数据也是隔离的；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="shard-lock"&gt;Shard Lock&lt;/h2&gt;
+&lt;p&gt;在数据划分好之后，需要保证的就是在任何时刻，同一时刻最多只有一个 HoraeDB 实例能够更新 Shard 的数据。那么要如何保证这一点的呢？很自然地，通过锁可以达到互斥的效果，不过在分布式集群中，我们需要的是分布式锁。通过分布式锁，每一个 Shard 被分配给 HoraeDB 实例时，HoraeDB 必须先获取到相应的 Shard Lock，才能完成 Shard 的打开操作，对应地，当 Shard 关闭后，HoraeDB 实例也需要主动释放 Shard Lock。&lt;/p&gt;</description></item><item><title>分区表</title><link>https://horaedb.apache.org/cn/docs/design/table_partitioning/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/table_partitioning/</guid><description>&lt;p&gt;&lt;strong&gt;注意：此功能仍在开发中，API 将来可能会发生变化。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;本章讨论 &lt;code&gt;PartitionTable&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;HoraeDB 使用的分区表语法类似于 &lt;a href="https://dev.mysql.com/doc/refman/8.0/en/partitioning-types.html"&gt;MySQL&lt;/a&gt; 。&lt;/p&gt;
+&lt;p&gt;一般的分区表包括&lt;code&gt;Range Partitioning&lt;/code&gt;、&lt;code&gt;List Partitoning&lt;/code&gt;、&lt;code&gt;Hash Partitioning&lt;/code&gt;和&lt;code&gt;Key Partititioning&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;HoraeDB 目前仅支持 Key Partitioning。&lt;/p&gt;
+&lt;h2 id="设计"&gt;设计&lt;/h2&gt;
+&lt;p&gt;与 MySQL 类似，分区表的不同部分作为单独的表存储在不同的位置。&lt;/p&gt;
+&lt;p&gt;目前设计，一个分区表可以在多个 HoraeDB 节点上打开，支持同时写入和查询，可以水平扩展。&lt;/p&gt;
+&lt;p&gt;如下图所示，在 node0 和 node1 上打开了&lt;code&gt;PartitionTable&lt;/code&gt;，在 node2 和 node3 上打开了存放实际数据的物理子表。&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt; ┌───────────────────────┐ ┌───────────────────────┐
  │Node0 │ │Node1 │
  │ ┌────────────────┐ │ │ ┌────────────────┐ │
  │ │ PartitionTable │ │ │ │ PartitionTable │ │
@@ -231,141 +231,141 @@
 │ └─────────────────────┘ └─────────────────────┘ │ │ └─────────────────────┘ └─────────────────────┘ │
 │ │ │ │
 └──────────────────────────────────────────────────┘ └──────────────────────────────────────────────────┘
-&lt;/code>&lt;/pre>&lt;h3 id="key-分区">Key 分区&lt;/h3>
-&lt;p>&lt;code>Key Partitioning&lt;/code>支持一列或多列计算，使用 HoraeDB 内置的 hash 算法进行计算。&lt;/p></description></item><item><title>基于 Kafka 的 WAL</title><link>https://horaedb.apache.org/cn/docs/design/wal_on_kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/wal_on_kafka/</guid><description>&lt;h2 id="架构">架构&lt;/h2>
-&lt;p>在本节中，将会介绍一种分布式 WAL 实现（基于 Kafka）。表的预写日志（write-ahead logs，以下简称日志）在本实现中是按 region 级别管理的，region 可以简单理解为多个表的共享日志文件。&lt;/p>
-&lt;p>如下图所示，在本实现中将 region 映射到 Kafka 中的 topic（只有一个 partition）。 通常一个 region 需要两个 topic ，一个用于存储日志，另一个用于存储元数据。&lt;/p>
-&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span> ┌──────────────────────────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ Kafka │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ ...... │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ ┌─────────────────────┐ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ Meta Topic │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Delete │ │ ┌─────────────────┐ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ┌──────────────────────┐ ┌───────┼─┼─► Partition │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ HoraeDB │ │ │ │ │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │ │ └─────────────────┘ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ ┌──────────────────┐ │ │ │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ WAL │ │ │ │ └─────────────────────┘ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ ...... │ │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ ┌──────────────┐ │ │ │ │ ┌──────────────────────┐ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ Region │ │ │ │ │ │ Data Topic │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ ├─┼─┼──┘ │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> | | | ┌──────────┐ │ │ │ │ │ ┌──────────────────┐ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │ Metadata │ │ │ │ │ │ │ Partition │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ └──────────┘ │ │ │ Write │ │ │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Write ─────────┼─┼─► ├─┼─┼───┐ │ │ │ ┌──┬──┬──┬──┬──┐ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ ┌──────────┐ │ │ │ └──────┼─┼─┼─► │ │ │ │ ├─┼─┼─┼────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │ Client │ │ │ │ │ │ │ └──┴──┴──┴──┴──┘ │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Read ◄─────────┼─┼─┤ └──────────┘ │ │ │ │ │ │ │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │ │ │ │ │ └──────────────────┘ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ └──▲───────────┘ │ │ │ │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ ...... │ │ │ └──────────────────────┘ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ └────┼─────────────┘ │ │ ...... │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ └──────────────────────────┘ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> └──────┼───────────────┘ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ Read │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> └──────────────────────────────────────────────────────────┘
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="数据模型">数据模型&lt;/h2>
-&lt;h3 id="日志格式">日志格式&lt;/h3>
-&lt;p>日志格式采用了在 &lt;a href="https://horaedb.apache.org/cn/docs/design/wal_on_rocksdb/">基于 RocksDB 的 WAL&lt;/a> 中定义的通用格式。&lt;/p></description></item><item><title>基于 RocksDB 的 WAL</title><link>https://horaedb.apache.org/cn/docs/design/wal_on_rocksdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/wal_on_rocksdb/</guid><description>&lt;h2 id="架构">架构&lt;/h2>
-&lt;p>在本节中，我们将介绍单机版 WAL 的实现（基于 RocksDB）。预写日志（write-ahead logs，以下简称日志）在本实现中是按表级别进行管理的，对应的数据结构为 &lt;code>TableUnit&lt;/code>。为简单起见，所有相关数据（日志或元数据）都存储在单个 column family（RocksDB 中的概念，可以类比关系型数据库的表） 中。&lt;/p>
-&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span> ┌─────────────────────────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ HoraeDB │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ ┌─────────────────────┐ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ WAL │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ ...... │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ ┌────────────────┐ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Write ─────┼─┼──► TableUnit │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Read ─────┼─┼──► ┌────────────┐ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ │ RocksDBRef │ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ │ └────────────┘ │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Delete ─────┼─┼──► │ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ └────────────────┘ │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │ ...... │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ └─────────────────────┘ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │ │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> └─────────────────────────┘
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="数据模型">数据模型&lt;/h2>
-&lt;h3 id="通用日志格式">通用日志格式&lt;/h3>
-&lt;p>通用日志格式分为 key 格式和 value 格式，下面是对 key 格式各个字段的介绍:&lt;/p></description></item><item><title>基于本地磁盘的 WAL</title><link>https://horaedb.apache.org/cn/docs/design/wal_on_disk/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/wal_on_disk/</guid><description>&lt;h2 id="架构">架构&lt;/h2>
-&lt;p>本节将介绍基于本地磁盘的单机版 WAL（Write-Ahead Log，以下简称日志）的实现。在此实现中，日志按 region 级别进行管理。&lt;/p>
-&lt;pre tabindex="0">&lt;code> ┌────────────────────────────┐
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="key-分区"&gt;Key 分区&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Key Partitioning&lt;/code&gt;支持一列或多列计算，使用 HoraeDB 内置的 hash 算法进行计算。&lt;/p&gt;</description></item><item><title>基于 Kafka 的 WAL</title><link>https://horaedb.apache.org/cn/docs/design/wal_on_kafka/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/wal_on_kafka/</guid><description>&lt;h2 id="架构"&gt;架构&lt;/h2&gt;
+&lt;p&gt;在本节中，将会介绍一种分布式 WAL 实现（基于 Kafka）。表的预写日志（write-ahead logs，以下简称日志）在本实现中是按 region 级别管理的，region 可以简单理解为多个表的共享日志文件。&lt;/p&gt;
+&lt;p&gt;如下图所示，在本实现中将 region 映射到 Kafka 中的 topic（只有一个 partition）。 通常一个 region 需要两个 topic ，一个用于存储日志，另一个用于存储元数据。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;"&gt;&lt;tr&gt;&lt;td style="vertical-align:top;padding:0;margin:0;border:0;"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 1
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 2
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 3
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 4
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 5
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 6
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 7
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 8
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 9
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;10
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;11
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;12
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;13
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;14
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;15
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;16
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;17
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;18
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;19
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;20
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;21
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;22
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;23
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;24
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;25
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;26
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;27
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;28
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;29
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;30
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;31
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;32
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;33
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;34
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;35
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ┌──────────────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ Kafka │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ...... │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ┌─────────────────────┐ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ Meta Topic │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Delete │ │ ┌─────────────────┐ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ┌──────────────────────┐ ┌───────┼─┼─► Partition │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ HoraeDB │ │ │ │ │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ │ │ └─────────────────┘ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ┌──────────────────┐ │ │ │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ WAL │ │ │ │ └─────────────────────┘ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ ...... │ │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ ┌──────────────┐ │ │ │ │ ┌──────────────────────┐ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ Region │ │ │ │ │ │ Data Topic │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ ├─┼─┼──┘ │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; | | | ┌──────────┐ │ │ │ │ │ ┌──────────────────┐ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ │ Metadata │ │ │ │ │ │ │ Partition │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ └──────────┘ │ │ │ Write │ │ │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Write ─────────┼─┼─► ├─┼─┼───┐ │ │ │ ┌──┬──┬──┬──┬──┐ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ ┌──────────┐ │ │ │ └──────┼─┼─┼─► │ │ │ │ ├─┼─┼─┼────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ │ Client │ │ │ │ │ │ │ └──┴──┴──┴──┴──┘ │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Read ◄─────────┼─┼─┤ └──────────┘ │ │ │ │ │ │ │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ │ │ │ │ │ └──────────────────┘ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ └──▲───────────┘ │ │ │ │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ ...... │ │ │ └──────────────────────┘ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ └────┼─────────────┘ │ │ ...... │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ └──────────────────────────┘ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; └──────┼───────────────┘ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ Read │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; └──────────────────────────────────────────────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="数据模型"&gt;数据模型&lt;/h2&gt;
+&lt;h3 id="日志格式"&gt;日志格式&lt;/h3&gt;
+&lt;p&gt;日志格式采用了在 &lt;a href="https://horaedb.apache.org/cn/docs/design/wal_on_rocksdb/"&gt;基于 RocksDB 的 WAL&lt;/a&gt; 中定义的通用格式。&lt;/p&gt;</description></item><item><title>基于 RocksDB 的 WAL</title><link>https://horaedb.apache.org/cn/docs/design/wal_on_rocksdb/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/wal_on_rocksdb/</guid><description>&lt;h2 id="架构"&gt;架构&lt;/h2&gt;
+&lt;p&gt;在本节中，我们将介绍单机版 WAL 的实现（基于 RocksDB）。预写日志（write-ahead logs，以下简称日志）在本实现中是按表级别进行管理的，对应的数据结构为 &lt;code&gt;TableUnit&lt;/code&gt;。为简单起见，所有相关数据（日志或元数据）都存储在单个 column family（RocksDB 中的概念，可以类比关系型数据库的表） 中。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;"&gt;&lt;tr&gt;&lt;td style="vertical-align:top;padding:0;margin:0;border:0;"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 1
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 2
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 3
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 4
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 5
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 6
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 7
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 8
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt; 9
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;10
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;11
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;12
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;13
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;14
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;15
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;16
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;17
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;18
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;19
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;20
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ┌─────────────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ HoraeDB │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ┌─────────────────────┐ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ WAL │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ ...... │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ ┌────────────────┐ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Write ─────┼─┼──► TableUnit │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Read ─────┼─┼──► ┌────────────┐ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ │ RocksDBRef │ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ │ └────────────┘ │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Delete ─────┼─┼──► │ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ └────────────────┘ │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │ ...... │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ └─────────────────────┘ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; └─────────────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="数据模型"&gt;数据模型&lt;/h2&gt;
+&lt;h3 id="通用日志格式"&gt;通用日志格式&lt;/h3&gt;
+&lt;p&gt;通用日志格式分为 key 格式和 value 格式，下面是对 key 格式各个字段的介绍:&lt;/p&gt;</description></item><item><title>基于本地磁盘的 WAL</title><link>https://horaedb.apache.org/cn/docs/design/wal_on_disk/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/design/wal_on_disk/</guid><description>&lt;h2 id="架构"&gt;架构&lt;/h2&gt;
+&lt;p&gt;本节将介绍基于本地磁盘的单机版 WAL（Write-Ahead Log，以下简称日志）的实现。在此实现中，日志按 region 级别进行管理。&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt; ┌────────────────────────────┐
  │ HoraeDB │
  │ │
  │ ┌────────────────────────┐ │
@@ -390,6 +390,6 @@ Delete ─────┼─┼─► ┌────────────┐
  │ │ ...... │ │ │ ...... │
  │ └────────────────────────┘ │ └────────────────────────┘
  └────────────────────────────┘
-&lt;/code>&lt;/pre>&lt;h2 id="数据模型">数据模型&lt;/h2>
-&lt;h3 id="文件路径">文件路径&lt;/h3>
-&lt;p>每个 region 都拥有一个目录，用于管理该 region 的所有 segment。目录名为 region 的 ID。每个 segment 的命名方式为 &lt;code>seg_&amp;lt;id&amp;gt;&lt;/code>，ID 从 0 开始递增。&lt;/p></description></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id="数据模型"&gt;数据模型&lt;/h2&gt;
+&lt;h3 id="文件路径"&gt;文件路径&lt;/h3&gt;
+&lt;p&gt;每个 region 都拥有一个目录，用于管理该 region 的所有 segment。目录名为 region 的 ID。每个 segment 的命名方式为 &lt;code&gt;seg_&amp;lt;id&amp;gt;&lt;/code&gt;，ID 从 0 开始递增。&lt;/p&gt;</description></item></channel></rss>

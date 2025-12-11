@@ -1,101 +1,101 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>开发手册 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/docs/dev/</link><description>Recent content in 开发手册 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/docs/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>支持平台</title><link>https://horaedb.apache.org/cn/docs/dev/platform/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/platform/</guid><description>&lt;p>作为一个开源的数据库，HoraeDB 可以部署在基于英特尔 /ARM 架构的服务器，以及常见的虚拟环境。&lt;/p>
-&lt;table>
- &lt;thead>
- &lt;tr>
- &lt;th style="text-align: center">OS&lt;/th>
- &lt;th style="text-align: center">status&lt;/th>
- &lt;/tr>
- &lt;/thead>
- &lt;tbody>
- &lt;tr>
- &lt;td style="text-align: center">Ubuntu LTS 16.06 or later&lt;/td>
- &lt;td style="text-align: center">✅&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td style="text-align: center">CentOS 7.3 or later&lt;/td>
- &lt;td style="text-align: center">✅&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td style="text-align: center">Red Hat Enterprise Linux 7.3 or later 7.x releases&lt;/td>
- &lt;td style="text-align: center">✅&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td style="text-align: center">macOS 11 or later&lt;/td>
- &lt;td style="text-align: center">✅&lt;/td>
- &lt;/tr>
- &lt;tr>
- &lt;td style="text-align: center">Windows&lt;/td>
- &lt;td style="text-align: center">❌&lt;/td>
- &lt;/tr>
- &lt;/tbody>
-&lt;/table>
-&lt;ul>
-&lt;li>生产环境下 , Linux 是首选平台。&lt;/li>
-&lt;li>macOS 主要用在开发环境。&lt;/li>
-&lt;/ul></description></item><item><title>编译</title><link>https://horaedb.apache.org/cn/docs/dev/compile_run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/compile_run/</guid><description>&lt;p>为了编译 HoraeDB, 首先需要安装相关的依赖（包括 &lt;code>Rust&lt;/code> 的工具链)。&lt;/p>
-&lt;h1 id="依赖">依赖&lt;/h1>
-&lt;h2 id="ubuntu">Ubuntu&lt;/h2>
-&lt;p>假设我们的开发环境是 Ubuntu20.04, 可以执行如下命令来安装所需的依赖。&lt;/p>
-&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>sudo apt install git curl gcc g++ libssl-dev pkg-config protobuf-compiler
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="macos">macOS&lt;/h2>
-&lt;p>如果你的开发环境是 &lt;code>MacOS&lt;/code> ，可以使用如下命令手动安装这些依赖项的高版本。&lt;/p>
-&lt;ol>
-&lt;li>安装命令行工具：&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>xcode-select --install
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ol start="2">
-&lt;li>安装 protobuf:&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>brew install protobuf
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h1 id="rust">Rust&lt;/h1>
-&lt;p>&lt;code>Rust&lt;/code> 可以使用 &lt;a href="https://rustup.rs/">rustup&lt;/a> 来安装。
-安装 &lt;code>Rust&lt;/code> 后，进入 HoraeDB 工程目录，根据工具链文件指定的 &lt;code>Rust&lt;/code> 版本会被自动下载。&lt;/p>
-&lt;p>执行后，你需要添加环境变量来使用 &lt;code>Rust&lt;/code> 工具链。只要把下面的命令放到你的&lt;code>~/.bashrc&lt;/code>或&lt;code>~/.bash_profile&lt;/code>中即可。&lt;/p>
-&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#008000">source&lt;/span> &lt;span style="color:#19177c">$HOME&lt;/span>/.cargo/env
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h1 id="编译运行">编译运行&lt;/h1>
-&lt;h2 id="horaedb-server">horaedb-server&lt;/h2>
-&lt;p>在项目根目录下，执行如下命令编译 horaedb-server:&lt;/p></description></item><item><title>性能诊断</title><link>https://horaedb.apache.org/cn/docs/dev/profiling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/profiling/</guid><description>&lt;h3 id="cpu-剖析">CPU 剖析&lt;/h3>
-&lt;p>HoraeDB 提供 CPU 剖析 http 接口 &lt;code>debug/profile/cpu&lt;/code>.&lt;/p>
-&lt;p>例子:&lt;/p>
-&lt;pre tabindex="0">&lt;code>// 60s CPU 采样数据
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>开发手册 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/docs/dev/</link><description>Recent content in 开发手册 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/docs/dev/index.xml" rel="self" type="application/rss+xml"/><item><title>支持平台</title><link>https://horaedb.apache.org/cn/docs/dev/platform/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/platform/</guid><description>&lt;p&gt;作为一个开源的数据库，HoraeDB 可以部署在基于英特尔 /ARM 架构的服务器，以及常见的虚拟环境。&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th style="text-align: center"&gt;OS&lt;/th&gt;
+ &lt;th style="text-align: center"&gt;status&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: center"&gt;Ubuntu LTS 16.06 or later&lt;/td&gt;
+ &lt;td style="text-align: center"&gt;✅&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: center"&gt;CentOS 7.3 or later&lt;/td&gt;
+ &lt;td style="text-align: center"&gt;✅&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: center"&gt;Red Hat Enterprise Linux 7.3 or later 7.x releases&lt;/td&gt;
+ &lt;td style="text-align: center"&gt;✅&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: center"&gt;macOS 11 or later&lt;/td&gt;
+ &lt;td style="text-align: center"&gt;✅&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: center"&gt;Windows&lt;/td&gt;
+ &lt;td style="text-align: center"&gt;❌&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;生产环境下 , Linux 是首选平台。&lt;/li&gt;
+&lt;li&gt;macOS 主要用在开发环境。&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>编译</title><link>https://horaedb.apache.org/cn/docs/dev/compile_run/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/compile_run/</guid><description>&lt;p&gt;为了编译 HoraeDB, 首先需要安装相关的依赖（包括 &lt;code&gt;Rust&lt;/code&gt; 的工具链)。&lt;/p&gt;
+&lt;h1 id="依赖"&gt;依赖&lt;/h1&gt;
+&lt;h2 id="ubuntu"&gt;Ubuntu&lt;/h2&gt;
+&lt;p&gt;假设我们的开发环境是 Ubuntu20.04, 可以执行如下命令来安装所需的依赖。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;"&gt;&lt;tr&gt;&lt;td style="vertical-align:top;padding:0;margin:0;border:0;"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt install git curl gcc g++ libssl-dev pkg-config protobuf-compiler
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="macos"&gt;macOS&lt;/h2&gt;
+&lt;p&gt;如果你的开发环境是 &lt;code&gt;MacOS&lt;/code&gt; ，可以使用如下命令手动安装这些依赖项的高版本。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;安装命令行工具：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;"&gt;&lt;tr&gt;&lt;td style="vertical-align:top;padding:0;margin:0;border:0;"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;xcode-select --install
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start="2"&gt;
+&lt;li&gt;安装 protobuf:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;"&gt;&lt;tr&gt;&lt;td style="vertical-align:top;padding:0;margin:0;border:0;"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;brew install protobuf
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id="rust"&gt;Rust&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;Rust&lt;/code&gt; 可以使用 &lt;a href="https://rustup.rs/"&gt;rustup&lt;/a&gt; 来安装。
+安装 &lt;code&gt;Rust&lt;/code&gt; 后，进入 HoraeDB 工程目录，根据工具链文件指定的 &lt;code&gt;Rust&lt;/code&gt; 版本会被自动下载。&lt;/p&gt;
+&lt;p&gt;执行后，你需要添加环境变量来使用 &lt;code&gt;Rust&lt;/code&gt; 工具链。只要把下面的命令放到你的&lt;code&gt;~/.bashrc&lt;/code&gt;或&lt;code&gt;~/.bash_profile&lt;/code&gt;中即可。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;"&gt;&lt;tr&gt;&lt;td style="vertical-align:top;padding:0;margin:0;border:0;"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#008000"&gt;source&lt;/span&gt; &lt;span style="color:#19177c"&gt;$HOME&lt;/span&gt;/.cargo/env
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id="编译运行"&gt;编译运行&lt;/h1&gt;
+&lt;h2 id="horaedb-server"&gt;horaedb-server&lt;/h2&gt;
+&lt;p&gt;在项目根目录下，执行如下命令编译 horaedb-server:&lt;/p&gt;</description></item><item><title>性能诊断</title><link>https://horaedb.apache.org/cn/docs/dev/profiling/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/profiling/</guid><description>&lt;h3 id="cpu-剖析"&gt;CPU 剖析&lt;/h3&gt;
+&lt;p&gt;HoraeDB 提供 CPU 剖析 http 接口 &lt;code&gt;debug/profile/cpu&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;例子:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;// 60s CPU 采样数据
 curl 0:5000/debug/profile/cpu/60
 
 // 产出文件
 /tmp/flamegraph_cpu.svg
-&lt;/code>&lt;/pre>&lt;h3 id="内存剖析">内存剖析&lt;/h3>
-&lt;p>HoraeDB 提供内存剖析 http 接口 &lt;code>debug/profile/heap&lt;/code>.&lt;/p>
-&lt;h3 id="安装依赖">安装依赖&lt;/h3>
-&lt;pre tabindex="0">&lt;code>sudo yum install -y jemalloc-devel ghostscript graphviz
-&lt;/code>&lt;/pre>&lt;p>例子:&lt;/p>
-&lt;pre tabindex="0">&lt;code>// 开启 malloc prof
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="内存剖析"&gt;内存剖析&lt;/h3&gt;
+&lt;p&gt;HoraeDB 提供内存剖析 http 接口 &lt;code&gt;debug/profile/heap&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id="安装依赖"&gt;安装依赖&lt;/h3&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;sudo yum install -y jemalloc-devel ghostscript graphviz
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;例子:&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;// 开启 malloc prof
 export MALLOC_CONF=prof:true
 
 // 运行 horaedb-server
@@ -106,48 +106,48 @@ curl -L &amp;#39;0:5000/debug/profile/heap/60&amp;#39; &amp;gt; /tmp/heap_profil
 jeprof --show_bytes --pdf /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; profile_heap.pdf
 
 jeprof --show_bytes --svg /usr/bin/horaedb-server /tmp/heap_profile &amp;gt; profile_heap.svg
-&lt;/code>&lt;/pre></description></item><item><title>RoadMap</title><link>https://horaedb.apache.org/cn/docs/dev/roadmap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/roadmap/</guid><description>&lt;h3 id="v010">v0.1.0&lt;/h3>
-&lt;ul>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 支持基于本地磁盘的 Standalone 版本&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 支持分析存储格式&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 支持 SQL&lt;/li>
-&lt;/ul>
-&lt;h3 id="v020">v0.2.0&lt;/h3>
-&lt;ul>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 静态路由的分布式版本&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 远端存储支持阿里云 OSS&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 支持基于 &lt;a href="https://github.com/oceanbase/oceanbase">OBKV&lt;/a>的 WAL&lt;/li>
-&lt;/ul>
-&lt;h3 id="v030">v0.3.0&lt;/h3>
-&lt;ul>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 发布多语言客户端，包括 Java, Rust 和 Python&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 支持使用 &lt;code>HoraeMeta&lt;/code> 的静态集群&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 混合存储格式基本实现&lt;/li>
-&lt;/ul>
-&lt;h3 id="v040">v0.4.0&lt;/h3>
-&lt;ul>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 实现更复杂的集群方案，增强 HoraeDB 的可靠性和可扩展性&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 构建日常运行的、基于 TSBS 的压测任务&lt;/li>
-&lt;/ul>
-&lt;h3 id="v100-alpha-released">v1.0.0-alpha (Released)&lt;/h3>
-&lt;ul>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 基于 &lt;code>Apache Kafka&lt;/code> 实现分布式 WAL&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 发布 Golang 客户端&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 优化时序场景下的查询性能&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 支持集群模式下表的动态转移&lt;/li>
-&lt;/ul>
-&lt;h3 id="v100">v1.0.0&lt;/h3>
-&lt;ul>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 正式发布 HoraeDB 和相关 SDK，并完成所有的 breaking changes&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 完成分区表的主要工作&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 优化查询性能，特别是云原生集群模式下，包括：
-&lt;ul>
-&lt;li>多级缓存&lt;/li>
-&lt;li>多种方式减少从远端获取的数据量(提高 SST 数据过滤精度)&lt;/li>
-&lt;li>提高获取远程对象存储数据的并发度&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>&lt;input checked="" disabled="" type="checkbox"> 通过控制合并时的资源消耗，提高数据写入性能&lt;/li>
-&lt;/ul>
-&lt;h3 id="afterwards">Afterwards&lt;/h3>
-&lt;p>随着对时序数据库及其各种使用情况的深入了解，我们的大部分工作将聚焦在性能、可靠性、可扩展性、易用性以及与开源社区的合作方面&lt;/p></description></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;</description></item><item><title>RoadMap</title><link>https://horaedb.apache.org/cn/docs/dev/roadmap/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/dev/roadmap/</guid><description>&lt;h3 id="v010"&gt;v0.1.0&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 支持基于本地磁盘的 Standalone 版本&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 支持分析存储格式&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 支持 SQL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="v020"&gt;v0.2.0&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 静态路由的分布式版本&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 远端存储支持阿里云 OSS&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 支持基于 &lt;a href="https://github.com/oceanbase/oceanbase"&gt;OBKV&lt;/a&gt;的 WAL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="v030"&gt;v0.3.0&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 发布多语言客户端，包括 Java, Rust 和 Python&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 支持使用 &lt;code&gt;HoraeMeta&lt;/code&gt; 的静态集群&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 混合存储格式基本实现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="v040"&gt;v0.4.0&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 实现更复杂的集群方案，增强 HoraeDB 的可靠性和可扩展性&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 构建日常运行的、基于 TSBS 的压测任务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="v100-alpha-released"&gt;v1.0.0-alpha (Released)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 基于 &lt;code&gt;Apache Kafka&lt;/code&gt; 实现分布式 WAL&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 发布 Golang 客户端&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 优化时序场景下的查询性能&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 支持集群模式下表的动态转移&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="v100"&gt;v1.0.0&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 正式发布 HoraeDB 和相关 SDK，并完成所有的 breaking changes&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 完成分区表的主要工作&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 优化查询性能，特别是云原生集群模式下，包括：
+&lt;ul&gt;
+&lt;li&gt;多级缓存&lt;/li&gt;
+&lt;li&gt;多种方式减少从远端获取的数据量(提高 SST 数据过滤精度)&lt;/li&gt;
+&lt;li&gt;提高获取远程对象存储数据的并发度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;input checked="" disabled="" type="checkbox"&gt; 通过控制合并时的资源消耗，提高数据写入性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="afterwards"&gt;Afterwards&lt;/h3&gt;
+&lt;p&gt;随着对时序数据库及其各种使用情况的深入了解，我们的大部分工作将聚焦在性能、可靠性、可扩展性、易用性以及与开源社区的合作方面&lt;/p&gt;</description></item></channel></rss>

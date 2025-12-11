@@ -1,30 +1,30 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>文档 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/docs/</link><description>Recent content in 文档 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/docs/index.xml" rel="self" type="application/rss+xml"/><item><title>快速开始</title><link>https://horaedb.apache.org/cn/docs/getting-started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/getting-started/</guid><description>&lt;p>本章介绍如何快速启动 HoraeDB。在这里你将会学到启动一个单机模式的 HoraeDB，然后使用 SQL 写入一些数据并查询结果。&lt;/p>
-&lt;h2 id="启动">启动&lt;/h2>
-&lt;p>使用 &lt;a href="https://github.com/apache/incubator-horaedb/pkgs/container/horaedb-server">HoraeDB docker 镜像&lt;/a> 是一种最简单的启动方式；如果你还没有安装 Docker，请首先参考 &lt;a href="https://www.docker.com/products/docker-desktop/">这里&lt;/a> 安装 Docker。&lt;/p>
-&lt;blockquote>
-&lt;p>注意：请选择一个大于等于 v1.0.0 的 tag 镜像。&lt;/p>
-&lt;/blockquote>
-&lt;p>使用如下命令安装并启动一个单机版 HoraeDB。&lt;/p>
-&lt;div class="highlight">&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-&lt;table style="border-spacing:0;padding:0;margin:0;border:0;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-&lt;/span>&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>docker run -d --name horaedb-server &lt;span style="color:#b62;font-weight:bold">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span> -p 8831:8831 &lt;span style="color:#b62;font-weight:bold">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span> -p 3307:3307 &lt;span style="color:#b62;font-weight:bold">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span> -p 5440:5440 &lt;span style="color:#b62;font-weight:bold">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#b62;font-weight:bold">&lt;/span> apache/horaedb-server
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>启动后 HoraeDB 会监听如下端口：&lt;/p>
-&lt;ul>
-&lt;li>8831, gRPC port&lt;/li>
-&lt;li>3307, MySQL port&lt;/li>
-&lt;li>5440, HTTP port&lt;/li>
-&lt;/ul>
-&lt;p>&lt;code>HTTP&lt;/code> 协议是最简单的交互方式，接下来的演示会使用 &lt;code>HTTP&lt;/code> 协议进行介绍。不过在生产环境，我们推荐使用 &lt;code>gRPC/MySQL&lt;/code>。&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>文档 on Apache HoraeDB</title><link>https://horaedb.apache.org/cn/docs/</link><description>Recent content in 文档 on Apache HoraeDB</description><generator>Hugo</generator><language>cn</language><atom:link href="https://horaedb.apache.org/cn/docs/index.xml" rel="self" type="application/rss+xml"/><item><title>快速开始</title><link>https://horaedb.apache.org/cn/docs/getting-started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://horaedb.apache.org/cn/docs/getting-started/</guid><description>&lt;p&gt;本章介绍如何快速启动 HoraeDB。在这里你将会学到启动一个单机模式的 HoraeDB，然后使用 SQL 写入一些数据并查询结果。&lt;/p&gt;
+&lt;h2 id="启动"&gt;启动&lt;/h2&gt;
+&lt;p&gt;使用 &lt;a href="https://github.com/apache/incubator-horaedb/pkgs/container/horaedb-server"&gt;HoraeDB docker 镜像&lt;/a&gt; 是一种最简单的启动方式；如果你还没有安装 Docker，请首先参考 &lt;a href="https://www.docker.com/products/docker-desktop/"&gt;这里&lt;/a&gt; 安装 Docker。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意：请选择一个大于等于 v1.0.0 的 tag 镜像。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;使用如下命令安装并启动一个单机版 HoraeDB。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;"&gt;&lt;tr&gt;&lt;td style="vertical-align:top;padding:0;margin:0;border:0;"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;1
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;2
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;3
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;4
+&lt;/span&gt;&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%"&gt;
+&lt;pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;docker run -d --name horaedb-server &lt;span style="color:#b62;font-weight:bold"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#b62;font-weight:bold"&gt;&lt;/span&gt; -p 8831:8831 &lt;span style="color:#b62;font-weight:bold"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#b62;font-weight:bold"&gt;&lt;/span&gt; -p 3307:3307 &lt;span style="color:#b62;font-weight:bold"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#b62;font-weight:bold"&gt;&lt;/span&gt; -p 5440:5440 &lt;span style="color:#b62;font-weight:bold"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#b62;font-weight:bold"&gt;&lt;/span&gt; apache/horaedb-server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;启动后 HoraeDB 会监听如下端口：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;8831, gRPC port&lt;/li&gt;
+&lt;li&gt;3307, MySQL port&lt;/li&gt;
+&lt;li&gt;5440, HTTP port&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;HTTP&lt;/code&gt; 协议是最简单的交互方式，接下来的演示会使用 &lt;code&gt;HTTP&lt;/code&gt; 协议进行介绍。不过在生产环境，我们推荐使用 &lt;code&gt;gRPC/MySQL&lt;/code&gt;。&lt;/p&gt;</description></item></channel></rss>
