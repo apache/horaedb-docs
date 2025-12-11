@@ -35,7 +35,6 @@ import datetime
 from ceresdb_client import Builder, RpcContext, PointBuilder, ValueBuilder, WriteRequest, SqlQueryRequest, Mode, RpcConfig
 
 rpc_config = RpcConfig()
-rpc_config = RpcConfig()
 rpc_config.thread_num = 1
 rpc_config.default_write_timeout_ms = 1000
 
